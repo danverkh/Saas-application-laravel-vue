@@ -1,3 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+vm-player {
+    --vm-player-theme: #DD2B47;
+}

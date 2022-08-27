@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Route;
 |--------------------------------------------------------------------------
 */
 
-Route::get('/', HomepageController::class);
+Route::get('/', HomepageController::class)->name('homepage');
 
 
 Route::get('/dashboard', function () {
