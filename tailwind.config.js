@@ -6,6 +6,7 @@ module.exports = {
         './vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php',
         './storage/framework/views/*.php',
         './resources/views/**/*.blade.php',
+        './resources/js/**/*.vue',
     ],
 
     theme: {
@@ -19,16 +20,15 @@ module.exports = {
                     500: "#4F5665",
                     600: "#0B132A",
                 },
-                green: {
-                    500: "#2FAB73",
-                },
                 white: {
+                    DEFAULT: "#fff",
                     300: "#F8F8F8",
                     500: "#fff",
                 },
                 primary: {
                     DEFAULT: '#DD2B47',
-                    hover: '#E51B3B',
+                    hover: '#e0213c',
+                    100: '#da7788',
                 },
             },
         },
@@ -39,14 +39,25 @@ module.exports = {
             lg: "0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)",
             xl: "0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)",
             t: "0 -1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06)",
-            strong: "0px 20px 20px -15px rgba(0,0,0,0.50) ",
-            primary: "0px 20px 20px -15px rgba(221,43,71,0.81) ",
-            "orange-md": "0px 20px 40px -15px rgba(245,56,56,0.81) ",
+            strong: "0px 18px 20px -15px rgba(0,0,0,0.25)",
+            primary: "0px 18px 20px -15px rgba(221,43,71,0.81)",
+            "orange-md": "0px 20px 40px -15px rgba(245,56,56,0.81)",
             none: "none",
         },
     },
 
-    plugins: [require('@tailwindcss/forms')],
+    plugins: [require("daisyui")],
+
+    daisyui: {
+        themes: ['light'],
+        styled: true,
+        base: true,
+        utils: true,
+        logs: true,
+        rtl: false,
+        prefix: '',
+        darkTheme: 'light',
+    },
 
     variants: {
         extend: {

@@ -15,9 +15,12 @@
         "vite": "^3.0.0"
     },
     "dependencies": {
+        "@headlessui/vue": "^1.6.7",
+        "@heroicons/vue": "^2.0.8",
         "@vime/core": "^5.3.1",
         "@vime/vue-next": "^5.3.1",
         "@vitejs/plugin-vue": "^3.0.3",
+        "daisyui": "^2.24.0",
         "vue": "^3.2.36",
         "vue-loader": "^17.0.0"
     }

@@ -20,7 +20,7 @@
     <body>
         <div id="app">
             <!-- Header -->
-            <header class="fixed top-0 w-full z-30 bg-white-500 transition-all pt-4 pb-3 shadow-lg">
+            <header class="fixed top-0 w-full z-30 backdrop-blur-md bg-white-500/90 transition-all pt-4 pb-3 shadow-lg">
                 <nav class="max-w-screen-xl px-6 sm:px-8 lg:px-16 mx-auto grid grid-flow-col py-3 sm:py-4">
                     <div class="col-start-1 col-end-2 flex items-center">
                         <a href="{{ route('homepage') }}">
@@ -46,11 +46,9 @@
             @yield('hero')
 
             <!-- Content -->
-            <div class="max-w-screen-xl mt-24 px-8 xl:px-16 mx-auto">
-                <div class="flex w-full">
-                    <div class="h-full w-full">
-                        {{ $slot }}
-                    </div>
+            <div class="flex w-full">
+                <div class="h-full w-full">
+                    {{ $slot }}
                 </div>
             </div>
 
@@ -100,7 +98,7 @@
                         <p class="text-black-600 mb-4 font-medium text-2xl">Contact</p>
                         <ul class="text-black-500">
                             <li class="my-2">E-Mail: <x-link href="mailto:hello@autosuggest.io" active>hello@autosuggest.io</x-link></li>
-                            <li class="my-2">Phone: <x-link href="tel:+442045711270">+44 20 4571127 - 0</x-link></li>
+                            <li class="my-2">Phone: <x-link href="tel:+442045711270" active>+44 20 4571127 - 0</x-link></li>
                             <li class="my-2">Meeting: <x-link href="#" active>Schedule here</x-link></li>
                         </ul>
                     </div>
