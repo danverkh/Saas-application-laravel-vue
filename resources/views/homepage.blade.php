@@ -8,7 +8,7 @@
                         website <strong>visitors<span class="text-primary">.</span></strong>
                     </h1>
 
-                    <p class="text-md md:text-sm lg:text-md text-gray-500/80 mt-4 mb-6 leading-loose md:leading-relaxed lg:leading-loose">
+                    <p class="text-md md:text-sm lg:text-md xl:text-lg text-gray-500/80 mt-4 mb-6 leading-loose md:leading-relaxed lg:leading-loose xl:leading-relaxed">
                         Get additional website visitors and conversions from search engines.<br class="hidden lg:block"/>
                         Pay only for traffic you receive.
                         It's like an ad campaign but for 10% of the price.
