@@ -3,7 +3,7 @@
         <div class="relative">
             <div class="relative z-10 max-w-screen-xl px-16 xl:px-16 mx-auto mt-24 gap-10 pt-16 pb-20 lg:py-24 items-center flex flex-col md:flex-row">
                 <div class="basis-1/2 flex flex-col justify-center items-start row-start-2 sm:row-start-1 md:pt-12">
-                    <h1 class="text-6xl md:text-5xl lg:text-6xl leading-tight md:leading-[1.1] lg:leading-tight font-medium text-black-600">
+                    <h1 class="text-6xl md:text-5xl lg:text-6xl leading-tight md:leading-[1.1] lg:leading-tight font-medium text-gray-900">
                         Get additional<br>
                         website <strong>visitors<span class="text-primary">.</span></strong>
                     </h1>

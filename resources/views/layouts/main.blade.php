@@ -20,9 +20,11 @@
     <body>
         <div id="app">
             <!-- Header -->
-            <header class="fixed top-0 w-full z-30 backdrop-blur-md bg-white-500/90 transition-all pt-4 pb-3 shadow-lg">
+            <header class="fixed top-0 w-full z-50 backdrop-blur-md bg-white-500/90 transition-all pt-4 pb-3 shadow-lg">
                 <nav class="max-w-screen-xl px-6 sm:px-8 lg:px-16 mx-auto grid grid-flow-col py-3 sm:py-4">
                     <div class="col-start-1 col-end-2 flex items-center">
+                        <mobile-nav-button class="w-12 h-12 flex items-center mr-5 lg:hidden"></mobile-nav-button>
+
                         <a href="{{ route('homepage') }}">
                             <x-application-logo class="h-10 sm:h-12 w-auto"></x-application-logo>
                         </a>
@@ -43,76 +45,92 @@
                 </nav>
             </header>
 
-            @yield('hero')
+            <div class="drawer">
+                <input id="mobile-menu" type="checkbox" class="drawer-toggle"/>
+                <div class="drawer-content">
+                    @yield('hero')
 
-            <!-- Content -->
-            <div class="flex w-full">
-                <div class="h-full w-full">
-                    {{ $slot }}
+                    <!-- Content -->
+                    <div class="flex w-full">
+                        <div class="h-full w-full">
+                            {{ $slot }}
+                        </div>
+                    </div>
+
+                    <!-- Footer -->
+                    <div class="bg-zinc-200/75 py-12 md:py-20 mt-20">
+                        <div class="max-w-screen-xl w-full mx-auto px-6 sm:px-8 lg:px-16 grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-4">
+                            <div class="flex flex-col items-start">
+                                <p class="text-black-600 mb-4 font-medium text-2xl">Sitemap</p>
+                                <ul class="text-black-500">
+                                    <li class="my-2 hover:text-primary cursor-pointer transition-all">
+                                        <x-link href="#" :with-color="false">Home</x-link>
+                                    </li>
+                                    <li class="my-2 hover:text-primary cursor-pointer transition-all">
+                                        <x-link href="#" :with-color="false">Reviews</x-link>
+                                    </li>
+                                    <li class="my-2 hover:text-primary cursor-pointer transition-all">
+                                        <x-link href="#" :with-color="false">FAQ</x-link>
+                                    </li>
+                                    <li class="my-2 hover:text-primary cursor-pointer transition-all">
+                                        <x-link href="#" :with-color="false">Pricing</x-link>
+                                    </li>
+                                    <li class="my-2 hover:text-primary cursor-pointer transition-all">
+                                        <x-link href="#" :with-color="false">Contact</x-link>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="flex flex-col">
+                                <ul class="text-black-500 mt-11">
+                                    <li class="my-2 hover:text-primary cursor-pointer transition-all">
+                                        <x-link href="#" :with-color="false">Imprint</x-link>
+                                    </li>
+                                    <li class="my-2 hover:text-primary cursor-pointer transition-all">
+                                        <x-link href="#" :with-color="false">Data Privacy</x-link>
+                                    </li>
+                                    <li class="my-2 hover:text-primary cursor-pointer transition-all">
+                                        <x-link href="#" :with-color="false">Keyword Finder</x-link>
+                                    </li>
+                                    <li class="my-2 hover:text-primary cursor-pointer transition-all">
+                                        <x-link href="#" :with-color="false">Customer Area</x-link>
+                                    </li>
+                                    <li class="my-2 hover:text-primary cursor-pointer transition-all">
+                                        <x-link href="#" :with-color="false">For Agencies</x-link>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="flex flex-col">
+                                <p class="text-black-600 mb-4 font-medium text-2xl">Contact</p>
+                                <ul class="text-black-500">
+                                    <li class="my-2">E-Mail: <x-link href="mailto:hello@autosuggest.io" active>hello@autosuggest.io</x-link></li>
+                                    <li class="my-2">Phone: <x-link href="tel:+442045711270" active>+44 20 4571127 - 0</x-link></li>
+                                    <li class="my-2">Meeting: <x-link href="#" active>Schedule here</x-link></li>
+                                </ul>
+                            </div>
+                            <div class="flex flex-col">
+                                <p class="text-black-600 mb-4 font-medium text-2xl">About Us</p>
+                                <ul class="text-black-500">
+                                    <li class="my-2">
+                                        AutoSuggest: organic autocomplete marketing.
+                                    </li>
+                                    <li class="my-2">
+                                        <img src="/img/payment-methods-international.png" class="h-14 mt-6">
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-            </div>
 
-            <!-- Footer -->
-            <div class="bg-zinc-200/75 py-12 md:py-20 mt-20">
-                <div class="max-w-screen-xl w-full mx-auto px-6 sm:px-8 lg:px-16 grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-4">
-                    <div class="flex flex-col items-start">
-                        <p class="text-black-600 mb-4 font-medium text-2xl">Sitemap</p>
-                        <ul class="text-black-500">
-                            <li class="my-2 hover:text-primary cursor-pointer transition-all">
-                                <x-link href="#" :with-color="false">Home</x-link>
-                            </li>
-                            <li class="my-2 hover:text-primary cursor-pointer transition-all">
-                                <x-link href="#" :with-color="false">Reviews</x-link>
-                            </li>
-                            <li class="my-2 hover:text-primary cursor-pointer transition-all">
-                                <x-link href="#" :with-color="false">FAQ</x-link>
-                            </li>
-                            <li class="my-2 hover:text-primary cursor-pointer transition-all">
-                                <x-link href="#" :with-color="false">Pricing</x-link>
-                            </li>
-                            <li class="my-2 hover:text-primary cursor-pointer transition-all">
-                                <x-link href="#" :with-color="false">Contact</x-link>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="flex flex-col">
-                        <ul class="text-black-500 mt-11">
-                            <li class="my-2 hover:text-primary cursor-pointer transition-all">
-                                <x-link href="#" :with-color="false">Imprint</x-link>
-                            </li>
-                            <li class="my-2 hover:text-primary cursor-pointer transition-all">
-                                <x-link href="#" :with-color="false">Data Privacy</x-link>
-                            </li>
-                            <li class="my-2 hover:text-primary cursor-pointer transition-all">
-                                <x-link href="#" :with-color="false">Keyword Finder</x-link>
-                            </li>
-                            <li class="my-2 hover:text-primary cursor-pointer transition-all">
-                                <x-link href="#" :with-color="false">Customer Area</x-link>
-                            </li>
-                            <li class="my-2 hover:text-primary cursor-pointer transition-all">
-                                <x-link href="#" :with-color="false">For Agencies</x-link>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="flex flex-col">
-                        <p class="text-black-600 mb-4 font-medium text-2xl">Contact</p>
-                        <ul class="text-black-500">
-                            <li class="my-2">E-Mail: <x-link href="mailto:hello@autosuggest.io" active>hello@autosuggest.io</x-link></li>
-                            <li class="my-2">Phone: <x-link href="tel:+442045711270" active>+44 20 4571127 - 0</x-link></li>
-                            <li class="my-2">Meeting: <x-link href="#" active>Schedule here</x-link></li>
-                        </ul>
-                    </div>
-                    <div class="flex flex-col">
-                        <p class="text-black-600 mb-4 font-medium text-2xl">About Us</p>
-                        <ul class="text-black-500">
-                            <li class="my-2">
-                                AutoSuggest: organic autocomplete marketing.
-                            </li>
-                            <li class="my-2">
-                                <img src="/img/payment-methods-international.png" class="h-14 mt-6">
-                            </li>
-                        </ul>
-                    </div>
+                <!-- Mobile navigation -->
+                <div class="drawer-side">
+                    <label for="mobile-menu" class="drawer-overlay"></label>
+                    <ul class="menu overflow-y-auto w-80 bg-base-100 text-base-content mt-24 p-6 pt-10 pr-7">
+                        <li><x-mobile-nav-link href="#" :active="true">How it works</x-mobile-nav-link></li>
+                        <li><x-mobile-nav-link href="#" :active="false">Success stories</x-mobile-nav-link></li>
+                        <li><x-mobile-nav-link href="#" :active="false">About us</x-mobile-nav-link></li>
+                        <li><x-mobile-nav-link href="#" :active="false">Pricing</x-mobile-nav-link></li>
+                    </ul>
                 </div>
             </div>
         </div>
