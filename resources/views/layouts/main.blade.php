@@ -53,8 +53,8 @@
             </div>
 
             <!-- Footer -->
-            <div class="bg-zinc-200/75 py-20 mt-20">
-                <div class="max-w-screen-xl w-full mx-auto px-6 sm:px-8 lg:px-16 grid grid-cols-2 sm:grid-cols-4 gap-4">
+            <div class="bg-zinc-200/75 py-12 md:py-20 mt-20">
+                <div class="max-w-screen-xl w-full mx-auto px-6 sm:px-8 lg:px-16 grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-4">
                     <div class="flex flex-col items-start">
                         <p class="text-black-600 mb-4 font-medium text-2xl">Sitemap</p>
                         <ul class="text-black-500">
