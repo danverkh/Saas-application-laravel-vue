@@ -10,7 +10,11 @@
 
                         <div class="xl:pr-20">
                             <h4 class="text-2xl font-medium mb-2 text-zinc-800">Please select keywords</h4>
-                            <p class="text-sm italic text-zinc-400">From the list below, select keywords which you think a potential customer of your services would be searching.</p>
+                            <p class="text-sm text-zinc-400">
+                                From the list below, select keywords which you think a potential customer
+                                <br class="hidden xl:block">
+                                of your services would be searching.
+                            </p>
                         </div>
                     </div>
 
@@ -28,34 +32,7 @@
                 <x-card class="border-t-4 border-primary">
                     <x-slot:title>Interesting rankings</x-slot:title>
 
-                    <div class="overflow-x-auto">
-                        <table class="table table-compact table-zebra w-full">
-                            <thead>
-                            <tr>
-                                <th><input type="checkbox" class="checkbox checkbox-xs bg-white rounded text-primary"/></th>
-                                <th>Keyword</th>
-                                <th>Ranking</th>
-                                <th>Clicks</th>
-                                <th>Searches</th>
-                                <th>Competition</th>
-                                <th>CPC</th>
-                                <th>URL</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr>
-                                <th><input type="checkbox" class="checkbox checkbox-xs bg-white rounded text-primary"/></th>
-                                <th>1</th>
-                                <td>Cy Ganderton</td>
-                                <td>Quality Control Specialist</td>
-                                <td>Littel, Schaden and Vandervort</td>
-                                <td>Canada</td>
-                                <td>12/16/2020</td>
-                                <td>Blue</td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </div>
+                    <rankings-table></rankings-table>
                 </x-card>
             </div>
 
@@ -63,7 +40,7 @@
                 <a href="#" class="flex flex-nowrap items-center px-6 py-5 text-lg font-semibold text-right text-white tracking-wider uppercase transition duration-500 ease-in-out transform bg-green-600 rounded-2xl shadow-lg shadow-zinc-300 border border-green-700/50 hover:shadow-green-500/50">
                     <div class="flex-1">Confirm keywords <br class="hidden xl:block"> and proceed</div>
 
-                    <span class="divider divider-horizontal"></span>
+                    <span class="divider divider-horizontal ml-4 mr-2"></span>
 
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-8 h-8">
                         <path fill-rule="evenodd" d="M3.75 12a.75.75 0 01.75-.75h13.19l-5.47-5.47a.75.75 0 011.06-1.06l6.75 6.75a.75.75 0 010 1.06l-6.75 6.75a.75.75 0 11-1.06-1.06l5.47-5.47H4.5a.75.75 0 01-.75-.75z" clip-rule="evenodd" />
@@ -71,10 +48,7 @@
                 </a>
 
                 <x-card class="border-t-4 border-zinc-300">
-                    <div class="text-lg inline-block">
-                        Domain: <span class="font-semibold">example.com</span>
-                        <button class="inline-block text-base ml-2 hover:text-primary hover:underline">(change)</button>
-                    </div>
+                    <domain-switcher></domain-switcher>
                 </x-card>
 
                 <x-card class="border-t-4 border-zinc-300 gap-0">
@@ -82,44 +56,10 @@
 
                     <div class="divider divider-vertical my-0"></div>
 
-                    <div>
-                        <div class="text-md">Target audience size</div>
-                        <div class="text-2xl font-semibold">17,000+</div>
-                    </div>
+                    <forecasted-results></forecasted-results>
 
-                    <div class="divider divider-vertical my-0"></div>
-
-                    <div class="tabs w-full flex-nowrap -mt-3 mb-3">
-                        <a class="tab tab-lg tab-active">1-day</a>
-                        <a class="tab tab-lg">7-day</a>
-                        <a class="tab tab-lg">30-day</a>
-                    </div>
-
-                    <div class="mb-4">
-                        <div class="text-md">1-day spend</div>
-                        <div class="text-2xl font-semibold">€36.00 - €840.00</div>
-                    </div>
-
-                    <div class="mb-4">
-                        <div class="text-md">1-day impressions</div>
-                        <div class="text-2xl font-semibold">14,000 - 5,700</div>
-                    </div>
-
-                    <div class="mb-4">
-                        <div class="text-md">CTR</div>
-                        <div class="text-2xl font-semibold">1.0% - 1.6%</div>
-                    </div>
-
-                    <div class="mb-4">
-                        <div class="text-md">
-                            30-day clicks
-                            <div class="badge bg-violet-600 border-none ml-2">Key Result</div>
-                        </div>
-                        <div class="text-2xl font-semibold">20 - 84</div>
-                    </div>
-
-                    <div class="text-sm -mb-2">
-                        Forecasted results aer directional estimates and do not guarantee performance.
+                    <div class="text-sm -mb-6 -mx-8 py-4 px-8 bg-zinc-50 text-zinc-500">
+                        Forecasted results are directional estimates and do not guarantee performance.
                         <a href="#" class="text-primary hover:underline whitespace-nowrap">Learn more</a>
                     </div>
                 </x-card>
@@ -127,3 +67,9 @@
         </div>
     </div>
 </x-main-layout>
+<script>
+    import DomainSwitcher from "../js/pages/booking/DomainSwitcher";
+    export default {
+        components: {DomainSwitcher}
+    }
+</script>
