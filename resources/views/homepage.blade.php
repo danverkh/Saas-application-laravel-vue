@@ -1,7 +1,7 @@
 <x-main-layout>
     @section('hero')
-        <div class="relative">
-            <div class="relative z-10 max-w-screen-xl px-16 xl:px-16 mx-auto mt-24 gap-10 pt-16 pb-20 lg:py-24 items-center flex flex-col md:flex-row">
+        <div class="relative -mb-12">
+            <div class="relative z-10 max-w-screen-xl px-6 py-24 mx-auto gap-10 items-center flex flex-col md:flex-row">
                 <div class="basis-1/2 flex flex-col justify-center items-start row-start-2 sm:row-start-1 md:pt-12">
                     <h1 class="text-6xl md:text-5xl lg:text-6xl leading-tight md:leading-[1.1] lg:leading-tight font-medium text-gray-900">
                         Get additional<br>
@@ -24,7 +24,7 @@
         </div>
     @endsection
 
-    <div class="bg-gray-50 border-t border-gray-200 px-6 sm:px-8 xl:px-20 rounded-lg -mb-14">
+    <div class="bg-zinc-100 border-t border-zinc-200 px-6 sm:px-8 xl:px-20 rounded-lg -mb-14">
         <div class="max-w-screen-xl mx-auto pt-16 pb-32">
             <div class="lg:w-[75%] mx-auto flex sm:flex-nowrap items-end gap-5 md:gap-6">
                 <market-select class="grow-0"></market-select>
@@ -46,7 +46,7 @@
         </div>
     </div>
 
-    <div class="max-w-screen-xl px-6 sm:px-8 xl:px-16 mx-auto">
+    <div class="max-w-screen-xl px-6 sm:px-8 mx-auto">
         <div class="bg-primary hover:bg-primary-hover transition-colors duration-500 lg:w-[75%] mx-auto text-white-300 px-10 sm:px-20 py-5 sm:py-7 rounded-full flex flex-nowrap flex-col md:flex-row md:gap-5 items-center border-b-red-700 border-b-4">
             <div class="text-xl basis-2/3 leading-9 text-center md:text-right">Only pay when you receive additional website visitors and customers from us.</div>
             <div class="divider divider-vertical md:divider-horizontal mt-3 mb-1"></div>

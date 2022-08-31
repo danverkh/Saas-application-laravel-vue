@@ -1,0 +1,32 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html, body {
+    @apply text-zinc-600;
+}
+
+.table-compact {
+    th, td {
+        padding: 0.6rem 0.5rem;
+        font-size: 0.78rem;
+        line-height: 1.2rem;
+    }
+}
+
+.btn {
+    @apply no-animation;
+}
+
+.tabs {
+    .tab {
+        @apply w-full px-2 text-zinc-500 tab-bordered transition-colors;
+
+        &:hover {
+            @apply text-primary duration-300;
+        }
+    }
+    .tab-active {
+        @apply text-primary border-primary border-b-3 font-medium;
+    }
+}

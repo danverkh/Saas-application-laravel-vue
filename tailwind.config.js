@@ -31,6 +31,9 @@ module.exports = {
                     100: '#da7788',
                 },
             },
+            borderWidth: {
+                '3': '3px',
+            }
         },
         boxShadow: {
             sm: "0 1px 2px 0 rgba(0, 0, 0, 0.05)",

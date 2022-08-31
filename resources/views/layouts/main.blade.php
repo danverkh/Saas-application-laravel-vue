@@ -15,13 +15,13 @@
         @routes
 
         <!-- Scripts -->
-        @vite(['resources/css/app.css', 'resources/js/app.js'])
+        @vite(['resources/css/app.scss', 'resources/js/app.js'])
     </head>
     <body>
         <div id="app">
             <!-- Header -->
             <header class="fixed top-0 w-full z-50 backdrop-blur-md bg-white-500/90 transition-all pt-4 pb-3 shadow-lg">
-                <nav class="max-w-screen-xl px-6 sm:px-8 lg:px-16 mx-auto grid grid-flow-col py-3 sm:py-4">
+                <nav class="max-w-screen-xl px-6 sm:px-8 mx-auto grid grid-flow-col py-3 sm:py-4">
                     <div class="col-start-1 col-end-2 flex items-center">
                         <mobile-nav-button class="w-12 h-12 flex items-center mr-5 lg:hidden"></mobile-nav-button>
 
@@ -38,7 +38,7 @@
                     </ul>
                     <div class="col-start-10 col-end-12 font-medium flex justify-end items-center">
                         <a href="/" class="text-black-600 mx-4 sm:mx-6 capitalize tracking-wide font-medium hover:text-primary transition-all">Login</a>
-                        <a href="/" class="font-medium tracking-wide py-2 px-5 sm:px-6 border border-primary text-white-500 bg-primary outline-none rounded-l-full rounded-r-full hover:bg-primary-hover hover:text-white-500 transition-all hover:shadow-primary">
+                        <a href="/" class="font-medium tracking-wide py-2 px-5 sm:px-6 border border-primary-hover text-white-500 bg-primary outline-none rounded-l-full rounded-r-full hover:bg-primary-hover hover:text-white-500 transition-all duration-500 hover:shadow-primary">
                             Get a demo
                         </a>
                     </div>
@@ -47,19 +47,19 @@
 
             <div class="drawer">
                 <input id="mobile-menu" type="checkbox" class="drawer-toggle"/>
-                <div class="drawer-content">
+                <div class="drawer-content pt-[100px] sm:pt-[108px] bg-zinc-100/20">
                     @yield('hero')
 
                     <!-- Content -->
                     <div class="flex w-full">
-                        <div class="h-full w-full">
+                        <div class="h-full w-full py-12">
                             {{ $slot }}
                         </div>
                     </div>
 
                     <!-- Footer -->
-                    <div class="bg-zinc-200/75 py-12 md:py-20 mt-20">
-                        <div class="max-w-screen-xl w-full mx-auto px-6 sm:px-8 lg:px-16 grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-4">
+                    <div class="bg-zinc-200 py-12 md:py-20 mt-20">
+                        <div class="max-w-screen-xl w-full mx-auto px-6 sm:px-8 grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-4">
                             <div class="flex flex-col items-start">
                                 <p class="text-black-600 mb-4 font-medium text-2xl">Sitemap</p>
                                 <ul class="text-black-500">

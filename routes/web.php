@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BookingController;
 use App\Http\Controllers\HomepageController;
 use Illuminate\Support\Facades\Route;
 
@@ -10,6 +11,8 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', HomepageController::class)->name('homepage');
+
+Route::get('{query}', [BookingController::class, 'index'])->name('booking');
 
 
 Route::get('/dashboard', function () {
