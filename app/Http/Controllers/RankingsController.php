@@ -29,7 +29,7 @@ class RankingsController extends Controller
 
         $limiterKey = $request->userAgent() . $request->ip();
 
-        abort_if(RateLimiter::tooManyAttempts($limiterKey, 6), 429, 'Too many attempts');
+        abort_if(RateLimiter::tooManyAttempts($limiterKey, 10), 429, 'Too many attempts');
 
         try {
             $key = "rankings.{$params['market']}.{$params['query']}";
