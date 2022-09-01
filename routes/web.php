@@ -15,8 +15,8 @@ Route::get('/', HomepageController::class)->name('homepage');
 Route::get('{query}', [BookingController::class, 'index'])->name('booking');
 
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth'])->name('dashboard');
+//Route::get('/dashboard', function () {
+//    return view('dashboard');
+//})->middleware(['auth'])->name('dashboard');
 
-require __DIR__.'/auth.php';
+//require __DIR__.'/auth.php';

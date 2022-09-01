@@ -1,5 +1,7 @@
 <?php
 
+use App\Services\RestClient;
+
 require_once __DIR__ . '/RestClient.php';
 
 $api_url = 'https://api.dataforseo.com/';

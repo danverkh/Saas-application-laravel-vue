@@ -48,7 +48,7 @@
                 </a>
 
                 <x-card class="border-t-4 border-zinc-300">
-                    <domain-switcher></domain-switcher>
+                    <query-switcher query='{{ $query }}'></query-switcher>
                 </x-card>
 
                 <x-card class="border-t-4 border-zinc-300 gap-0">
@@ -58,7 +58,7 @@
 
                     <forecasted-results></forecasted-results>
 
-                    <div class="text-sm -mb-6 -mx-8 py-4 px-8 bg-zinc-50 text-zinc-500">
+                    <div class="text-sm -mb-6 -mx-8 pt-4 pb-5 px-8 bg-zinc-50 text-zinc-500">
                         Forecasted results are directional estimates and do not guarantee performance.
                         <a href="#" class="text-primary hover:underline whitespace-nowrap">Learn more</a>
                     </div>
@@ -68,7 +68,7 @@
     </div>
 </x-main-layout>
 <script>
-    import DomainSwitcher from "../js/pages/booking/DomainSwitcher";
+    import DomainSwitcher from "../js/pages/booking/QuerySwitcher";
     export default {
         components: {DomainSwitcher}
     }

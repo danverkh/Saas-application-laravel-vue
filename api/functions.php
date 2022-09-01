@@ -130,6 +130,7 @@ function get_blocked_keywords(): array
     ];
 }
 
+// used
 function get_location_and_language_for_market(string $market): array {
     return [
         'AT' => ['location' => 'Austria', 'language' => 'German'],

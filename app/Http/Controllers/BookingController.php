@@ -14,6 +14,6 @@ class BookingController extends Controller
      */
     public function index(string $query): View
     {
-        return view('booking');
+        return view('booking', compact('query'));
     }
 }

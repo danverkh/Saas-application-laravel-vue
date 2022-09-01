@@ -4,7 +4,7 @@
         <div class="text-2xl font-semibold">17,000+</div>
     </div>
 
-    <input type="range" min="0" max="100" value="40" class="range range-xs text-primary my-3"/>
+    <input type="range" min="1" max="100" value="35" class="range range-xs text-primary my-3"/>
 
     <div class="divider divider-vertical my-0"></div>
 

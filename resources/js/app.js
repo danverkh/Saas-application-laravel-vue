@@ -14,11 +14,11 @@ app.component('market-select', MarketSelect)
 
 // booking page
 import RankingsTable from './pages/booking/RankingsTable.vue'
-import DomainSwitcher from './pages/booking/DomainSwitcher.vue'
+import QuerySwitcher from './pages/booking/QuerySwitcher.vue'
 import ForecastedResults from './pages/booking/ForecastedResults.vue'
 
 app.component('rankings-table', RankingsTable)
-app.component('domain-switcher', DomainSwitcher)
+app.component('query-switcher', QuerySwitcher)
 app.component('forecasted-results', ForecastedResults)
 
 app.mount('#app')
