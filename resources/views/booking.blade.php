@@ -1,7 +1,7 @@
 <x-main-layout>
     <div class="max-w-screen-xl px-6 sm:px-8 mx-auto">
         <div class="flex flex-nowrap gap-8">
-            <div class="basis-2/3 flex flex-col gap-6">
+            <div class="w-2/3 flex flex-col gap-6">
                 <x-card class="border-t-4 border-primary gap-0">
                     <div class="flex flex-nowrap gap-6">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="h-20 h-20 text-primary">

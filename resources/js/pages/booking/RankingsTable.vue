@@ -5,12 +5,13 @@
             <tr>
                 <th><input type="checkbox" class="checkbox checkbox-xs bg-white rounded text-primary" :disabled="loading"/></th>
                 <th>Keyword</th>
-                <th>Ranking</th>
-                <th>Clicks</th>
-                <th>Searches</th>
-                <th>Competition</th>
+                <th>Search volume</th>
                 <th>CPC</th>
-                <th>URL</th>
+                <th>Current rank</th>
+                <th>Url</th>
+                <th>Projected clicks</th>
+                <th>Projected traffic</th>
+                <th>Maximum cost</th>
             </tr>
             </thead>
             <tbody>
@@ -19,12 +20,13 @@
                     <tr v-for="(row, index) in rows" :key="`table-row-${index}`">
                         <th><input type="checkbox" class="checkbox checkbox-xs bg-white rounded text-primary"/></th>
                         <th>{{ row.keyword }}</th>
-                        <td>{{ row.current_rank }}</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
+                        <td>{{ row.search_volume }}</td>
                         <td>{{ row.cpc }}</td>
+                        <td>{{ row.current_rank }}</td>
                         <td>{{ row.url }}</td>
+                        <td>{{ row.projected_clicks }}</td>
+                        <td>{{ row.projected_traffic }}</td>
+                        <td>{{ row.maximum_cost }}</td>
                     </tr>
                 </template>
 
