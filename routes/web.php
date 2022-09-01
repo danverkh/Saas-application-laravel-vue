@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', HomepageController::class)->name('homepage');
 
-Route::get('{query}', [BookingController::class, 'index'])->name('booking');
+Route::get('{market}/{query}', [BookingController::class, 'index'])->name('booking');
 
 
 //Route::get('/dashboard', function () {

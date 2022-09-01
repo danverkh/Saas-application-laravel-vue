@@ -6,11 +6,14 @@ const app = createApp({})
 
 import MobileNavButton from './components/MobileNavButton.vue'
 import VideoPlayer from './components/VideoPlayer.vue'
-import MarketSelect from './pages/homepage/MarketSelect.vue'
 
 app.component('mobile-nav-button', MobileNavButton)
 app.component('video-player', VideoPlayer)
-app.component('market-select', MarketSelect)
+
+// homepage
+import MainSearch from './pages/homepage/MainSearch.vue'
+
+app.component('main-search', MainSearch)
 
 // booking page
 import RankingsTable from './pages/booking/RankingsTable.vue'

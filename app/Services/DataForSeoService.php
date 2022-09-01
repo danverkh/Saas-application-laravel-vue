@@ -2,11 +2,30 @@
 
 namespace App\Services;
 
+use Illuminate\Support\Str;
+
 class DataForSeoService
 {
     private string $url = 'https://api.dataforseo.com/';
 
     private RestClient $client;
+
+    /**
+     * @var array|mixed|string|string[]|null
+     */
+    private $result;
+
+    private $languageByLocation = [
+        'AT' => ['location' => 'Austria', 'language' => 'German'],
+        'BE' => ['location' => 'Belgium', 'language' => 'French'],
+        'CH' => ['location' => 'Switzerland', 'language' => 'German'],
+        'DE' => ['location' => 'Germany', 'language' => 'German'],
+        'FR' => ['location' => 'France', 'language' => 'French'],
+        'IT' => ['location' => 'Italy', 'language' => 'Italian'],
+        'ES' => ['location' => 'Spain', 'language' => 'Spanish'],
+        'UK' => ['location' => 'United Kingdom', 'language' => 'English'],
+        'US' => ['location' => 'United States', 'language' => 'English'],
+    ];
 
     /**
      * Init rest client in constructor
@@ -20,52 +39,72 @@ class DataForSeoService
     }
 
     /**
-     * @param string $keyword
+     * @param string $query
      * @param string $market
+     * @param int    $limit
      *
-     * @return array|null
+     * @return \App\Services\DataForSeoService
      */
-    public function fetch(string $keyword, string $market): array|null
+    public function fetch(string $query, string $market, int $limit = 10): self
     {
-        $marketDetails = $this->getLocationAndLanguageForMarket($market);
+        $market = Str::upper($market);
 
         $data = [
-            "target"        => idn_host_to_ascii($domain),
-            'location_name' => $languageByLocation[$market]['location'],
-            'language_name' => $languageByLocation[$market]['language'],
-            "limit"         => $prefilter_fs,
-            "filters"       => [
-                ["ranked_serp_element.serp_item.rank_group", ">", 1],
-                "and",
-                ["ranked_serp_element.serp_item.rank_group", "<", 70],
+            [
+                'target'        => $this->idn_host_to_ascii($query),
+                'location_name' => $this->languageByLocation[$market]['location'],
+                'language_name' => $this->languageByLocation[$market]['language'],
+                'limit'         => $limit,
+                'filters'       => [
+                    ['ranked_serp_element.serp_item.rank_group', '>', 1],
+                    'and',
+                    ['ranked_serp_element.serp_item.rank_group', '<', 70],
+                ],
             ],
-            //[
-            //    'location_name' => $marketDetails['location'],
-            //    'language_name' => $marketDetails['language'],
-            //    'keyword'       => mb_convert_encoding($keyword, 'UTF-8'),
-            //],
         ];
 
-        /v3/dataforseo_labs/ranked_keywords/live
-        return $this->client->post('/v3/serp/google/organic/live/regular', $data);
+        $this->result = $this->client->post('/v3/dataforseo_labs/ranked_keywords/live', $data);
+
+        return $this;
     }
 
     /**
-     * @param string $market
-     *
-     * @return string[]
+     * @return array
      */
-    protected function getLocationAndLanguageForMarket(string $market): array
+    public function getItems(): array
     {
-        return [
-           'AT' => ['location' => 'Austria', 'language' => 'German'],
-           'BE' => ['location' => 'Belgium', 'language' => 'French'],
-           'CH' => ['location' => 'Switzerland', 'language' => 'German'],
-           'DE' => ['location' => 'Germany', 'language' => 'German'],
-           'FR' => ['location' => 'France', 'language' => 'French'],
-           'IT' => ['location' => 'Italy', 'language' => 'Italian'],
-           'ES' => ['location' => 'Spain', 'language' => 'Spanish'],
-           'UK' => ['location' => 'United Kingdom', 'language' => 'English'],
-       ][$market];
+        return data_get($this->result, 'tasks.0.result.0.items', []);
+    }
+
+    /**
+     * @param string $url
+     *
+     * @return string
+     */
+    protected function idn_host_to_ascii(string $url): string
+    {
+        $urlArray = parse_url($url);
+
+        // no scheme available? e.g. just "demouser.de" => add scheme
+        if (!\array_key_exists('scheme', $urlArray)) {
+            $urlArray = parse_url('http://' . $url);
+        }
+
+        if ($urlArray === false) {
+            return $url;
+        }
+
+        if (!\array_key_exists('host', $urlArray)) {
+            return $url;
+        }
+
+        $originalHost = $urlArray['host'];
+        $asciiHost    = \idn_to_ascii($originalHost, 0, \INTL_IDNA_VARIANT_UTS46);
+
+        if ($asciiHost === false) {
+            return $url;
+        }
+
+        return \str_replace($originalHost, $asciiHost, $url);
     }
 }

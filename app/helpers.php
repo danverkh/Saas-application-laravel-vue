@@ -1,5 +1,13 @@
 <?php
 
+if (!function_exists('isDomainName')) {
+    function isDomainName($domain)
+    {
+        $pattern = '/^(http[s]?\:\/\/)?(?!\-)(?:[a-zA-Z\d\-]{0,62}[a-zA-Z\d]\.){1,126}(?!\d+)[a-zA-Z\d]{1,63}$/';
+        return preg_match($pattern, $domain) === 1 || checkdnsrr($domain);
+    }
+}
+
 if (!function_exists('http_parse_headers')) {
     function http_parse_headers($raw_headers)
     {

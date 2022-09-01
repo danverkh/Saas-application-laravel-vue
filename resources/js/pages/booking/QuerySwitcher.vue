@@ -1,7 +1,7 @@
 <template>
     <div class="text-lg inline-block">
-        Domain: <span class="font-semibold">{{ query }}</span>
-        <button class="inline-block text-sm ml-2 text-primary hover:underline">(change)</button>
+        {{ isDomain ? 'Domain' : 'Keyword' }}: <span class="font-semibold">{{ query }}</span>
+        <button class="inline-block text-sm -mt-1 ml-2 text-primary hover:underline">(change)</button>
     </div>
 </template>
 
@@ -10,13 +10,9 @@ export default {
     name: "DomainSwitcher",
 
     props: {
+        market: String,
         query: String,
-    },
-
-    computed: {
-        idDomain() {
-
-        },
+        isDomain: Boolean,
     },
 }
 </script>

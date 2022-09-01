@@ -37,18 +37,18 @@
             </div>
 
             <div class="basis-1/3 flex flex-col gap-6">
-                <a href="#" class="flex flex-nowrap items-center px-6 py-5 text-lg font-semibold text-right text-white tracking-wider uppercase transition duration-500 ease-in-out transform bg-green-600 rounded-2xl shadow-lg shadow-zinc-300 border border-green-700/50 hover:shadow-green-500/50">
+                <a href="#" class="group flex flex-nowrap items-center px-6 py-5 text-lg font-semibold text-right text-white tracking-wider uppercase transition duration-500 ease-in-out transform bg-green-600 rounded-2xl shadow-lg shadow-zinc-300 border border-green-700/50 hover:shadow-green-500/50">
                     <div class="flex-1">Confirm keywords <br class="hidden xl:block"> and proceed</div>
 
                     <span class="divider divider-horizontal ml-4 mr-2"></span>
 
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-8 h-8">
-                        <path fill-rule="evenodd" d="M3.75 12a.75.75 0 01.75-.75h13.19l-5.47-5.47a.75.75 0 011.06-1.06l6.75 6.75a.75.75 0 010 1.06l-6.75 6.75a.75.75 0 11-1.06-1.06l5.47-5.47H4.5a.75.75 0 01-.75-.75z" clip-rule="evenodd" />
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-8 h-8 transition-transform group-hover:translate-x-0.5">
+                        <path d="M7.33 24l-2.83-2.829 9.339-9.175-9.339-9.167 2.83-2.829 12.17 11.996z"/>
                     </svg>
                 </a>
 
                 <x-card class="border-t-4 border-zinc-300">
-                    <query-switcher query='{{ $query }}'></query-switcher>
+                    <query-switcher market="{{ $market }}" query="{{ $query }}" :is-domain="{{ $isDomain ? 'true' : 'false' }}"></query-switcher>
                 </x-card>
 
                 <x-card class="border-t-4 border-zinc-300 gap-0">

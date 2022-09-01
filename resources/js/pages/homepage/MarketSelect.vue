@@ -39,7 +39,7 @@
 </template>
 
 <script setup>
-import {ref} from 'vue'
+import {ref, watch, defineEmits} from 'vue'
 import {
     Listbox,
     ListboxButton,
@@ -59,4 +59,10 @@ const items = [
     {value: 'es', label: 'ES'},
 ]
 const selectedItem = ref(items[0])
+
+const emit = defineEmits(['changed']);
+
+watch(selectedItem, (item) => {
+    emit('changed', item.value);
+});
 </script>

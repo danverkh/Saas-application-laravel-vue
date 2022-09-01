@@ -25,7 +25,8 @@ class RankingsController extends Controller
         ]);
 
         try {
-            $data = $client->fetch($params['query'], $params['market']);
+            $data = $client->fetch($params['query'], $params['market'])
+                           ->getItems();
         } catch (Exception $e) {
             Log::error('Failed to fetch rankings: ' . $e, $params);
 
