@@ -73,7 +73,7 @@ class DataForSeoService
      */
     public function getItems(): array
     {
-        return data_get($this->result, 'tasks.0.result.0.items', []);
+        return data_get($this->result, 'tasks.0.result.0.items', []) ?? [];
     }
 
     /**
