@@ -15,4 +15,4 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('rankings', [RankingsController::class, 'index'])->name('api.rankings');
+Route::get('rankings', [RankingsController::class, 'index'])->middleware('throttle:1,1')->name('api.rankings');

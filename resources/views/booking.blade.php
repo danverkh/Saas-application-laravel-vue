@@ -32,7 +32,7 @@
                 <x-card class="border-t-4 border-primary">
                     <x-slot:title>Interesting rankings</x-slot:title>
 
-                    <rankings-table></rankings-table>
+                    <rankings-table market="{{ $market }}" query="{{ $query }}"></rankings-table>
                 </x-card>
             </div>
 

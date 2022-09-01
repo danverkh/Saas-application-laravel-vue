@@ -13,7 +13,7 @@ export default {
     },
     borderWidth: {
       type: Number,
-      default: 7,
+      default: 6,
     },
     color: {
       type: String,
