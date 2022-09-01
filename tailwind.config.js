@@ -29,6 +29,7 @@ module.exports = {
                     DEFAULT: '#DD2B47',
                     hover: '#e0213c',
                     100: '#da7788',
+                    50: '#e8bcc3',
                 },
             },
             borderWidth: {

@@ -3,7 +3,12 @@
 
     <div class="flex-1">
         <label class="block text-gray-500 mb-2">Domain / Keyword</label>
-        <input v-model="query" @keyup.enter="search" type="text" placeholder="Please enter a domain or keyword here..." class="input input-lg h-[60px] w-full ring-1 ring-gray-300 px-4 md:px-8 hover:ring-2 hover:ring-primary/50 focus:ring-2 focus:ring-primary/50 focus:outline-none"/>
+        <input v-model="query"
+               @keyup.enter="search"
+               type="text"
+               placeholder="Please enter a domain or keyword here..."
+               :class="{'border-primary': invalid}"
+               class="input input-lg h-[60px] w-full ring-1 ring-gray-300 px-4 md:px-8 hover:ring-2 hover:ring-primary/50 focus:ring-2 focus:ring-primary/50 focus:outline-none"/>
     </div>
 
     <div class="grow-0">
@@ -28,14 +33,27 @@ export default {
         return {
             market: 'at',
             query: '',
+            invalid: false,
         };
+    },
+
+    watch: {
+        query(value) {
+            if (value.length > 0) {
+                this.invalid = false;
+            }
+        },
     },
 
     methods: {
         search() {
-            const query = encodeURIComponent(this.query);
+            if (this.query.length === 0) {
+                this.invalid = true;
+            } else {
+                const query = encodeURIComponent(this.query);
 
-            window.location.href = `/${this.market}/${query}`;
+                window.location.href = `/${this.market}/${query}`;
+            }
         },
     },
 }
