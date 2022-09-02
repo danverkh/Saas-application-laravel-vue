@@ -1,36 +1,57 @@
 <template>
     <div class="overflow-x-auto">
-        <table v-if="!error" class="table table-compact table-zebra w-full">
+        <table v-if="!error" class="table table-compact w-full">
             <thead>
             <tr>
-                <th><input type="checkbox" class="checkbox checkbox-xs bg-white rounded text-primary" :disabled="loading"/></th>
-                <th>Keyword</th>
-                <th>Search volume</th>
-                <th>CPC</th>
-                <th>Current rank</th>
-                <th>Url</th>
-                <th>Projected clicks</th>
-                <th>Projected traffic</th>
-                <th>Maximum cost</th>
+                <th>
+                    <input type="checkbox"
+                           id="check-all-items"
+                           @click="rankingItems.toggleAll($event.target.checked)"
+                           class="checkbox checkbox-xs bg-white rounded text-primary"
+                           :disabled="loading || !rankingItems.items.length"/>
+                </th>
+                <th class="cursor-default">Keyword</th>
+                <th><div class="tooltip cursor-default" data-tip="Search volume">Search</div></th>
+                <th><div class="tooltip cursor-default" data-tip="Cost per click">CPC</div></th>
+                <th><div class="tooltip cursor-default" data-tip="Current rank">Rank</div></th>
+                <th><div class="tooltip cursor-default" data-tip="Website page URL">URL</div></th>
+                <th class="text-right">Projected<br>clicks</th>
+                <th class="text-right">Projected<br>traffic</th>
+                <th class="text-right">Maximum<br> cost</th>
             </tr>
             </thead>
             <tbody>
                 <template v-if="!loading">
-                    <tr v-for="(row, index) in rows" :key="`table-row-${index}`">
-                        <th><input type="checkbox" class="checkbox checkbox-xs bg-white rounded text-primary"/></th>
-                        <th>{{ row.keyword }}</th>
-                        <td>{{ row.search_volume }}</td>
-                        <td>{{ row.cpc }}</td>
-                        <td>{{ row.current_rank }}</td>
-                        <td>{{ row.url }}</td>
-                        <td>{{ row.projected_clicks }}</td>
-                        <td>{{ row.projected_traffic }}</td>
-                        <td>{{ row.maximum_cost }}</td>
+                    <tr v-for="(item, index) in rankingItems.items" :key="`table-item-${index}`" class="selected1">
+                        <th>
+                            <input type="checkbox" v-model="item.selected" @click="update" class="checkbox checkbox-xs bg-white rounded text-primary"/>
+                        </th>
+                        <td class="whitespace-normal min-w-[180px] font-medium">{{ item.keyword }}</td>
+                        <td class="text-right">{{ item.search_volume }}</td>
+                        <td class="text-right">{{ item.cpc ? number(item.cpc, 2) : '-' }}</td>
+                        <td class="text-right">{{ item.current_rank }}</td>
+                        <td class="whitespace-normal" v-html="muteDomain(item.url)"></td>
+                        <td class="text-right">{{ item.projected_clicks ? number(item.projected_clicks, 1) : '-' }}</td>
+                        <td class="text-right">{{ item.projected_traffic ? number(item.projected_traffic, 1) : '-' }}</td>
+                        <td class="text-right">{{ item.maximum_cost ? money(item.maximum_cost) : '-' }}</td>
+                    </tr>
+
+                    <tr v-if="rankingItems.items.length === 0" class="no-hover">
+                        <td colspan="9" class="text-center !py-12">
+                            <div class="text-zinc-600 text-lg mb-5 flex flex-col items-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-12 h-12 text-zinc-200 block mb-3">
+                                    <path d="M12 2c5.514 0 10 4.486 10 10s-4.486 10-10 10-10-4.486-10-10 4.486-10 10-10zm0-2c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm1.25 17c0 .69-.559 1.25-1.25 1.25-.689 0-1.25-.56-1.25-1.25s.561-1.25 1.25-1.25c.691 0 1.25.56 1.25 1.25zm1.393-9.998c-.608-.616-1.515-.955-2.551-.955-2.18 0-3.59 1.55-3.59 3.95h2.011c0-1.486.829-2.013 1.538-2.013.634 0 1.307.421 1.364 1.226.062.847-.39 1.277-.962 1.821-1.412 1.343-1.438 1.993-1.432 3.468h2.005c-.013-.664.03-1.203.935-2.178.677-.73 1.519-1.638 1.536-3.022.011-.924-.284-1.719-.854-2.297z"/>
+                                </svg>
+                                <div>
+                                    No results found, please try changing you query <button @click="openModal('query-switcher-modal')" class="text-primary hover:underline">here</button>
+                                </div>
+                            </div>
+                        </td>
                     </tr>
                 </template>
 
                 <tr v-else>
-                    <td colspan="8" class="text-center !py-12">
+                    <td colspan="9" class="text-center !py-12">
                         <spinner></spinner>
                     </td>
                 </tr>
@@ -51,6 +72,7 @@
 </template>
 
 <script>
+import {useRankingItemsStore} from '../../stores/rankingItems';
 import axios from 'axios';
 import Spinner from '../../components/Spinner.vue';
 
@@ -68,7 +90,7 @@ export default {
         return {
             loading: true,
             error: null,
-            rows: [],
+            rankingItems: useRankingItemsStore(),
         };
     },
 
@@ -83,7 +105,7 @@ export default {
 
             axios.get(route('api.rankings'), {params: {market: this.market, query: this.query}})
                 .then(resp => {
-                    this.rows = resp.data.rows;
+                    this.rankingItems.setItems(resp.data.rows);
                 })
                 .catch(error => {
                     if (error.response.status === 429) {
@@ -94,6 +116,18 @@ export default {
                     }
                 })
                 .finally(() => this.loading = false);
+        },
+
+        muteDomain(url) {
+            const {origin, pathname} = new URL(url);
+
+            return origin
+                ? `<span class="opacity-50">${origin}</span>${(pathname === '/' ? '' : pathname)}`
+                : url;
+        },
+
+        update() {
+           setTimeout(() => this.rankingItems.update(), 1);
         },
     },
 }

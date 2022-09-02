@@ -15,7 +15,7 @@ class RankingsResource extends JsonResource
      */
     public function toArray($request): array
     {
-        $cpc          = data_get($this, 'keyword_data.keyword_info.cpc', 0) ?? 0;
+        $cpc          = data_get($this, 'keyword_data.keyword_info.cpc');
         $searchVolume = data_get($this, 'keyword_data.keyword_info.search_volume', 0) ?? 0;
 
         return [
@@ -24,9 +24,9 @@ class RankingsResource extends JsonResource
             'search_volume'     => $searchVolume,
             'current_rank'      => data_get($this, 'ranked_serp_element.serp_item.rank_absolute', 0) ?? 0,
             'url'               => data_get($this, 'ranked_serp_element.serp_item.url'),
-            'projected_clicks'  => $searchVolume * 0.18,
-            'projected_traffic' => $searchVolume * $cpc * 0.18,
-            'maximum_cost'      => $searchVolume * $cpc * 0.18 * 0.3,
+            'projected_clicks'  => round($searchVolume * 0.18, 2),
+            'projected_traffic' => round($searchVolume * ($cpc ?? 0) * 0.18, 2),
+            'maximum_cost'      => round($searchVolume * ($cpc ?? 0) * 0.18 * 0.3, 2),
         ];
     }
 }

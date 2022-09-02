@@ -37,7 +37,9 @@ class RankingsController extends Controller
             $data = Cache::remember($key, now()->addMinutes(30), static function () use ($limiterKey, $client, $params) {
                 RateLimiter::hit($limiterKey);
 
-                return $client->fetch($params['query'], $params['market'])->getItems();
+                $items = $client->fetch($params['query'], $params['market'])->getItems();
+
+                return RankingsResource::collection($items)->toArray(request());
             });
         } catch (Exception $e) {
             Log::error('Failed to fetch rankings: ' . $e, $params);
@@ -45,6 +47,6 @@ class RankingsController extends Controller
             return response()->json(['status' => 'failed'], Response::HTTP_INTERNAL_SERVER_ERROR);
         }
 
-        return response()->json(['status' => 'success', 'rows' => RankingsResource::collection($data)]);
+        return response()->json(['status' => 'success', 'rows' => $data]);
     }
 }

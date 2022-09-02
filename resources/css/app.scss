@@ -6,12 +6,39 @@ html, body {
     @apply text-zinc-600;
 }
 
-.table-compact {
-    th, td {
-        padding: 0.6rem 0.5rem;
-        font-size: 0.78rem;
-        line-height: 1.2rem;
+.table {
+    &.table-compact {
+        th, td {
+            padding: 0.6rem 0.5rem;
+            font-size: 0.70rem;
+            line-height: 1rem;
+            text-transform: unset !important;
+        }
+        td {
+            line-height: 1.1rem;
+        }
     }
+
+    tbody > tr:nth-child(even) th,
+    tbody > tr:nth-child(even) td {
+        background-color: #fafafa;
+    }
+
+    tbody > tr:not(.no-hover):hover th,
+    tbody > tr:not(.no-hover):hover td {
+        @apply bg-primary/5 border-primary/10;
+    }
+
+    tbody > tr.selected th,
+    tbody > tr.selected td {
+        @apply bg-primary/10 border-primary/20;
+    }
+}
+
+.tooltip:before {
+    padding: 0.3rem 0.6rem;
+    font-size: 0.75rem;
+    font-weight: normal;
 }
 
 .btn {
