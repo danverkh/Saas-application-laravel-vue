@@ -38,7 +38,7 @@ class RankingsController extends Controller
                 RateLimiter::hit($limiterKey);
 
                 $items = $client->fetch($params['query'], $params['market'])->getItems();
-
+//dd($items);
                 return RankingsResource::collection($items)->toArray(request());
             });
         } catch (Exception $e) {

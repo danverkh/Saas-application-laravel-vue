@@ -8,7 +8,7 @@ export const useRankingItemsStore = defineStore('rankingItems', {
     },
 
     getters: {
-        //doubleCount: (state) => state.count * 2,
+        selectedItems: (state) => state.items.filter(item => item.selected),
     },
 
     actions: {

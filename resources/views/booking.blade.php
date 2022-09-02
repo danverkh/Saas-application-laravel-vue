@@ -1,7 +1,7 @@
 <x-main-layout>
     <div class="max-w-screen-xl px-6 sm:px-8 mx-auto">
         <div class="flex-col flex flex-nowrap gap-8 xl:flex-row">
-            <div class="w-full w-9/12 flex flex-col gap-6">
+            <div class="w-full xl:w-9/12 flex flex-col gap-6">
                 <x-card class="border-t-4 border-primary gap-0">
                     <div class="flex flex-nowrap gap-6">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="h-20 h-20 text-primary min-w-[60px]">
@@ -36,7 +36,7 @@
                 </x-card>
             </div>
 
-            <div class="w-full w-3/12 flex flex-col-reverse md:flex-row-reverse xl:flex-col gap-6">
+            <div class="w-full xl:w-3/12 flex flex-col-reverse md:flex-row-reverse xl:flex-col gap-6">
                 <div class="flex flex-col-reverse md:flex-col gap-6 md:basis-1/2 xl:basis-auto">
                     <a href="#" class="group flex flex-nowrap items-center mt-6 md:mt-0 pl-3 pr-5 py-8 lg:py-5 xl:py-5 text-lg md:text-base xl:text-md font-semibold text-white tracking-wider uppercase transition duration-500 ease-in-out transform bg-green-600 rounded-2xl shadow-lg shadow-zinc-300 border border-green-700/50 hover:shadow-green-500/50">
                         <div class="flex-1 text-center xl:text-right">Confirm keywords <br class="hidden xl:block"> and proceed</div>

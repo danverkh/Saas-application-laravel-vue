@@ -29,8 +29,8 @@ html, body {
         @apply bg-blue-50 border-blue-200/75;
     }
 
-    tbody > tr.selected th,
-    tbody > tr.selected td {
+    tbody > tr:not(.no-hover).selected th,
+    tbody > tr:not(.no-hover).selected td {
         @apply bg-blue-50 border-blue-200/75;
     }
 }

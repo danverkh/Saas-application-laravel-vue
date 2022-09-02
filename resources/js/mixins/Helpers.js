@@ -5,7 +5,7 @@ import round from 'lodash/round';
 export default {
     methods: {
         money(value, config = {}) {
-            return formatMoney(Number(value) / 100, {
+            return formatMoney(Number(value), {
                 symbol: get(config, 'symbol', 'CHF'),
                 format: '%v %s',
                 precision: get(config, 'precision', 2),

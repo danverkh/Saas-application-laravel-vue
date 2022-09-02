@@ -11,10 +11,10 @@
                            :disabled="loading || !rankingItems.items.length"/>
                 </th>
                 <th class="cursor-default">Keyword</th>
-                <th><div class="tooltip cursor-default" data-tip="Search volume">Search</div></th>
-                <th><div class="tooltip cursor-default" data-tip="Cost per click">CPC</div></th>
-                <th><div class="tooltip cursor-default" data-tip="Current rank">Rank</div></th>
-                <th><div class="tooltip cursor-default" data-tip="Website page URL">URL</div></th>
+                <th><span class="tooltip cursor-default" data-tip="Search volume">Search</span></th>
+                <th class="text-right"><span class="tooltip cursor-default" data-tip="Cost per click">CPC</span></th>
+                <th><span class="tooltip cursor-default" data-tip="Current rank">Rank</span></th>
+                <th><span class="tooltip cursor-default" data-tip="Website page URL">URL</span></th>
                 <th class="text-right">Projected<br>clicks</th>
                 <th class="text-right">Projected<br>traffic</th>
                 <th class="text-right">Maximum<br> cost</th>
@@ -26,11 +26,11 @@
                         <th>
                             <input type="checkbox" v-model="item.selected" @click="update" class="checkbox checkbox-xs bg-white rounded text-primary"/>
                         </th>
-                        <td class="whitespace-normal min-w-[180px] font-medium">{{ item.keyword }}</td>
+                        <td class="whitespace-normal break-words min-w-[180px] font-medium">{{ item.keyword }}</td>
                         <td class="text-right">{{ item.search_volume }}</td>
-                        <td class="text-right">{{ item.cpc ? number(item.cpc, 2) : '-' }}</td>
+                        <td class="text-right">{{ item.cpc ? money(item.cpc) : '-' }}</td>
                         <td class="text-right">{{ item.current_rank }}</td>
-                        <td class="whitespace-normal" v-html="muteDomain(item.url)"></td>
+                        <td class="whitespace-normal break-all" v-html="muteDomain(item.url)"></td>
                         <td class="text-right">{{ item.projected_clicks ? number(item.projected_clicks, 1) : '-' }}</td>
                         <td class="text-right">{{ item.projected_traffic ? number(item.projected_traffic, 1) : '-' }}</td>
                         <td class="text-right">{{ item.maximum_cost ? money(item.maximum_cost) : '-' }}</td>
