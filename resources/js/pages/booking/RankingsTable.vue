@@ -1,5 +1,5 @@
 <template>
-    <div class="overflow-x-auto">
+    <div class="overflow-x-auto xl:overflow-visible">
         <table v-if="!error" class="table table-compact w-full">
             <thead>
             <tr>
@@ -22,7 +22,7 @@
             </thead>
             <tbody>
                 <template v-if="!loading">
-                    <tr v-for="(item, index) in rankingItems.items" :key="`table-item-${index}`" class="selected1">
+                    <tr v-for="(item, index) in rankingItems.items" :key="`table-item-${index}`" :class="{selected: item.selected}">
                         <th>
                             <input type="checkbox" v-model="item.selected" @click="update" class="checkbox checkbox-xs bg-white rounded text-primary"/>
                         </th>

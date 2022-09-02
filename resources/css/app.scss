@@ -26,12 +26,12 @@ html, body {
 
     tbody > tr:not(.no-hover):hover th,
     tbody > tr:not(.no-hover):hover td {
-        @apply bg-primary/5 border-primary/10;
+        @apply bg-blue-50 border-blue-200/75;
     }
 
     tbody > tr.selected th,
     tbody > tr.selected td {
-        @apply bg-primary/10 border-primary/20;
+        @apply bg-blue-50 border-blue-200/75;
     }
 }
 

@@ -45,6 +45,10 @@
                 </nav>
             </header>
 
+            @env('local')
+            <x-breakpoints></x-breakpoints>
+            @endenv
+
             <div class="drawer">
                 <input id="mobile-menu" type="checkbox" class="drawer-toggle"/>
                 <div class="drawer-content pt-[100px] sm:pt-[108px] bg-zinc-100/20">
