@@ -45,7 +45,7 @@ class DataForSeoService
      *
      * @return \App\Services\DataForSeoService
      */
-    public function fetch(string $query, string $market, int $limit = 20): self
+    public function fetch(string $query, string $market, int $limit = 100): self
     {
         $market = Str::upper($market);
 

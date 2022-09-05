@@ -6,7 +6,7 @@ export default {
     methods: {
         money(value, config = {}) {
             return formatMoney(Number(value), {
-                symbol: get(config, 'symbol', 'CHF'),
+                symbol: get(config, 'symbol', 'EUR'),
                 format: '%v %s',
                 precision: get(config, 'precision', 2),
                 decimal: config.decimalSeparator || ',',
