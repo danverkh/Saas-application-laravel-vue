@@ -29,11 +29,9 @@
                     </div>
                 </x-card>
 
-                <x-card class="border-t-4 border-primary">
-                    <x-slot:title>Interesting rankings</x-slot:title>
-
+                <div>
                     <rankings-table market="{{ $market }}" query="{{ $query }}"></rankings-table>
-                </x-card>
+                </div>
             </div>
 
             <div class="w-full xl:w-3/12 flex flex-col-reverse md:flex-row-reverse xl:flex-col gap-6">
