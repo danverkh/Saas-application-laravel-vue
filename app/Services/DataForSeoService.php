@@ -56,9 +56,13 @@ class DataForSeoService
                 'language_name' => $this->languageByLocation[$market]['language'],
                 'limit'         => $limit,
                 'filters'       => [
-                    ['ranked_serp_element.serp_item.rank_group', '>', 1],
+                    ['ranked_serp_element.serp_item.rank_group', '>', 10],
                     'and',
                     ['ranked_serp_element.serp_item.rank_group', '<', 70],
+                    'and',
+                    ['keyword_data.keyword_info.search_volume', '>', 50],
+                    'and',
+                    ['keyword_data.keyword_info.search_volume', '<', 10000],
                 ],
             ],
         ];
