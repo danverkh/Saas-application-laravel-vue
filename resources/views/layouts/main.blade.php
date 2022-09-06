@@ -32,7 +32,7 @@
                     </div>
 
                     <ul class="hidden lg:flex col-start-4 col-end-8 text-black-500  items-center">
-                        <x-nav-link href="#" :active="true">How it works</x-nav-link>
+                        <x-nav-link :href="route('how_it_works')" :active="request()->routeIs('how_it_works')">How it works</x-nav-link>
                         <x-nav-link href="#" :active="false">Success stories</x-nav-link>
                         <x-nav-link href="#" :active="false">About us</x-nav-link>
                         <x-nav-link href="#" :active="false">Pricing</x-nav-link>
@@ -53,17 +53,11 @@
             <div class="drawer">
                 <input id="mobile-menu" type="checkbox" class="drawer-toggle"/>
                 <div class="drawer-content pt-[100px] sm:pt-[108px] bg-zinc-100/20">
-                    @yield('hero')
-
                     <!-- Content -->
-                    <div class="flex w-full">
-                        <div class="h-full w-full py-12">
-                            {{ $slot }}
-                        </div>
-                    </div>
+                    {{ $slot }}
 
                     <!-- Footer -->
-                    <div class="bg-zinc-200 py-12 md:py-20 mt-20">
+                    <div class="bg-zinc-200 py-12 md:py-20 mt-14">
                         <div class="max-w-screen-xl w-full mx-auto px-6 sm:px-8 grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-4">
                             <div class="flex flex-col items-start">
                                 <p class="text-black-600 mb-4 font-medium text-2xl">Sitemap</p>
