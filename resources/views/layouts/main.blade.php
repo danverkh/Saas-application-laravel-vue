@@ -124,7 +124,7 @@
                 </div>
 
                 <!-- Mobile navigation -->
-                <div class="drawer-side">
+                <div class="drawer-side" style="display: none">
                     <label for="mobile-menu" class="drawer-overlay"></label>
                     <ul class="menu overflow-y-auto w-80 bg-base-100 text-base-content mt-24 p-6 pt-10 pr-7">
                         <li><x-mobile-nav-link :href="route('how_it_works')" :active="request()->routeIs('how_it_works')">How it works</x-mobile-nav-link></li>

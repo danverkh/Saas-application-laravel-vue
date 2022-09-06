@@ -5,7 +5,7 @@
                 How it <span class="text-primary">works</span>
             </h1>
 
-            <div class="shadow-strong rounded-xl overflow-hidden bg-gray-200 border-2 border-zinc-300 w-full max-w-3xl mb-12">
+            <div class="shadow-strong rounded-xl overflow-hidden bg-gray-200 border-2 border-zinc-300 w-full max-w-3xl aspect-video mb-12">
                 <video-player image="/img/homepage_video.png" video="/video/homepage.mp4"/>
             </div>
         </div>
