@@ -13,13 +13,13 @@
         <div id="hero-bg" class="absolute top-0 left-0 right-0 bottom-0 z-0 overflow-hidden"></div>
     </div>
 
-    <div class="bg-primary py-8">
+    <div class="bg-primary py-4">
         <x-container class="text-white text-lg leading-relaxed max-w-5xl">
-            <div class="flex flex-row flex-nowrap gap-6">
-                <div class="basis-1/3 text-5xl font-semibold text-right leading-normal">
+            <div class="flex flex-col lg:flex-row flex-nowrap gap-1 lg:gap-6">
+                <div class="basis-1/3 text-4xl lg:text-5xl font-semibold text-center lg:text-right lg:!leading-[4rem]">
                     Consectetur adipisicing expedita
                 </div>
-                <div class="divider divider-horizontal"></div>
+                <div class="divider divider-vertical lg:divider-horizontal"></div>
                 <div class="basis-2/3">
                     Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab accusamus aliquam asperiores aut autem beatae blanditiis deserunt dignissimos dolor doloremque
                     doloribus itaque laboriosam laborum quis ratione reprehenderit, sit temporibus. Ab consectetur delectus et eum iusto magnam molestiae natus neque, numquam omnis
@@ -30,9 +30,9 @@
         </x-container>
     </div>
 
-    <div class="bg-white py-12">
-        <x-container class="text-zinc-800 text-xl leading-relaxed max-w-5xl">
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequuntur corporis cupiditate eligendi esse ex ipsa modi, odit quos unde voluptas. Eaque explicabo sed
+    <div class="bg-white py-8">
+        <x-container class="text-zinc-800 text-lg leading-relaxed max-w-5xl">
+            <p class="mb-4">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequuntur corporis cupiditate eligendi esse ex ipsa modi, odit quos unde voluptas. Eaque explicabo sed
                 similique tenetur veniam. Doloremque expedita iure maxime nam quis tempora ullam! At deserunt ea error ipsam iste neque quis quod voluptates. Laudantium libero nemo
                 officia quas recusandae. Ad asperiores commodi deserunt error explicabo quisquam, soluta tenetur veritatis! Aliquid architecto assumenda consequatur deserunt in
                 numquam pariatur veritatis voluptatum.</p>
