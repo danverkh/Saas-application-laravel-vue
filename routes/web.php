@@ -3,6 +3,7 @@
 use App\Http\Controllers\BookingController;
 use App\Http\Controllers\HomepageController;
 use App\Http\Controllers\HowItWorksController;
+use App\Http\Controllers\SuccessStoriesController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -18,6 +19,7 @@ Route::get('{market}/{query}', [BookingController::class, 'index'])
     ->name('booking');
 
 Route::get('how-it-works', HowItWorksController::class)->name('how_it_works');
+Route::get('success-stories', SuccessStoriesController::class)->name('success_stories');
 
 
 //Route::get('/dashboard', function () {
