@@ -47,11 +47,11 @@
             <div class="flex flex-nowrap flex-col lg:flex-row gap-8 xl:gap-24 px-8 md:px-20 xl:px-0">
                 <div class="basis-1/2 p-4">
                     <h4 class="text-white text-3xl font-semibold mb-7 text-center">Keyword 1</h4>
-                    <canvas id="chart-1" class="w-full h-12"></canvas>
+                    <canvas id="chart-1" class="w-full h-auto"></canvas>
                 </div>
                 <div class="basis-1/2 p-4">
                     <h4 class="text-white text-3xl font-semibold mb-7 text-center">Keyword 2</h4>
-                    <canvas id="chart-2" class="w-full h-12"></canvas>
+                    <canvas id="chart-2" class="w-full h-auto"></canvas>
                 </div>
             </div>
         </x-container>

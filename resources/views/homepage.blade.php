@@ -1,5 +1,5 @@
 <x-main-layout>
-    <div class="relative mb-12">
+    <div class="relative">
         <div class="relative z-10 max-w-screen-xl px-6 py-24 mx-auto gap-10 items-center flex flex-col md:flex-row">
             <div class="basis-1/2 flex flex-col justify-center items-start row-start-2 sm:row-start-1 md:pt-12">
                 <h1 class="text-6xl md:text-5xl lg:text-6xl leading-tight md:leading-[1.1] lg:leading-tight font-medium text-gray-900">
