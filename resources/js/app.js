@@ -31,7 +31,4 @@ import Helpers from "./mixins/Helpers";
 
 app.mixin(Helpers)
     .use(pinia)
-    .mount('#app');
-
-// hidden initially to remove flicker on page load
-document.querySelector('.drawer-side').style.display = 'grid';
+    .mount('#app')

@@ -17,8 +17,6 @@
 
         <!-- Scripts -->
         @vite(['resources/css/app.scss', 'resources/js/app.js'])
-
-        @stack('style')
     </head>
     <body>
         <div id="app">
@@ -35,8 +33,8 @@
 
                     <ul class="hidden lg:flex col-start-4 col-end-8 text-black-500  items-center">
                         <x-nav-link :href="route('how_it_works')" :active="request()->routeIs('how_it_works')">How it works</x-nav-link>
-                        <x-nav-link :href="route('success_stories')" :active="request()->routeIs('success_stories')">Success stories</x-nav-link>
-                        <x-nav-link :href="route('about_us')" :active="request()->routeIs('about_us')">About us</x-nav-link>
+                        <x-nav-link href="#" :active="false">Success stories</x-nav-link>
+                        <x-nav-link href="#" :active="false">About us</x-nav-link>
                         <x-nav-link href="#" :active="false">Pricing</x-nav-link>
                     </ul>
                     <div class="col-start-10 col-end-12 font-medium flex justify-end items-center">
@@ -65,7 +63,7 @@
                                 <p class="text-black-600 mb-4 font-medium text-2xl">Sitemap</p>
                                 <ul class="text-black-500">
                                     <li class="my-2 hover:text-primary cursor-pointer transition-all">
-                                        <x-link :href="route('homepage')" :with-color="false">Home</x-link>
+                                        <x-link href="#" :with-color="false">Home</x-link>
                                     </li>
                                     <li class="my-2 hover:text-primary cursor-pointer transition-all">
                                         <x-link href="#" :with-color="false">Reviews</x-link>
@@ -124,12 +122,12 @@
                 </div>
 
                 <!-- Mobile navigation -->
-                <div class="drawer-side" style="display: none">
+                <div class="drawer-side">
                     <label for="mobile-menu" class="drawer-overlay"></label>
                     <ul class="menu overflow-y-auto w-80 bg-base-100 text-base-content mt-24 p-6 pt-10 pr-7">
-                        <li><x-mobile-nav-link :href="route('how_it_works')" :active="request()->routeIs('how_it_works')">How it works</x-mobile-nav-link></li>
-                        <li><x-mobile-nav-link :href="route('success_stories')" :active="request()->routeIs('success_stories')">Success stories</x-mobile-nav-link></li>
-                        <li><x-mobile-nav-link :href="route('about_us')" :active="request()->routeIs('about_us')">About us</x-mobile-nav-link></li>
+                        <li><x-mobile-nav-link href="#" :active="true">How it works</x-mobile-nav-link></li>
+                        <li><x-mobile-nav-link href="#" :active="false">Success stories</x-mobile-nav-link></li>
+                        <li><x-mobile-nav-link href="#" :active="false">About us</x-mobile-nav-link></li>
                         <li><x-mobile-nav-link href="#" :active="false">Pricing</x-mobile-nav-link></li>
                     </ul>
                 </div>
