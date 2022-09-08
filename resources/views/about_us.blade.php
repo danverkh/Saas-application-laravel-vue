@@ -1,23 +1,21 @@
 <x-main-layout>
 
     <div class="mt-14">
-        <div class="mx-auto text-center text-5xl tracking-wider text-zinc-900 font-normal flex justify-center">
-            <h1 class="text-5xl font-bold text-zinc-900 mb-12">
-                About <span class="text-primary">us</span>
-            </h1>
-        </div>
+        <x-page-title>
+            About <span class="text-primary">us</span>
+        </x-page-title>
     </div>
 
     <!-- Offer -->
     <section>
         <div class="py-10 mx-auto">
             <div class="grid grid-cols-1 lg:grid-cols-2">
-                <div class="relative flex items-center justify-end bg-zinc-100 rounded-r-3xl border-b-4 border-zinc-300/60">
-                    <div class="p-8 sm:p-16 lg:p-24 text-right">
-                        <div class="text-5xl mb-3">We want to offer a</div>
+                <div class="relative flex items-center justify-center lg:justify-end bg-zinc-100 rounded-r-3xl border-b-4 border-zinc-300/60 mr-8 lg:mr-0">
+                    <div class="pt-14 pb-24 px-4 lg:pl-5 lg:pr-10 lg:pr-16 xl:pr-24 text-center lg:text-right">
+                        <div class="text-4xl xl:text-5xl mb-3">We want to offer a</div>
 
                         <div class="text-zinc-900">
-                            <div class="font-bold text-6xl mb-2">
+                            <div class="font-bold text-5xl xl:text-6xl mb-2">
                                 <span class="text-primary">performance</span>-only
                             </div>
 
@@ -32,9 +30,9 @@
                     </div>
                 </div>
 
-                <div class="flex flex-row flex-nowrap">
-                    <div class="flex-grow content">
-                        <img class="max-h-[27em] ml-14" src="/img/team-working.svg"/>
+                <div class="flex flex-row flex-nowrap z-10 -mt-20 lg:mt-0">
+                    <div class="flex-grow content flex items-center justify-center lg:justify-start">
+                        <img class="max-h-[23em] ml-3 xl:max-h-[27em] xl:ml-14" src="/img/team-working.svg"/>
                     </div>
 
                     <div class="flex-grow rounded-l-3xl bg-primary h-full border-b-4 border-red-700"></div>
@@ -44,7 +42,7 @@
     </section>
 
     <!-- Company -->
-    <x-container class="font-normal text-base leading-[1.7rem] px-32 mb-6">
+    <x-container class="font-normal text-base leading-[1.7rem] xl:px-32 mb-6">
         <x-subtitle>Company</x-subtitle>
 
         <p class="mb-5">AutoRanker was founded in 2019 and serves a bit over 200 mostly small and mid-sized businesses. Prior to AutoRanker, a member of our team spent six years
@@ -102,11 +100,11 @@
     @endpush
 
     <section class="bg-zinc-100">
-        <div class="py-16 mx-auto lg:pr-0 lg:mr-0 sm:py-24">
-            <div class="items-end justify-between max-w-7xl sm:flex mx-auto mb-14">
+        <div class="py-16 lg:py-24 mx-auto lg:pr-0 lg:mr-0">
+            <div class="items-end justify-between max-w-7xl sm:flex mx-auto mb-14 px-5">
                 <x-subtitle class="mb-0" :line="false">Reviews from our customers</x-subtitle>
 
-                <div class="flex mt-8 lg:mt-0">
+                <div class="flex lg:mt-0">
                     <button class="p-3 bg-primary text-white rounded-full focus:outline-none transition-all hover:scale-105 prev-button mr-3">
                         <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 transform -rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
@@ -121,9 +119,9 @@
                 </div>
             </div>
 
-            <div class="mt-8 -mx-6 lg:col-span-2 lg:mx-0">
+            <div class="lg:col-span-2 mx-0">
                 <div class="swiper-container overflow-hidden">
-                    <div class="swiper-wrapper pb-6">
+                    <div class="swiper-wrapper pb-5">
                         @foreach(\App\Repository\TestimonialsRepository::all() as $testimonial)
                         <div class="swiper-slide shadow-lg rounded-xl overflow-hidden max-w-lg">
                             <blockquote class="flex flex-col justify-between h-full p-12 bg-white">
@@ -197,6 +195,10 @@
                         centeredSlides: true,
                     },
                     1024: {
+                        slidesPerView: 2.5,
+                        centeredSlides: false,
+                    },
+                    1300: {
                         slidesPerView: 3.5,
                         centeredSlides: false,
                     },

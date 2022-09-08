@@ -1,6 +1,6 @@
 @props(['lineColor' => 'bg-primary', 'line' => true])
 
-<h2 {{ $attributes->merge(['class' => 'mb-16 text-5xl font-medium']) }}>
+<h2 {{ $attributes->merge(['class' => 'mb-16 text-4xl xl:text-5xl font-medium']) }}>
     <div class="relative inline-block text-zinc-900">
         {{ $slot }}
 
