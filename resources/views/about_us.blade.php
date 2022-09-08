@@ -63,7 +63,7 @@
             </div>
 
             <div class="grid gap-10 mx-auto lg:grid-cols-2 lg:max-w-screen-lg mb-6">
-                @foreach(\App\Repository\TeamRepository::all() as $item)
+                @foreach(\App\Repositories\TeamRepository::all() as $item)
                     <x-team-member :image="$item['image']"
                                    :name="$item['name']"
                                    :position="$item['position']"
@@ -77,7 +77,7 @@
 
     <!-- Testimonials -->
     @push('style')
-    <link crossorigin="anonymous" href="https://unpkg.com/swiper/swiper-bundle.min.css" rel="stylesheet"/>
+        <link crossorigin="anonymous" href="https://unpkg.com/swiper/swiper-bundle.min.css" rel="stylesheet"/>
     @endpush
 
     <section class="bg-zinc-100">
@@ -103,50 +103,50 @@
             <div class="lg:col-span-2 mx-0">
                 <div class="swiper-container overflow-hidden">
                     <div class="swiper-wrapper pb-5">
-                        @foreach(\App\Repository\TestimonialsRepository::all() as $testimonial)
-                        <div class="swiper-slide shadow-lg rounded-xl overflow-hidden max-w-lg">
-                            <blockquote class="flex flex-col justify-between h-full p-12 bg-white">
-                                <div>
-                                    <div class="flex space-x-0.5 text-white">
+                        @foreach(\App\Repositories\TestimonialsRepository::all() as $testimonial)
+                            <div class="swiper-slide shadow-lg rounded-xl overflow-hidden max-w-lg">
+                                <blockquote class="flex flex-col justify-between h-full p-12 bg-white">
+                                    <div>
+                                        <div class="flex space-x-0.5 text-white">
                                       <span class="text-yellow-500">
                                         <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
                                           <path d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm4.326 18.266l-4.326-2.314-4.326 2.313.863-4.829-3.537-3.399 4.86-.671 2.14-4.415 2.14 4.415 4.86.671-3.537 3.4.863 4.829z"/>
                                         </svg>
                                       </span>
-                                      <span class="text-yellow-500">
+                                            <span class="text-yellow-500">
                                         <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
                                           <path d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm4.326 18.266l-4.326-2.314-4.326 2.313.863-4.829-3.537-3.399 4.86-.671 2.14-4.415 2.14 4.415 4.86.671-3.537 3.4.863 4.829z"/>
                                         </svg>
                                       </span>
-                                      <span class="text-yellow-500">
+                                            <span class="text-yellow-500">
                                         <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
                                           <path d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm4.326 18.266l-4.326-2.314-4.326 2.313.863-4.829-3.537-3.399 4.86-.671 2.14-4.415 2.14 4.415 4.86.671-3.537 3.4.863 4.829z"/>
                                         </svg>
                                       </span>
-                                      <span class="text-yellow-500">
+                                            <span class="text-yellow-500">
                                         <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
                                           <path d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm4.326 18.266l-4.326-2.314-4.326 2.313.863-4.829-3.537-3.399 4.86-.671 2.14-4.415 2.14 4.415 4.86.671-3.537 3.4.863 4.829z"/>
                                         </svg>
                                       </span>
-                                      <span class="text-yellow-500">
+                                            <span class="text-yellow-500">
                                         <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
                                           <path d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm4.326 18.266l-4.326-2.314-4.326 2.313.863-4.829-3.537-3.399 4.86-.671 2.14-4.415 2.14 4.415 4.86.671-3.537 3.4.863 4.829z"/>
                                         </svg>
                                       </span>
+                                        </div>
+
+                                        <div class="mt-4">
+                                            <h5 class="text-2xl font-bold text-primary sm:text-3xl">{{ $testimonial['title'] }}</h5>
+
+                                            <p class="mt-3 text-md text-zinc-600">
+                                                {{ $testimonial['content'] }}
+                                            </p>
+                                        </div>
                                     </div>
 
-                                    <div class="mt-4">
-                                        <h5 class="text-2xl font-bold text-primary sm:text-3xl">{{ $testimonial['title'] }}</h5>
-
-                                        <p class="mt-3 text-md text-zinc-600">
-                                            {{ $testimonial['content'] }}
-                                        </p>
-                                    </div>
-                                </div>
-
-                                <footer class="mt-8 text-zinc-800">- {{ $testimonial['client'] }}</footer>
-                            </blockquote>
-                        </div>
+                                    <footer class="mt-8 text-zinc-800">- {{ $testimonial['client'] }}</footer>
+                                </blockquote>
+                            </div>
                         @endforeach
                     </div>
                 </div>
@@ -155,38 +155,38 @@
     </section>
 
     @push('script')
-    <script crossorigin="anonymous" defer src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+        <script crossorigin="anonymous" defer src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            const swiper = new Swiper('.swiper-container', {
-                loop: true,
-                slidesPerView: 1.5,
-                spaceBetween: 32,
-                autoplay: {
-                    delay: 8000,
-                },
-                navigation: {
-                    nextEl: '.next-button',
-                    prevEl: '.prev-button',
-                },
-                breakpoints: {
-                    768: {
-                        slidesPerView: 2.5,
-                        centeredSlides: true,
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                const swiper = new Swiper('.swiper-container', {
+                    loop: true,
+                    slidesPerView: 1.5,
+                    spaceBetween: 32,
+                    autoplay: {
+                        delay: 8000,
                     },
-                    1024: {
-                        slidesPerView: 2.5,
-                        centeredSlides: false,
+                    navigation: {
+                        nextEl: '.next-button',
+                        prevEl: '.prev-button',
                     },
-                    1300: {
-                        slidesPerView: 3.5,
-                        centeredSlides: false,
+                    breakpoints: {
+                        768: {
+                            slidesPerView: 2.5,
+                            centeredSlides: true,
+                        },
+                        1024: {
+                            slidesPerView: 2.5,
+                            centeredSlides: false,
+                        },
+                        1300: {
+                            slidesPerView: 3.5,
+                            centeredSlides: false,
+                        },
                     },
-                },
+                })
             })
-        })
-    </script>
+        </script>
     @endpush
 
 </x-main-layout>
