@@ -57,17 +57,11 @@
         </x-container>
     </div>
 
-    <div>
+    <div class="mb-14">
         <x-search-keyword-or-domain></x-search-keyword-or-domain>
     </div>
 
-    @push('style')
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.css">
-    @endpush
-
     @push('script')
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"></script>
-
         <script>
             document.addEventListener("DOMContentLoaded", function () {
                 const chart1 = {

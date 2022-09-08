@@ -59,7 +59,7 @@
                     {{ $slot }}
 
                     <!-- Footer -->
-                    <div class="bg-zinc-200 py-12 md:py-20 mt-14">
+                    <div class="bg-zinc-200 py-12 md:py-20">
                         <div class="max-w-screen-xl w-full mx-auto px-6 sm:px-8 grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-4">
                             <div class="flex flex-col items-start">
                                 <p class="text-black-600 mb-4 font-medium text-2xl">Sitemap</p>

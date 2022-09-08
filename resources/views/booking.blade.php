@@ -1,6 +1,6 @@
 <x-main-layout>
     <x-container>
-        <div class="max-w-screen-xl px-6 sm:px-8 mx-auto">
+        <div class="max-w-screen-xl px-6 sm:px-8 mx-auto mb-8">
             <div class="flex-col flex flex-nowrap gap-8 xl:flex-row">
                 <div class="w-full xl:w-9/12 flex flex-col gap-6">
                     <x-card class="border-t-4 border-primary gap-0">

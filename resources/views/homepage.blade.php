@@ -22,7 +22,9 @@
         <div id="hero-bg" class="absolute top-0 left-0 right-0 bottom-0 z-0 overflow-hidden"></div>
     </div>
 
-    <x-search-keyword-or-domain></x-search-keyword-or-domain>
+    <div class="mb-14">
+        <x-search-keyword-or-domain></x-search-keyword-or-domain>
+    </div>
 
     {{--
     <x-slot name="header">
