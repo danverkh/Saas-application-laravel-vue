@@ -4,8 +4,8 @@ namespace App\Services\DataForSeo;
 
 class Params
 {
-    public const TYPE_DOMAIN = 'DOMAIN_SEARCH';
-    public const TYPE_KEYWORD_LIST = 'KEYWORD_LIST';
+    public const TYPE_DOMAIN         = 'DOMAIN_SEARCH';
+    public const TYPE_KEYWORD_LIST   = 'KEYWORD_LIST';
     public const TYPE_SINGLE_KEYWORD = 'SINGLE_KEYWORD';
 
     private $languageByLocation = [
@@ -79,34 +79,18 @@ class Params
     }
 
     /**
-     * @param string $url
-     *
      * @return string
      */
-    private function idnHostToAscii(string $url): string
+    public function getLocation(): string
     {
-        $urlArray = parse_url($url);
+        return data_get($this->languageByLocation[$this->market], 'location');
+    }
 
-        // no scheme available? e.g. just "demouser.de" => add scheme
-        if (!\array_key_exists('scheme', $urlArray)) {
-            $urlArray = parse_url('http://' . $url);
-        }
-
-        if ($urlArray === false) {
-            return $url;
-        }
-
-        if (!\array_key_exists('host', $urlArray)) {
-            return $url;
-        }
-
-        $originalHost = $urlArray['host'];
-        $asciiHost    = \idn_to_ascii($originalHost, 0, \INTL_IDNA_VARIANT_UTS46);
-
-        if ($asciiHost === false) {
-            return $url;
-        }
-
-        return \str_replace($originalHost, $asciiHost, $url);
+    /**
+     * @return string
+     */
+    public function getLanguage(): string
+    {
+        return data_get($this->languageByLocation[$this->market], 'language');
     }
 }

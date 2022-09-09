@@ -37,9 +37,7 @@ class RankingsController extends Controller
             $data = Cache::remember($key, now()->addMinutes(30), static function () use ($limiterKey, $client, $params) {
                 RateLimiter::hit($limiterKey);
 
-                $items = $client->fetch($params['query'], $params['market'])->getItems();
-
-                return RankingsResource::collection($items)->toArray(request());
+                return $client->fetch($params['query'], $params['market']);
             });
         } catch (Exception $e) {
             Log::error('Failed to fetch rankings: ' . $e, $params);

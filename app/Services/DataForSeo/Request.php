@@ -6,6 +6,7 @@ use App\Services\DataForSeo\Requests\DomainSearch;
 use App\Services\DataForSeo\Requests\KeywordList;
 use App\Services\DataForSeo\Requests\AbstractRequest;
 use App\Services\DataForSeo\Requests\SingleKeyword;
+use Illuminate\Pipeline\Pipeline;
 
 class Request
 {
@@ -34,9 +35,7 @@ class Request
      */
     public function fetch(): self
     {
-        $request = $this->request()->fetch();
-
-        $this->result = $request->result();
+        $this->result = $this->request()->fetch();
 
         return $this;
     }
@@ -46,12 +45,11 @@ class Request
      */
     private function request(): AbstractRequest
     {
-        /** @var AbstractRequest $request */
-        $request = null;
-
-        if ($this->params->isDomain()) $request = new DomainSearch();
-        if ($this->params->isKeywordList()) $request = new KeywordList();
-        if ($this->params->isSingleKeyword()) $request = new SingleKeyword();
+        $request = match ($this->params->searchType) {
+            Params::TYPE_DOMAIN => new DomainSearch(),
+            Params::TYPE_KEYWORD_LIST => new KeywordList(),
+            Params::TYPE_SINGLE_KEYWORD => new SingleKeyword(),
+        };
 
         $request->setParams($this->params);
 
@@ -63,6 +61,13 @@ class Request
      */
     public function result(): array
     {
-        return $this->result;
+        return app(Pipeline::class)
+            ->send($this->result)
+            ->through([
+                \App\Services\DataForSeo\Modifiers\UniqueKeywords::class,
+                \App\Services\DataForSeo\Modifiers\CalculateMissingValues::class,
+                \App\Services\DataForSeo\Modifiers\SortResults::class,
+            ])
+            ->thenReturn();
     }
 }

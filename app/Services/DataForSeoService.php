@@ -2,18 +2,12 @@
 
 namespace App\Services;
 
-use App\Services\DataForSeo\Params;
 use App\Services\DataForSeo\Request;
 use Illuminate\Support\Str;
 
 class DataForSeoService
 {
     private string $url = 'https://api.dataforseo.com/';
-
-    /**
-     * @var array|mixed|string|string[]|null
-     */
-    private $result;
 
     /**
      * Init rest client in constructor
@@ -31,24 +25,14 @@ class DataForSeoService
      * @param string $market
      * @param int    $limit
      *
-     * @return \App\Services\DataForSeoService
+     * @return array
      */
-    public function fetch(string $query, string $market, int $limit = 500): self
+    public function fetch(string $query, string $market, int $limit = 500): array
     {
         $market = Str::upper($market);
 
         $request = new Request($query, $market, $limit);
 
-        $this->result = $request->fetch()->result();
-
-        return $this;
-    }
-
-    /**
-     * @return array
-     */
-    public function getItems(): array
-    {
-        return data_get($this->result, 'tasks.0.result.0.items', []) ?? [];
+        return $request->fetch()->result();
     }
 }

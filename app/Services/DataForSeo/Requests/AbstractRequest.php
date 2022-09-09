@@ -3,14 +3,30 @@
 namespace App\Services\DataForSeo\Requests;
 
 use App\Services\DataForSeo\Params;
+use App\Services\RestClient;
 
 abstract class AbstractRequest
 {
-    protected Params $params;
+    protected ?Params $params;
 
-    abstract public function fetch(): self;
+    protected RestClient $client;
 
-    abstract public function result(): array;
+    protected array $result;
+
+    /**
+     * @param \App\Services\DataForSeo\Params|null $params
+     */
+    public function __construct(?Params $params = null)
+    {
+        $this->params = $params;
+
+        $user = config('services.dataforseo.user');
+        $password = config('services.dataforseo.password');
+
+        $this->client = new RestClient('https://api.dataforseo.com/', null, $user, $password);
+    }
+
+    abstract public function fetch(): array;
 
     /**
      * @param \App\Services\DataForSeo\Params $params
