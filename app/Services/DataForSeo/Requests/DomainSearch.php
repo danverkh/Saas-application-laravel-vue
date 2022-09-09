@@ -34,9 +34,18 @@ class DomainSearch extends AbstractRequest
             'limit'         => $limit,
             'order_by'      => ['keyword_data.keyword_info.cpc,desc', 'keyword_data.keyword_info.search_volume,desc'],
             'filters'       => [
-                ['ranked_serp_element.serp_item.rank_group', '<', 200],
+                ['ranked_serp_element.serp_item.rank_group', '>', 10],
                 'and',
-                ['keyword_data.keyword_info.search_volume', '<', 35000],
+                ['ranked_serp_element.serp_item.rank_group', '<', 70],
+                'and',
+                ['keyword_data.keyword_info.search_volume', '>', 50],
+                'and',
+                ['keyword_data.keyword_info.search_volume', '<', 10000],
+
+                // legacy
+                //['ranked_serp_element.serp_item.rank_group', '<', 200],
+                //'and',
+                //['keyword_data.keyword_info.search_volume', '<', 35000],
             ],
         ];
 
@@ -58,7 +67,7 @@ class DomainSearch extends AbstractRequest
                     'url'           => $item['ranked_serp_element']['serp_item']['url'] ?? '/',
                 ];
             })
-            ->filter()
+            ->reject(static fn ($item) => $item === null)
             ->toArray();
     }
 

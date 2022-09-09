@@ -52,7 +52,7 @@
                     </tr>
                 </template>
 
-                <tr v-else>
+                <tr v-else class="no-hover">
                     <td colspan="9" class="text-center !py-12">
                         <spinner></spinner>
                     </td>
@@ -110,6 +110,8 @@ export default {
                     this.rankingItems.setItems(resp.data.rows);
                 })
                 .catch(error => {
+                    console.error('Something wen wrong', error);
+
                     if (error.response.status === 429) {
                         this.error = 'Too many search attempts, please try again in a minute';
                     } else {
@@ -121,11 +123,15 @@ export default {
         },
 
         muteDomain(url) {
-            const {origin, pathname} = new URL(url);
+            try {
+                const {origin, pathname} = new URL(url);
 
-            return origin
-                ? `<span class="opacity-50">${origin}</span>${(pathname === '/' ? '' : pathname)}`
-                : url;
+                return origin
+                    ? `<span class="opacity-50">${origin}</span>${(pathname === '/' ? '' : pathname)}`
+                    : url;
+            } catch (error) {
+                return url;
+            }
         },
 
         update() {

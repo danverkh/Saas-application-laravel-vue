@@ -16,13 +16,12 @@ class SortResults
     public function handle($items, Closure $next)
     {
         $items = collect($items)
-            ->sortByDesc([
-                'cpc',
-                'current_rank',
-                static function ($item) {
-                    return Str::substrCount($item['url'] ?? '', '/');
-                },
+            ->sortBy([
+                ['cpc', 'desc'],
+                ['current_rank', 'desc'],
+                [static fn ($item) => Str::substrCount($item['url'] ?? '', '/'), 'desc'],
             ])
+            ->values()
             ->toArray();
 
         return $next($items);
