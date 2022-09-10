@@ -47,6 +47,7 @@
 
 <script>
 import {useRankingItemsStore} from '../../stores/rankingItems';
+import generator from 'random-seed';
 
 export default {
     name: "ForecastedResults",
@@ -79,16 +80,12 @@ export default {
         },
 
         ctr() {
-            let min = 11.2;
-            let max = 18.8;
-
-            const audienceMax = this.audienceSize;
-
-            const variation = 0;
+            const seed = this.audienceSize;
+            const variation = generator(seed).floatBetween(-2, 2);
 
             return {
-                min: 0,
-                max: 0,
+                min: 11.2 + variation,
+                max: 18.8 + variation,
             };
         },
     },
