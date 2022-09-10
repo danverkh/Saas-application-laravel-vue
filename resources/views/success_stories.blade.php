@@ -5,7 +5,7 @@
         </x-page-title>
     </div>
 
-    <div>
+    <div class="mb-16">
         <x-search-keyword-or-domain></x-search-keyword-or-domain>
     </div>
 </x-main-layout>
