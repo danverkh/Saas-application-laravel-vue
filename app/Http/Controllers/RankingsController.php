@@ -34,7 +34,7 @@ class RankingsController extends Controller
         try {
             $key = "rankings.{$params['market']}.{$params['query']}";
 
-            $data = Cache::remember($key, now()->addMinutes(30), static function () use ($limiterKey, $client, $params) {
+            $data = Cache::remember($key, now()->addHours(3), static function () use ($limiterKey, $client, $params) {
                 RateLimiter::hit($limiterKey);
 
                 return $client->fetch($params['query'], $params['market']);

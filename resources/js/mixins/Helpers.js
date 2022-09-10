@@ -9,8 +9,8 @@ export default {
                 symbol: get(config, 'symbol', '€'),
                 format: '%v %s',
                 precision: get(config, 'precision', 2),
-                decimal: config.decimalSeparator || ',',
-                thousand: config.thousandSeparator || '.',
+                decimal: config.decimalSeparator || '.',
+                thousand: config.thousandSeparator || ',',
             })
         },
 

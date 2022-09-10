@@ -17,14 +17,13 @@
     <div class="divider divider-vertical my-0"></div>
 
     <div class="tabs w-full flex-nowrap -mt-3 mb-3">
-        <a class="tab tab-lg" :class="{'tab-active': day === 1}" @click="day = 1">1-day</a>
-        <a class="tab tab-lg" :class="{'tab-active': day === 7}" @click="day = 7">7-day</a>
-        <a class="tab tab-lg" :class="{'tab-active': day === 30}" @click="day = 30">30-day</a>
+        <a class="tab tab-lg" :class="{'tab-active': days === 1}" @click="days = 1">1-day</a>
+        <a class="tab tab-lg" :class="{'tab-active': days === 30}" @click="days = 30">30-days</a>
     </div>
 
     <div class="mb-4">
         <div class="text-md">1-day spend</div>
-        <div class="text-2xl font-semibold">€36.00 - €840.00</div>
+        <div class="text-2xl font-semibold">{{ money(maximumCostSum / 2) }} - {{ money(maximumCostSum) }}</div>
     </div>
 
     <div class="mb-4">
@@ -34,7 +33,7 @@
 
     <div class="mb-4">
         <div class="text-md">CTR</div>
-        <div class="text-2xl font-semibold">1.0% - 1.6%</div>
+        <div class="text-2xl font-semibold">{{ number(ctr.min, 1) }}% - {{ number(ctr.max, 1) }}%</div>
     </div>
 
     <div class="mb-4">
@@ -55,7 +54,7 @@ export default {
     data() {
         return {
             successPercentage: 80,
-            day: 1,
+            days: 1,
             rankingItems: useRankingItemsStore(),
         };
     },
@@ -77,6 +76,20 @@ export default {
             const percentage = this.maximumCostSum / 1000 * 100;
 
             return Math.min(percentage, 100);
+        },
+
+        ctr() {
+            let min = 11.2;
+            let max = 18.8;
+
+            const audienceMax = this.audienceSize;
+
+            const variation = 0;
+
+            return {
+                min: 0,
+                max: 0,
+            };
         },
     },
 }
