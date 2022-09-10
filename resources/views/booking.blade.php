@@ -48,7 +48,7 @@
                         </a>
 
                         <x-card class="border-t-4 border-zinc-300">
-                            <query-switcher market="{{ $market }}" query="{{ $query }}" :is-domain="{{ $isDomain ? 'true' : 'false' }}"></query-switcher>
+                            <domain-switcher market="{{ $market }}" query="{{ $query }}"></domain-switcher>
                         </x-card>
                     </div>
 
@@ -70,7 +70,7 @@
     </x-container>
 </x-main-layout>
 <script>
-    import DomainSwitcher from "../js/pages/booking/QuerySwitcher";
+    import DomainSwitcher from "../js/pages/booking/DomainSwitcher";
 
     export default {
         components: {DomainSwitcher}

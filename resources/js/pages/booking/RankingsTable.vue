@@ -45,7 +45,7 @@
                                 <div>
                                     There are no keywords for this domain for which AutoRanker can work.<br />
                                     We require existing rankings within the top 70 of search results to deliver results.<br />
-                                    You can change your domain and market <button @click="openModal('query-switcher-modal')" class="text-primary hover:underline">here</button>.
+                                    You can change your domain and market <button @click="openModal('domain-switcher-modal')" class="text-primary hover:underline">here</button>.
                                 </div>
                             </div>
                         </td>

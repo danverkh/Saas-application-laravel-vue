@@ -19,11 +19,11 @@ app.component('main-search', MainSearch)
 
 // Booking page
 import RankingsTable from './pages/booking/RankingsTable.vue'
-import QuerySwitcher from './pages/booking/QuerySwitcher.vue'
+import DomainSwitcher from './pages/booking/DomainSwitcher.vue'
 import ForecastedResults from './pages/booking/ForecastedResults.vue'
 
 app.component('rankings-table', RankingsTable)
-app.component('query-switcher', QuerySwitcher)
+app.component('domain-switcher', DomainSwitcher)
 app.component('forecasted-results', ForecastedResults)
 
 // Globals
