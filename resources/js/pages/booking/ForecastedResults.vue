@@ -14,6 +14,12 @@
              :style="{width: `${sliderPercentage}%`}"></div>
     </div>
 
+    <div class="mt-4 mb-2">
+        <input type="range" min="0.8" max="4" v-model="conversionRate" step="0.1" class="range range-xs range-primary" style="--range-shdw: 351 72% 52%; --bc: 225 5% 0%"/>
+        <div class="text-md">Leads</div>
+        <div class="text-2xl font-semibold">{{ number(leads, 0) }}</div>
+    </div>
+
     <div class="divider divider-vertical my-0"></div>
 
     <div class="tabs w-full flex-nowrap -mt-3 mb-3">
@@ -22,13 +28,13 @@
     </div>
 
     <div class="mb-4">
-        <div class="text-md">1-day spend</div>
-        <div class="text-2xl font-semibold">{{ money(maximumCostSum / 2) }} - {{ money(maximumCostSum) }}</div>
+        <div class="text-md">{{ daysLabel }} spend</div>
+        <div class="text-2xl font-semibold">{{ money(spend.min) }} - {{ money(spend.max) }}</div>
     </div>
 
     <div class="mb-4">
-        <div class="text-md">1-day impressions</div>
-        <div class="text-2xl font-semibold">14,000 - 5,700</div>
+        <div class="text-md">{{ daysLabel }} impressions</div>
+        <div class="text-2xl font-semibold">{{ number(impressions.min, 0) }} - {{ number(impressions.max, 0) }}</div>
     </div>
 
     <div class="mb-4">
@@ -38,29 +44,35 @@
 
     <div class="mb-4">
         <div class="text-md">
-            30-day clicks
+            {{ daysLabel }} clicks
             <div class="badge bg-violet-600 border-none ml-2">Key Result</div>
         </div>
-        <div class="text-2xl font-semibold">20 - 84</div>
+        <div class="text-2xl font-semibold">{{ number(clicks.min, 0) }} - {{number(clicks.max, 0)}}</div>
     </div>
 </template>
 
 <script>
 import {useRankingItemsStore} from '../../stores/rankingItems';
 import generator from 'random-seed';
+import {round, ceil} from 'lodash';
 
 export default {
     name: "ForecastedResults",
 
     data() {
         return {
-            successPercentage: 80,
             days: 1,
+            conversionRate: 1.8,
+            successPercentage: 80,
             rankingItems: useRankingItemsStore(),
         };
     },
 
     computed: {
+        daysLabel() {
+            return `${this.days}-day` + (this.days > 1 ? 's' : '');
+        },
+
         selectedItems() {
             return this.rankingItems.selectedItems;
         },
@@ -79,13 +91,44 @@ export default {
             return Math.min(percentage, 100);
         },
 
+        spend() {
+            return {
+                min: this.days * this.maximumCostSum * 0.5,
+                max: this.days * this.maximumCostSum,
+            };
+        },
+
+        impressions() {
+            return {
+                min: this.days * this.audienceSize * 0.5,
+                max: this.days * this.audienceSize,
+            };
+        },
+
         ctr() {
+            if (this.audienceSize === 0) {
+                return {min: 0, max: 0};
+            }
+
             const seed = this.audienceSize;
             const variation = generator(seed).floatBetween(-2, 2);
 
             return {
                 min: 11.2 + variation,
                 max: 18.8 + variation,
+            };
+        },
+
+        leads() {
+            const clicks = (this.clicks.min + this.clicks.max) / 2;
+
+            return ceil(clicks * Number(this.conversionRate));
+        },
+
+        clicks() {
+            return {
+                min: this.impressions.min * round(this.ctr.min, 1),
+                max: this.impressions.max * round(this.ctr.max, 1),
             };
         },
     },

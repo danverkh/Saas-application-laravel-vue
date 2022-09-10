@@ -14,8 +14,14 @@ export default {
             })
         },
 
-        number(value, decimals = 2) {
-            return round(value, decimals).toFixed(decimals);
+        number(value, decimals = 2, thousandsSeparator = true) {
+            let number = round(value, decimals).toFixed(decimals);
+
+            if (thousandsSeparator) {
+                number = number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+            }
+
+            return number;
         },
 
         openModal(name) {
