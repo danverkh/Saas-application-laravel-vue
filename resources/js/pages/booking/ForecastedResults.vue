@@ -4,7 +4,15 @@
         <div class="text-2xl font-semibold">{{ audienceSize }}+</div>
     </div>
 
-    <input type="range" v-model="successPercentage" min="1" max="100" class="range range-xs text-primary my-3"/>
+    <div class="w-full bg-zinc-600 h-3 my-3 rounded-xl overflow-hidden">
+        <div class="h-3 transition-all duration-1000 ease-out"
+             :class="{
+                'bg-red-500': maximumCostSum < 200,
+                'bg-yellow-500': maximumCostSum >= 200 && maximumCostSum < 600,
+                'bg-green-500': maximumCostSum >= 600,
+              }"
+             :style="{width: `${sliderPercentage}%`}"></div>
+    </div>
 
     <div class="divider divider-vertical my-0"></div>
 
@@ -59,6 +67,16 @@ export default {
 
         audienceSize() {
             return this.selectedItems.reduce((sum, item) => sum + item.search_volume, 0);
+        },
+
+        maximumCostSum() {
+            return this.selectedItems.reduce((sum, item) => sum + item.maximum_cost, 0);
+        },
+
+        sliderPercentage() {
+            const percentage = this.maximumCostSum / 1000 * 100;
+
+            return Math.min(percentage, 100);
         },
     },
 }
