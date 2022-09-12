@@ -58,7 +58,7 @@
     </div>
 
     <div class="mb-14">
-        <x-search-keyword-or-domain></x-search-keyword-or-domain>
+        <x-search-domain></x-search-domain>
     </div>
 
     @push('script')

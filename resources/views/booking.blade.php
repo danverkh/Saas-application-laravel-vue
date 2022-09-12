@@ -31,7 +31,7 @@
                     </x-card>
 
                     <div class="bg-white shadow-lg rounded-2xl">
-                        <rankings-table market="{{ $market }}" query="{{ $query }}"></rankings-table>
+                        <rankings-table market="{{ $market }}" domain="{{ $domain }}"></rankings-table>
                     </div>
                 </div>
 
@@ -48,7 +48,7 @@
                         </a>
 
                         <x-card class="border-t-4 border-zinc-300">
-                            <domain-switcher market="{{ $market }}" query="{{ $query }}"></domain-switcher>
+                            <domain-switcher market="{{ $market }}" domain="{{ $domain }}"></domain-switcher>
                         </x-card>
                     </div>
 

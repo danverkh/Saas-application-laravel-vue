@@ -24,6 +24,7 @@
         "accounting-js": "^1.1.1",
         "chart.js": "^2.9.3",
         "daisyui": "^2.24.0",
+        "mitt": "^3.0.0",
         "pinia": "^2.0.21",
         "random-seed": "^0.3.0",
         "vue": "^3.2.36",

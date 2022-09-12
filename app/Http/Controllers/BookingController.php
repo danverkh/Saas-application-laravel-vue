@@ -8,12 +8,12 @@ class BookingController extends Controller
 {
     /**
      * @param string $market
-     * @param string $query
+     * @param string $domain
      *
      * @return \Illuminate\Contracts\View\View
      */
-    public function index(string $market, string $query): View
+    public function index(string $market, string $domain): View
     {
-        return view('booking', compact('market', 'query'));
+        return view('booking', compact('market', 'domain'));
     }
 }

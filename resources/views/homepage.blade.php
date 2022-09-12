@@ -23,7 +23,7 @@
     </div>
 
     <div class="mb-16">
-        <x-search-keyword-or-domain></x-search-keyword-or-domain>
+        <x-search-domain></x-search-domain>
     </div>
 
     {{--

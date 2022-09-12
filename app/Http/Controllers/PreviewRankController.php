@@ -8,10 +8,9 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\RateLimiter;
 use Symfony\Component\HttpFoundation\Response;
 
-class RankingsController extends Controller
+class PreviewRankController extends Controller
 {
     /**
      * @param \Illuminate\Http\Request        $request
@@ -22,28 +21,22 @@ class RankingsController extends Controller
     public function index(Request $request, DataForSeoService $client): JsonResponse
     {
         $params = $request->validate([
-            'domain' => 'required',
-            'market' => 'required',
+            'keywords' => 'required',
+            'market'   => 'required',
         ]);
 
-        $limiterKey = $request->userAgent() . $request->ip();
-
-        abort_if(RateLimiter::tooManyAttempts($limiterKey, 10), 429, 'Too many attempts');
-
         try {
-            $key = "rankings.{$params['market']}.{$params['domain']}";
+            $key = "preview-rank.{$params['market']}.{$params['domain']}";
 
-            $data = Cache::remember($key, now()->addHours(3), static function () use ($limiterKey, $client, $params) {
-                RateLimiter::hit($limiterKey);
-
+            $data = Cache::remember($key, now()->addHours(3), static function () use ($client, $params) {
                 return $client->fetch($params['domain'], $params['market']);
             });
         } catch (Exception $e) {
-            Log::error('Failed to fetch rankings: ' . $e, $params);
+            Log::error('Failed to preview rank: ' . $e, $params);
 
             return response()->json(['status' => 'failed'], Response::HTTP_INTERNAL_SERVER_ERROR);
         }
 
-        return response()->json(['status' => 'success', 'rows' => $data]);
+        return response()->json(['status' => 'success', 'data' => $data]);
     }
 }

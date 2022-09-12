@@ -1,6 +1,6 @@
 <template>
     <div class="text-lg inline-block">
-        Domain: <span class="font-semibold">{{ query }}</span>
+        Domain: <span class="font-semibold">{{ domain }}</span>
         <label for="domain-switcher-modal" class="cursor-pointer text-sm -mt-1 ml-2 text-primary hover:underline relative bottom-0.5">(change)</label>
     </div>
 
@@ -22,7 +22,7 @@ export default {
 
     props: {
         market: String,
-        query: String,
+        domain: String,
     },
 }
 </script>
