@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Services\DataForSeo\Request as DataForSeoRequest;
 use App\Services\DataForSeoService;
 use Exception;
 use Illuminate\Http\JsonResponse;
@@ -21,15 +22,15 @@ class PreviewRankController extends Controller
     public function index(Request $request, DataForSeoService $client): JsonResponse
     {
         $params = $request->validate([
-            'keywords' => 'required',
-            'market'   => 'required',
+            'keyword' => 'required',
+            'market'  => 'required',
         ]);
 
         try {
-            $key = "preview-rank.{$params['market']}.{$params['domain']}";
+            $key = "preview-rank.{$params['market']}.{$params['keyword']}";
 
             $data = Cache::remember($key, now()->addHours(3), static function () use ($client, $params) {
-                return $client->fetch($params['domain'], $params['market']);
+                return $client->setRequestType(DataForSeoRequest::TYPE_GOOGLE_KEYWORD)->fetch($params['keyword'], $params['market']);
             });
         } catch (Exception $e) {
             Log::error('Failed to preview rank: ' . $e, $params);

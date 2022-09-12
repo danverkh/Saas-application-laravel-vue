@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Services\DataForSeo\Request as DataForSeoRequest;
 use App\Services\DataForSeoService;
 use Exception;
 use Illuminate\Http\JsonResponse;
@@ -36,7 +37,7 @@ class RankingsController extends Controller
             $data = Cache::remember($key, now()->addHours(3), static function () use ($limiterKey, $client, $params) {
                 RateLimiter::hit($limiterKey);
 
-                return $client->fetch($params['domain'], $params['market']);
+                return $client->setRequestType(DataForSeoRequest::TYPE_DOMAIN_SEARCH)->fetch($params['domain'], $params['market']);
             });
         } catch (Exception $e) {
             Log::error('Failed to fetch rankings: ' . $e, $params);

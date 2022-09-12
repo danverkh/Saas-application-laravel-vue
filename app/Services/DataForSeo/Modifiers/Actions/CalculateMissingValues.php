@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Services\DataForSeo\Modifiers;
+namespace App\Services\DataForSeo\Modifiers\Actions;
 
 use Closure;
 

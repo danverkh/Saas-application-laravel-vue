@@ -7,17 +7,21 @@ use Illuminate\Support\Str;
 
 class DataForSeoService
 {
-    private string $url = 'https://api.dataforseo.com/';
+    /**
+     * @var string
+     */
+    private string $requestType;
 
     /**
-     * Init rest client in constructor
+     * @param String $request
+     *
+     * @return $this
      */
-    public function __construct()
+    public function setRequestType(String $request): self
     {
-        $user     = config('services.dataforseo.user');
-        $password = config('services.dataforseo.password');
+        $this->requestType = $request;
 
-        $this->client = new RestClient($this->url, null, $user, $password);
+        return $this;
     }
 
     /**
@@ -31,7 +35,7 @@ class DataForSeoService
     {
         $market = Str::upper($market);
 
-        $request = new Request($query, $market, $limit);
+        $request = new Request($this->requestType, $query, $market, $limit);
 
         return $request->fetch()->result();
     }
