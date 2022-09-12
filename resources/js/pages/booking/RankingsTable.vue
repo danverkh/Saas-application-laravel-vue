@@ -162,7 +162,7 @@ export default {
         },
 
         openPreviewRank(keyword) {
-            PreviewRank.fetch(this.market, keyword)
+            PreviewRank.fetch(this.market, keyword, this.domain)
                 .then(({data}) => {
                     usePreviewRankStore().set(data.data);
                     Modal.open('preview-rank');

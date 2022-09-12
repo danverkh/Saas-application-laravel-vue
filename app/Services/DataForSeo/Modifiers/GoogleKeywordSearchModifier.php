@@ -2,13 +2,19 @@
 
 namespace App\Services\DataForSeo\Modifiers;
 
-use App\Services\DataForSeo\Modifiers\Actions\CalculateMissingValues;
-use App\Services\DataForSeo\Modifiers\Actions\SortResults;
-use App\Services\DataForSeo\Modifiers\Actions\UniqueKeywords;
+use App\Services\DataForSeo\Modifiers\Actions\MoveDomainToTheTop;
 use Illuminate\Pipeline\Pipeline;
 
 class GoogleKeywordSearchModifier implements ModifierContract
 {
+    /**
+     * @var string
+     */
+    private string $domain;
+
+    /**
+     * @param string $domain
+     */
     public function __construct(string $domain)
     {
         $this->domain = $domain;
@@ -22,11 +28,9 @@ class GoogleKeywordSearchModifier implements ModifierContract
     public function handle(array $result): array
     {
         return app(Pipeline::class)
-            ->send($result)
+            ->send($result, $this->domain)
             ->through([
-                UniqueKeywords::class,
-                CalculateMissingValues::class,
-                SortResults::class,
+                MoveDomainToTheTop::class,
             ])
             ->thenReturn();
     }

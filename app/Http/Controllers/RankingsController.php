@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Services\DataForSeo\Request as DataForSeoRequest;
-use App\Services\DataForSeoService;
 use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -15,12 +14,12 @@ use Symfony\Component\HttpFoundation\Response;
 class RankingsController extends Controller
 {
     /**
-     * @param \Illuminate\Http\Request        $request
-     * @param \App\Services\DataForSeoService $client
+     * @param \Illuminate\Http\Request $request
+     * @param DataForSeoRequest        $client
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function index(Request $request, DataForSeoService $client): JsonResponse
+    public function index(Request $request, DataForSeoRequest $client): JsonResponse
     {
         $params = $request->validate([
             'domain' => 'required',
@@ -37,7 +36,10 @@ class RankingsController extends Controller
             $data = Cache::remember($key, now()->addHours(3), static function () use ($limiterKey, $client, $params) {
                 RateLimiter::hit($limiterKey);
 
-                return $client->setRequestType(DataForSeoRequest::TYPE_DOMAIN_SEARCH)->fetch($params['domain'], $params['market']);
+                return $client->requestType(DataForSeoRequest::TYPE_DOMAIN_SEARCH)
+                              ->params($params['domain'], $params['market'])
+                              ->fetch()
+                              ->result();
             });
         } catch (Exception $e) {
             Log::error('Failed to fetch rankings: ' . $e, $params);

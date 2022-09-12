@@ -6,6 +6,7 @@ use App\Services\DataForSeo\Modifiers\DomainSearchModifier;
 use App\Services\DataForSeo\Modifiers\GoogleKeywordSearchModifier;
 use App\Services\DataForSeo\Requests\DomainSearch;
 use App\Services\DataForSeo\Requests\GoogleKeywordSearch;
+use Illuminate\Support\Str;
 
 class Request
 {
@@ -28,16 +29,29 @@ class Request
     private string $requestType;
 
     /**
-     * @param string $requestType
      * @param string $query
      * @param string $market
      * @param int    $limit
+     *
+     * @return \App\Services\DataForSeo\Request
      */
-    public function __construct(string $requestType, string $query, string $market, int $limit)
+    public function params(string $query, string $market, int $limit = 500): self
     {
-        $this->params = new Params($query, $market, $limit);
+        $this->params = new Params($query, Str::upper($market), $limit);
 
-        $this->requestType = $requestType;
+        return $this;
+    }
+
+    /**
+     * @param string $type
+     *
+     * @return $this
+     */
+    public function requestType(string $type): self
+    {
+        $this->requestType = $type;
+
+        return $this;
     }
 
     /**

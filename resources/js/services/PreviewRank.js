@@ -5,7 +5,7 @@ class PreviewRank {
         this.controller = null;
     }
 
-    fetch(market, keyword) {
+    fetch(market, keyword, domain) {
         // abort request if previous is not finished
         if (this.controller !== null) {
             this.abortFetch();
@@ -13,7 +13,7 @@ class PreviewRank {
 
         this.controller = new AbortController();
 
-        const params = {market, keyword};
+        const params = {market, keyword, domain};
 
         return axios.get(route('api.preview_rank'), {signal: this.controller.signal, params})
             .finally(() => this.controller = null);
