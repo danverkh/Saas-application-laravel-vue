@@ -22,7 +22,6 @@ class GoogleKeywordSearch extends AbstractRequest
         return collect($items)
             ->map(static function ($item) {
                 return [
-                    'domain'      => data_get($item, 'domain'),
                     'url'         => data_get($item, 'url'),
                     'title'       => data_get($item, 'title'),
                     'description' => data_get($item, 'description'),

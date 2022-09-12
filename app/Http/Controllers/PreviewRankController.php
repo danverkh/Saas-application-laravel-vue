@@ -26,20 +26,20 @@ class PreviewRankController extends Controller
             'domain'  => 'required',
         ]);
 
-        try {
+        //try {
             $key = "preview-rank.{$params['market']}.{$params['keyword']}";
 
             $data = Cache::remember($key, now()->addHours(3), static function () use ($client, $params) {
                 return $client->requestType(DataForSeoRequest::TYPE_GOOGLE_KEYWORD)
-                              ->params($params['market'], $params['keyword'])
+                              ->params($params['keyword'], $params['market'])
                               ->fetch()
                               ->result(['domain' => $params['domain']]);
             });
-        } catch (Exception $e) {
-            Log::error('Failed to preview rank: ' . $e, $params);
-
-            return response()->json(['status' => 'failed'], Response::HTTP_INTERNAL_SERVER_ERROR);
-        }
+        //} catch (Exception $e) {
+        //    Log::error('Failed to preview rank: ' . $e, $params);
+        //
+        //    return response()->json(['status' => 'failed'], Response::HTTP_INTERNAL_SERVER_ERROR);
+        //}
 
         return response()->json(['status' => 'success', 'data' => $data]);
     }

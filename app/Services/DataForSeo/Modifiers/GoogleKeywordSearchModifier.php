@@ -28,9 +28,10 @@ class GoogleKeywordSearchModifier implements ModifierContract
     public function handle(array $result): array
     {
         return app(Pipeline::class)
-            ->send($result, $this->domain)
+            ->send($result)
             ->through([
-                MoveDomainToTheTop::class,
+                "App\Services\DataForSeo\Modifiers\Actions\MoveDomainToTheTop:{$this->domain}",
+                "App\Services\DataForSeo\Modifiers\Actions\Limit:10",
             ])
             ->thenReturn();
     }

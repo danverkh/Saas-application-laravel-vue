@@ -2,6 +2,8 @@
 
 namespace App\Services\DataForSeo;
 
+use Illuminate\Support\Str;
+
 class Params
 {
     private $languageByLocation = [
@@ -28,7 +30,7 @@ class Params
     public function __construct(string $query, string $market, int $limit)
     {
         $this->query  = $query;
-        $this->market = $market;
+        $this->market = Str::upper($market);
         $this->limit  = $limit;
     }
 
