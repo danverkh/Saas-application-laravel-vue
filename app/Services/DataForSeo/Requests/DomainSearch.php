@@ -9,13 +9,8 @@ class DomainSearch extends AbstractRequest
      */
     public function fetch(): array
     {
-        return array_merge(
-            $this->domainBySearchEngineRanking(
-                $this->ensureCorrectDomainFormat($this->params->query)
-            ),
-            $this->domainByWebsiteContent(
-                $this->ensureCorrectDomainWithOptionalSubdomainFormatForRequest($this->params->query)
-            ),
+        return $this->domainBySearchEngineRanking(
+            $this->ensureCorrectDomainFormat($this->params->query)
         );
     }
 

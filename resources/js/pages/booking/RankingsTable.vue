@@ -11,13 +11,13 @@
                            :disabled="loading || !rankingItems.items.length"/>
                 </th>
                 <th class="cursor-default">Keyword</th>
-                <th><span class="tooltip cursor-default" data-tip="Search volume">Search</span></th>
+                <th><span class="tooltip cursor-default" data-tip="Search volume">Search Volume</span></th>
                 <th class="text-right"><span class="tooltip cursor-default" data-tip="Cost per click">CPC</span></th>
                 <th><span class="tooltip cursor-default" data-tip="Current rank">Rank</span></th>
                 <th><span class="tooltip cursor-default" data-tip="Website page URL">URL</span></th>
                 <th class="text-right">Projected<br>clicks</th>
                 <th class="text-right">Projected<br>traffic</th>
-                <th class="text-right">Maximum<br> cost</th>
+                <th class="text-right">Maximum<br>monthly cost</th>
             </tr>
             </thead>
             <tbody>

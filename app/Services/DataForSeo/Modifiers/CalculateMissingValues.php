@@ -16,8 +16,8 @@ class CalculateMissingValues
     {
         $items = collect($items)
             ->map(static function ($item) {
-                $cpc = (float) ($item['cpc'] ?? 0);
-                $searchVolume = (float) $item['search_volume'];
+                $cpc = (float) ($item['cpc'] ?? 0.52);
+                $searchVolume = (float) $item['search_volume'] ?? 10;
 
                 return array_merge($item, [
                     'projected_clicks'  => round($searchVolume * 0.18, 2),

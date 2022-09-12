@@ -14,12 +14,6 @@
              :style="{width: `${sliderPercentage}%`}"></div>
     </div>
 
-    <div class="mt-4 mb-2">
-        <input type="range" min="0.8" max="4" v-model="conversionRate" step="0.1" class="range range-xs range-primary" style="--range-shdw: 351 72% 52%; --bc: 225 5% 0%"/>
-        <div class="text-md">Leads</div>
-        <div class="text-2xl font-semibold">{{ number(leads, 0) }}</div>
-    </div>
-
     <div class="divider divider-vertical my-0"></div>
 
     <div class="tabs w-full flex-nowrap -mt-3 mb-3">
@@ -29,7 +23,13 @@
 
     <div class="mb-4">
         <div class="text-md">{{ daysLabel }} spend</div>
-        <div class="text-2xl font-semibold">{{ money(spend.min) }} - {{ money(spend.max) }}</div>
+
+        <div v-if="days === 1" class="no-hover">
+            <div class="text-2xl font-semibold">{{ number(spend.min) }} € - {{ number(spend.max) }} €</div>
+        </div>
+        <div v-else>
+            <div class="text-2xl font-semibold">{{ number(spend.min, 0) }} € - {{ number(spend.max, 0) }} €</div>
+        </div>
     </div>
 
     <div class="mb-4">
@@ -45,10 +45,18 @@
     <div class="mb-4">
         <div class="text-md">
             {{ daysLabel }} clicks
-            <div class="badge bg-violet-600 border-none ml-2">Key Result</div>
         </div>
         <div class="text-2xl font-semibold">{{ number(clicks.min, 0) }} - {{number(clicks.max, 0)}}</div>
     </div>
+
+    <div class="mb-4">
+        <div class="text-md">
+            {{ daysLabel }} leads
+            <div class="badge bg-violet-600 border-none ml-2">Key Result</div>
+        </div>
+        <div class="text-2xl font-semibold">{{ number(leads.min, 0) }} - {{number(leads.max, 0)}}</div>
+    </div>
+
 </template>
 
 <script>
@@ -62,7 +70,7 @@ export default {
     data() {
         return {
             days: 1,
-            conversionRate: 1.8,
+            conversionRate: 0.018,
             successPercentage: 80,
             rankingItems: useRankingItemsStore(),
         };
@@ -93,15 +101,22 @@ export default {
 
         spend() {
             return {
-                min: this.days * this.maximumCostSum * 0.5,
-                max: this.days * this.maximumCostSum,
+                min: this.days * this.maximumCostSum * 0.5 / 30,
+                max: this.days * this.maximumCostSum / 30,
             };
         },
 
         impressions() {
+            if (this.audienceSize > 0 && this.audienceSize < 120) {
+                return {
+                    min: this.days * this.audienceSize * 0.5 / 30,
+                    max: (this.days * this.audienceSize / 30) + 1,
+                };
+            }
+
             return {
-                min: this.days * this.audienceSize * 0.5,
-                max: this.days * this.audienceSize,
+                min: this.days * this.audienceSize * 0.5 / 30,
+                max: this.days * this.audienceSize / 30,
             };
         },
 
@@ -111,24 +126,33 @@ export default {
             }
 
             const seed = this.audienceSize;
-            const variation = generator(seed).floatBetween(-2, 2);
+            const maximumAbsoluteVariation = 6 - Math.log10(this.audienceSize); /* larger sample sizes have lower variance */
+            const baselineDelta = generator(seed).floatBetween(0, maximumAbsoluteVariation);
 
             return {
-                min: 11.2 + variation,
-                max: 18.8 + variation,
+                min: 12.2 - baselineDelta,
+                max: 16.8 + baselineDelta,
+            };
+        },
+
+        clicks() {
+            if (this.audienceSize > 0 && this.audienceSize < 120) {
+                return {
+                    min: this.impressions.min * round(this.ctr.min, 1) / 100,
+                    max: (this.impressions.max * round(this.ctr.max, 1) / 100) + 1,
+                };
+            }
+
+            return {
+                min: this.impressions.min * round(this.ctr.min, 1) / 100,
+                max: this.impressions.max * round(this.ctr.max, 1) / 100,
             };
         },
 
         leads() {
-            const clicks = (this.clicks.min + this.clicks.max) / 2;
-
-            return ceil(clicks * Number(this.conversionRate));
-        },
-
-        clicks() {
             return {
-                min: this.impressions.min * round(this.ctr.min, 1),
-                max: this.impressions.max * round(this.ctr.max, 1),
+                min: this.clicks.min * Number(this.conversionRate) * 0.8,
+                max: ceil(this.clicks.max * Number(this.conversionRate) * 1.2),
             };
         },
     },
