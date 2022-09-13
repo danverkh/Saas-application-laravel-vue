@@ -31,7 +31,7 @@ class GoogleKeywordSearchModifier implements ModifierContract
             ->send($result)
             ->through([
                 "App\Services\DataForSeo\Modifiers\Actions\MoveDomainToTheTop:{$this->domain}",
-                "App\Services\DataForSeo\Modifiers\Actions\Limit:10",
+                "App\Services\DataForSeo\Modifiers\Actions\Limit:5",
             ])
             ->thenReturn();
     }
