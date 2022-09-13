@@ -4,6 +4,7 @@ import axios from "axios";
 export const usePreviewRankStore = defineStore('previewRank', {
     state: () => {
         return {
+            keyword: null,
             results: [],
             _controller: null,
         };
@@ -16,6 +17,7 @@ export const usePreviewRankStore = defineStore('previewRank', {
                 this.abortFetch();
             }
             this.results = [];
+            this.keyword = keyword;
 
             this._controller = new AbortController();
 
@@ -27,7 +29,9 @@ export const usePreviewRankStore = defineStore('previewRank', {
         },
 
         abortFetch() {
-            this._controller.abort();
+            if (this._controller) {
+                this._controller.abort();
+            }
         },
     },
 })

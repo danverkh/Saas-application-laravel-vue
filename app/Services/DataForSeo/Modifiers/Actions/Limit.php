@@ -16,7 +16,9 @@ class Limit
      */
     public function handle(array $items, Closure $next, int $limit)
     {
-        $items = array_splice($items, 0, $limit);
+        if (count($items) > $limit) {
+            $items = array_splice($items, 0, $limit);
+        }
 
         return $next($items);
     }

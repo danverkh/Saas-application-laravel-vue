@@ -28,6 +28,7 @@ class GoogleKeywordSearch extends AbstractRequest
                     'breadcrumb'  => data_get($item, 'breadcrumb'),
                 ];
             })
+            ->reject(static fn ($item) => min(array_values($item)) === null)
             ->toArray();
     }
 }
