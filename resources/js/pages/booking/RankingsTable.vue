@@ -88,7 +88,6 @@ import {useRankingItemsStore} from '../../stores/rankingItems';
 import {usePreviewRankStore} from '../../stores/previewRank';
 import axios from 'axios';
 import Spinner from '../../components/Spinner.vue';
-import PreviewRank from "../../services/PreviewRank";
 import Modal from "../../services/Modal";
 
 export default {
@@ -162,11 +161,9 @@ export default {
         },
 
         openPreviewRank(keyword) {
-            PreviewRank.fetch(this.market, keyword, this.domain)
-                .then(({data}) => {
-                    usePreviewRankStore().set(data.data);
-                    Modal.open('preview-rank');
-                })
+            Modal.open('preview-rank');
+
+            usePreviewRankStore().fetch(this.market, keyword, this.domain)
                 .catch(error => {
                     if (error.message === 'canceled') {
                         console.info('Request was aborted');

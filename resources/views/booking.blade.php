@@ -1,4 +1,6 @@
 <x-main-layout>
+    <preview-rank-modal></preview-rank-modal>
+
     <x-container>
         <div class="max-w-screen-xl px-6 sm:px-8 mx-auto mb-8">
             <div class="flex-col flex flex-nowrap gap-8 xl:flex-row">
@@ -69,10 +71,3 @@
         </div>
     </x-container>
 </x-main-layout>
-<script>
-    import DomainSwitcher from "../js/pages/booking/DomainSwitcher";
-
-    export default {
-        components: {DomainSwitcher}
-    }
-</script>

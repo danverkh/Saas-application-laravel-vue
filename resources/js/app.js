@@ -21,10 +21,12 @@ app.component('main-search', MainSearch)
 import RankingsTable from './pages/booking/RankingsTable.vue'
 import DomainSwitcher from './pages/booking/DomainSwitcher.vue'
 import ForecastedResults from './pages/booking/ForecastedResults.vue'
+import PreviewRankModal from './pages/booking/PreviewRankModal.vue'
 
 app.component('rankings-table', RankingsTable)
 app.component('domain-switcher', DomainSwitcher)
 app.component('forecasted-results', ForecastedResults)
+app.component('preview-rank-modal', PreviewRankModal)
 
 // Globals
 import Helpers from "./mixins/Helpers";
