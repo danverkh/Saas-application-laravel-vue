@@ -1,9 +1,14 @@
-@props(['title' => null, 'buttons' => null])
+@props([
+    'title' => null,
+    'buttons' => null,
+    'titleSize' => 'text-xl',
+    'bodyClass' => 'py-6',
+])
 
 <div {{ $attributes->merge(['class' => 'card w-full bg-base-100 shadow-lg rounded-xl']) }}>
-    <div class="card-body py-6">
+    <div class="card-body {{ $bodyClass }}">
         @if ($title)
-        <h2 class="card-title font-medium text-xl mb-3">{{ $title }}</h2>
+        <h2 class="card-title font-medium mb-3 {{ $titleSize }}">{{ $title }}</h2>
         @endif
 
         {{ $slot }}

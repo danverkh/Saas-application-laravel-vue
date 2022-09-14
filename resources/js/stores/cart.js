@@ -5,6 +5,8 @@ export const useCart = defineStore('cart', {
 
     state: () => {
         return {
+            name: '',
+            email: '',
             market: null,
             domain: null,
             selectedItems: [],

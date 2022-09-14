@@ -24,7 +24,7 @@
         <div id="app">
             <!-- Header -->
             <header class="fixed top-0 w-full z-50 backdrop-blur-md bg-white-500/90 transition-all pt-4 pb-3 shadow-lg">
-                <nav class="max-w-screen-xl px-6 sm:px-8 mx-auto grid grid-flow-col py-3 sm:py-4">
+                <nav class="max-w-screen-xl mx-auto px-6 xl:px-0 grid grid-flow-col py-3 sm:py-4">
                     <div class="col-start-1 col-end-2 flex items-center">
                         <mobile-nav-button class="w-12 h-12 flex items-center mr-5 lg:hidden"></mobile-nav-button>
 
@@ -60,7 +60,7 @@
 
                     <!-- Footer -->
                     <div class="bg-zinc-200 py-12 md:py-20">
-                        <div class="max-w-screen-xl w-full mx-auto px-6 sm:px-8 grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-4">
+                        <div class="max-w-screen-xl w-full mx-auto px-6 xl:px-0 grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-4">
                             <div class="flex flex-col items-start">
                                 <p class="text-black-600 mb-4 font-medium text-2xl">Sitemap</p>
                                 <ul class="text-black-500">

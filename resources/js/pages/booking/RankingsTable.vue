@@ -138,6 +138,10 @@ export default {
                 .finally(() => this.loading = false);
         },
 
+        update() {
+            setTimeout(() => this.rankingItems.update(), 1);
+        },
+
         muteDomain(url) {
             try {
                 const {origin, pathname} = new URL(url);
@@ -148,10 +152,6 @@ export default {
             } catch (error) {
                 return url;
             }
-        },
-
-        update() {
-            setTimeout(() => this.rankingItems.update(), 1);
         },
 
         withoutLastWord(string) {

@@ -21,14 +21,23 @@ app.component('main-search', MainSearch)
 
 // Booking page
 import RankingsTable from './pages/booking/RankingsTable.vue'
+import CheckoutButton from './pages/booking/CheckoutButton.vue'
 import DomainSwitcher from './pages/booking/DomainSwitcher.vue'
 import ForecastedResults from './pages/booking/ForecastedResults.vue'
 import PreviewRankModal from './pages/booking/PreviewRankModal.vue'
 
 app.component('rankings-table', RankingsTable)
+app.component('checkout-button', CheckoutButton)
 app.component('domain-switcher', DomainSwitcher)
 app.component('forecasted-results', ForecastedResults)
 app.component('preview-rank-modal', PreviewRankModal)
+
+// Checkout
+import KeywordsTable from './pages/checkout/KeywordsTable.vue'
+import CustomerDetails from './pages/checkout/CustomerDetails.vue'
+
+app.component('keywords-table', KeywordsTable)
+app.component('customer-details', CustomerDetails)
 
 // Globals
 import Helpers from "./mixins/Helpers";

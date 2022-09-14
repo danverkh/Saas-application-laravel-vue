@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AboutUsController;
 use App\Http\Controllers\BookingController;
+use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\HomepageController;
 use App\Http\Controllers\HowItWorksController;
 use App\Http\Controllers\SuccessStoriesController;
@@ -23,6 +24,7 @@ Route::get('how-it-works', HowItWorksController::class)->name('how_it_works');
 Route::get('success-stories', SuccessStoriesController::class)->name('success_stories');
 Route::get('about-us', AboutUsController::class)->name('about_us');
 
+Route::get('checkout', [CheckoutController::class, 'index'])->name('checkout');
 
 //Route::get('/dashboard', function () {
 //    return view('dashboard');
