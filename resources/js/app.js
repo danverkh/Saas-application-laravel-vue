@@ -2,9 +2,11 @@ import './bootstrap';
 
 import {createApp} from 'vue/dist/vue.esm-bundler.js'
 import {createPinia} from 'pinia'
+import piniaPluginPersistedState from 'pinia-plugin-persistedstate'
 
 const app = createApp({})
 const pinia = createPinia()
+pinia.use(piniaPluginPersistedState)
 
 import MobileNavButton from './components/MobileNavButton.vue'
 import VideoPlayer from './components/VideoPlayer.vue'

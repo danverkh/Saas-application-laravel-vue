@@ -1,4 +1,4 @@
-import { defineStore } from 'pinia'
+import {defineStore} from 'pinia'
 import axios from "axios";
 
 export const usePreviewRankStore = defineStore('previewRank', {
@@ -34,4 +34,4 @@ export const usePreviewRankStore = defineStore('previewRank', {
             }
         },
     },
-})
+});
