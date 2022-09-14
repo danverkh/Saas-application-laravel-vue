@@ -17,18 +17,20 @@
         </div>
 
         <template v-if="results.length">
-            <div v-for="(result, index) in results" :key="`preview-rank-item-${index}`" class="mb-6 last:mb-0">
-                <div class="breadcrumb text-sm mb-1">
-                    <span class="domain">{{ breadcrumbDomain(result.breadcrumb) }}</span>
-                    <span v-if="result.breadcrumb.includes('›')"> › {{ breadcrumbs(result.breadcrumb) }}</span>
-                </div>
-                <div class="link text-lg mb-1 no-underline hover:underline hover:decoration-2">{{ result.title }}</div>
-                <div class="description text-sm">
-                    {{ (result.description.length > descriptionLimit) ? result.description.substring(0, descriptionLimit) + '...' : result.description }}
+            <div>
+                <div v-for="(result, index) in results" :key="`preview-rank-item-${index}`" class="mb-6 last:mb-0">
+                    <div class="breadcrumb text-sm mb-1">
+                        <span class="domain">{{ breadcrumbDomain(result.breadcrumb) }}</span>
+                        <span v-if="result.breadcrumb.includes('›')"> › {{ breadcrumbs(result.breadcrumb) }}</span>
+                    </div>
+                    <div class="link text-lg mb-1 no-underline hover:underline hover:decoration-2">{{ result.title }}</div>
+                    <div class="description text-sm">
+                        {{ (result.description.length > descriptionLimit) ? result.description.substring(0, descriptionLimit) + '...' : result.description }}
+                    </div>
                 </div>
             </div>
 
-            <div class="text-center">
+            <div class="text-center mt-2 -mb-2">
                 <svg width="40" height="40" viewBox="0 0 24 24" class="inline-block text-zinc-700">
                     <path fill="currentColor" d="M16 12a2 2 0 0 1 2-2a2 2 0 0 1 2 2a2 2 0 0 1-2 2a2 2 0 0 1-2-2m-6 0a2 2 0 0 1 2-2a2 2 0 0 1 2 2a2 2 0 0 1-2 2a2 2 0 0 1-2-2m-6 0a2 2 0 0 1 2-2a2 2 0 0 1 2 2a2 2 0 0 1-2 2a2 2 0 0 1-2-2Z"/>
                 </svg>
