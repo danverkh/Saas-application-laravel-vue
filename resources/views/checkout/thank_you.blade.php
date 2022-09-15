@@ -6,7 +6,7 @@
     </div>
 
     <x-container>
-        <div class="flex flex-col max-w-4xl mx-auto">
+        <div class="flex flex-col max-w-4xl mx-auto mb-10">
             Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aspernatur assumenda commodi cumque deleniti eos esse fuga natus nobis sed.
             Architecto delectus dolorum itaque, magnam natus neque optio pariatur praesentium suscipit.
         </div>

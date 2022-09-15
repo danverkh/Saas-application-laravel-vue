@@ -1,6 +1,6 @@
 <x-main-layout>
-    <div class="mt-14">
-        <x-page-title class="lg:mb-0 xl:mb-0">Checkout</x-page-title>
+    <div class="mt-14 -mb-5">
+        <x-page-title>Checkout</x-page-title>
     </div>
 
     <x-container>
@@ -24,7 +24,7 @@
                 </x-card>
             </div>
 
-            <submit-order></submit-order>
+            <submit-order-button></submit-order-button>
 
             <hr>
 

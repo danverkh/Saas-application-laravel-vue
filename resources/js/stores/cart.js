@@ -1,23 +1,25 @@
 import {defineStore} from 'pinia';
 import axios from 'axios';
 import FullScreenSpinner from "../services/FullScreenSpinner";
+import {scrollToError} from "../services/ValidationService";
 
 export const useCart = defineStore('cart', {
     persist: true,
 
     state: () => {
         return {
-            name: '',
-            email: '',
+            customer_name: '',
+            customer_email: '',
             market: null,
             domain: null,
             selectedItems: [],
+            validationErrors: [],
         };
     },
 
     getters: {
         valid() {
-            return this.name.length > 0 && this.email.length > 0
+            return this.customer_name.length > 0 && this.customer_email.length > 0
                 && this.market !== null && this.domain !== null
                 && this.selectedItems.length > 0;
         },
@@ -29,21 +31,23 @@ export const useCart = defineStore('cart', {
         },
 
         createOrder() {
-            if (!this.valid) {
-                alert('Invalid validation');
-                return;
-            }
+            this.validationErrors = [];
 
             FullScreenSpinner.open();
 
             axios.post(route('api.checkout.order'), this.$state)
                 .then(() => {
-                    this.$reset();
+                    window.localStorage.removeItem('cart');
                     window.location.href = route('checkout.thank_you');
                 })
                 .catch(error => {
-                    console.error('Failed to create order', error);
-                    alert('Whoops, something went wrong... Please try again later.');
+                    if (error.request.status === 422) {
+                        this.validationErrors = error.response.data.errors;
+                        scrollToError();
+                    } else {
+                        console.error('Failed to create order', error);
+                        alert('Whoops, something went wrong... Please try again later.');
+                    }
                 })
                 .finally(() => FullScreenSpinner.close());
         },

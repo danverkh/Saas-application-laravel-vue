@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\OrderRequest;
+use App\Models\Order;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 
 class CheckoutController extends Controller
 {
@@ -17,12 +18,17 @@ class CheckoutController extends Controller
     }
 
     /**
-     * @param \Illuminate\Http\Request $request
+     * @param \App\Http\Requests\OrderRequest $request
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function order(Request $request): JsonResponse
+    public function order(OrderRequest $request): JsonResponse
     {
+        $order = Order::create($request->validated());
+
+        foreach ($request->selectedItems as $keyword) {
+            $order->keywords()->create($keyword);
+        }
 
         return response()->json(['status' => 'success']);
     }

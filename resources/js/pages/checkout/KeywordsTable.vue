@@ -14,7 +14,7 @@
             </tr>
             </thead>
             <tbody>
-                <tr v-for="(item, index) in selectedKeywords" :key="`table-item-${index}`">
+                <tr v-for="(item, index) in selectedItems" :key="`table-item-${index}`">
                     <td class="whitespace-normal break-words min-w-[180px] font-medium white">{{ item.keyword }}</td>
                     <td class="text-right">{{ item.search_volume }}</td>
                     <td class="text-right">{{ item.cpc ? money(item.cpc) : '-' }}</td>
@@ -25,7 +25,7 @@
                     <td class="text-right">{{ item.maximum_cost ? money(item.maximum_cost) : '-' }}</td>
                 </tr>
 
-                <tr v-if="selectedKeywords.length === 0" class="no-hover">
+                <tr v-if="selectedItems.length === 0" class="no-hover">
                     <td colspan="9" class="text-center !py-12">
                         <div class="text-zinc-600 text-lg mb-5 flex flex-col items-center">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-12 h-12 text-zinc-200 block mb-3">
@@ -33,7 +33,7 @@
                             </svg>
                             <div>
                                 No keywords selected, please click
-                                <button @click="openModal('domain-switcher-modal')" class="text-primary hover:underline">here</button>
+                                <button @click="openBooking" class="text-primary hover:underline">here</button>
                                 .
                             </div>
                         </div>
@@ -43,7 +43,7 @@
         </table>
     </div>
 
-    <div v-if="selectedKeywords.length" class="my-3">
+    <div v-if="selectedItems.length" class="my-3">
         <div class="flex flex-nowrap flex-row text-2xl">
             <div class="font-semibold pr-4">Total cost</div>
             <div class="font-bold pr-4">{{ money(0) }}</div>
@@ -53,17 +53,24 @@
 
 <script>
 import {useCart} from "../../stores/cart";
+import {mapState} from "pinia";
 
 export default {
     name: "KeywordsTable",
 
     computed: {
-        selectedKeywords() {
-            return useCart().selectedItems;
-        },
+        ...mapState(useCart, ['market', 'domain', 'selectedItems']),
     },
 
     methods: {
+        openBooking() {
+            if (this.market && this.domain) {
+                window.location.href = route('booking', {market: this.market, query: this.domain});
+            } else {
+                this.openModal('domain-switcher-modal');
+            }
+        },
+
         muteDomain(url) {
             try {
                 const {origin, pathname} = new URL(url);
