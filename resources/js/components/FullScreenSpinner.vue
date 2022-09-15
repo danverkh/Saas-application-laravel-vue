@@ -1,5 +1,5 @@
 <template>
-    <div class="fixed z-90 w-0 h-0 flex justify-center items-center bg-gray-900 opacity-0 duration-700">
+    <div id="full-screen-spinner" class="fixed z-50 w-0 h-0 flex justify-center items-center bg-white/80 opacity-0 transition-opacity duration-300">
         <span class="loader" :style="{width: `${size}px`, height: `${size}px`, 'border-width': `${borderWidth}px`, 'border-color': color}"></span>
     </div>
 </template>
@@ -21,10 +21,6 @@ export default {
             type: String,
             default: '#dd2b47',
         },
-    },
-
-    mounted() {
-
     },
 }
 </script>

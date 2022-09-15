@@ -43,7 +43,7 @@
         </table>
     </div>
 
-    <div class="my-3">
+    <div v-if="selectedKeywords.length" class="my-3">
         <div class="flex flex-nowrap flex-row text-2xl">
             <div class="font-semibold pr-4">Total cost</div>
             <div class="font-bold pr-4">{{ money(0) }}</div>

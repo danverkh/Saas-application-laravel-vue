@@ -109,7 +109,7 @@ export default {
         };
     },
 
-    mounted() {
+    created() {
         this.fetch();
 
         useCart().market = this.market;

@@ -1,5 +1,6 @@
 import {defineStore} from 'pinia';
 import axios from 'axios';
+import FullScreenSpinner from "../services/FullScreenSpinner";
 
 export const useCart = defineStore('cart', {
     persist: true,
@@ -33,12 +34,18 @@ export const useCart = defineStore('cart', {
                 return;
             }
 
+            FullScreenSpinner.open();
+
             axios.post(route('api.checkout.order'), this.$state)
-                .then(({data}) => window.location.href = route('checkout.thank_you'))
+                .then(() => {
+                    this.$reset();
+                    window.location.href = route('checkout.thank_you');
+                })
                 .catch(error => {
                     console.error('Failed to create order', error);
                     alert('Whoops, something went wrong... Please try again later.');
-                });
+                })
+                .finally(() => FullScreenSpinner.close());
         },
     },
 });

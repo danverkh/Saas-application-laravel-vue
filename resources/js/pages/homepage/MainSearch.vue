@@ -1,5 +1,5 @@
 <template>
-    <market-select @changed="market = $event" class="grow-0"></market-select>
+    <market-select @changed="market = $event" :selected="market" class="grow-0"></market-select>
 
     <div class="flex-1">
         <label class="block text-gray-500 mb-2">Domain</label>
@@ -23,6 +23,7 @@
 
 <script>
 import MarketSelect from './MarketSelect.vue';
+import {useCart} from "../../stores/cart";
 
 export default {
     name: "MainSearch",
@@ -31,7 +32,7 @@ export default {
 
     data() {
         return {
-            market: 'at',
+            market: useCart().market || 'at',
             domain: '',
             invalid: false,
         };
@@ -51,6 +52,8 @@ export default {
                 this.invalid = true;
             } else {
                 const domain = encodeURIComponent(this.domain);
+
+                useCart().market = this.market;
 
                 window.location.href = `/${this.market}/${domain}`;
             }

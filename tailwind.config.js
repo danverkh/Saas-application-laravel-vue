@@ -9,6 +9,15 @@ module.exports = {
         './resources/js/**/*.vue',
     ],
 
+    safelist: [
+        'w-screen',
+        'h-screen',
+        'opacity-100',
+        'w-0',
+        'h-0',
+        'opacity-0',
+    ],
+
     theme: {
         extend: {
             fontFamily: {

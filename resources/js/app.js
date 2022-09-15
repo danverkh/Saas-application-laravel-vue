@@ -14,6 +14,13 @@ import VideoPlayer from './components/VideoPlayer.vue'
 app.component('mobile-nav-button', MobileNavButton)
 app.component('video-player', VideoPlayer)
 
+// Global
+import FullScreenSpinner from './components/FullScreenSpinner.vue'
+import DomainSwitcherModal from './components/DomainSwitcherModal.vue'
+
+app.component('full-screen-spinner', FullScreenSpinner)
+app.component('domain-switcher-modal', DomainSwitcherModal)
+
 // Homepage
 import MainSearch from './pages/homepage/MainSearch.vue'
 

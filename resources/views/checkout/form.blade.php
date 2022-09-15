@@ -1,6 +1,6 @@
 <x-main-layout>
     <div class="mt-14">
-        <x-page-title class="xl:mb-2">Checkout</x-page-title>
+        <x-page-title class="lg:mb-0 xl:mb-0">Checkout</x-page-title>
     </div>
 
     <x-container>
@@ -28,7 +28,7 @@
 
             <hr>
 
-            <img src="/img/payment_trust.jpg" class="max-w-xl mx-auto my-8"/>
+            <img src="/img/payment_trust.jpg" class="w-full max-w-xl mx-auto my-8"/>
         </div>
     </x-container>
 </x-main-layout>

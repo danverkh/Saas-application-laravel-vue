@@ -39,7 +39,7 @@
 </template>
 
 <script setup>
-import {ref, watch} from 'vue'
+import {ref, watch, defineProps, defineEmits} from 'vue'
 import {
     Listbox,
     ListboxButton,
@@ -48,6 +48,10 @@ import {
     ListboxLabel,
 } from '@headlessui/vue'
 import {CheckIcon, ChevronUpDownIcon} from '@heroicons/vue/24/solid'
+
+const props = defineProps({
+    selected: {default: null},
+});
 
 const items = [
     {value: 'at', label: 'AT'},
@@ -58,7 +62,7 @@ const items = [
     {value: 'it', label: 'IT'},
     {value: 'es', label: 'ES'},
 ]
-const selectedItem = ref(items[0])
+const selectedItem = ref(items.find(i => i.value === props.selected) || items[0])
 
 const emit = defineEmits(['changed']);
 
