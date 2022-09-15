@@ -1,8 +1,8 @@
 <?php
 
+use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\RankingsController;
 use App\Http\Controllers\PreviewRankController;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -18,3 +18,4 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('rankings', [RankingsController::class, 'index'])->name('api.rankings');
 Route::get('preview/rank', [PreviewRankController::class, 'index'])->name('api.preview_rank');
+Route::post('checkout/order', [CheckoutController::class, 'order'])->name('api.checkout.order');

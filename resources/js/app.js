@@ -35,9 +35,11 @@ app.component('preview-rank-modal', PreviewRankModal)
 // Checkout
 import KeywordsTable from './pages/checkout/KeywordsTable.vue'
 import CustomerDetails from './pages/checkout/CustomerDetails.vue'
+import SubmitOrder from './pages/checkout/SubmitOrder.vue'
 
 app.component('keywords-table', KeywordsTable)
 app.component('customer-details', CustomerDetails)
+app.component('submit-order', SubmitOrder)
 
 // Globals
 import Helpers from "./mixins/Helpers";
