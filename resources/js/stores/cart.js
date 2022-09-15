@@ -17,14 +17,6 @@ export const useCart = defineStore('cart', {
         };
     },
 
-    getters: {
-        valid() {
-            return this.customer_name.length > 0 && this.customer_email.length > 0
-                && this.market !== null && this.domain !== null
-                && this.selectedItems.length > 0;
-        },
-    },
-
     actions: {
         setSelectedItems(items) {
             this.selectedItems = items;

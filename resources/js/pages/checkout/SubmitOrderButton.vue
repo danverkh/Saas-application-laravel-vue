@@ -1,6 +1,5 @@
 <template>
     <div @click="submit"
-         :class="[valid ? 'cursor-pointer' : 'opacity-75']"
          class="mx-auto flex flex-nowrap items-center w-full md:w-[240px] my-10 pl-4 pr-6 py-5 lg:py-6 text-lg md:text-base xl:text-xl font-semibold text-white tracking-wider uppercase
             select-none transition duration-500 ease-in-out transform bg-green-600 rounded-2xl shadow-lg shadow-zinc-300 border border-green-700/50 hover:shadow-green-500/50">
 
@@ -16,14 +15,9 @@
 
 <script>
 import {useCart} from "../../stores/cart";
-import {mapState} from "pinia";
 
 export default {
     name: "SubmitOrderButton",
-
-    computed: {
-        ...mapState(useCart, ['valid']),
-    },
 
     methods: {
         submit() {
