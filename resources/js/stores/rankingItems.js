@@ -22,20 +22,15 @@ export const useRankingItemsStore = defineStore('rankingItems', {
                     selected: savedSelections.find(i => i.keyword === item.keyword) !== undefined,
                 };
             });
-
-            this.update();
         },
 
-        toggleAll(value) {
-            this.items.forEach(item => item.selected = value);
-
+        add(item) {
+            item.selected = true;
             this.saveSelectedItems();
         },
 
-        update() {
-            document.getElementById('check-all-items').indeterminate = !this.items.every(items => items.selected) && this.items.some(items => items.selected);
-            document.getElementById('check-all-items').checked = this.items.every(items => items.selected);
-
+        remove(item) {
+            item.selected = false;
             this.saveSelectedItems();
         },
 

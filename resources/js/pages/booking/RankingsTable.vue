@@ -3,13 +3,6 @@
         <table v-if="!error" class="table table-compact w-full">
             <thead>
             <tr>
-                <th>
-                    <input type="checkbox"
-                           id="check-all-items"
-                           @click="rankingItems.toggleAll($event.target.checked)"
-                           class="checkbox checkbox-xs bg-white rounded text-primary"
-                           :disabled="loading || !rankingItems.items.length"/>
-                </th>
                 <th class="cursor-default">Keyword</th>
                 <th><span class="tooltip cursor-default" data-tip="Search volume">Search Volume</span></th>
                 <th class="text-right"><span class="tooltip cursor-default" data-tip="Cost per click">CPC</span></th>
@@ -18,14 +11,12 @@
                 <th class="text-right">Projected<br>clicks</th>
                 <th class="text-right">Projected<br>traffic</th>
                 <th class="text-right">Maximum<br>monthly cost</th>
+                <th></th>
             </tr>
             </thead>
             <tbody>
             <template v-if="!loading">
                 <tr v-for="(item, index) in rankingItems.items" :key="`table-item-${index}`" :class="{selected: item.selected}">
-                    <th>
-                        <input type="checkbox" v-model="item.selected" @click="update" class="checkbox checkbox-xs bg-white rounded text-primary"/>
-                    </th>
                     <td class="whitespace-normal break-words min-w-[180px] font-medium white">
                         {{ withoutLastWord(item.keyword) }}
                         <span class="whitespace-nowrap">
@@ -42,6 +33,16 @@
                     <td class="text-right">{{ item.projected_clicks ? number(item.projected_clicks, 1) : '-' }}</td>
                     <td class="text-right">{{ item.projected_traffic ? number(item.projected_traffic, 1) : '-' }}</td>
                     <td class="text-right">{{ item.maximum_cost ? money(item.maximum_cost) : '-' }}</td>
+                    <td class="text-right">
+                        <button v-if="item.selected" @click="remove(item)" class="btn btn-sm text-[0.7rem] flex-nowrap px-2 rounded-[5px] border-none bg-red-600 hover:bg-red-700">
+                            Remove
+                        </button>
+
+                        <button v-else @click="add(item)" class="btn btn-sm text-[0.7rem] flex-nowrap pl-2 pr-1 rounded-[5px] border-none bg-green-600 hover:bg-green-700">
+                            Add
+                            <svg class="h-4 w-4" viewBox="0 0 256 256"><path fill="currentColor" d="M96 220a12.2 12.2 0 0 1-8.5-3.5a12 12 0 0 1 0-17L159 128L87.5 56.5a12 12 0 0 1 17-17l80 80a12 12 0 0 1 0 17l-80 80A12.2 12.2 0 0 1 96 220Z"/></svg>
+                        </button>
+                    </td>
                 </tr>
 
                 <tr v-if="rankingItems.items.length === 0" class="no-hover">
@@ -138,8 +139,12 @@ export default {
                 .finally(() => this.loading = false);
         },
 
-        update() {
-            setTimeout(() => this.rankingItems.update(), 1);
+        remove(item) {
+            useRankingItemsStore().remove(item);
+        },
+
+        add(item) {
+            useRankingItemsStore().add(item);
         },
 
         muteDomain(url) {
