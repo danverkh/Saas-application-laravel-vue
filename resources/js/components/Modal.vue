@@ -1,6 +1,6 @@
 <template>
     <Teleport to="body">
-        <input type="checkbox" :id="name" class="modal-toggle"/>
+        <input type="checkbox" v-model="opened" :id="name" class="modal-toggle"/>
         <label :for="name" class="modal py-10 overflow-y-auto" @click="close">
             <div class="modal-box max-h-max m-auto" :class="[classes, width, overflow]">
                 <label :for="name" class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2 z-50 hover:text-primary hover:bg-primary-50/50">✕</label>
@@ -16,7 +16,7 @@
 export default {
     name: "Modal",
 
-    emits: ['closed'],
+    emits: ['opened', 'closed'],
 
     props: {
         name: String,
@@ -30,6 +30,18 @@ export default {
     },
 
     inheritAttrs: false,
+
+    data() {
+        return {
+            opened: false,
+        };
+    },
+
+    watch: {
+        opened(value) {
+            if (value) this.$emit('opened');
+        },
+    },
 
     methods: {
         close(event) {

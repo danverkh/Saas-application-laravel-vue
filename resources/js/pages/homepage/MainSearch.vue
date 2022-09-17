@@ -8,7 +8,7 @@
                type="text"
                placeholder="Please enter a domain here..."
                :class="{'border-primary': invalid}"
-               class="input input-lg h-[60px] w-full ring-1 ring-gray-300 px-4 md:px-8 hover:ring-2 hover:ring-primary/50 focus:ring-2 focus:ring-primary/50 focus:outline-none"/>
+               class="main-search input input-lg h-[60px] w-full ring-1 ring-gray-300 px-4 md:px-8 hover:ring-2 hover:ring-primary/50 focus:ring-2 focus:ring-primary/50 focus:outline-none"/>
     </div>
 
     <div class="grow-0">
