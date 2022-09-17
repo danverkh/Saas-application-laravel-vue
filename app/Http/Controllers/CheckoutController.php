@@ -12,9 +12,9 @@ class CheckoutController extends Controller
     /**
      * @return \Illuminate\Contracts\View\View
      */
-    public function form(): View
+    public function payment(): View
     {
-        return view('checkout.form');
+        return view('checkout.payment');
     }
 
     /**
@@ -31,6 +31,16 @@ class CheckoutController extends Controller
         }
 
         return response()->json(['status' => 'success']);
+    }
+
+    /**
+     * @param \App\Http\Requests\OrderRequest $request
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function validateRequest(OrderRequest $request): JsonResponse
+    {
+        return response()->json(['status' => 'valid']);
     }
 
     /**

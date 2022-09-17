@@ -64,9 +64,3 @@
         </div>
     </x-container>
 </x-main-layout>
-<script>
-    import CustomerDetails from "../js/pages/booking/CustomerDetails";
-    export default {
-        components: {CustomerDetails}
-    }
-</script>

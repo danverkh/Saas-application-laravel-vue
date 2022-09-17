@@ -1,6 +1,6 @@
 <template>
     <div @click="submit"
-         class="mx-auto flex flex-nowrap items-center w-full md:w-[240px] my-10 pl-4 pr-6 py-5 lg:py-6 text-lg md:text-base xl:text-xl font-semibold text-white tracking-wider uppercase
+         class="cursor-pointer mx-auto flex flex-nowrap items-center w-full md:w-[240px] my-10 pl-4 pr-6 py-5 lg:py-6 text-lg md:text-base xl:text-xl font-semibold text-white tracking-wider uppercase
             select-none transition duration-500 ease-in-out transform bg-green-600 rounded-2xl shadow-lg shadow-zinc-300 border border-green-700/50 hover:shadow-green-500/50">
 
         <svg width="24" height="24" viewBox="0 0 576 512" class="w-6 h-6 ml-3 hidden md:inline">

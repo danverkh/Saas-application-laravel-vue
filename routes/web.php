@@ -24,7 +24,7 @@ Route::get('how-it-works', HowItWorksController::class)->name('how_it_works');
 Route::get('success-stories', SuccessStoriesController::class)->name('success_stories');
 Route::get('about-us', AboutUsController::class)->name('about_us');
 
-Route::get('checkout', [CheckoutController::class, 'form'])->name('checkout');
+Route::get('checkout/payment', [CheckoutController::class, 'payment'])->name('checkout.payment');
 Route::get('thank-you', [CheckoutController::class, 'thankYou'])->name('checkout.thank_you');
 
 //Route::get('/dashboard', function () {
