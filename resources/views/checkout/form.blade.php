@@ -1,23 +1,17 @@
 <x-main-layout>
     <div class="mt-14 -mb-5">
-        <x-page-title>Checkout</x-page-title>
+        <x-page-title>
+            Checkout
+            <span class="text-gray-400 ml-2 mr-4">/</span>
+            <span class="text-primary">Payment</span>
+        </x-page-title>
     </div>
 
     <x-container>
         <div class="flex flex-col max-w-4xl mx-auto">
             <div class="flex flex-col space-y-7">
-                <!-- Selected keywords -->
-                <x-card title="Selected Keywords" titleSize="text-2xl" bodyClass="p-8" class="border-t-4 border-primary">
-                    <keywords-table></keywords-table>
-                </x-card>
-
-                <!-- Customer details -->
-                <x-card title="Customer details" titleSize="text-2xl" bodyClass="p-8" class="border-t-4 border-primary">
-                    <customer-details></customer-details>
-                </x-card>
-
                 <!-- Payment -->
-                <x-card title="Payment" titleSize="text-2xl" bodyClass="p-8" class="border-t-4 border-primary">
+                <x-card bodyClass="p-8" class="border-t-4 border-primary">
                     <div class="h-20">
 
                     </div>

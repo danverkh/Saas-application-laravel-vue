@@ -40,11 +40,9 @@ app.component('forecasted-results', ForecastedResults)
 app.component('preview-rank-modal', PreviewRankModal)
 
 // Checkout
-import KeywordsTable from './pages/checkout/KeywordsTable.vue'
 import CustomerDetails from './pages/checkout/CustomerDetails.vue'
 import SubmitOrderButton from './pages/checkout/SubmitOrderButton.vue'
 
-app.component('keywords-table', KeywordsTable)
 app.component('customer-details', CustomerDetails)
 app.component('submit-order-button', SubmitOrderButton)
 

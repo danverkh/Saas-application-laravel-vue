@@ -37,6 +37,7 @@
                     </div>
                 </div>
 
+                <!-- Aside -->
                 <div class="w-full xl:w-3/12 flex flex-col-reverse md:flex-row-reverse xl:flex-col gap-6">
                     <div class="flex flex-col-reverse md:flex-col gap-6 md:basis-1/2 xl:basis-auto">
                         <checkout-button></checkout-button>
