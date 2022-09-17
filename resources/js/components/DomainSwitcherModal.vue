@@ -9,7 +9,7 @@
 <script>
 
 import Modal from "./Modal.vue";
-import MainSearch from "../pages/homepage/MainSearch.vue";
+import MainSearch from "@/pages/homepage/MainSearch.vue";
 
 export default {
     name: "DomainSwitcherModal",

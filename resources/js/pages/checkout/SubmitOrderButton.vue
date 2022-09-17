@@ -14,7 +14,7 @@
 </template>
 
 <script>
-import {useCart} from "../../stores/cart";
+import {useCart} from "@/stores/cart";
 
 export default {
     name: "SubmitOrderButton",

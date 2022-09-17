@@ -44,9 +44,9 @@
 </template>
 
 <script>
-import {usePreviewRankStore} from '../../stores/previewRank';
-import Modal from "../../components/Modal.vue";
-import Spinner from "../../components/Spinner.vue";
+import {usePreviewRankStore} from '@/stores/previewRank';
+import Modal from "@/components/Modal.vue";
+import Spinner from "@/components/Spinner.vue";
 
 export default {
     name: 'PreviewRankModal',

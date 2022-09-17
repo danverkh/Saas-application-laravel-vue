@@ -1,7 +1,7 @@
 import {defineStore} from 'pinia';
 import axios from 'axios';
-import FullScreenSpinner from "../services/FullScreenSpinner";
-import {scrollToError} from "../services/ValidationService";
+import FullScreenSpinner from "@/services/FullScreenSpinner";
+import {scrollToError} from "@/services/ValidationService";
 
 export const useCart = defineStore('cart', {
     persist: true,

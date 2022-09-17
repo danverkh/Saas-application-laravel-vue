@@ -60,7 +60,7 @@
 </template>
 
 <script>
-import {useRankingItemsStore} from '../../stores/rankingItems';
+import {useRankingItemsStore} from '@/stores/rankingItems';
 import generator from 'random-seed';
 import {round, ceil} from 'lodash';
 

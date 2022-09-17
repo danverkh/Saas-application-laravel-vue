@@ -23,7 +23,7 @@
 
 <script>
 import MarketSelect from './MarketSelect.vue';
-import {useCart} from "../../stores/cart";
+import {useCart} from "@/stores/cart";
 
 export default {
     name: "MainSearch",

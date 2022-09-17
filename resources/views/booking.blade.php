@@ -40,7 +40,7 @@
                 <!-- Aside -->
                 <div class="w-full xl:w-3/12 flex flex-col-reverse md:flex-row-reverse xl:flex-col gap-6">
                     <div class="flex flex-col-reverse md:flex-col gap-6 md:basis-1/2 xl:basis-auto">
-                        <checkout-button></checkout-button>
+                        <checkout></checkout>
 
                         <x-card class="border-t-4 border-zinc-300">
                             <domain-switcher market="{{ $market }}" domain="{{ $domain }}"></domain-switcher>
@@ -64,3 +64,9 @@
         </div>
     </x-container>
 </x-main-layout>
+<script>
+    import CustomerDetails from "../js/pages/booking/CustomerDetails";
+    export default {
+        components: {CustomerDetails}
+    }
+</script>

@@ -87,12 +87,12 @@
 </template>
 
 <script>
-import {useRankingItemsStore} from '../../stores/rankingItems';
-import {usePreviewRankStore} from '../../stores/previewRank';
-import {useCart} from '../../stores/cart';
+import {useRankingItemsStore} from '@/stores/rankingItems';
+import {usePreviewRankStore} from '@/stores/previewRank';
+import {useCart} from '@/stores/cart';
 import axios from 'axios';
-import Spinner from '../../components/Spinner.vue';
-import Modal from "../../services/Modal";
+import Spinner from '@/components/Spinner.vue';
+import Modal from "@/services/Modal";
 
 export default {
     name: "RankingsTable",

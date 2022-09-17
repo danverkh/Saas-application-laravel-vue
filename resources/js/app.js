@@ -3,6 +3,7 @@ import './bootstrap';
 import {createApp} from 'vue/dist/vue.esm-bundler.js'
 import {createPinia} from 'pinia'
 import piniaPluginPersistedState from 'pinia-plugin-persistedstate'
+import SlideUpDown from 'vue3-slide-up-down'
 
 const app = createApp({})
 const pinia = createPinia()
@@ -28,29 +29,28 @@ app.component('main-search', MainSearch)
 
 // Booking page
 import RankingsTable from './pages/booking/RankingsTable.vue'
-import CheckoutButton from './pages/booking/CheckoutButton.vue'
-import DomainSwitcher from './pages/booking/DomainSwitcher.vue'
-import ForecastedResults from './pages/booking/ForecastedResults.vue'
 import PreviewRankModal from './pages/booking/PreviewRankModal.vue'
+import DomainSwitcher from './pages/booking/aside/DomainSwitcher.vue'
+import ForecastedResults from './pages/booking/aside/ForecastedResults.vue'
+import Checkout from './pages/booking/aside/Checkout.vue'
 
 app.component('rankings-table', RankingsTable)
-app.component('checkout-button', CheckoutButton)
+app.component('checkout', Checkout)
 app.component('domain-switcher', DomainSwitcher)
 app.component('forecasted-results', ForecastedResults)
 app.component('preview-rank-modal', PreviewRankModal)
 
 // Checkout
-import CustomerDetails from './pages/checkout/CustomerDetails.vue'
 import SubmitOrderButton from './pages/checkout/SubmitOrderButton.vue'
 
-app.component('customer-details', CustomerDetails)
 app.component('submit-order-button', SubmitOrderButton)
 
 // Globals
 import Helpers from "./mixins/Helpers";
 
-app.mixin(Helpers)
-    .use(pinia)
+app.use(pinia)
+    .mixin(Helpers)
+    .component('slide-up-down', SlideUpDown)
     .mount('#app');
 
 // hidden initially to remove flicker on page load
