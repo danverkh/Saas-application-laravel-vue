@@ -4,10 +4,6 @@
             <div>{{ keyword }}</div>
 
             <div class="flex flex-nowrap items-center gap-x-4">
-                <svg width="24" height="24" viewBox="0 0 24 24" class="text-zinc-500">
-                    <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M6.758 17.243L12.001 12m5.243-5.243L12 12m0 0L6.758 6.757M12.001 12l5.243 5.243"/>
-                </svg>
-
                 <div class="line h-5 bg-zinc-300"></div>
 
                 <svg width="24" height="24" viewBox="0 0 512 512" class="text-[#4285F4]">
@@ -19,12 +15,12 @@
         <template v-if="results.length">
             <div>
                 <div v-for="(result, index) in results" :key="`preview-rank-item-${index}`" class="mb-6 last:mb-0">
-                    <div class="breadcrumb text-sm mb-1">
-                        <span class="domain">{{ breadcrumbDomain(result.breadcrumb) }}</span>
+                    <div class="text-sm mb-1 text-zinc-500 text-sm">
+                        <span class="text-zinc-900">{{ breadcrumbDomain(result.breadcrumb) }}</span>
                         <span v-if="result.breadcrumb.includes('›')"> › {{ breadcrumbs(result.breadcrumb) }}</span>
                     </div>
-                    <div class="link text-lg mb-1 no-underline hover:underline hover:decoration-2">{{ result.title }}</div>
-                    <div class="description text-sm">
+                    <div class="link text-lg text-blue-700 mb-2 no-underline hover:underline hover:decoration-2">{{ result.title }}</div>
+                    <div class="description text-sm text-zinc-600">
                         {{ (result.description.length > descriptionLimit) ? result.description.substring(0, descriptionLimit) + '...' : result.description }}
                     </div>
                 </div>
@@ -89,46 +85,27 @@ export default {
 
 <style scoped>
 .search-field {
-    height: 44px;
+    height: 55px;
     background: #fff;
-    border: 1px solid transparent;
-    box-shadow: 0 2px 5px 1px rgb(64 60 67 / 16%);
-    border-radius: 24px;
+    box-shadow: 0 2px 5px 1px rgb(65 60 67 / 20%);
+    border-radius: 12px;
     color: rgba(0,0,0,.87);
-    font: 16px arial,sans-serif;
-    line-height: 44px;
-    padding: 0 20px;
+    line-height: 55px;
+    padding: 0 18px;
 }
 
 .line {
     width: 1px;
 }
 
-.breadcrumb {
-    color: #5f6368;
-    font-family: arial,sans-serif;
-    font-size: 14px;
-    font-style: normal;
-    font-weight: normal;
-    line-height: 1.3;
-}
-.domain {
-    color: #202124;
-}
-
 .link {
-    color: #1a0dab;
-    font-family: arial,sans-serif;
     font-size: 20px;
     font-weight: 400;
     line-height: 1.3;
 }
 
 .description {
-    color: #4d5156;
-    line-height: 1.58;
-    font-family: arial,sans-serif;
+    line-height: 1.6;
     font-size: 14px;
-    font-weight: normal;
 }
 </style>
