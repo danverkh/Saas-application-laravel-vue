@@ -27,20 +27,21 @@ export const useCart = defineStore('cart', {
 
             FullScreenSpinner.open();
 
-            return axios.post(route('api.checkout.order.validate'), this.$state)
-                .then(() => {
-                    window.location.href = route('checkout.payment')
-                })
-                .catch(error => {
-                    if (error.response.status === 422) {
-                        this.validationErrors = error.response.data.errors;
-                        scrollToError();
-                    } else {
-                        console.error('Failed to validate order', error);
-                        alert('Whoops, something went wrong... Please try again later.');
-                    }
-                    FullScreenSpinner.close();
-                });
+            return new Promise(resolve => {
+                axios.post(route('api.checkout.order.validate'), this.$state)
+                    .then(response => resolve(response))
+                    .catch(error => {
+                        FullScreenSpinner.close();
+
+                        if (error.response.status === 422) {
+                            this.validationErrors = error.response.data.errors;
+                            scrollToError();
+                        } else {
+                            console.error('Failed to validate order', error);
+                            alert('Whoops, something went wrong... Please try again later.');
+                        }
+                    });
+            });
         },
 
         createOrder() {
@@ -48,21 +49,23 @@ export const useCart = defineStore('cart', {
 
             FullScreenSpinner.open();
 
-            return axios.post(route('api.checkout.order'), this.$state)
-                .then(() => {
-                    window.localStorage.removeItem('cart');
-                    window.location.href = route('checkout.thank_you');
-                })
-                .catch(error => {
-                    if (error.response.status === 422) {
-                        this.validationErrors = error.response.data.errors;
-                        scrollToError();
-                    } else {
-                        console.error('Failed to create order', error);
-                        alert('Whoops, something went wrong... Please try again later.');
-                    }
-                })
-                .finally(() => FullScreenSpinner.close());
+            return new Promise(resolve => {
+                axios.post(route('api.checkout.order'), this.$state)
+                    .then(response => {
+                        window.localStorage.removeItem('cart');
+                        resolve(response);
+                    })
+                    .catch(error => {
+                        if (error.response.status === 422) {
+                            this.validationErrors = error.response.data.errors;
+                            scrollToError();
+                        } else {
+                            console.error('Failed to create order', error);
+                            alert('Whoops, something went wrong... Please try again later.');
+                        }
+                    })
+                    .finally(() => FullScreenSpinner.close());
+            });
         },
     },
 });

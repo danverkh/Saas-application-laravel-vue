@@ -64,7 +64,9 @@ export default {
                 setTimeout(() => document.getElementById('name').focus(), this.slideDuration);
             } else {
                 // Step 2
-                useCart().validate();
+                useCart()
+                    .validate()
+                    .then(() => window.location.href = route('checkout.payment'));
             }
         },
     },

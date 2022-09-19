@@ -21,7 +21,9 @@ export default {
 
     methods: {
         submit() {
-            useCart().createOrder();
+            useCart()
+                .createOrder()
+                .then(() => window.location.href = route('checkout.thank_you'));
         },
     },
 }
