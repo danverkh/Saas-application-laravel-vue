@@ -2,7 +2,7 @@
 
 namespace App\Services\DataForSeo\Modifiers;
 
-use App\Services\DataForSeo\Modifiers\Actions\MoveDomainToTheTop;
+use App\Services\DataForSeo\Result;
 use Illuminate\Pipeline\Pipeline;
 
 class GoogleKeywordSearchModifier implements ModifierContract
@@ -21,16 +21,19 @@ class GoogleKeywordSearchModifier implements ModifierContract
     }
 
     /**
-     * @param array $result
+     * @param Result $result
      *
      * @return array
      */
-    public function handle(array $result): array
+    public function handle(Result $result): array
     {
+        $data = $result->additionalData();
+
         return app(Pipeline::class)
-            ->send($result)
+            ->send($result->items())
             ->through([
                 "App\Services\DataForSeo\Modifiers\Actions\MoveDomainToTheTop:{$this->domain}",
+                "App\Services\DataForSeo\Modifiers\Actions\AppendAd:{$data['hasPaidAds']}",
                 "App\Services\DataForSeo\Modifiers\Actions\Limit:5",
             ])
             ->thenReturn();

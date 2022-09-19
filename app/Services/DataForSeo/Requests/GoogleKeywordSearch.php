@@ -2,12 +2,14 @@
 
 namespace App\Services\DataForSeo\Requests;
 
+use App\Services\DataForSeo\Result;
+
 class GoogleKeywordSearch extends AbstractRequest
 {
     /**
-     * @return array
+     * @return Result
      */
-    public function fetch(): array
+    public function fetch(): Result
     {
         $params[] = [
             'keyword'       => $this->params->query,
@@ -19,7 +21,11 @@ class GoogleKeywordSearch extends AbstractRequest
         $result = $this->client->post('/v3/serp/google/organic/live/advanced', $params);
         $items  = data_get($result, 'tasks.0.result.0.items', []);
 
-        return collect($items)
+        $data = [
+            'hasPaidAds' => collect(data_get($result, 'tasks.0.result.0.item_types', []))->contains('paid'),
+        ];
+
+        $items = collect($items)
             ->map(static function ($item) {
                 return [
                     'url'         => data_get($item, 'url'),
@@ -28,7 +34,9 @@ class GoogleKeywordSearch extends AbstractRequest
                     'breadcrumb'  => data_get($item, 'breadcrumb'),
                 ];
             })
-            ->reject(static fn ($item) => min(array_values($item)) === null)
+            ->reject(static fn($item) => min(array_values($item)) === null)
             ->toArray();
+
+        return new Result($data, $items);
     }
 }

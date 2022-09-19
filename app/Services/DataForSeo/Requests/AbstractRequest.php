@@ -3,6 +3,7 @@
 namespace App\Services\DataForSeo\Requests;
 
 use App\Services\DataForSeo\Params;
+use App\Services\DataForSeo\Result;
 use App\Services\RestClient;
 
 abstract class AbstractRequest
@@ -26,7 +27,7 @@ abstract class AbstractRequest
         $this->client = new RestClient('https://api.dataforseo.com/', null, $user, $password);
     }
 
-    abstract public function fetch(): array;
+    abstract public function fetch(): Result;
 
     /**
      * @param \App\Services\DataForSeo\Params $params

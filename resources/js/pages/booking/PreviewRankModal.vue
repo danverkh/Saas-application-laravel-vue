@@ -15,13 +15,25 @@
         <template v-if="results.length">
             <div>
                 <div v-for="(result, index) in results" :key="`preview-rank-item-${index}`" class="mb-6 last:mb-0">
-                    <div class="text-sm mb-1 text-zinc-500 text-sm">
-                        <span class="text-zinc-900">{{ breadcrumbDomain(result.breadcrumb) }}</span>
-                        <span v-if="result.breadcrumb.includes('›')"> › {{ breadcrumbs(result.breadcrumb) }}</span>
+                    <div v-if="result.type === 'ad'" class="py-3 pointer-events-none select-none relative">
+                        <div class="bg-orange-400/60 absolute z-10 -top-4 -bottom-2 -left-4 -right-4 grid place-content-center text-white text-3xl font-extrabold tracking-widest">
+                            Ad
+                        </div>
+                        <div class="blur-[5px]">
+                            <div class="link text-lg text-blue-700 mb-2">{{ result.title }}</div>
+                            <div class="description text-sm text-zinc-600">{{ result.description }}</div>
+                        </div>
                     </div>
-                    <div class="link text-lg text-blue-700 mb-2 no-underline hover:underline hover:decoration-2">{{ result.title }}</div>
-                    <div class="description text-sm text-zinc-600">
-                        {{ (result.description.length > descriptionLimit) ? result.description.substring(0, descriptionLimit) + '...' : result.description }}
+
+                    <div v-else>
+                        <div class="text-sm mb-1 text-zinc-500 text-sm">
+                            <span class="text-zinc-900">{{ breadcrumbDomain(result.breadcrumb) }}</span>
+                            <span v-if="result.breadcrumb.includes('›')"> › {{ breadcrumbs(result.breadcrumb) }}</span>
+                        </div>
+                        <div class="link text-lg text-blue-700 mb-2 no-underline hover:underline hover:decoration-2">{{ result.title }}</div>
+                        <div class="description text-sm text-zinc-600">
+                            {{ (result.description.length > descriptionLimit) ? result.description.substring(0, descriptionLimit) + '...' : result.description }}
+                        </div>
                     </div>
                 </div>
             </div>

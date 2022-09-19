@@ -2,16 +2,22 @@
 
 namespace App\Services\DataForSeo\Requests;
 
+use App\Services\DataForSeo\Result;
+
 class DomainSearch extends AbstractRequest
 {
     /**
-     * @return array
+     * @return Result
      */
-    public function fetch(): array
+    public function fetch(): Result
     {
-        return $this->domainBySearchEngineRanking(
+        $data = [];
+
+        $items = $this->domainBySearchEngineRanking(
             $this->ensureCorrectDomainFormat($this->params->query)
         );
+
+        return new Result($data, $items);
     }
 
     /**

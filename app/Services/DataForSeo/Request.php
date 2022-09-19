@@ -18,9 +18,9 @@ class Request
     private Params $params;
 
     /**
-     * @var array
+     * @var Result
      */
-    private array $result;
+    private Result $result;
 
     /**
      * @var string
