@@ -42,6 +42,6 @@ class AppendAd
             $text .= ' '. fake()->sentence(random_int(3, 8));
         } while (strlen($text) < $min);
 
-        return $text;
+        return trim($text);
     }
 }

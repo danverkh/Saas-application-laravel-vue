@@ -23,6 +23,7 @@ class GoogleKeywordSearch extends AbstractRequest
 
         $data = [
             'hasPaidAds' => collect(data_get($result, 'tasks.0.result.0.item_types', []))->contains('paid'),
+            'keywords'   => $this->params->query,
         ];
 
         $items = collect($items)

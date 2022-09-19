@@ -33,8 +33,9 @@ class GoogleKeywordSearchModifier implements ModifierContract
             ->send($result->items())
             ->through([
                 "App\Services\DataForSeo\Modifiers\Actions\MoveDomainToTheTop:{$this->domain}",
-                "App\Services\DataForSeo\Modifiers\Actions\AppendAd:{$data['hasPaidAds']}",
                 "App\Services\DataForSeo\Modifiers\Actions\Limit:5",
+                "App\Services\DataForSeo\Modifiers\Actions\PrioritizeKeywordDomain:{$data['keywords']}",
+                "App\Services\DataForSeo\Modifiers\Actions\AppendAd:{$data['hasPaidAds']}",
             ])
             ->thenReturn();
     }
