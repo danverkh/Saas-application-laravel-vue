@@ -4,6 +4,7 @@
                 :value="modelValue"
                 class="select w-full text-zinc-900 text-base font-medium invalid:text-zinc-400 ring-1 ring-gray-300 px-4 py-1 hover:ring-2
                    hover:ring-primary/50 focus:ring-2 focus:ring-primary/50 focus:outline-none"
+                :class="{'bg-gray-50 text-gray-600': disabled || readonly, 'ring-red-500/50': error}"
                 v-bind="$attrs"
                 required>
 
@@ -28,6 +29,14 @@ export default {
         options: {
             type: Array,
             default: () => ([]),
+        },
+        readonly: {
+            default: false,
+            type: Boolean,
+        },
+        disabled: {
+            default: false,
+            type: Boolean,
         },
         containerClass: {
             default: null,

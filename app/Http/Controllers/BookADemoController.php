@@ -23,6 +23,7 @@ class BookADemoController extends Controller
      */
     public function store(BookADemoRequest $request): JsonResponse
     {
+        // TODO: save to DB or send email?
 
         return response()->json(['status' => 'success']);
     }

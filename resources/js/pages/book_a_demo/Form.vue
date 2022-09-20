@@ -2,23 +2,23 @@
     <div class="flex flex-col gap-y-4">
         <div class="flex flex-col gap-y-2">
             <label for="subject" class="whitespace-nowrap font-medium">Please choose a subject</label>
-            <Select v-model="form.subject" :options="subjectOptions" id="subject"></Select>
+            <Select v-model="form.subject" :options="subjectOptions" id="subject" :error="validationErrors?.subject"></Select>
         </div>
 
         <div class="flex flex-col gap-y-2">
             <label for="potential_campaign" class="whitespace-nowrap font-medium">Discuss a potential new campaign</label>
-            <Select v-model="form.potential_campaign" :options="potentialCampaignOptions" id="potential_campaign"></Select>
+            <Select v-model="form.potential_campaign" :options="potentialCampaignOptions" id="potential_campaign" :error="validationErrors?.potential_campaign"></Select>
         </div>
 
         <div class="flex flex-row flex-nowrap mt-6 gap-x-6">
             <div class="basis-1/2 flex flex-col gap-y-2">
                 <label for="name" class="whitespace-nowrap font-medium">Your name</label>
-                <Input @keyup.enter="submit" v-model="form.name" id="name" :error="validationErrors?.name" class="text-zinc-900 text-base"/>
+                <Input v-model="form.name" id="name" :error="validationErrors?.name" class="text-zinc-900 text-base"/>
             </div>
 
             <div class="basis-1/2 flex flex-col gap-y-2">
                 <label for="email" class="whitespace-nowrap font-medium">Your email</label>
-                <Input @keyup.enter="submit" v-model="form.email" type="email" id="email" :error="validationErrors?.email" class="text-zinc-900 text-base"/>
+                <Input v-model="form.email" type="email" id="email" :error="validationErrors?.email" class="text-zinc-900 text-base"/>
             </div>
         </div>
 
@@ -83,7 +83,7 @@ export default {
 
             axios.post(route('api.book_a_demo.submit'), this.form)
                 .then(() => {
-                    alert(123);
+                    // TODO: show info that the form was submitted
                 })
                 .catch(error => {
                     if (error.response.status === 422) {
