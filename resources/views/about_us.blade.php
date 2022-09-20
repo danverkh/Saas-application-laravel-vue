@@ -1,5 +1,4 @@
 <x-main-layout>
-
     <div class="mt-14">
         <x-page-title>
             About <span class="text-primary">us</span>

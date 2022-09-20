@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AboutUsController;
+use App\Http\Controllers\BookADemoController;
 use App\Http\Controllers\BookingController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\HomepageController;
@@ -23,6 +24,7 @@ Route::get('{market}/{query}', [BookingController::class, 'index'])
 Route::get('how-it-works', HowItWorksController::class)->name('how_it_works');
 Route::get('success-stories', SuccessStoriesController::class)->name('success_stories');
 Route::get('about-us', AboutUsController::class)->name('about_us');
+Route::get('book-a-demo', [BookADemoController::class, 'form'])->name('book_a_demo');
 
 Route::get('checkout/payment', [CheckoutController::class, 'payment'])->name('checkout.payment');
 Route::get('thank-you', [CheckoutController::class, 'thankYou'])->name('checkout.thank_you');
