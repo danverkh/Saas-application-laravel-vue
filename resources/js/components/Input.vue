@@ -22,6 +22,8 @@ export default defineComponent({
 
     inheritAttrs: false,
 
+    emits: ['update:modelValue'],
+
     props: {
         modelValue: null,
         type: {
@@ -44,8 +46,6 @@ export default defineComponent({
             default: null,
         },
     },
-
-    emits: ['update:modelValue'],
 
     methods: {
         focus() {

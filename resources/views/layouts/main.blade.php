@@ -27,7 +27,7 @@
             <domain-switcher-modal></domain-switcher-modal>
 
             <!-- Header -->
-            <header class="fixed top-0 w-full z-40 backdrop-blur-md bg-white-500/90 transition-all pt-4 pb-3 shadow-lg">
+            <header class="fixed top-0 w-full z-40 backdrop-blur-[10px] bg-white-500/90 transition-all pt-4 pb-3 shadow-lg">
                 <nav class="max-w-screen-xl mx-auto px-6 xl:px-0 grid grid-flow-col py-3 sm:py-4">
                     <div class="col-start-1 col-end-2 flex items-center">
                         <mobile-nav-button class="w-12 h-12 flex items-center mr-5 lg:hidden"></mobile-nav-button>

@@ -45,6 +45,11 @@ import SubmitOrderButton from './pages/checkout/SubmitOrderButton.vue'
 
 app.component('submit-order-button', SubmitOrderButton)
 
+// Book a demo
+import BookADemoForm from './pages/book_a_demo/Form.vue'
+
+app.component('book-a-demo-form', BookADemoForm)
+
 // Globals
 import Helpers from "./mixins/Helpers";
 
