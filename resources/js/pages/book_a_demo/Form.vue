@@ -36,14 +36,9 @@
         </div>
 
         <div class="mt-4 mb-6">
-            <div v-if="submittedSuccessfully" class="alert rounded-xl bg-green-500/25 border border-green-500/50">
-                <div>
-                    <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current flex-shrink-0 text-green-600 h-8 w-8 mr-3" fill="none" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
-                    </svg>
-                    <span>Thank you for booking a demo with us! <br>We will contact you shortly.</span>
-                </div>
-            </div>
+            <SuccessMessage v-if="submittedSuccessfully">
+                Thank you for booking a demo with us! <br>We will contact you shortly.
+            </SuccessMessage>
 
             <SubmitButton v-else @click="submit" :disabled="requestPending">
                 <Spinner v-if="requestPending" color="#ffffff" :size="25" :border-width="4" class="ml-2"></Spinner>
@@ -66,11 +61,12 @@ import SubmitButton from "@/components/SubmitButton.vue";
 import Select from "@/components/Select.vue";
 import {scrollToError} from "@/services/ValidationService";
 import Spinner from "@/components/Spinner.vue";
+import SuccessMessage from "@/components/SuccessMessage.vue";
 
 export default {
     name: "BookADemoForm",
 
-    components: {Spinner, Select, SubmitButton, Input, Textarea},
+    components: {SuccessMessage, Spinner, Select, SubmitButton, Input, Textarea},
 
     data() {
         return {
