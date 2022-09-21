@@ -35,16 +35,27 @@
             <Textarea v-model="form.message" id="message" :rows="4" :error="validationErrors?.message" @change="validationErrors.message = null"></Textarea>
         </div>
 
-        <SubmitButton @click="submit" :disabled="requestPending" class="mt-4 mb-6">
-            <Spinner v-if="requestPending" color="#ffffff" :size="25" :border-width="4" class="ml-2"></Spinner>
+        <div class="mt-4 mb-6">
+            <div v-if="submittedSuccessfully" class="alert rounded-xl bg-green-500/25 border border-green-500/50">
+                <div>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current flex-shrink-0 text-green-600 h-8 w-8 mr-3" fill="none" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                    </svg>
+                    <span>Thank you for booking a demo with us! <br>We will contact you shortly.</span>
+                </div>
+            </div>
 
-            <span class="flex flex-nowrap" v-else>
-                Submit
-                <svg width="32" height="32" viewBox="0 0 32 32" class="w-6 h-6 ml-2">
-                    <path fill="currentColor" d="M27.71 4.29a1 1 0 0 0-1.05-.23l-22 8a1 1 0 0 0 0 1.87l8.59 3.43L19.59 11L21 12.41l-6.37 6.37l3.44 8.59A1 1 0 0 0 19 28a1 1 0 0 0 .92-.66l8-22a1 1 0 0 0-.21-1.05Z"/>
-                </svg>
-            </span>
-        </SubmitButton>
+            <SubmitButton v-else @click="submit" :disabled="requestPending">
+                <Spinner v-if="requestPending" color="#ffffff" :size="25" :border-width="4" class="ml-2"></Spinner>
+
+                <span class="flex flex-nowrap" v-else>
+                    Submit
+                    <svg width="32" height="32" viewBox="0 0 32 32" class="w-6 h-6 ml-2">
+                        <path fill="currentColor" d="M27.71 4.29a1 1 0 0 0-1.05-.23l-22 8a1 1 0 0 0 0 1.87l8.59 3.43L19.59 11L21 12.41l-6.37 6.37l3.44 8.59A1 1 0 0 0 19 28a1 1 0 0 0 .92-.66l8-22a1 1 0 0 0-.21-1.05Z"/>
+                    </svg>
+                </span>
+            </SubmitButton>
+        </div>
     </div>
 </template>
 
@@ -81,6 +92,7 @@ export default {
                 {value: 'other', label: 'Other'},
             ],
             requestPending: false,
+            submittedSuccessfully: false,
             validationErrors: {},
         };
     },
@@ -91,7 +103,7 @@ export default {
 
             axios.post(route('api.book_a_demo.submit'), this.form)
                 .then(() => {
-                    // TODO: show info that the form was submitted
+                    this.submittedSuccessfully = true;
                 })
                 .catch(error => {
                     if (error.response.status === 422) {
