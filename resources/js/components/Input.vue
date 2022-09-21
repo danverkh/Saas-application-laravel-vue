@@ -7,6 +7,7 @@
                :disabled="disabled || readonly"
                :value="modelValue"
                @input="$emit('update:modelValue', $event.target.value)"
+               @keyup="$emit('change')"
                ref="input"
                :readonly="disabled || readonly">
 
@@ -22,7 +23,7 @@ export default defineComponent({
 
     inheritAttrs: false,
 
-    emits: ['update:modelValue'],
+    emits: ['update:modelValue', 'change'],
 
     props: {
         modelValue: null,

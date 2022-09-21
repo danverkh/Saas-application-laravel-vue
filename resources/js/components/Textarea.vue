@@ -2,6 +2,7 @@
     <div class="flex flex-col flex-nowrap w-full" :class="containerClass">
         <textarea @input="$emit('update:modelValue', $event.target.value)"
                   :value="modelValue"
+                  @keyup="$emit('change')"
                   v-bind="$attrs"
                   :rows="rows"
                   :class="{'bg-gray-50 text-gray-600': disabled || readonly, 'ring-red-500/50': error}"
@@ -19,6 +20,8 @@ export default defineComponent({
     name: 'Input',
 
     inheritAttrs: false,
+
+    emits: ['update:modelValue', 'change'],
 
     props: {
         modelValue: null,
@@ -42,7 +45,5 @@ export default defineComponent({
             default: null,
         },
     },
-
-    emits: ['update:modelValue'],
 })
 </script>

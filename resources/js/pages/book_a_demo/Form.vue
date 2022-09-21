@@ -2,29 +2,37 @@
     <div class="flex flex-col gap-y-4">
         <div class="flex flex-col gap-y-2">
             <label for="subject" class="whitespace-nowrap font-medium">Please choose a subject</label>
-            <Select v-model="form.subject" :options="subjectOptions" id="subject" :error="validationErrors?.subject"></Select>
+            <Select v-model="form.subject"
+                    :options="subjectOptions"
+                    id="subject"
+                    :error="validationErrors?.subject"
+                    @change="validationErrors.subject = null"></Select>
         </div>
 
         <div class="flex flex-col gap-y-2">
             <label for="potential_campaign" class="whitespace-nowrap font-medium">Discuss a potential new campaign</label>
-            <Select v-model="form.potential_campaign" :options="potentialCampaignOptions" id="potential_campaign" :error="validationErrors?.potential_campaign"></Select>
+            <Select v-model="form.potential_campaign"
+                    :options="potentialCampaignOptions"
+                    id="potential_campaign"
+                    :error="validationErrors?.potential_campaign"
+                    @change="validationErrors.potential_campaign = null"></Select>
         </div>
 
         <div class="flex flex-row flex-nowrap mt-6 gap-x-6">
             <div class="basis-1/2 flex flex-col gap-y-2">
                 <label for="name" class="whitespace-nowrap font-medium">Your name</label>
-                <Input v-model="form.name" id="name" :error="validationErrors?.name" class="text-zinc-900 text-base"/>
+                <Input v-model="form.name" id="name" :error="validationErrors?.name" @change="validationErrors.name = null" class="text-zinc-900 text-base"/>
             </div>
 
             <div class="basis-1/2 flex flex-col gap-y-2">
                 <label for="email" class="whitespace-nowrap font-medium">Your email</label>
-                <Input v-model="form.email" type="email" id="email" :error="validationErrors?.email" class="text-zinc-900 text-base"/>
+                <Input v-model="form.email" type="email" id="email" :error="validationErrors?.email" @change="validationErrors.email = null" class="text-zinc-900 text-base"/>
             </div>
         </div>
 
         <div class="flex flex-col gap-y-2">
             <label for="message" class="whitespace-nowrap font-medium">Your message</label>
-            <Textarea v-model="form.message" id="message" :rows="4" :error="validationErrors?.message"></Textarea>
+            <Textarea v-model="form.message" id="message" :rows="4" :error="validationErrors?.message" @change="validationErrors.message = null"></Textarea>
         </div>
 
         <SubmitButton @click="submit" :disabled="requestPending" class="mt-4 mb-6">
