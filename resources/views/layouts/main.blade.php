@@ -26,45 +26,45 @@
             <full-screen-spinner></full-screen-spinner>
             <domain-switcher-modal></domain-switcher-modal>
 
-            <!-- Header -->
-            <header class="fixed top-0 w-full z-40 backdrop-blur-[10px] bg-white-500/90 transition-all pt-4 pb-3 shadow-lg">
-                <nav class="max-w-screen-xl mx-auto px-6 xl:px-0 grid grid-flow-col py-3 sm:py-4">
-                    <div class="col-start-1 col-end-2 flex items-center">
-                        <mobile-nav-button class="w-12 h-12 flex items-center mr-5 lg:hidden"></mobile-nav-button>
-
-                        <a href="{{ route('homepage') }}">
-                            <x-application-logo class="h-10 sm:h-12 w-auto"></x-application-logo>
-                        </a>
-                    </div>
-
-                    <ul class="hidden lg:flex col-start-4 col-end-8 text-black-500  items-center">
-                        <x-nav-link :href="route('how_it_works')" :active="request()->routeIs('how_it_works')">How it works</x-nav-link>
-                        <x-nav-link :href="route('success_stories')" :active="request()->routeIs('success_stories')">Success stories</x-nav-link>
-                        <x-nav-link :href="route('about_us')" :active="request()->routeIs('about_us')">About us</x-nav-link>
-                        <x-nav-link href="#" :active="false">Pricing</x-nav-link>
-                    </ul>
-                    <div class="col-start-10 col-end-12 font-medium flex justify-end items-center">
-                        <a href="/" class="text-black-600 mx-4 sm:mx-6 capitalize tracking-wide font-medium hover:text-primary transition-all">Login</a>
-                        <a href="/" class="font-medium tracking-wide py-2 px-5 sm:px-6 border border-primary-hover text-white-500 bg-primary outline-none rounded-l-full rounded-r-full hover:bg-primary-hover hover:text-white-500 transition-all duration-500 hover:shadow-primary">
-                            Get a demo
-                        </a>
-                    </div>
-                </nav>
-            </header>
-
             @env('local')
             <x-breakpoints></x-breakpoints>
             @endenv
 
-            <div class="drawer">
+            <div class="drawer overflow-y-auto">
                 <input id="mobile-menu" type="checkbox" class="drawer-toggle"/>
-                <div class="drawer-content pt-[100px] sm:pt-[108px] bg-zinc-100/20">
+                <div class="drawer-content bg-zinc-100/20">
+                    <!-- Header -->
+                    <header class="sticky top-0 w-full z-40 backdrop-blur-[10px] bg-white-500/90 transition-all pt-4 pb-3 shadow-lg">
+                        <nav class="max-w-screen-xl mx-auto px-6 xl:px-2 grid grid-flow-col py-3 sm:py-4">
+                            <div class="col-start-1 col-end-2 flex items-center">
+                                <mobile-nav-button class="w-12 h-12 flex items-center mr-5 lg:hidden"></mobile-nav-button>
+
+                                <a href="{{ route('homepage') }}">
+                                    <x-application-logo class="h-10 sm:h-12 w-auto"></x-application-logo>
+                                </a>
+                            </div>
+
+                            <ul class="hidden lg:flex col-start-4 col-end-8 text-black-500  items-center">
+                                <x-nav-link :href="route('how_it_works')" :active="request()->routeIs('how_it_works')">How it works</x-nav-link>
+                                <x-nav-link :href="route('success_stories')" :active="request()->routeIs('success_stories')">Success stories</x-nav-link>
+                                <x-nav-link :href="route('about_us')" :active="request()->routeIs('about_us')">About us</x-nav-link>
+                                <x-nav-link href="#" :active="false">Pricing</x-nav-link>
+                            </ul>
+                            <div class="col-start-10 col-end-12 font-medium flex justify-end items-center">
+                                <a href="/" class="text-black-600 mx-4 sm:mx-6 capitalize tracking-wide font-medium hover:text-primary transition-all">Login</a>
+                                <a href="/" class="font-medium tracking-wide py-2 px-5 sm:px-6 border border-primary-hover text-white-500 bg-primary outline-none rounded-l-full rounded-r-full hover:bg-primary-hover hover:text-white-500 transition-all duration-500 hover:shadow-primary">
+                                    Get a demo
+                                </a>
+                            </div>
+                        </nav>
+                    </header>
+
                     <!-- Content -->
                     {{ $slot }}
 
                     <!-- Footer -->
                     <div class="bg-zinc-200 py-12 md:py-20">
-                        <div class="max-w-screen-xl w-full mx-auto px-6 xl:px-0 grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-4">
+                        <div class="max-w-screen-xl w-full mx-auto px-6 xl:px-2 grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-4">
                             <div class="flex flex-col items-start">
                                 <p class="text-black-600 mb-4 font-medium text-2xl">Sitemap</p>
                                 <ul class="text-black-500">
@@ -129,8 +129,9 @@
 
                 <!-- Mobile navigation -->
                 <div class="drawer-side" style="display: none">
-                    <label for="mobile-menu" class="drawer-overlay"></label>
-                    <ul class="menu overflow-y-auto w-80 bg-base-100 text-base-content mt-24 p-6 pt-10 pr-7">
+                    <label for="mobile-menu" class="drawer-overlay mt-[100px] sm:mt-[108px]"></label>
+                    <ul class="menu overflow-y-auto w-80 divide-y bg-base-100 text-base-content mt-[100px] sm:mt-[108px] p-6 pt-8 pr-7"
+                        style="box-shadow: inset 0 4px 18px -9px rgba(0,0,0,0.4)">
                         <li><x-mobile-nav-link :href="route('how_it_works')" :active="request()->routeIs('how_it_works')">How it works</x-mobile-nav-link></li>
                         <li><x-mobile-nav-link :href="route('success_stories')" :active="request()->routeIs('success_stories')">Success stories</x-mobile-nav-link></li>
                         <li><x-mobile-nav-link :href="route('about_us')" :active="request()->routeIs('about_us')">About us</x-mobile-nav-link></li>
