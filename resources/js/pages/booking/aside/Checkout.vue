@@ -10,12 +10,12 @@
                     <div class="flex flex-col gap-y-3">
                         <div class="flex flex-col gap-y-2">
                             <label for="name" class="whitespace-nowrap font-medium">Your name</label>
-                            <Input @keyup.enter="proceed" v-model="customer_name" id="name" :error="validationErrors?.customer_name" class="text-zinc-900 text-base"/>
+                            <Input @keyup.enter="proceed" v-model="customer_name" id="name" :error="validationErrors?.customer_name" @change="validationErrors.customer_name = null" class="text-zinc-900 text-base"/>
                         </div>
 
                         <div class="flex flex-col gap-y-2">
                             <label for="email" class="whitespace-nowrap font-medium">Your email</label>
-                            <Input @keyup.enter="proceed" v-model="customer_email" type="email" id="email" :error="validationErrors?.customer_email" class="text-zinc-900 text-base"/>
+                            <Input @keyup.enter="proceed" v-model="customer_email" type="email" id="email" :error="validationErrors?.customer_email" @change="validationErrors.customer_email = null" class="text-zinc-900 text-base"/>
                         </div>
                     </div>
                 </div>
@@ -30,7 +30,7 @@
 </template>
 
 <script>
-import {mapState, mapWritableState} from 'pinia';
+import {mapWritableState} from 'pinia';
 import CheckoutButton from './Checkout/CheckoutButton.vue';
 import Input from '@/components/Input.vue';
 import {useCart} from '@/stores/cart';
@@ -41,8 +41,7 @@ export default {
     components: {CheckoutButton, Input},
 
     computed: {
-        ...mapWritableState(useCart, ['customer_name', 'customer_email']),
-        ...mapState(useCart, ['validationErrors']),
+        ...mapWritableState(useCart, ['customer_name', 'customer_email', 'validationErrors']),
     },
 
     data() {
