@@ -16,7 +16,7 @@
             <div>
                 <div v-for="(result, index) in results" :key="`preview-rank-item-${index}`" class="mb-6 last:mb-0">
                     <div v-if="result.type === 'ad'" class="py-3 pointer-events-none select-none relative">
-                        <div class="bg-orange-400/60 absolute z-10 -top-4 -bottom-2 -left-4 -right-4 grid place-content-center text-white text-3xl font-extrabold tracking-widest">
+                        <div class="bg-orange-400/60 absolute z-10 -top-4 -bottom-2 -left-4 -right-4 grid place-content-center text-white text-3xl font-extrabold tracking-widest rounded-lg">
                             Ad
                         </div>
                         <div class="blur-[5px]">
