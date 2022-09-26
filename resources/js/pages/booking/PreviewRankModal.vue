@@ -1,5 +1,5 @@
 <template>
-    <Modal name="preview-rank" classes="max-w-2xl p-10" @closed="abortFetch">
+    <Modal name="preview-rank" classes="max-w-2xl px-10 py-8" @closed="abortFetch">
         <div class="search-field flex flex-nowrap justify-between items-center w-full mt-3 mb-10">
             <div>{{ keyword }}</div>
 
@@ -30,7 +30,7 @@
                             <span class="text-zinc-900">{{ breadcrumbDomain(result.breadcrumb) }}</span>
                             <span v-if="result.breadcrumb.includes('›')"> › {{ breadcrumbs(result.breadcrumb) }}</span>
                         </div>
-                        <div class="link text-lg text-blue-700 mb-2 no-underline hover:underline hover:decoration-2">{{ result.title }}</div>
+                        <div class="link text-lg text-blue-700 mb-2 cursor-default no-underline hover:underline hover:decoration-2">{{ result.title }}</div>
                         <div class="description text-sm text-zinc-600">
                             {{ (result.description.length > descriptionLimit) ? result.description.substring(0, descriptionLimit) + '...' : result.description }}
                         </div>
@@ -38,7 +38,7 @@
                 </div>
             </div>
 
-            <div class="text-center mt-2 -mb-2">
+            <div class="text-center mt-4 -mb-3">
                 <svg width="40" height="40" viewBox="0 0 24 24" class="inline-block text-zinc-700">
                     <path fill="currentColor" d="M16 12a2 2 0 0 1 2-2a2 2 0 0 1 2 2a2 2 0 0 1-2 2a2 2 0 0 1-2-2m-6 0a2 2 0 0 1 2-2a2 2 0 0 1 2 2a2 2 0 0 1-2 2a2 2 0 0 1-2-2m-6 0a2 2 0 0 1 2-2a2 2 0 0 1 2 2a2 2 0 0 1-2 2a2 2 0 0 1-2-2Z"/>
                 </svg>

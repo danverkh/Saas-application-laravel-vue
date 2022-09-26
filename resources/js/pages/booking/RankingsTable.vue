@@ -3,7 +3,7 @@
         <table v-if="!error" class="table table-compact w-full">
             <thead>
             <tr>
-                <th class="cursor-default">Keyword</th>
+                <th class="cursor-default !pl-4">Keyword</th>
                 <th><span class="tooltip cursor-default" data-tip="Search volume">Search Volume</span></th>
                 <th class="text-right"><span class="tooltip cursor-default" data-tip="Cost per click">CPC</span></th>
                 <th><span class="tooltip cursor-default" data-tip="Current rank">Rank</span></th>
@@ -17,7 +17,7 @@
             <tbody>
             <template v-if="!loading">
                 <tr v-for="(item, index) in rankingItems.items" :key="`table-item-${index}`" :class="{selected: item.selected}">
-                    <th class="whitespace-normal break-words min-w-[180px] font-medium white">
+                    <th class="whitespace-normal break-words min-w-[180px] font-medium white !pl-4">
                         {{ withoutLastWord(item.keyword) }}
                         <span class="whitespace-nowrap">
                             {{ lastWord(item.keyword) }}

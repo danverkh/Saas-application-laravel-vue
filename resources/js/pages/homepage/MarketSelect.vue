@@ -24,11 +24,8 @@
                             :value="item"
                             as="template"
                         >
-                            <li :class="[active ? 'bg-gray-100 text-primary' : 'text-gray-900', selected ? 'bg-primary-50/25' : '', 'relative cursor-pointer select-none py-2 pl-10 pr-4']">
-                                <span :class="[selected ? 'font-semibold' : 'font-normal', 'block truncate md:pl-1']">{{ item.label }}</span>
-                                <span v-if="selected" class="absolute inset-y-0 left-0 flex items-center pl-2 md:pl-3 text-primary">
-                                <CheckIcon class="h-5 w-5" aria-hidden="true" />
-                            </span>
+                            <li :class="[active ? 'bg-gray-100 text-primary' : 'text-gray-900', selected ? 'bg-primary-50/25' : '', 'relative cursor-pointer select-none py-2.5 text-center border-b border-zinc-100 last:border-none']">
+                                <span :class="[selected ? 'font-semibold' : 'font-normal', 'block truncate md:px-2 text-lg']">{{ item.label }}</span>
                             </li>
                         </ListboxOption>
                     </ListboxOptions>
@@ -47,7 +44,7 @@ import {
     ListboxOption,
     ListboxLabel,
 } from '@headlessui/vue'
-import {CheckIcon, ChevronUpDownIcon} from '@heroicons/vue/24/solid'
+import {ChevronUpDownIcon} from '@heroicons/vue/24/solid'
 
 const props = defineProps({
     selected: {default: null},
