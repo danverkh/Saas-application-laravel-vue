@@ -3,8 +3,8 @@
 
     <x-container>
         <div class="max-w-screen-xl mx-auto mb-8">
-            <div class="flex-col flex flex-nowrap gap-8 xl:flex-row">
-                <div class="w-full xl:w-9/12 flex flex-col gap-6">
+            <div id="slider-container" class="flex-col flex flex-nowrap gap-8 xl:flex-row">
+                <div id="content" class="content w-full xl:w-9/12 flex flex-col gap-6">
                     <x-card class="border-t-4 border-primary gap-0">
                         <div class="flex flex-nowrap gap-6">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="h-20 h-20 text-primary min-w-[60px]">
@@ -38,29 +38,46 @@
                 </div>
 
                 <!-- Aside -->
-                <div class="w-full xl:w-3/12 flex flex-col-reverse md:flex-row-reverse xl:flex-col gap-6">
-                    <div class="flex flex-col-reverse md:flex-col gap-6 md:basis-1/2 xl:basis-auto">
-                        <checkout></checkout>
+                <div id="sidebar" class="sidebar w-full xl:w-3/12">
+                    <div class="sidebar__inner flex flex-col-reverse md:flex-row-reverse xl:flex-col gap-6">
+                        <div class="flex flex-col-reverse md:flex-col gap-6 md:basis-1/2 xl:basis-auto">
+                            <checkout></checkout>
 
-                        <x-card class="border-t-4 border-zinc-300">
-                            <domain-switcher market="{{ $market }}" domain="{{ $domain }}"></domain-switcher>
+                            <x-card class="border-t-4 border-zinc-300">
+                                <domain-switcher market="{{ $market }}" domain="{{ $domain }}"></domain-switcher>
+                            </x-card>
+                        </div>
+
+                        <x-card class="border-t-4 border-zinc-300 gap-0 md:basis-1/2 xl:basis-auto">
+                            <h4 class="-mt-2 font-medium text-xl">Forecasted Results</h4>
+
+                            <div class="divider divider-vertical my-0"></div>
+
+                            <forecasted-results></forecasted-results>
+
+                            <div class="text-sm -mb-6 -mx-8 pt-4 pb-5 px-8 bg-zinc-50 text-zinc-500">
+                                Forecasted results are directional estimates and do not guarantee performance.
+                                <a href="#" class="text-primary hover:underline whitespace-nowrap">Learn more</a>
+                            </div>
                         </x-card>
                     </div>
-
-                    <x-card class="border-t-4 border-zinc-300 gap-0 md:basis-1/2 xl:basis-auto">
-                        <h4 class="-mt-2 font-medium text-xl">Forecasted Results</h4>
-
-                        <div class="divider divider-vertical my-0"></div>
-
-                        <forecasted-results></forecasted-results>
-
-                        <div class="text-sm -mb-6 -mx-8 pt-4 pb-5 px-8 bg-zinc-50 text-zinc-500">
-                            Forecasted results are directional estimates and do not guarantee performance.
-                            <a href="#" class="text-primary hover:underline whitespace-nowrap">Learn more</a>
-                        </div>
-                    </x-card>
                 </div>
             </div>
         </div>
     </x-container>
+
+    @push('script')
+        <script type="text/javascript">
+            document.addEventListener('DOMContentLoaded', function () {
+                var sidebar = new StickySidebar('#sidebar', {
+                    topSpacing: 140,
+                    bottomSpacing: 20,
+                    containerSelector: '#slider-container',
+                    innerWrapperSelector: '.sidebar-inner',
+                    scrollContainer: '.drawer-content',
+                    minWidth: 1279,
+                });
+            });
+        </script>
+    @endpush
 </x-main-layout>

@@ -28,6 +28,7 @@
         "pinia": "^2.0.21",
         "pinia-plugin-persistedstate": "^2.2.0",
         "random-seed": "^0.3.0",
+        "sticky-sidebar-v2": "^1.1.1",
         "vue": "^3.2.36",
         "vue-loader": "^17.0.0",
         "vue3-slide-up-down": "^1.2.5"
