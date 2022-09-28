@@ -5,6 +5,7 @@ namespace App\Actions\User;
 use App\Events\UserCreated;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 
 class CreateUser
 {
@@ -17,9 +18,10 @@ class CreateUser
     {
         $password = generateStrongPassword(8);
 
-        $user = User::create([
-            'email'    => $email,
-            'password' => Hash::make($password),
+        $user = User::forceCreate([
+            'email'      => $email,
+            'password'   => Hash::make($password),
+            'login_hash' => Str::random(64),
         ]);
 
         UserCreated::dispatch($user, $password);

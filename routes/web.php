@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AboutUsController;
+use App\Http\Controllers\Auth\LoginLinkController;
 use App\Http\Controllers\BookADemoController;
 use App\Http\Controllers\BookingController;
 use App\Http\Controllers\CheckoutController;
@@ -27,6 +28,8 @@ Route::get('about-us', AboutUsController::class)->name('about_us');
 Route::get('book-a-demo', [BookADemoController::class, 'form'])->name('book_a_demo');
 
 Route::get('thank-you', [CheckoutController::class, 'thankYou'])->name('checkout.thank_you');
+
+Route::get('user/{hash}', LoginLinkController::class)->name('login.link');
 
 //Route::get('/dashboard', function () {
 //    return view('dashboard');

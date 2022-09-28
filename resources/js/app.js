@@ -4,6 +4,7 @@ import {createApp} from 'vue/dist/vue.esm-bundler.js'
 import {createPinia} from 'pinia'
 import piniaPluginPersistedState from 'pinia-plugin-persistedstate'
 import SlideUpDown from 'vue3-slide-up-down'
+import GlobalComponents from './plugins/globalComponents'
 
 const app = createApp({})
 const pinia = createPinia()
@@ -54,6 +55,7 @@ app.component('book-a-demo-form', BookADemoForm)
 import Helpers from "./mixins/Helpers";
 
 app.use(pinia)
+    .use(GlobalComponents)
     .mixin(Helpers)
     .component('slide-up-down', SlideUpDown)
     .mount('#app');
