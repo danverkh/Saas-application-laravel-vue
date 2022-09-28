@@ -2,21 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Actions\User\CreateUser;
 use App\Http\Requests\OrderRequest;
-use App\Models\Order;
+use App\Models\User;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\JsonResponse;
 
 class CheckoutController extends Controller
 {
-    /**
-     * @return \Illuminate\Contracts\View\View
-     */
-    public function payment(): View
-    {
-        return view('checkout.payment');
-    }
-
     /**
      * @param \App\Http\Requests\OrderRequest $request
      *
@@ -24,7 +17,10 @@ class CheckoutController extends Controller
      */
     public function order(OrderRequest $request): JsonResponse
     {
-        $order = Order::create($request->validated());
+        $user = User::firstWhere('email', $request->email) ?? CreateUser::handle($request->email);
+
+        /** @var \App\Models\Order $order */
+        $order = $user->orders()->create($request->validated());
 
         foreach ($request->selectedItems as $keyword) {
             $order->keywords()->create($keyword);

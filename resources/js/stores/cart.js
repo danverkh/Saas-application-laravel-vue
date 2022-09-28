@@ -8,8 +8,7 @@ export const useCart = defineStore('cart', {
 
     state: () => {
         return {
-            customer_name: '',
-            customer_email: '',
+            email: '',
             market: null,
             domain: null,
             selectedItems: [],

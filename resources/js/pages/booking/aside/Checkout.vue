@@ -9,13 +9,8 @@
 
                     <div class="flex flex-col gap-y-3">
                         <div class="flex flex-col gap-y-2">
-                            <label for="name" class="whitespace-nowrap font-medium">Your name</label>
-                            <Input @keyup.enter="proceed" v-model="customer_name" id="name" :error="validationErrors?.customer_name" @change="validationErrors.customer_name = null" class="text-zinc-900 text-base"/>
-                        </div>
-
-                        <div class="flex flex-col gap-y-2">
                             <label for="email" class="whitespace-nowrap font-medium">Your email</label>
-                            <Input @keyup.enter="proceed" v-model="customer_email" type="email" id="email" :error="validationErrors?.customer_email" @change="validationErrors.customer_email = null" class="text-zinc-900 text-base"/>
+                            <Input @keyup.enter="proceed" v-model="email" type="email" id="email" :error="validationErrors?.email" @change="validationErrors.email = null" class="text-zinc-900 text-base"/>
                         </div>
                     </div>
                 </div>
@@ -41,7 +36,7 @@ export default {
     components: {CheckoutButton, Input},
 
     computed: {
-        ...mapWritableState(useCart, ['customer_name', 'customer_email', 'validationErrors']),
+        ...mapWritableState(useCart, ['email', 'validationErrors']),
     },
 
     data() {
@@ -60,7 +55,7 @@ export default {
             if (!this.checkoutInit) {
                 // Step 1
                 this.checkoutInit = true;
-                setTimeout(() => document.getElementById('name').focus(), this.slideDuration);
+                setTimeout(() => document.querySelector('input[type=email]').focus(), this.slideDuration);
             } else {
                 // Step 2
                 useCart()

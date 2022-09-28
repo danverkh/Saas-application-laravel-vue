@@ -24,22 +24,10 @@ class OrderRequest extends FormRequest
     public function rules()
     {
         return [
-            'domain'         => 'required',
-            'market'         => 'required',
-            'customer_name'  => 'required|min:3',
-            'customer_email' => 'required|email',
-            'selectedItems'  => 'required|array|min:1',
-        ];
-    }
-
-    /**
-     * @return string[]
-     */
-    public function attributes()
-    {
-        return [
-            'customer_name'  => 'name',
-            'customer_email' => 'email',
+            'domain'        => 'required',
+            'market'        => 'required',
+            'email'         => 'required|email',
+            'selectedItems' => 'required|array|min:1',
         ];
     }
 }
