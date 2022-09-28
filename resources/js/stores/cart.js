@@ -21,28 +21,6 @@ export const useCart = defineStore('cart', {
             this.selectedItems = items;
         },
 
-        validate() {
-            this.validationErrors = [];
-
-            FullScreenSpinner.open();
-
-            return new Promise(resolve => {
-                axios.post(route('api.checkout.order.validate'), this.$state)
-                    .then(response => resolve(response))
-                    .catch(error => {
-                        FullScreenSpinner.close();
-
-                        if (error.response.status === 422) {
-                            this.validationErrors = error.response.data.errors;
-                            scrollToError();
-                        } else {
-                            console.error('Failed to validate order', error);
-                            alert('Whoops, something went wrong... Please try again later.');
-                        }
-                    });
-            });
-        },
-
         createOrder() {
             this.validationErrors = [];
 
@@ -62,8 +40,8 @@ export const useCart = defineStore('cart', {
                             console.error('Failed to create order', error);
                             alert('Whoops, something went wrong... Please try again later.');
                         }
-                    })
-                    .finally(() => FullScreenSpinner.close());
+                        FullScreenSpinner.close();
+                    });
             });
         },
     },

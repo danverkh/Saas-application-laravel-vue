@@ -12,7 +12,6 @@ class Order extends Model
     use HasFactory;
 
     protected $fillable = [
-        'email',
         'market',
         'domain',
     ];

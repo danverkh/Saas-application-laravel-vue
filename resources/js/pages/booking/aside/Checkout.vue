@@ -74,8 +74,8 @@ export default {
             } else {
                 // Step 2
                 useCart()
-                    .validate()
-                    .then(() => window.location.href = route('checkout.payment'));
+                    .createOrder()
+                    .then(() => window.location.href = route('checkout.thank_you'));
             }
         },
 
