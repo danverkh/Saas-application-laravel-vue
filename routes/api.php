@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AutoSuggestController;
 use App\Http\Controllers\BookADemoController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\RankingsController;
@@ -18,4 +19,5 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('rankings', [RankingsController::class, 'index'])->name('api.rankings');
 Route::get('preview/rank', [PreviewRankController::class, 'index'])->name('api.preview_rank');
+Route::get('autosuggest/domain', [AutoSuggestController::class, 'domain'])->name('api.autosuggest.domain');
 Route::post('book-a-demo', [BookADemoController::class, 'store'])->name('api.book_a_demo.submit');

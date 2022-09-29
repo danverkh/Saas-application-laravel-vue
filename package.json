@@ -21,6 +21,8 @@
         "@vime/core": "^5.3.1",
         "@vime/vue-next": "^5.3.1",
         "@vitejs/plugin-vue": "^3.0.3",
+        "@vueuse/components": "^9.3.0",
+        "@vueuse/core": "^9.3.0",
         "accounting-js": "^1.1.1",
         "chart.js": "^2.9.3",
         "daisyui": "^2.24.0",

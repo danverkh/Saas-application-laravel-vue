@@ -2,12 +2,12 @@
     <div class="w-24 md:28">
         <Listbox v-model="selectedItem">
             <div class="relative mt-1">
-                <ListboxLabel class="text-gray-500">Market</ListboxLabel>
+                <ListboxLabel class="text-zinc-500">Market</ListboxLabel>
 
-                <ListboxButton class="relative w-full cursor-pointer rounded-lg bg-white mt-1 py-4 pl-5 pr-10 text-left ring-1 ring-gray-300 hover:ring-2 hover:ring-primary/50 sm:text-sm transition-all focus:ring-2 focus:ring-primary/50 focus:outline-none">
+                <ListboxButton class="relative w-full cursor-pointer rounded-lg bg-white mt-1 py-4 pl-5 pr-10 text-left ring-1 ring-zinc-300 hover:ring-2 hover:ring-primary/50 sm:text-sm transition-all focus:ring-2 focus:ring-primary/50 focus:outline-none">
                     <span class="block truncate text-lg text-center font-semibold">{{ selectedItem.label }}</span>
                     <span class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
-                    <ChevronUpDownIcon class="h-5 w-5 text-gray-400" aria-hidden="true" />
+                    <ChevronUpDownIcon class="h-5 w-5 text-zinc-400" aria-hidden="true" />
                 </span>
                 </ListboxButton>
 
@@ -16,7 +16,7 @@
                     leave-from-class="opacity-100"
                     leave-to-class="opacity-0"
                 >
-                    <ListboxOptions class="absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-gray-400 ring-opacity-5 focus:outline-none sm:text-sm">
+                    <ListboxOptions class="absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-zinc-400 ring-opacity-5 focus:outline-none sm:text-sm">
                         <ListboxOption
                             v-slot="{ active, selected }"
                             v-for="item in items"
@@ -24,7 +24,7 @@
                             :value="item"
                             as="template"
                         >
-                            <li :class="[active ? 'bg-gray-100 text-primary' : 'text-gray-900', selected ? 'bg-primary-50/25' : '', 'relative cursor-pointer select-none py-2.5 text-center border-b border-zinc-100 last:border-none']">
+                            <li :class="[active ? 'bg-zinc-100 text-primary' : 'text-zinc-900', selected ? 'bg-primary-50/25' : '', 'relative cursor-pointer select-none py-2.5 text-center border-b border-zinc-100 last:border-none']">
                                 <span :class="[selected ? 'font-semibold' : 'font-normal', 'block truncate md:px-2 text-lg']">{{ item.label }}</span>
                             </li>
                         </ListboxOption>
