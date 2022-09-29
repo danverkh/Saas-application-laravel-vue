@@ -138,8 +138,8 @@ export default {
                 this.open();
                 return;
             }
-            if (this.suggestions.index < (suggestions.items.length - 1)) {
-                suggestions.index++;
+            if (this.suggestions.index < (this.suggestions.items.length - 1)) {
+                this.suggestions.index++;
             }
         },
 
