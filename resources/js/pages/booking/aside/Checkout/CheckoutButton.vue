@@ -1,9 +1,10 @@
 <template>
     <div @click="click"
-       :class="[hasSelections ? '' : 'opacity-75']"
-       class="group flex flex-nowrap items-center mt-6 md:mt-0 pl-3 pr-5 py-8 lg:py-5 xl:py-5 text-lg md:text-base xl:text-md font-semibold text-white tracking-wider uppercase
+         tabindex="2"
+         :class="[hasSelections ? '' : 'opacity-75']"
+         class="group flex flex-nowrap items-center mt-6 md:mt-0 pl-3 pr-5 py-8 lg:py-5 xl:py-5 text-lg md:text-base xl:text-md font-semibold text-white tracking-wider uppercase
                 select-none transition duration-500 ease-in-out transform bg-green-600 rounded-2xl shadow-lg shadow-zinc-300 border border-green-700/50
-                hover:shadow-green-500/50 overflow-hidden cursor-pointer">
+                hover:shadow-green-500/50 overflow-hidden cursor-pointer focus:outline-green-700">
 
         <div class="flex-1 xl:text-right">
             <slot></slot>

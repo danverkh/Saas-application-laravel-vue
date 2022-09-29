@@ -7,6 +7,7 @@ use App\Http\Requests\OrderRequest;
 use App\Models\User;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class CheckoutController extends Controller
@@ -18,7 +19,7 @@ class CheckoutController extends Controller
      */
     public function order(OrderRequest $request): JsonResponse
     {
-        DB::transaction(static function () use ($request) {
+        $user = DB::transaction(static function () use ($request) {
             $user = User::firstWhere('email', $request->email) ?? CreateUser::handle($request->email);
 
             /** @var \App\Models\Order $order */
@@ -27,19 +28,13 @@ class CheckoutController extends Controller
             foreach ($request->selectedItems as $keyword) {
                 $order->keywords()->create($keyword);
             }
+
+            return $user;
         });
 
-        return response()->json(['status' => 'success']);
-    }
+        Auth::guard('web')->login($user);
 
-    /**
-     * @param \App\Http\Requests\OrderRequest $request
-     *
-     * @return \Illuminate\Http\JsonResponse
-     */
-    public function validateRequest(OrderRequest $request): JsonResponse
-    {
-        return response()->json(['status' => 'valid']);
+        return response()->json(['status' => 'success']);
     }
 
     /**

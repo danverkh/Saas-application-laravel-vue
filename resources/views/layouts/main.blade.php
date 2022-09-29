@@ -51,10 +51,21 @@
                                 <x-nav-link href="#" :active="false">Pricing</x-nav-link>
                             </ul>
                             <div class="col-start-10 col-end-12 font-medium flex justify-end items-center">
-                                <a href="/" class="text-black-600 mx-4 sm:mx-6 capitalize tracking-wide font-medium hover:text-primary transition-all">Login</a>
-                                <a href="/" class="font-medium tracking-wide py-2 px-5 sm:px-6 border border-primary-hover text-white-500 bg-primary outline-none rounded-l-full rounded-r-full hover:bg-primary-hover hover:text-white-500 transition-all duration-500 hover:shadow-primary">
-                                    Get a demo
-                                </a>
+                                @auth
+                                    <div class="hidden sm:block mr-5 text-zinc-900">{{ auth()->user()->email }}</div>
+                                    <form action="{{ route('logout') }}" method="POST">
+                                        @csrf
+                                        <button type="submit" class="flex flex-nowrap items-center font-medium tracking-wide py-2 px-5 sm:px-6 border border-primary-hover text-white-500 bg-primary outline-none rounded-l-full rounded-r-full hover:bg-primary-hover hover:text-white-500 transition-all duration-500 hover:shadow-primary">
+                                            <svg class="hidden sm:block w-5 h-5 mr-1.5" viewBox="0 0 24 24"><path fill="currentColor" d="M5 21q-.825 0-1.413-.587Q3 19.825 3 19V5q0-.825.587-1.413Q4.175 3 5 3h7v2H5v14h7v2Zm11-4l-1.375-1.45l2.55-2.55H9v-2h8.175l-2.55-2.55L16 7l5 5Z"/></svg>
+                                            Logout
+                                        </button>
+                                    </form>
+                                @else
+                                    <a href="/" class="text-black-600 mx-4 sm:mx-6 capitalize tracking-wide font-medium hover:text-primary transition-all">Login</a>
+                                    <a href="/" class="font-medium tracking-wide py-2 px-5 sm:px-6 border border-primary-hover text-white-500 bg-primary outline-none rounded-l-full rounded-r-full hover:bg-primary-hover hover:text-white-500 transition-all duration-500 hover:shadow-primary">
+                                        Get a demo
+                                    </a>
+                                @endauth
                             </div>
                         </nav>
                     </header>

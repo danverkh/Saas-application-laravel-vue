@@ -19,6 +19,5 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('rankings', [RankingsController::class, 'index'])->name('api.rankings');
 Route::get('preview/rank', [PreviewRankController::class, 'index'])->name('api.preview_rank');
-Route::post('checkout/order/validate', [CheckoutController::class, 'validateRequest'])->name('api.checkout.order.validate');
 Route::post('checkout/order', [CheckoutController::class, 'order'])->name('api.checkout.order');
 Route::post('book-a-demo', [BookADemoController::class, 'store'])->name('api.book_a_demo.submit');

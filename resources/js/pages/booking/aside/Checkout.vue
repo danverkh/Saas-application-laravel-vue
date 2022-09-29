@@ -15,6 +15,7 @@
                                    v-model="email"
                                    type="email"
                                    id="email"
+                                   tabindex="1"
                                    :error="validationErrors?.email"
                                    @change="validationErrors.email = null"
                                    error-classes="text-xs"
