@@ -27,7 +27,7 @@ export const useCart = defineStore('cart', {
             FullScreenSpinner.open();
 
             return new Promise(resolve => {
-                axios.post(route('api.checkout.order'), this.$state)
+                axios.post(route('checkout.order'), this.$state)
                     .then(response => {
                         window.localStorage.removeItem('cart');
                         resolve(response);

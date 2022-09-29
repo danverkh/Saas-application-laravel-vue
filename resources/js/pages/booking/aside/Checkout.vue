@@ -64,6 +64,10 @@ export default {
 
     mounted() {
         useCart().validationErrors = [];
+
+        if(this.$auth.check) {
+            this.email = this.$auth.user.email;
+        }
     },
 
     methods: {

@@ -27,6 +27,7 @@ Route::get('success-stories', SuccessStoriesController::class)->name('success_st
 Route::get('about-us', AboutUsController::class)->name('about_us');
 Route::get('book-a-demo', [BookADemoController::class, 'form'])->name('book_a_demo');
 
+Route::post('checkout/order', [CheckoutController::class, 'order'])->name('checkout.order');
 Route::get('thank-you', [CheckoutController::class, 'thankYou'])->name('checkout.thank_you');
 
 Route::get('user/{hash}', LoginLinkController::class)->name('login.link');

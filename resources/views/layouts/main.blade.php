@@ -21,7 +21,7 @@
         @stack('style')
     </head>
     <body>
-        <div id="app">
+        <div id="app" @if(auth()->check())data-auth='@json(auth()->user()->only(['id', 'name', 'email']))'@endif>
             <!-- Global -->
             <full-screen-spinner></full-screen-spinner>
             <domain-switcher-modal></domain-switcher-modal>

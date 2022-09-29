@@ -5,6 +5,7 @@ import {createPinia} from 'pinia'
 import piniaPluginPersistedState from 'pinia-plugin-persistedstate'
 import SlideUpDown from 'vue3-slide-up-down'
 import GlobalComponents from './plugins/globalComponents'
+import GlobalState from './plugins/globalState'
 
 const app = createApp({})
 const pinia = createPinia()
@@ -56,6 +57,7 @@ import Helpers from "./mixins/Helpers";
 
 app.use(pinia)
     .use(GlobalComponents)
+    .use(GlobalState)
     .mixin(Helpers)
     .component('slide-up-down', SlideUpDown)
     .mount('#app');
