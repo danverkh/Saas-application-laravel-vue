@@ -1,10 +1,10 @@
 <template>
-    <div class="w-24 md:28">
+    <div class="w-20 sm:w-24 md:28">
         <Listbox v-model="selectedItem">
             <div class="relative mt-1">
                 <ListboxLabel class="text-zinc-500">Market</ListboxLabel>
 
-                <ListboxButton class="relative w-full cursor-pointer rounded-lg bg-white mt-1 py-4 pl-5 pr-10 text-left ring-1 ring-zinc-300 hover:ring-2 hover:ring-primary/50 sm:text-sm transition-all focus:ring-2 focus:ring-primary/50 focus:outline-none">
+                <ListboxButton class="relative w-full cursor-pointer rounded-lg bg-white mt-1 py-4 pl-4 sm:pl-5 pr-10 text-left ring-1 ring-zinc-300 hover:ring-2 hover:ring-primary/50 sm:text-sm transition-all focus:ring-2 focus:ring-primary/50 focus:outline-none">
                     <span class="block truncate text-lg text-center font-semibold">{{ selectedItem.label }}</span>
                     <span class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
                     <ChevronUpDownIcon class="h-5 w-5 text-zinc-400" aria-hidden="true" />
@@ -24,8 +24,8 @@
                             :value="item"
                             as="template"
                         >
-                            <li :class="[active ? 'bg-zinc-100 text-primary' : 'text-zinc-900', selected ? 'bg-primary-50/25' : '', 'relative cursor-pointer select-none py-2.5 text-center border-b border-zinc-100 last:border-none']">
-                                <span :class="[selected ? 'font-semibold' : 'font-normal', 'block truncate md:px-2 text-lg']">{{ item.label }}</span>
+                            <li :class="[active ? 'bg-zinc-100' : 'text-zinc-900', selected ? 'bg-primary-50/25' : '', 'relative cursor-pointer select-none py-2.5 text-center border-b border-zinc-100 last:border-none']">
+                                <span :class="[selected ? 'text-primary' : 'font-normal', 'block truncate md:px-2 text-lg']">{{ item.label }}</span>
                             </li>
                         </ListboxOption>
                     </ListboxOptions>

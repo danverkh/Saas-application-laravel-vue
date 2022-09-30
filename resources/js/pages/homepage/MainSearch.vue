@@ -14,7 +14,7 @@
                      class="main-search">
 
             <template #item="{item, state}">
-                <svg class="w-5 h-5 mr-4 flex-shrink-0"
+                <svg class="w-5 h-5 mr-4 flex-shrink-0 hidden sm:inline-block"
                      viewBox="0 0 24 24"
                      :class="{
                         'group-hover:text-zinc-900': state.isIdle(),
@@ -26,7 +26,7 @@
                 </svg>
 
                 <div class="flex flex-col w-[calc(100%-2.4rem)]">
-                    <div>{{ item.domain }}</div>
+                    <div class="truncate">{{ item.domain }}</div>
                     <div v-if="item.title"
                          class="text-2xs truncate"
                          :class="{

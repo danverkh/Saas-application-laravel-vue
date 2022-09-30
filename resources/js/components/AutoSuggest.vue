@@ -22,9 +22,9 @@
                 class="group flex items-center px-4 py-3 cursor-pointer"
                 :class="{
                         'hover:bg-zinc-100': state(item, index).isIdle(),
-                        'bg-blue-50/75 text-zinc-900 hover:bg-blue-50': state(item, index).isActive(),
+                        'bg-zinc-100/75 text-zinc-900 hover:bg-zinc-100': state(item, index).isActive(),
                         'bg-primary-50/20 text-primary hover:bg-primary-50/20': state(item, index).isSelected(),
-                        'bg-blue-50/75 text-primary hover:bg-primary-50/40 hover:text-primary': state(item, index).isActiveAndSelected(),
+                        'bg-primary-50/30 text-primary hover:bg-primary-50/40 hover:text-primary': state(item, index).isActiveAndSelected(),
                     }">
 
                 <slot name="item" v-bind="{item, state: state(item, index)}"></slot>
@@ -80,6 +80,8 @@ export default {
     created() {
         this.debouncedFetch = debounce(() => {
             if (this.modelValue.length < 3) {
+                this.close();
+                this.items = [];
                 return;
             }
 
@@ -131,7 +133,7 @@ export default {
 
         close() {
             this.show = false;
-            this.activeIndex = 0;
+            this.activeIndex = -1;
         },
 
         state(item, index) {
