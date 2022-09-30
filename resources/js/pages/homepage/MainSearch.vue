@@ -13,7 +13,7 @@
                      :class="{'border-primary': invalid}"
                      class="main-search">
 
-            <template #item="{item, state}">
+            <template #item="{item, state, highlightFound}">
                 <svg class="w-5 h-5 mr-4 flex-shrink-0 hidden sm:inline-block"
                      viewBox="0 0 24 24"
                      :class="{
@@ -26,7 +26,7 @@
                 </svg>
 
                 <div class="flex flex-col w-[calc(100%-2.4rem)]">
-                    <div class="truncate">{{ item.domain }}</div>
+                    <div class="truncate" v-html="highlightFound(item.domain, domain)"></div>
                     <div v-if="item.title"
                          class="text-2xs truncate"
                          :class="{

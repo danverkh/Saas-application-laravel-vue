@@ -27,7 +27,7 @@
                         'bg-primary-50/30 text-primary hover:bg-primary-50/40 hover:text-primary': state(item, index).isActiveAndSelected(),
                     }">
 
-                <slot name="item" v-bind="{item, state: state(item, index)}"></slot>
+                <slot name="item" v-bind="{item, state: state(item, index), highlightFound}"></slot>
             </li>
         </ul>
     </OnClickOutside>
@@ -124,6 +124,10 @@ export default {
             if (this.activeIndex < (this.items.length - 1)) {
                 this.activeIndex++;
             }
+        },
+
+        highlightFound(text, segment) {
+            return `<span class="font-semibold">${segment}</span>` + text.substr(segment.length);
         },
 
         open() {
