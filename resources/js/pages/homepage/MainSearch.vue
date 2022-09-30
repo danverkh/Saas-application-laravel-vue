@@ -71,7 +71,7 @@ export default {
 
     watch: {
         domain(value) {
-            if (value.length > 0) {
+            if (value.length > 0 || !value.includes('.')) {
                 this.invalid = false;
             }
         },

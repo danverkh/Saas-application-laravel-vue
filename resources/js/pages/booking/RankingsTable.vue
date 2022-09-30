@@ -34,11 +34,11 @@
                     <td class="text-right">{{ item.projected_traffic ? number(item.projected_traffic, 1) : '-' }}</td>
                     <td class="text-right">{{ item.maximum_cost ? money(item.maximum_cost) : '-' }}</td>
                     <th class="text-right">
-                        <button v-if="item.selected" @click="remove(item)" class="btn btn-sm text-[0.7rem] flex-nowrap px-2 rounded-[5px] border-none bg-red-600 hover:bg-red-700">
+                        <button v-if="item.selected" @click="remove(item)" class="btn btn-sm w-16 text-[0.7rem] flex-nowrap rounded-[5px] border-none bg-red-600 hover:bg-red-700">
                             Remove
                         </button>
 
-                        <button v-else @click="add(item)" class="btn btn-sm text-[0.7rem] flex-nowrap pl-2 pr-1 rounded-[5px] border-none bg-green-600 hover:bg-green-700">
+                        <button v-else @click="add(item)" class="btn btn-sm w-16 text-[0.7rem] flex-nowrap rounded-[5px] border-none bg-green-600 hover:bg-green-700">
                             Add
                             <svg class="h-4 w-4" viewBox="0 0 256 256">
                                 <path fill="currentColor" d="M96 220a12.2 12.2 0 0 1-8.5-3.5a12 12 0 0 1 0-17L159 128L87.5 56.5a12 12 0 0 1 17-17l80 80a12 12 0 0 1 0 17l-80 80A12.2 12.2 0 0 1 96 220Z"/>
