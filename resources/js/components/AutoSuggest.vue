@@ -107,6 +107,7 @@ export default {
         selectSuggestion(index) {
             this.$emit('update:modelValue', this.items[index][this.selectionProperty]);
             this.close();
+            this.focus();
         },
 
         moveSelectionUp() {
