@@ -5,6 +5,11 @@
         <label class="block text-gray-500 mb-2 inline-block" @click="focusSearch">Domain</label>
 
         <AutoSuggest v-model="domain"
+                     @submit="search"
+                     :request="suggestionsRequest"
+                     placeholder="Please enter a domain here..."
+                     ref="searchRef"
+                     class="main-search"
                      :class="{'border-primary': invalid}"></AutoSuggest>
     </div>
 
@@ -21,7 +26,7 @@
 <script>
 import MarketSelect from './MarketSelect.vue';
 import {useCart} from "@/stores/cart";
-import AutoSuggest from "@/components/AutoSuggest";
+import AutoSuggest from "@/components/AutoSuggest.vue";
 
 export default {
     name: "MainSearch",
@@ -45,14 +50,6 @@ export default {
     },
 
     methods: {
-        selectOrSearch() {
-            if (this.suggestionsOpened && this.suggestions.index >= 0) {
-                this.selectSuggestion(this.suggestions.index);
-            } else {
-                this.search();
-            }
-        },
-
         search() {
             if (this.domain.length === 0) {
                 this.invalid = true;
@@ -67,6 +64,10 @@ export default {
 
         focusSearch() {
             this.$refs.searchRef.focus();
+        },
+
+        suggestionsRequest() {
+            return axios.get(route('api.autosuggest.domain'), {params: {domain: this.domain, market: this.market}});
         },
     },
 }

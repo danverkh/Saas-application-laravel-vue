@@ -1,18 +1,16 @@
 <template>
     <OnClickOutside @trigger="close" class="relative">
-        <input v-model="domain"
+        <input :value="modelValue"
+               @input="$emit('update:modelValue', $event.target.value); debouncedFetch()"
                v-bind="$attrs"
-               @input="debouncedFetch"
                @focus="open"
-               @keyup.enter="selectOrSearch"
+               @keyup.enter="selectOrSubmit"
                @keydown.up.prevent="moveSelectionUp"
                @keydown.down.prevent="moveSelectionDown"
                @keydown.ctrl.space="open"
                @keyup.esc="close"
                type="text"
-               ref="searchRef"
-               placeholder="Please enter a domain here..."
-               class="main-search input input-lg h-[60px] w-full ring-1 ring-gray-300 px-4 md:px-6 hover:ring-2 hover:ring-primary/50 focus:ring-2 focus:ring-primary/50 focus:outline-none"/>
+               class="input input-lg h-[60px] w-full ring-1 ring-gray-300 px-4 md:px-6 hover:ring-2 hover:ring-primary/50 focus:ring-2 focus:ring-primary/50 focus:outline-none"/>
 
         <ul v-if="suggestionsOpened"
             class="absolute top-[70px] w-full bg-white border border-zinc-200 rounded-lg shadow-lg divide-y divide-zinc-200 overflow-hidden">
@@ -22,7 +20,7 @@
                 @click="selectSuggestion(index)"
                 class="group flex items-center px-4 py-4 cursor-pointer"
                 :class="{
-                        'hover:bg-zinc-100': index !== index,
+                        'hover:bg-zinc-100': index !== activeIndex,
                         'bg-blue-50/75 text-zinc-900 hover:bg-blue-50': isActive(item, index),
                         'bg-primary-50/20 text-primary hover:bg-primary-50/20': isSelected(item, index),
                         'bg-blue-50/75 text-primary hover:bg-primary-50/40 hover:text-primary': isActiveAndSelected(item, index),
@@ -30,7 +28,7 @@
 
                 <svg class="w-5 h-5 mr-4"
                      :class="{
-                            'group-hover:text-zinc-900': index !== index,
+                            'group-hover:text-zinc-900': index !== activeIndex,
                             'text-zinc-900': isActive(item, index),
                             'text-primary/90 group-hover:text-primary/90': isSelected(item, index),
                             'text-primary': isActiveAndSelected(item, index),
@@ -53,11 +51,25 @@ export default {
 
     inheritAttrs: false,
 
+    emits: ['update:modelValue', 'submit'],
+
+    props: {
+        modelValue: {
+            required: true,
+            type: String,
+            default: '',
+        },
+        request: {
+            required: true,
+            type: Function,
+        },
+    },
+
     components: {OnClickOutside},
 
     data() {
         return {
-            index: 0,
+            activeIndex: 0,
             show: false,
             items: [],
             debouncedFetch: null,
@@ -72,12 +84,13 @@ export default {
 
     created() {
         this.debouncedFetch = debounce(() => {
-            if (this.domain.length < 3) {
+            if (this.modelValue.length < 3) {
                 return;
             }
-            axios.get(route('api.autosuggest.domain'), {params: {domain: this.domain, market: this.market}})
+
+            this.request()
                 .then(({data}) => {
-                    this.index = -1;
+                    this.activeIndex = -1;
                     this.items = data.suggestions;
                     this.open();
                 })
@@ -86,14 +99,22 @@ export default {
     },
 
     methods: {
+        selectOrSubmit() {
+            if (this.suggestionsOpened && this.activeIndex >= 0) {
+                this.selectSuggestion(this.activeIndex);
+            } else {
+                this.$emit('submit');
+            }
+        },
+
         selectSuggestion(index) {
-            this.domain = this.items[index].mail_domain;
+            this.$emit('update:modelValue', this.items[index].mail_domain);
             this.close();
         },
 
         moveSelectionUp() {
-            if (this.index > -1) {
-                this.index--;
+            if (this.activeIndex > -1) {
+                this.activeIndex--;
             }
         },
 
@@ -102,8 +123,8 @@ export default {
                 this.open();
                 return;
             }
-            if (this.index < (this.items.length - 1)) {
-                this.index++;
+            if (this.activeIndex < (this.items.length - 1)) {
+                this.activeIndex++;
             }
         },
 
@@ -118,15 +139,15 @@ export default {
         },
 
         isSelected(item, index) {
-            return index !== this.index && item.mail_domain === this.domain;
+            return index !== this.activeIndex && item.mail_domain === this.modelValue;
         },
 
         isActiveAndSelected(item, index) {
-            return index === this.index && item.mail_domain === this.domain;
+            return index === this.activeIndex && item.mail_domain === this.modelValue;
         },
 
         isActive(item, index) {
-            return index === this.index && item.mail_domain !== this.domain;
+            return index === this.activeIndex && item.mail_domain !== this.modelValue;
         },
     },
 }
