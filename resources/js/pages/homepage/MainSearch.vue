@@ -30,9 +30,9 @@
                     <div v-if="item.title"
                          class="text-2xs truncate"
                          :class="{
-                            'text-zinc-400/90': state.isIdle(),
-                            'text-zinc-500/90': state.isActive(),
-                            'text-zinc-500': state.isSelected() || state.isActiveAndSelected(),
+                            'text-zinc-400/90': state.idle(),
+                            'text-zinc-500/90': state.active(),
+                            'text-zinc-500': state.selected() || state.activeAndSelected(),
                         }">
                         {{ item.title }}
                     </div>

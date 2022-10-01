@@ -22,10 +22,10 @@
                 @click="selectSuggestion(index)"
                 class="group flex items-center px-4 py-3 cursor-pointer"
                 :class="{
-                        'hover:bg-zinc-100': state(item, index).isIdle(),
-                        'bg-zinc-100/75 text-zinc-900 hover:bg-zinc-100': state(item, index).isActive(),
-                        'bg-primary-50/20 text-primary hover:bg-primary-50/20': state(item, index).isSelected(),
-                        'bg-primary-50/30 text-primary hover:bg-primary-50/40 hover:text-primary': state(item, index).isActiveAndSelected(),
+                        'hover:bg-zinc-100': state(item, index).idle(),
+                        'bg-zinc-100/75 text-zinc-900 hover:bg-zinc-100': state(item, index).active(),
+                        'bg-primary-50/20 text-primary hover:bg-primary-50/20': state(item, index).selected(),
+                        'bg-primary-50/30 text-primary hover:bg-primary-50/40 hover:text-primary': state(item, index).activeAndSelected(),
                     }">
 
                 <slot name="item" v-bind="{item, state: state(item, index), highlightFound}"></slot>
@@ -144,10 +144,10 @@ export default {
 
         state(item, index) {
             return {
-                isIdle: () => index !== this.activeIndex,
-                isSelected: () => index !== this.activeIndex && item[this.selectionProperty] === this.modelValue,
-                isActiveAndSelected: () => index === this.activeIndex && item[this.selectionProperty] === this.modelValue,
-                isActive: () => index === this.activeIndex && item[this.selectionProperty] !== this.modelValue,
+                idle: () => index !== this.activeIndex,
+                active: () => index === this.activeIndex && item[this.selectionProperty] !== this.modelValue,
+                selected: () => index !== this.activeIndex && item[this.selectionProperty] === this.modelValue,
+                activeAndSelected: () => index === this.activeIndex && item[this.selectionProperty] === this.modelValue,
             };
         },
 
