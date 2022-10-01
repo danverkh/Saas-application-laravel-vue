@@ -94,6 +94,11 @@ export default {
             }
         },
 
+        clear() {
+            this.domain = '';
+            this.$refs.searchRef.clear();
+        },
+
         focusSearch() {
             this.$refs.searchRef.focus();
         },

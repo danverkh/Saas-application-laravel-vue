@@ -1,7 +1,7 @@
 <template>
     <Modal name="domain-switcher-modal" width="max-w-3xl" overflow="overflow-visible" @opened="focusSearch">
         <div class="flex sm:flex-nowrap items-end gap-5 md:gap-6 p-4 pt-2">
-            <MainSearch></MainSearch>
+            <MainSearch ref="search"></MainSearch>
         </div>
     </Modal>
 </template>
@@ -18,7 +18,8 @@ export default {
 
     methods: {
         focusSearch() {
-            document.querySelector('input.main-search').focus();
+            this.$refs.search.clear();
+            this.$refs.search.focusSearch();
         },
     },
 }

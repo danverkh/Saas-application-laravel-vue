@@ -154,6 +154,11 @@ export default {
         focus() {
             this.$refs.input.focus();
         },
+
+        clear() {
+            this.close();
+            this.items = [];
+        },
     },
 }
 </script>
