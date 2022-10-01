@@ -107,6 +107,7 @@ export default {
 
         selectSuggestion(index) {
             this.$emit('update:modelValue', this.items[index][this.selectionProperty]);
+            this.activeIndex = index;
             this.focus();
             this.close();
         },
@@ -139,7 +140,7 @@ export default {
 
         close() {
             this.show = false;
-            this.activeIndex = -1;
+            this.activeIndex = this.items.findIndex(i => i[this.selectionProperty] === this.modelValue);
         },
 
         state(item, index) {
@@ -156,6 +157,7 @@ export default {
         },
 
         clear() {
+            this.$emit('update:modelValue', '');
             this.close();
             this.items = [];
         },

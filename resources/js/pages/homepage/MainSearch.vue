@@ -9,7 +9,7 @@
                      :request="suggestionsRequest"
                      selection-property="domain"
                      placeholder="Please enter a domain here..."
-                     ref="searchRef"
+                     ref="search"
                      :class="{'border-primary': invalid}"
                      class="main-search">
 
@@ -95,12 +95,11 @@ export default {
         },
 
         clear() {
-            this.domain = '';
-            this.$refs.searchRef.clear();
+            this.$refs.search.clear();
         },
 
         focusSearch() {
-            this.$refs.searchRef.focus();
+            this.$refs.search.focus();
         },
     },
 }

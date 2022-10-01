@@ -1,5 +1,5 @@
 <template>
-    <Modal name="domain-switcher-modal" width="max-w-3xl" overflow="overflow-visible" @opened="focusSearch">
+    <Modal name="domain-switcher-modal" width="max-w-3xl" overflow="overflow-visible" @opened="initSearch">
         <div class="flex sm:flex-nowrap items-end gap-5 md:gap-6 p-4 pt-2">
             <MainSearch ref="search"></MainSearch>
         </div>
@@ -17,7 +17,7 @@ export default {
     components: {Modal, MainSearch},
 
     methods: {
-        focusSearch() {
+        initSearch() {
             this.$refs.search.clear();
             this.$refs.search.focusSearch();
         },
