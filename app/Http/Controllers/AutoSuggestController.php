@@ -22,7 +22,6 @@ class AutoSuggestController extends Controller
 
         $suggestions = DB::table('prospect_mail_domains')
                          ->selectRaw('mail_domain AS domain, title')
-                         ->where('registrant_country', $request->market)
                          ->where('mail_domain', 'LIKE', "$request->domain%")
                          ->limit(4)
                          ->get();
