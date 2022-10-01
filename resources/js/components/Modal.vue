@@ -43,6 +43,15 @@ export default {
         },
     },
 
+    mounted() {
+        document.addEventListener('keyup', event => {
+            if (this.opened && event.key === 'Escape') {
+                this.opened = false;
+                this.$emit('closed');
+            }
+        });
+    },
+
     methods: {
         close(event) {
             if (event.target.nodeName !== 'LABEL' && event.target.className !== 'modal') {
