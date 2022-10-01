@@ -4,6 +4,7 @@
                @input="$emit('update:modelValue', $event.target.value); debouncedFetch()"
                v-bind="$attrs"
                @focus="open"
+               @focusout="close"
                @keyup.enter="selectOrSubmit"
                @keydown.up.prevent="moveSelectionUp"
                @keydown.down.prevent="moveSelectionDown"
@@ -106,8 +107,8 @@ export default {
 
         selectSuggestion(index) {
             this.$emit('update:modelValue', this.items[index][this.selectionProperty]);
-            this.close();
             this.focus();
+            this.close();
         },
 
         moveSelectionUp() {
