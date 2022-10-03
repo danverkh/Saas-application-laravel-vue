@@ -15,10 +15,7 @@ class AutoSuggestController extends Controller
      */
     public function domain(Request $request): JsonResponse
     {
-        $request->validate([
-            'market' => 'required',
-            'domain' => 'required',
-        ]);
+        $request->validate(['domain' => 'required']);
 
         $suggestions = DB::table('prospect_mail_domains')
                          ->selectRaw('mail_domain AS domain, title')

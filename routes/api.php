@@ -2,7 +2,6 @@
 
 use App\Http\Controllers\AutoSuggestController;
 use App\Http\Controllers\BookADemoController;
-use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\RankingsController;
 use App\Http\Controllers\PreviewRankController;
 use Illuminate\Support\Facades\Route;

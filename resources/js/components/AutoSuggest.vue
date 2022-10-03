@@ -14,6 +14,8 @@
                type="text"
                class="input input-lg h-[60px] w-full ring-1 ring-gray-300 px-4 md:px-6 hover:ring-2 hover:ring-primary/50 focus:ring-2 focus:ring-primary/50 focus:outline-none"/>
 
+        <Spinner v-if="fetching" class="absolute top-[18px] right-5" :size="22" :border-width="3"></Spinner>
+
         <ul v-if="suggestionsOpened"
             class="absolute top-[70px] w-full bg-white border border-zinc-200 rounded-lg shadow-lg divide-y divide-zinc-200 overflow-hidden">
 
@@ -37,6 +39,7 @@
 <script>
 import {OnClickOutside} from '@vueuse/components';
 import {debounce} from "lodash";
+import Spinner from "@/components/Spinner.vue";
 
 export default {
     name: "AutoSuggest",
@@ -61,7 +64,7 @@ export default {
         },
     },
 
-    components: {OnClickOutside},
+    components: {Spinner, OnClickOutside},
 
     data() {
         return {
@@ -69,6 +72,7 @@ export default {
             show: false,
             items: [],
             debouncedFetch: null,
+            fetching: false,
         };
     },
 
@@ -79,15 +83,18 @@ export default {
     },
 
     created() {
-        this.debouncedFetch = debounce(() => {
+        this.debouncedFetch = debounce((event) => {
             if (this.modelValue.length < 3) {
                 this.close();
                 this.items = [];
                 return;
             }
 
+            this.fetching = true;
+
             this.request()
                 .then(({data}) => {
+                    this.fetching = false;
                     this.activeIndex = -1;
                     this.items       = data.suggestions;
                     this.open();
@@ -113,7 +120,9 @@ export default {
         },
 
         moveSelectionUp() {
-            if (this.activeIndex > -1) {
+            if (!this.suggestionsOpened) {
+                this.open();
+            } else if (this.activeIndex > -1) {
                 this.activeIndex--;
             }
         },
@@ -121,9 +130,7 @@ export default {
         moveSelectionDown() {
             if (!this.suggestionsOpened) {
                 this.open();
-                return;
-            }
-            if (this.activeIndex < (this.items.length - 1)) {
+            } else if (this.activeIndex < (this.items.length - 1)) {
                 this.activeIndex++;
             }
         },
@@ -139,8 +146,10 @@ export default {
         },
 
         close() {
-            this.show = false;
-            this.activeIndex = this.items.findIndex(i => i[this.selectionProperty] === this.modelValue);
+            setTimeout(() => {
+                this.show = false;
+                this.activeIndex = this.items.findIndex(i => i[this.selectionProperty] === this.modelValue);
+            }, 100);
         },
 
         state(item, index) {

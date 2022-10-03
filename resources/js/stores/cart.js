@@ -17,6 +17,10 @@ export const useCart = defineStore('cart', {
     },
 
     actions: {
+        clearSelection() {
+            this.setSelectedItems([]);
+        },
+
         setSelectedItems(items) {
             this.selectedItems = items;
         },

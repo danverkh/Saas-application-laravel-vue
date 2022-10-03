@@ -79,7 +79,7 @@ export default {
 
     methods: {
         suggestionsRequest() {
-            return axios.get(route('api.autosuggest.domain'), {params: {domain: this.domain, market: this.market}});
+            return axios.get(route('api.autosuggest.domain'), {params: {domain: this.domain}});
         },
 
         search() {
@@ -89,6 +89,7 @@ export default {
                 const domain = encodeURIComponent(this.domain);
 
                 useCart().market = this.market;
+                useCart().clearSelection();
 
                 window.location.href = `/${this.market}/${domain}`;
             }
