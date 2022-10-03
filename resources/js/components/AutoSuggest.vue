@@ -62,6 +62,10 @@ export default {
             required: true,
             type: Function,
         },
+        initialSuggestions: {
+            type: Array,
+            default: () => [],
+        },
     },
 
     components: {Spinner, OnClickOutside},
@@ -83,10 +87,9 @@ export default {
     },
 
     created() {
-        this.debouncedFetch = debounce((event) => {
+        this.debouncedFetch = debounce(() => {
             if (this.modelValue.length < 3) {
-                this.close();
-                this.items = [];
+                this.useInitialSuggestions();
                 return;
             }
 
@@ -104,6 +107,18 @@ export default {
     },
 
     methods: {
+        useInitialSuggestions() {
+            const items = this.initialSuggestions.filter(domain => domain.startsWith(this.modelValue));
+
+            if (items.length) {
+                this.items = items.slice(0, 4).map(i => ({[this.selectionProperty]: i}));
+                this.activeIndex = -1;
+                this.open();
+            } else {
+                this.close();
+            }
+        },
+
         selectOrSubmit() {
             if (this.suggestionsOpened && this.activeIndex >= 0) {
                 this.selectSuggestion(this.activeIndex);

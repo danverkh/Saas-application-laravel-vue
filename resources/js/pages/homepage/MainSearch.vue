@@ -7,6 +7,7 @@
         <AutoSuggest v-model="domain"
                      @submit="search"
                      :request="suggestionsRequest"
+                     :initial-suggestions="initialSuggestions"
                      selection-property="domain"
                      placeholder="Please enter a domain here..."
                      ref="search"
@@ -66,6 +67,7 @@ export default {
             market: useCart().market || 'at',
             domain: '',
             invalid: false,
+            initialSuggestions: [],
         };
     },
 
@@ -75,6 +77,12 @@ export default {
                 this.invalid = false;
             }
         },
+    },
+
+    mounted() {
+        axios.get('/data/initial_domain_suggestions.json')
+            .then(({data}) => this.initialSuggestions = data)
+            .catch(e => console.warn('Failed to load initial suggestions', e));
     },
 
     methods: {
