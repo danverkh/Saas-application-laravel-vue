@@ -1,3 +1,6 @@
+@section('title', 'Select keywords')
+@section('description', 'AutoRanker.io provides User Signal and CTR SEO Marketing solutions for customers of all sizes.')
+
 <x-main-layout>
     <preview-rank-modal></preview-rank-modal>
 

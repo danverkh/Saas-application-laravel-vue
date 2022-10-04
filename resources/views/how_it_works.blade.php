@@ -1,3 +1,6 @@
+@section('title', 'How it works')
+@section('description', 'AutoRanker.io provides User Signal and CTR SEO Marketing solutions for customers of all sizes.')
+
 <x-main-layout>
     <div class="relative">
         <div class="relative z-10 max-w-screen-xl px-6 py-14 mx-auto flex flex-col items-center">
