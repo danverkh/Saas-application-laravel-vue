@@ -20,7 +20,7 @@ class AutoSuggestController extends Controller
         $suggestions = DB::table('prospect_mail_domains')
                          ->selectRaw('mail_domain AS domain, title')
                          ->where('mail_domain', 'LIKE', "$request->domain%")
-                         ->limit(4)
+                         ->limit(1000)
                          ->get();
 
         return response()->json(compact('suggestions'));

@@ -66,6 +66,14 @@ export default {
             type: Array,
             default: () => [],
         },
+        filterFetched: {
+            type: Boolean,
+            default: false,
+        },
+        limit: {
+            type: Number,
+            default: 4,
+        },
     },
 
     components: {Spinner, OnClickOutside},
@@ -75,8 +83,10 @@ export default {
             activeIndex: 0,
             show: false,
             items: [],
+            fetchedItems: [],
             debouncedFetch: null,
             fetching: false,
+            hasFetchedItems: false,
         };
     },
 
@@ -88,30 +98,48 @@ export default {
 
     created() {
         this.debouncedFetch = debounce(() => {
+            // 1. check if we can use initial suggestions
             if (this.modelValue.length < 3) {
                 this.useInitialSuggestions();
                 return;
             }
 
+            // 2. check if we have enough results from the previous response
+            if (this.filterFetched) {
+                const foundItems = this.fetchedItems.filter(item => item[this.selectionProperty].startsWith(this.modelValue));
+
+                if (this.hasFetchedItems && foundItems.length >= this.limit) {
+                    this.items = foundItems.slice(0, this.limit);
+                    return;
+                }
+            }
+
+            // 3. otherwise fetch new
+            this.fetchNew();
+        }, 400);
+    },
+
+    methods: {
+        fetchNew() {
             this.fetching = true;
 
             this.request()
                 .then(({data}) => {
-                    this.fetching = false;
-                    this.activeIndex = -1;
-                    this.items       = data.suggestions;
+                    this.hasFetchedItems = true;
+                    this.fetching        = false;
+                    this.activeIndex     = -1;
+                    this.fetchedItems    = data.suggestions;
+                    this.items           = data.suggestions.splice(0, this.limit);
                     this.open();
                 })
                 .catch(e => console.error('Failed to fetch suggestions', e));
-        }, 500);
-    },
+        },
 
-    methods: {
         useInitialSuggestions() {
             const items = this.initialSuggestions.filter(domain => domain.startsWith(this.modelValue));
 
             if (items.length) {
-                this.items = items.slice(0, 4).map(i => ({[this.selectionProperty]: i}));
+                this.items       = items.slice(0, this.limit).map(i => ({[this.selectionProperty]: i}));
                 this.activeIndex = -1;
                 this.open();
             } else {
@@ -162,7 +190,7 @@ export default {
 
         close() {
             setTimeout(() => {
-                this.show = false;
+                this.show        = false;
                 this.activeIndex = this.items.findIndex(i => i[this.selectionProperty] === this.modelValue);
             }, 100);
         },
