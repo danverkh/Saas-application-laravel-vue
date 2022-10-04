@@ -2,8 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-@import 'chart.js/dist/Chart.min.css';
-
 html, body {
     @apply text-zinc-600;
 }

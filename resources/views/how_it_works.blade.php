@@ -64,7 +64,13 @@
         <x-search-domain></x-search-domain>
     </div>
 
+    @push('style')
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.css">
+    @endpush
+
     @push('script')
+        <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js"></script>
+
         <script>
             document.addEventListener("DOMContentLoaded", function () {
                 const chart1 = {

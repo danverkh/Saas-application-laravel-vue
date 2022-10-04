@@ -4,7 +4,6 @@
 import '@vime/core/themes/default.css';
 import '@vime/core/themes/light.css';
 
-import 'chart.js/dist/Chart.min';
 import 'sticky-sidebar-v2/dist/sticky-sidebar.min';
 
 /**
