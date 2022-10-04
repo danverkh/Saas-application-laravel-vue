@@ -64,7 +64,7 @@ class DomainSearch extends AbstractRequest
                     'search_volume' => $item['keyword_data']['keyword_info']['search_volume'] ?? 0,
                     'cpc'           => $item['keyword_data']['keyword_info']['cpc'] ?? 0,
                     'competition'   => $item['keyword_data']['keyword_info']['competition'] ?? 0,
-                    'current_rank'  => $item['ranked_serp_element']['serp_item']['rank_group'] ?? 0, // rank_absolute?
+                    'current_rank'  => $item['ranked_serp_element']['serp_item']['rank_group'] ?? 0,
                     'traffic_cost'  => $item['ranked_serp_element']['serp_item']['estimated_paid_traffic_cost'] ?? 0,
                     'url'           => $item['ranked_serp_element']['serp_item']['url'] ?? '/',
                 ];
