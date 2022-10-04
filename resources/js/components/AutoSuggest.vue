@@ -38,7 +38,7 @@
 
 <script>
 import {OnClickOutside} from '@vueuse/components';
-import {debounce} from "lodash";
+import debounce from "lodash/debounce";
 import Spinner from "@/components/Spinner.vue";
 
 export default {

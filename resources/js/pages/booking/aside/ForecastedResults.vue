@@ -62,7 +62,8 @@
 <script>
 import {useRankingItemsStore} from '@/stores/rankingItems';
 import generator from 'random-seed';
-import {round, ceil} from 'lodash';
+import round from 'lodash/round';
+import ceil from 'lodash/ceil';
 
 export default {
     name: "ForecastedResults",
