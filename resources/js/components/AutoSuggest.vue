@@ -58,6 +58,10 @@ export default {
             required: true,
             type: String,
         },
+        submitOnSelect: {
+            default: false,
+            type: Boolean,
+        },
         request: {
             required: true,
             type: Function,
@@ -160,6 +164,10 @@ export default {
             this.activeIndex = index;
             this.focus();
             this.close();
+
+            if (this.submitOnSelect) {
+                this.$emit('submit');
+            }
         },
 
         moveSelectionUp() {

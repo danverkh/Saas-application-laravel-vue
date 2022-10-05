@@ -9,6 +9,7 @@
                      :request="suggestionsRequest"
                      :initial-suggestions="initialSuggestions"
                      filter-fetched
+                     submit-on-select
                      selection-property="domain"
                      placeholder="Please enter a domain here..."
                      ref="search"
