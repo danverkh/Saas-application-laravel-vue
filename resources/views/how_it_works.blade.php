@@ -50,11 +50,15 @@
             <div class="flex flex-nowrap flex-col lg:flex-row gap-8 xl:gap-24 px-8 md:px-20 xl:px-0">
                 <div class="basis-1/2 p-4">
                     <h4 class="text-white text-3xl font-semibold mb-7 text-center">Keyword 1</h4>
-                    <canvas id="chart-1" class="w-full h-auto"></canvas>
+                    <how-it-works-chart
+                        :labels="['22.07', '', '', '', '23.07', '', '', '', '24.07', '', '', '', '25.07']"
+                        :data="[2.23, 2.215, 2.22, 2.25, 2.245, 2.27, 2.28, 2.29, 2.3, 2.29, 2.325, 2.325, 2.32]"></how-it-works-chart>
                 </div>
                 <div class="basis-1/2 p-4">
                     <h4 class="text-white text-3xl font-semibold mb-7 text-center">Keyword 2</h4>
-                    <canvas id="chart-2" class="w-full h-auto"></canvas>
+                    <how-it-works-chart
+                        :labels="['22.07', '', '', '', '23.07', '', '', '', '24.07', '', '', '', '25.07']"
+                        :data="[2.18, 2.21, 2.22, 2.25, 2.24, 2.27, 2.28, 2.29, 2.3, 2.29, 2.325, 2.31, 2.35]"></how-it-works-chart>
                 </div>
             </div>
         </x-container>
@@ -63,77 +67,6 @@
     <div class="mb-14">
         <x-search-domain></x-search-domain>
     </div>
-
-    @push('style')
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.css">
-    @endpush
-
-    @push('script')
-        <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js"></script>
-
-        <script>
-            document.addEventListener("DOMContentLoaded", function () {
-                const chart1 = {
-                    labels: ['22.07', '', '', '', '23.07', '', '', '', '24.07', '', '', '', '25.07'],
-                    data: [2.23, 2.215, 2.22, 2.25, 2.245, 2.27, 2.28, 2.29, 2.3, 2.29, 2.325, 2.325, 2.32],
-                };
-                const chart2 = {
-                    labels: ['22.07', '', '', '', '23.07', '', '', '', '24.07', '', '', '', '25.07'],
-                    data: [2.18, 2.21, 2.22, 2.25, 2.24, 2.27, 2.28, 2.29, 2.3, 2.29, 2.325, 2.31, 2.35],
-                };
-
-                initChart('chart-1', chart1.labels, chart1.data);
-                initChart('chart-2', chart2.labels, chart2.data);
-
-                function initChart(id, labels, data) {
-                    let ctx = document.getElementById(id).getContext('2d');
-
-                    new Chart(ctx, {
-                        type: "line",
-                        data: {
-                            labels: labels,
-                            datasets: [
-                                {
-                                    label: '',
-                                    backgroundColor: "rgba(255, 255, 255, 0.1)",
-                                    borderColor: "rgba(255, 255, 255, 1)",
-                                    pointBackgroundColor: "rgba(255, 255, 255, 1)",
-                                    data: data,
-                                },
-                            ],
-                        },
-                        layout: {},
-                        options: {
-                            legend: {
-                                display: false,
-                            },
-                            scales: {
-                                yAxes: [{
-                                    ticks: {
-                                        fontColor: "rgba(255, 255, 255, 1)",
-                                    },
-                                    gridLines: {
-                                        display: false,
-                                    },
-                                }],
-                                xAxes: [{
-                                    ticks: {
-                                        fontColor: "rgba(255, 255, 255, 1)",
-                                    },
-                                    gridLines: {
-                                        color: "rgba(255, 255, 255, .2)",
-                                        borderDash: [5, 5],
-                                        zeroLineColor: "rgba(255, 255, 255, .2)",
-                                        zeroLineBorderDash: [5, 5]
-                                    },
-                                }]
-                            }
-                        }
-                    });
-                }
-            });
-        </script>
-    @endpush
 
     @push('script')
         <script src="/js/three.min.js"></script>

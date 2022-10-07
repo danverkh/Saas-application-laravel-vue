@@ -29,18 +29,25 @@ import MainSearch from './pages/homepage/MainSearch.vue'
 
 app.component('main-search', MainSearch)
 
+// How it works
+import HowItWorksChart from './pages/how_it_works/Chart.vue'
+
+app.component('how-it-works-chart', HowItWorksChart)
+
 // Booking page
 import RankingsTable from './pages/booking/RankingsTable.vue'
 import PreviewRankModal from './pages/booking/PreviewRankModal.vue'
 import DomainSwitcher from './pages/booking/aside/DomainSwitcher.vue'
 import ForecastedResults from './pages/booking/aside/ForecastedResults.vue'
 import Checkout from './pages/booking/aside/Checkout.vue'
+import CampaignProgressPredictionChart from './pages/booking/aside/CampaignProgressPredictionChart.vue'
 
 app.component('rankings-table', RankingsTable)
 app.component('checkout', Checkout)
 app.component('domain-switcher', DomainSwitcher)
 app.component('forecasted-results', ForecastedResults)
 app.component('preview-rank-modal', PreviewRankModal)
+app.component('campaign-progress-prediction-chart', CampaignProgressPredictionChart)
 
 // Checkout
 import SubmitOrderButton from './pages/checkout/SubmitOrderButton.vue'

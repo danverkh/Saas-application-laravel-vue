@@ -24,6 +24,7 @@
         "@vueuse/components": "^9.3.0",
         "@vueuse/core": "^9.3.0",
         "accounting-js": "^1.1.1",
+        "chart.js": "^3.9.1",
         "daisyui": "^2.24.0",
         "mitt": "^3.0.0",
         "pinia": "^2.0.21",
@@ -31,6 +32,7 @@
         "random-seed": "^0.3.0",
         "sticky-sidebar-v2": "^1.1.1",
         "vue": "^3.2.36",
+        "vue-chartjs": "^4.1.2",
         "vue-loader": "^17.0.0",
         "vue3-slide-up-down": "^1.2.5"
     }

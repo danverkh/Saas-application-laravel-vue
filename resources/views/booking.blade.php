@@ -63,6 +63,14 @@
                                 <a href="#" class="text-primary hover:underline whitespace-nowrap">Learn more</a>
                             </div>
                         </x-card>
+
+                        <x-card class="border-t-4 border-zinc-300 gap-0 md:basis-1/2 xl:basis-auto">
+                            <h4 class="-mt-2 font-medium text-md">Campaign Progress Prediction</h4>
+
+                            <div class="divider divider-vertical my-0"></div>
+
+                            <campaign-progress-prediction-chart></campaign-progress-prediction-chart>
+                        </x-card>
                     </div>
                 </div>
             </div>
