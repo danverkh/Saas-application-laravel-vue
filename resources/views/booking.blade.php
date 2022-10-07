@@ -42,16 +42,8 @@
 
                 <!-- Aside -->
                 <div id="sidebar" class="sidebar w-full xl:w-3/12">
-                    <div class="sidebar__inner flex flex-col-reverse md:flex-row-reverse xl:flex-col gap-6">
-                        <div class="flex flex-col-reverse md:flex-col gap-6 md:basis-1/2 xl:basis-auto">
-                            <checkout></checkout>
-
-                            <x-card class="border-t-4 border-zinc-300">
-                                <domain-switcher market="{{ $market }}" domain="{{ $domain }}"></domain-switcher>
-                            </x-card>
-                        </div>
-
-                        <x-card class="border-t-4 border-zinc-300 gap-0 md:basis-1/2 xl:basis-auto">
+                    <div class="sidebar__inner flex flex-col gap-6 md:block md:columns-2 md:space-y-6 xl:flex xl:columns-1 xl:space-y-0">
+                        <x-card class="md:order-1 xl:order-3 border-t-4 border-zinc-300">
                             <h4 class="-mt-2 font-medium text-xl">Forecasted Results</h4>
 
                             <div class="divider divider-vertical my-0"></div>
@@ -64,13 +56,19 @@
                             </div>
                         </x-card>
 
-                        <x-card class="border-t-4 border-zinc-300 gap-0 md:basis-1/2 xl:basis-auto">
+                        <x-card class="md:order-3 xl:order-4 border-t-4 border-zinc-300">
                             <h4 class="-mt-2 font-medium text-md">Campaign Progress Prediction</h4>
 
                             <div class="divider divider-vertical my-0"></div>
 
                             <campaign-progress-prediction-chart></campaign-progress-prediction-chart>
                         </x-card>
+
+                        <x-card class="md:order-2 xl:order-2 border-t-4 border-zinc-300">
+                            <domain-switcher market="{{ $market }}" domain="{{ $domain }}"></domain-switcher>
+                        </x-card>
+
+                        <checkout class="md:order-4 xl:order-1"></checkout>
                     </div>
                 </div>
             </div>

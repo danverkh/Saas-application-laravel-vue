@@ -93,13 +93,13 @@ export default {
                     label: 'spend / cost',
                     borderColor: "rgba(221, 43, 70, 1)",
                     data: data.map(number => this.deterministicRandom('spend', number, 40)),
-                    tension: 0.8,
+                    tension: 0.5,
                 },
                 {
                     label: 'traffic / clicks',
                     borderColor: "rgba(59, 130, 246, 1)",
                     data: data.map(number => this.deterministicRandom('traffic', number, 50)),
-                    tension: 0.8,
+                    tension: 0.5,
                 },
             ]
         };
