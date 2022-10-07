@@ -130,13 +130,13 @@ export default {
             this.request()
                 .then(({data}) => {
                     this.hasFetchedItems = true;
-                    this.fetching        = false;
                     this.activeIndex     = -1;
                     this.fetchedItems    = data.suggestions;
                     this.items           = data.suggestions.splice(0, this.limit);
                     this.open();
                 })
-                .catch(e => console.error('Failed to fetch suggestions', e));
+                .catch(e => console.error('Failed to fetch suggestions', e))
+                .finally(() => this.fetching = false);
         },
 
         useInitialSuggestions() {

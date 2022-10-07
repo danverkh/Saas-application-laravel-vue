@@ -17,7 +17,8 @@ class AutoSuggestController extends Controller
     {
         $request->validate(['domain' => 'required']);
 
-        $suggestions = DB::table('prospect_mail_domains')
+        $suggestions = DB::connection('production')
+                         ->table('prospect_mail_domains')
                          ->selectRaw('mail_domain AS domain, title')
                          ->where('mail_domain', 'LIKE', "$request->domain%")
                          ->limit(1000)
