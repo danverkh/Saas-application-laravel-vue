@@ -7,6 +7,7 @@ import {Line} from 'vue-chartjs';
 import {Chart as ChartJS, Tooltip, PointElement, LineElement, CategoryScale, LinearScale} from 'chart.js';
 import generator from "random-seed";
 import {useCart} from "@/stores/cart";
+import Helpers from "@/services/Helpers";
 
 ChartJS.register(Tooltip, CategoryScale, LinearScale, PointElement, LineElement);
 
@@ -29,9 +30,9 @@ export default {
                     tooltip: {
                         callbacks: {
                             title: function (context) {
-                                return context[0].label + ' day';
+                                return Helpers.ordinalNumber(context[0].label) + ' day';
                             },
-                            labelColor: function(context) {
+                            labelColor: function (context) {
                                 return {
                                     backgroundColor: (context.dataset.label === 'spend / cost')
                                         ? 'rgba(221, 43, 70, 1)'
@@ -45,7 +46,7 @@ export default {
                 scales: {
                     y: {
                         ticks: {
-                            color: 'rgba(120, 120, 120, 1)',
+                            display: false,
                         },
                         grid: {
                             display: false,
@@ -91,7 +92,7 @@ export default {
                 {
                     label: 'spend / cost',
                     borderColor: "rgba(221, 43, 70, 1)",
-                    data: data.map(number => this.deterministicRandom('spend', number, 50)),
+                    data: data.map(number => this.deterministicRandom('spend', number, 40)),
                     tension: 0.8,
                 },
                 {
