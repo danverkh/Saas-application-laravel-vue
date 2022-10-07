@@ -30,9 +30,8 @@ export default {
                     tooltip: {
                         callbacks: {
                             title: function (context) {
-                                if (context[0].label === '0') {
-                                    return 'Today';
-                                }
+                                if (context[0].label === '0') return 'Today';
+
                                 return Helpers.ordinalNumber(context[0].label) + ' day';
                             },
                             labelColor: function (context) {
@@ -95,7 +94,7 @@ export default {
                 {
                     label: 'spend / cost',
                     borderColor: "rgba(221, 43, 70, 1)",
-                    data: data.map(number => this.deterministicRandom('spend', number, 40)),
+                    data: data.map(number => this.deterministicRandom('spend', number, 30)),
                     tension: 0.5,
                 },
                 {
