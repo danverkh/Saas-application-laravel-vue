@@ -30,6 +30,9 @@ export default {
                     tooltip: {
                         callbacks: {
                             title: function (context) {
+                                if (context[0].label === '0') {
+                                    return 'Today';
+                                }
                                 return Helpers.ordinalNumber(context[0].label) + ' day';
                             },
                             labelColor: function (context) {
@@ -87,7 +90,7 @@ export default {
         ];
 
         this.chartData = {
-            labels: [...Array(30).keys()].map(i => i + 1),
+            labels: [...Array(30).keys()].map(i => i),
             datasets: [
                 {
                     label: 'spend / cost',
