@@ -8,6 +8,8 @@ import {Chart as ChartJS, Tooltip, PointElement, LineElement, CategoryScale, Lin
 import generator from "random-seed";
 import {useCart} from "@/stores/cart";
 import Helpers from "@/services/Helpers";
+import {useForecastedResults} from "@/composables/useForecastedResults";
+import {ref} from 'vue';
 
 ChartJS.register(Tooltip, CategoryScale, LinearScale, PointElement, LineElement);
 
@@ -18,9 +20,28 @@ export default {
 
     data() {
         return {
+            dataProgression: [
+                0, 0, 0, 0, 0, 0, 0,        // week 1
+                85, 76, 96, 99, 91, 94, 92, // week 2
+                87, 79, 81, 96, 92, 95, 84, // week 3
+                31, 24, 16, 12, 12, 9, 5,   // week 4
+            ],
             chartData: {
-                labels: [],
-                datasets: [],
+                labels: [...Array(30).keys()].map(i => i),
+                datasets: [
+                    {
+                        label: 'spend / cost',
+                        borderColor: "rgba(221, 43, 70, 1)",
+                        data: [],
+                        tension: 0.5,
+                    },
+                    {
+                        label: 'traffic / clicks',
+                        borderColor: "rgba(59, 130, 246, 1)",
+                        data: [],
+                        tension: 0.5,
+                    },
+                ]
             },
             chartOptions: {
                 plugins: {
@@ -33,6 +54,14 @@ export default {
                                 if (context[0].label === '0') return 'Today';
 
                                 return Helpers.ordinalNumber(context[0].label) + ' day';
+                            },
+                            label: function(context) {
+                                let symbol = '';
+
+                                if (context.datasetIndex === 0) {
+                                    symbol = '€';
+                                }
+                                return `${context.dataset.label}: ${context.formattedValue} ${symbol}`;
                             },
                             labelColor: function (context) {
                                 return {
@@ -80,42 +109,51 @@ export default {
         };
     },
 
-    mounted() {
-        let data = [
-            0, 0, 0, 0, 0, 0, 0,
-            11, 41, 69, 98, 132, 167, 193,
-            230, 270, 295, 329, 358, 384, 402,
-            424, 426, 427, 432, 435, 438, 441,
-        ];
+    computed: {
+        impressions() {
+            return useForecastedResults(ref(1)).impressions.value;
+        },
 
-        this.chartData = {
-            labels: [...Array(30).keys()].map(i => i),
-            datasets: [
-                {
-                    label: 'spend / cost',
-                    borderColor: "rgba(221, 43, 70, 1)",
-                    data: data.map(number => this.deterministicRandom('spend', number, 30)),
-                    tension: 0.5,
-                },
-                {
-                    label: 'traffic / clicks',
-                    borderColor: "rgba(59, 130, 246, 1)",
-                    data: data.map(number => this.deterministicRandom('traffic', number, 50)),
-                    tension: 0.5,
-                },
-            ]
-        };
+        spend() {
+            return useForecastedResults(ref(1)).spend.value;
+        },
+    },
+
+    watch: {
+        impressions: {
+            handler() {
+                const data = this.dataProgression.map((number, index) => this.deterministicRandom('spend', number, index));
+
+                for (let i = 0; i < this.dataProgression.length; i++) {
+                    data[i] = (data[i - 1] || 0) + data[i];
+                }
+                this.chartData.datasets[0].data = data;
+            },
+            deep: true,
+        },
+
+        spend: {
+            handler() {
+                const data = this.dataProgression.map((number, index) => this.deterministicRandom('impressions', number, index));
+
+                for (let i = 0; i < this.dataProgression.length; i++) {
+                    data[i] = (data[i - 1] || 0) + data[i];
+                }
+                this.chartData.datasets[1].data = data;
+            },
+            deep: true,
+        },
     },
 
     methods: {
-        deterministicRandom(name, number, amplify) {
-            if (number === 0) return 0;
+        deterministicRandom(name, maxPercentage, index) {
+            if (maxPercentage === 0) return 0;
 
-            if (number > 21) amplify /= 2;
+            const seed = `${useCart().domain}.${name}.${index}.${maxPercentage}`;
 
-            const seed = `${useCart().domain}.${name}.${number}`;
+            const random = generator(seed).intBetween(this[name].min, this[name].max);
 
-            return number + generator(seed).intBetween(0, Math.log10(number) * amplify);
+            return Math.ceil(random * (maxPercentage / 100));
         },
     },
 }
