@@ -7,9 +7,10 @@ import {Line} from 'vue-chartjs';
 import {Chart as ChartJS, Tooltip, PointElement, LineElement, CategoryScale, LinearScale} from 'chart.js';
 import generator from "random-seed";
 import {useCart} from "@/stores/cart";
-import Helpers from "@/services/Helpers";
 import {useForecastedResults} from "@/composables/useForecastedResults";
 import {ref} from 'vue';
+import dayjs from "dayjs";
+import Helpers from "@/services/Helpers";
 
 ChartJS.register(Tooltip, CategoryScale, LinearScale, PointElement, LineElement);
 
@@ -21,10 +22,10 @@ export default {
     data() {
         return {
             dataProgression: [
-                0, 0, 0, 0, 0, 0, 0,        // week 1
-                85, 76, 96, 99, 91, 94, 92, // week 2
-                87, 79, 81, 96, 92, 95, 84, // week 3
-                31, 24, 16, 12, 12, 9, 5,   // week 4
+                0, 0, 0, 0, 0, 0, 0,               // week 1
+                100, 100, 100, 100, 100, 100, 100, // week 2
+                100, 100, 100, 100, 95, 90, 80,    // week 3
+                31, 24, 16, 12, 12, 9, 5,          // week 4
             ],
             chartData: {
                 labels: [...Array(30).keys()].map(i => i),
@@ -53,7 +54,10 @@ export default {
                             title: function (context) {
                                 if (context[0].label === '0') return 'Today';
 
-                                return Helpers.ordinalNumber(context[0].label) + ' day';
+                                const date = dayjs().add(context[0].label, 'day').format('MMMM D YYYY');
+                                const parts = date.split(' ');
+
+                                return parts[0] + ' ' + Helpers.ordinalNumber(parts[1]) + ' ' + parts[2];
                             },
                             label: function(context) {
                                 let symbol = '';
