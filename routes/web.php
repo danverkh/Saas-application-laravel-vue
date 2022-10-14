@@ -16,6 +16,9 @@ use Illuminate\Support\Facades\Route;
 |--------------------------------------------------------------------------
 */
 
+Route::get('/test/database', [\App\Http\Controllers\TestController::class, 'database']);
+Route::get('/test/transaction', [\App\Http\Controllers\TestController::class, 'transaction']);
+
 Route::get('/', HomepageController::class)->name('homepage');
 
 Route::get('{market}/{query}', [BookingController::class, 'index'])
