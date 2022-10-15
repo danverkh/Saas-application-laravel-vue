@@ -41,7 +41,7 @@
                     <header class="sticky top-0 w-full z-40 backdrop-blur-[10px] bg-white-500/90 transition-all pt-4 pb-3 shadow-lg">
                         <nav class="max-w-screen-xl mx-auto px-6 xl:px-2 grid grid-flow-col py-3 sm:py-4">
                             <div class="col-start-1 col-end-2 flex items-center">
-                                <mobile-nav-button class="w-12 h-12 flex items-center mr-5 lg:hidden"></mobile-nav-button>
+                                <mobile-nav-button class="w-12 h-12 flex items-center mr-1 sm:mr-5 lg:hidden"></mobile-nav-button>
 
                                 <a href="{{ route('homepage') }}">
                                     <x-application-logo class="h-10 sm:h-12 w-auto"></x-application-logo>
@@ -65,9 +65,10 @@
                                         </button>
                                     </form>
                                 @else
-                                    <a href="/" class="text-black-600 mx-4 sm:mx-6 capitalize tracking-wide font-medium hover:text-primary transition-all">Login</a>
-                                    <a href="/" class="font-medium tracking-wide py-2 px-5 sm:px-6 border border-primary-hover text-white-500 bg-primary outline-none rounded-l-full rounded-r-full hover:bg-primary-hover hover:text-white-500 transition-all duration-500 hover:shadow-primary">
-                                        Get a demo
+                                    <a href="/" class="text-sm sm:text-base text-black-600 mx-3 sm:mx-6 capitalize tracking-wide font-medium hover:text-primary transition-all">Login</a>
+                                    <a href="/" class="text-sm sm:text-base font-medium tracking-wide py-2 px-3 sm:px-6 border border-primary-hover text-white-500 bg-primary outline-none rounded-l-full rounded-r-full hover:bg-primary-hover hover:text-white-500 transition-all duration-500 hover:shadow-primary">
+                                        <span class="hidden sm:inline-block">Get a demo</span>
+                                        <span class="inline-block sm:hidden">Demo</span>
                                     </a>
                                 @endauth
                             </div>

@@ -93,4 +93,32 @@ export default {
 .menu-trigger:checked ~ .burger-wrapper .hamburger:after {
     transform: rotate(-45deg);
 }
+
+@media only screen and (max-width: 500px){
+    .burger-wrapper {
+        width: 24px;
+        height: 35px;
+    }
+
+    .burger-wrapper .hamburger {
+        width: 24px;
+        height: 3px;
+        transform: translateY(15px);
+        border-radius: 20px;
+    }
+
+    .burger-wrapper .hamburger:before, .burger-wrapper .hamburger:after {
+        width: 24px;
+        height: 3px;
+        border-radius: 20px;
+    }
+
+    .burger-wrapper .hamburger:before {
+        top: -7px;
+    }
+
+    .burger-wrapper .hamburger:after {
+        top: 7px;
+    }
+}
 </style>
