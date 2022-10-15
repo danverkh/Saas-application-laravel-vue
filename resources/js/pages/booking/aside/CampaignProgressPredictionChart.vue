@@ -4,7 +4,7 @@
 
 <script>
 import {Line} from 'vue-chartjs';
-import {Chart as ChartJS, Tooltip, PointElement, LineElement, CategoryScale, LinearScale} from 'chart.js';
+import {CategoryScale, Chart as ChartJS, LinearScale, LineElement, PointElement, Tooltip} from 'chart.js';
 import generator from "random-seed";
 import {useCart} from "@/stores/cart";
 import {useForecastedResults} from "@/composables/useForecastedResults";
@@ -21,11 +21,14 @@ export default {
 
     data() {
         return {
+            // 1. percentage of the random number
+            // 2. minimum value amplifier
+            // 3. maximum value amplifier
             dataProgression: [
-                0, 0, 0, 0, 0, 0, 0,               // week 1
-                100, 100, 100, 100, 100, 100, 100, // week 2
-                100, 100, 100, 100, 95, 90, 80,    // week 3
-                31, 24, 16, 12, 12, 9, 5,          // week 4
+                [0, 1, 1], [0, 1, 1], [0, 1, 1], [0, 1, 1], [0, 1, 1], [0, 1, 1], [0, 1, 1],                          // week 1
+                [10, 1.2, 1], [15, 1.2, 1], [22, 1.2, 1], [26, 1.2, 1], [32, 1.2, 1], [37, 1.2, 1], [45, 1.2, 1],     // week 2
+                [56, 1.6, 1], [65, 1.6, 1], [72, 1.6, 1], [79, 1.6, 1], [85, 1.6, 1], [89, 1.6, 1], [95, 1.6, 1],     // week 3
+                [96, 1.8, 1], [97, 1.8, 1], [98, 1.8, 1], [99, 1.8, 1], [100, 1.8, 1], [100, 1.8, 1], [100, 1.8, 1],  // week 4
             ],
             chartData: {
                 labels: [...Array(30).keys()].map(i => i),
@@ -54,12 +57,12 @@ export default {
                             title: function (context) {
                                 if (context[0].label === '0') return 'Today';
 
-                                const date = dayjs().add(context[0].label, 'day').format('MMMM D YYYY');
+                                const date  = dayjs().add(context[0].label, 'day').format('MMMM D YYYY');
                                 const parts = date.split(' ');
 
                                 return parts[0] + ' ' + Helpers.ordinalNumber(parts[1]) + ' ' + parts[2];
                             },
-                            label: function(context) {
+                            label: function (context) {
                                 let symbol = '';
 
                                 if (context.datasetIndex === 0) {
@@ -126,36 +129,35 @@ export default {
     watch: {
         impressions: {
             handler() {
-                const data = this.dataProgression.map((number, index) => this.deterministicRandom('spend', number, index));
-
-                for (let i = 0; i < this.dataProgression.length; i++) {
-                    data[i] = (data[i - 1] || 0) + data[i];
-                }
-                this.chartData.datasets[0].data = data;
+                this.chartData.datasets[0].data = this.dataProgression.map((dayData, index) => this.deterministicRandom('spend', dayData, index));
             },
             deep: true,
         },
 
         spend: {
             handler() {
-                const data = this.dataProgression.map((number, index) => this.deterministicRandom('impressions', number, index));
-
-                for (let i = 0; i < this.dataProgression.length; i++) {
-                    data[i] = (data[i - 1] || 0) + data[i];
-                }
-                this.chartData.datasets[1].data = data;
+                this.chartData.datasets[1].data = this.dataProgression.map((dayData, index) => this.deterministicRandom('impressions', dayData, index));
             },
             deep: true,
         },
     },
 
     methods: {
-        deterministicRandom(name, maxPercentage, index) {
+        deterministicRandom(name, dayData, index) {
+            const maxPercentage = dayData[0];
+            const minAmplifier  = dayData[1];
+            const maxAmplifier  = dayData[2];
+
             if (maxPercentage === 0) return 0;
 
-            const seed = `${useCart().domain}.${name}.${index}.${maxPercentage}`;
+            const seed = `${useCart().domain}.${name}.${index}`;
 
-            const random = generator(seed).intBetween(this[name].min, this[name].max);
+            let min = this[name].min * minAmplifier;
+            let max = this[name].max * maxAmplifier;
+
+            if (min > max) min = max;
+
+            const random = generator(seed).intBetween(min, max);
 
             return Math.ceil(random * (maxPercentage / 100));
         },
