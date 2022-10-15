@@ -85,7 +85,7 @@
     <section class="bg-zinc-100">
         <div class="py-16 lg:py-24 mx-auto lg:pr-0 lg:mr-0">
             <div class="items-end justify-between max-w-7xl sm:flex mx-auto mb-14 px-5">
-                <x-subtitle class="mb-0" :line="false">Reviews from our customers</x-subtitle>
+                <x-subtitle class="mb-5 sm:mb-0" text-size="text-3xl lg:text-4xl" :line="false">Reviews from our customers</x-subtitle>
 
                 <div class="flex lg:mt-0">
                     <button class="p-3 bg-primary text-white rounded-full focus:outline-none transition-all hover:scale-105 prev-button mr-3">
