@@ -39,7 +39,7 @@
 <script>
 import Input from '@/components/Input.vue';
 import Spinner from "@/components/Spinner.vue";
-import {useGlobalNotifications} from "@/stores/globalNotifications";
+import GlobalNotification from '@/services/GlobalNotification';
 
 export default {
     name: "LoginForm",
@@ -77,8 +77,8 @@ export default {
 
                         let firstKey = Object.keys(this.validationErrors)[0];
 
-                        useGlobalNotifications().warning({
-                            title: 'Invalid login',
+                        GlobalNotification.warning({
+                            title: 'Failed to login',
                             message: this.validationErrors[firstKey][0],
                         });
                     } else {

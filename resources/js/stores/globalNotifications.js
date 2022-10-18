@@ -27,33 +27,5 @@ export const useGlobalNotifications = defineStore('globalNotifications', {
 
             this.timeoutId = setTimeout(() => this.opened = false, config.timeout || 3000);
         },
-
-        info(config) {
-            this.open({
-                type: 'info',
-                ...config,
-            });
-        },
-
-        success(config) {
-            this.open({
-                type: 'success',
-                ...config,
-            });
-        },
-
-        warning(config) {
-            this.open({
-                type: 'warning',
-                ...config,
-            });
-        },
-
-        error(config) {
-            this.open({
-                type: 'error',
-                ...config,
-            });
-        },
     },
 });
