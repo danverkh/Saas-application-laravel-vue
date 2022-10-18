@@ -11,7 +11,7 @@
                ref="input"
                :readonly="disabled || readonly">
 
-        <div v-if="error" class="validation-error text-sm text-red-600 mt-2" :class="errorClasses">{{ error[0] }}</div>
+        <div v-if="error && errorText" class="validation-error text-sm text-red-600 mt-2" :class="errorClasses">{{ error[0] }}</div>
     </div>
 </template>
 
@@ -45,6 +45,10 @@ export default defineComponent({
         },
         error: {
             default: null,
+        },
+        errorText: {
+            default: true,
+            type: Boolean,
         },
         errorClasses: {
             default: '',

@@ -29,6 +29,7 @@
             <!-- Global -->
             <full-screen-spinner></full-screen-spinner>
             <domain-switcher-modal></domain-switcher-modal>
+            <global-notifications></global-notifications>
 
             @env('local')
             <x-breakpoints></x-breakpoints>

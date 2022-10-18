@@ -8,6 +8,7 @@
                :error="validationErrors?.email"
                @change="validationErrors.email = null"
                error-classes="text-xs"
+               :error-text="false"
                class="text-zinc-900 input-xs px-2 rounded"/>
 
         <Input @keyup.enter="submit"
@@ -18,11 +19,12 @@
                :error="validationErrors?.password"
                @change="validationErrors.password = null"
                error-classes="text-xs"
+               :error-text="false"
                class="text-zinc-900 input-xs px-2 rounded"/>
 
         <button class="btn btn-xs rounded-md !text-2xs font-normal normal-case disabled:bg-zinc-500" @click="submit" title="Login" :disabled="requestPending">
             <template v-if="requestPending">
-                <Spinner :size="10" :border-width="2" color="#fff" class="mx-2"></Spinner>
+                <Spinner :size="10" :border-width="2" color="#fff" class="mx-4"></Spinner>
             </template>
             <template v-else>
                 <svg class="w-3 h-3 -ml-0.5 mr-1" viewBox="0 0 256 256">
@@ -37,6 +39,7 @@
 <script>
 import Input from '@/components/Input.vue';
 import Spinner from "@/components/Spinner.vue";
+import {useGlobalNotifications} from "@/stores/globalNotifications";
 
 export default {
     name: "LoginForm",
@@ -71,6 +74,13 @@ export default {
                 .catch(error => {
                     if (error.response.status === 422) {
                         this.validationErrors = error.response.data.errors;
+
+                        let firstKey = Object.keys(this.validationErrors)[0];
+
+                        useGlobalNotifications().warning({
+                            title: 'Invalid login',
+                            message: this.validationErrors[firstKey][0],
+                        });
                     } else {
                         console.error('Failed to login', error);
                         alert('Whoops, something went wrong... Please try again later.');

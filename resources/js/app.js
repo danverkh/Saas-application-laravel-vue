@@ -20,10 +20,12 @@ app.component('video-player', VideoPlayer)
 // Global
 import FullScreenSpinner from './components/FullScreenSpinner.vue'
 import DomainSwitcherModal from './components/DomainSwitcherModal.vue'
+import GlobalNotifications from './components/GlobalNotifications.vue'
 import LoginForm from './pages/layout/LoginForm.vue'
 
 app.component('full-screen-spinner', FullScreenSpinner)
 app.component('domain-switcher-modal', DomainSwitcherModal)
+app.component('global-notifications', GlobalNotifications)
 app.component('login-form', LoginForm)
 
 // Homepage

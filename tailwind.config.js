@@ -16,6 +16,10 @@ module.exports = {
         'w-0',
         'h-0',
         'opacity-0',
+        'alert-info',
+        'alert-success',
+        'alert-warning',
+        'alert-error',
     ],
 
     theme: {
@@ -62,7 +66,17 @@ module.exports = {
     plugins: [require("daisyui")],
 
     daisyui: {
-        themes: ['light'],
+        themes: [
+            {
+                light: {
+                    ...require("daisyui/src/colors/themes")["[data-theme=light]"],
+                    info: '#81deff',
+                    success: '#86d9aa',
+                    warning: '#ffdf8a',
+                    error: '#f6aeae',
+                },
+            },
+        ],
         styled: true,
         base: true,
         utils: true,
