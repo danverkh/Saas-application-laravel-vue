@@ -14,6 +14,7 @@ html, body {
             line-height: 1rem;
             text-transform: unset !important;
         }
+
         td {
             line-height: 1.1rem;
         }
@@ -53,17 +54,30 @@ html, body {
             @apply text-primary duration-300;
         }
     }
+
     .tab-active {
         @apply text-primary border-primary border-b-3 font-medium;
     }
 }
 
-.sidebar{
+.sidebar {
     will-change: min-height;
 }
 
-.sidebar__inner{
+.sidebar__inner {
     transform: translate(0, 0); /* For browsers don't support translate3d. */
     transform: translate3d(0, 0, 0);
     will-change: position, transform;
+}
+
+@screen xl {
+    #slider-container {
+        #content {
+            width: calc(75% - 0.75rem);
+        }
+
+        #sidebar {
+            width: calc(25% - 0.75rem);
+        }
+    }
 }

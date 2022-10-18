@@ -38,41 +38,49 @@
                 <input id="mobile-menu" type="checkbox" class="drawer-toggle"/>
                 <div class="drawer-content bg-zinc-100/20">
                     <!-- Header -->
-                    <header class="sticky top-0 w-full z-40 backdrop-blur-[10px] bg-white-500/90 transition-all pt-4 pb-3 shadow-lg">
-                        <nav class="max-w-screen-xl mx-auto px-6 xl:px-2 grid grid-flow-col py-3 sm:py-4">
-                            <div class="col-start-1 col-end-2 flex items-center">
-                                <mobile-nav-button class="w-12 h-12 flex items-center mr-1 sm:mr-5 lg:hidden"></mobile-nav-button>
-
-                                <a href="{{ route('homepage') }}">
-                                    <x-application-logo class="h-10 sm:h-12 w-auto"></x-application-logo>
-                                </a>
+                    <header class="sticky top-0 w-full z-40">
+                        <div class="bg-zinc-50 border-b border-b-zinc-200">
+                            <div class="max-w-screen-xl mx-auto px-6 xl:px-2 flex justify-between py-1 sm:py-2">
+                                <div></div>
+                                <login-form></login-form>
                             </div>
+                        </div>
 
-                            <ul class="hidden lg:flex col-start-4 col-end-8 text-black-500  items-center">
-                                <x-nav-link :href="route('how_it_works')" :active="request()->routeIs('how_it_works')">How it works</x-nav-link>
-                                <x-nav-link :href="route('success_stories')" :active="request()->routeIs('success_stories')">Success stories</x-nav-link>
-                                <x-nav-link :href="route('about_us')" :active="request()->routeIs('about_us')">About us</x-nav-link>
-                                <x-nav-link href="#" :active="false">Pricing</x-nav-link>
-                            </ul>
-                            <div class="col-start-10 col-end-12 font-medium flex justify-end items-center">
-                                @auth
-                                    <div class="hidden sm:block mr-5 text-zinc-900">{{ auth()->user()->email }}</div>
-                                    <form action="{{ route('logout') }}" method="POST">
-                                        @csrf
-                                        <button type="submit" class="flex flex-nowrap items-center font-medium tracking-wide py-2 px-5 sm:px-6 border border-primary-hover text-white-500 bg-primary outline-none rounded-l-full rounded-r-full hover:bg-primary-hover hover:text-white-500 transition-all duration-500 hover:shadow-primary">
-                                            <svg class="hidden sm:block w-5 h-5 mr-1.5" viewBox="0 0 24 24"><path fill="currentColor" d="M5 21q-.825 0-1.413-.587Q3 19.825 3 19V5q0-.825.587-1.413Q4.175 3 5 3h7v2H5v14h7v2Zm11-4l-1.375-1.45l2.55-2.55H9v-2h8.175l-2.55-2.55L16 7l5 5Z"/></svg>
-                                            Logout
-                                        </button>
-                                    </form>
-                                @else
-                                    <a href="/" class="text-sm sm:text-base text-black-600 mx-3 sm:mx-6 capitalize tracking-wide font-medium hover:text-primary transition-all">Login</a>
-                                    <a href="/" class="text-sm sm:text-base font-medium tracking-wide py-2 px-3 sm:px-6 border border-primary-hover text-white-500 bg-primary outline-none rounded-l-full rounded-r-full hover:bg-primary-hover hover:text-white-500 transition-all duration-500 hover:shadow-primary">
-                                        <span class="hidden sm:inline-block">Get a demo</span>
-                                        <span class="inline-block sm:hidden">Demo</span>
+                        <div class="backdrop-blur-[10px] bg-white-500/90 transition-all py-2 shadow-lg">
+                            <nav class="max-w-screen-xl mx-auto px-6 xl:px-2 grid grid-flow-col py-3 sm:py-4">
+                                <div class="col-start-1 col-end-2 flex items-center">
+                                    <mobile-nav-button class="w-12 h-12 flex items-center mr-1 sm:mr-5 lg:hidden"></mobile-nav-button>
+
+                                    <a href="{{ route('homepage') }}">
+                                        <x-application-logo class="h-10 sm:h-12 w-auto"></x-application-logo>
                                     </a>
-                                @endauth
-                            </div>
-                        </nav>
+                                </div>
+
+                                <ul class="hidden lg:flex col-start-4 col-end-8 text-black-500  items-center">
+                                    <x-nav-link :href="route('how_it_works')" :active="request()->routeIs('how_it_works')">How it works</x-nav-link>
+                                    <x-nav-link :href="route('success_stories')" :active="request()->routeIs('success_stories')">Success stories</x-nav-link>
+                                    <x-nav-link :href="route('about_us')" :active="request()->routeIs('about_us')">About us</x-nav-link>
+                                    <x-nav-link href="#" :active="false">Pricing</x-nav-link>
+                                </ul>
+                                <div class="col-start-10 col-end-12 font-medium flex justify-end items-center">
+                                    @auth
+                                        <div class="hidden sm:block mr-5 text-zinc-900">{{ auth()->user()->email }}</div>
+                                        <form action="{{ route('logout') }}" method="POST">
+                                            @csrf
+                                            <button type="submit" class="flex flex-nowrap items-center font-medium tracking-wide py-2 px-5 sm:px-6 border border-primary-hover text-white-500 bg-primary outline-none rounded-l-full rounded-r-full hover:bg-primary-hover hover:text-white-500 transition-all duration-500 hover:shadow-primary">
+                                                <svg class="hidden sm:block w-5 h-5 mr-1.5" viewBox="0 0 24 24"><path fill="currentColor" d="M5 21q-.825 0-1.413-.587Q3 19.825 3 19V5q0-.825.587-1.413Q4.175 3 5 3h7v2H5v14h7v2Zm11-4l-1.375-1.45l2.55-2.55H9v-2h8.175l-2.55-2.55L16 7l5 5Z"/></svg>
+                                                Logout
+                                            </button>
+                                        </form>
+                                    @else
+                                        <a href="/" class="text-sm sm:text-base font-medium tracking-wide py-2 px-3 sm:px-6 border border-primary-hover text-white-500 bg-primary outline-none rounded-l-full rounded-r-full hover:bg-primary-hover hover:text-white-500 transition-all duration-500 hover:shadow-primary">
+                                            <span class="hidden sm:inline-block">Get a demo</span>
+                                            <span class="inline-block sm:hidden">Demo</span>
+                                        </a>
+                                    @endauth
+                                </div>
+                            </nav>
+                        </div>
                     </header>
 
                     <!-- Content -->

@@ -20,9 +20,11 @@ app.component('video-player', VideoPlayer)
 // Global
 import FullScreenSpinner from './components/FullScreenSpinner.vue'
 import DomainSwitcherModal from './components/DomainSwitcherModal.vue'
+import LoginForm from './pages/layout/LoginForm.vue'
 
 app.component('full-screen-spinner', FullScreenSpinner)
 app.component('domain-switcher-modal', DomainSwitcherModal)
+app.component('login-form', LoginForm)
 
 // Homepage
 import MainSearch from './pages/homepage/MainSearch.vue'

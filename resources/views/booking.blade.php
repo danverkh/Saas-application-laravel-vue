@@ -6,8 +6,8 @@
 
     <x-container>
         <div class="max-w-screen-xl mx-auto mb-8">
-            <div id="slider-container" class="flex-col flex flex-nowrap gap-8 xl:flex-row">
-                <div id="content" class="content w-full xl:w-9/12 flex flex-col gap-6">
+            <div id="slider-container" class="flex-col flex flex-nowrap gap-6 xl:flex-row">
+                <div id="content" class="content w-full flex flex-col gap-6">
                     <x-card class="border-t-4 border-primary gap-0">
                         <div class="flex flex-nowrap gap-6">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="h-20 h-20 text-primary min-w-[60px] hidden sm:block">
@@ -41,7 +41,7 @@
                 </div>
 
                 <!-- Aside -->
-                <div id="sidebar" class="sidebar w-full xl:w-3/12">
+                <div id="sidebar" class="sidebar w-full">
                     <div class="sidebar__inner flex flex-col gap-6 md:block md:columns-2 md:space-y-6 xl:flex xl:columns-1 xl:space-y-0">
                         <x-card class="md:order-1 xl:order-3 border-t-4 border-zinc-300">
                             <h4 class="-mt-2 font-medium text-xl">Forecasted Results</h4>
