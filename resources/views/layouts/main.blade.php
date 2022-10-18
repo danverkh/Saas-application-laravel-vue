@@ -41,9 +41,22 @@
                     <!-- Header -->
                     <header class="sticky top-0 w-full z-40">
                         <div class="bg-zinc-50 border-b border-b-zinc-200">
-                            <div class="max-w-screen-xl mx-auto px-6 xl:px-2 flex justify-between py-1 sm:py-2">
-                                <div></div>
-                                <login-form></login-form>
+                            <div class="max-w-screen-xl mx-auto px-6 xl:px-2 flex justify-end items-center py-1 sm:py-2">
+                                @auth
+                                    <div class="text-sm hidden sm:block text-zinc-900">{{ auth()->user()->email }}</div>
+
+                                    <div class="text-zinc-300 mx-3">|</div>
+
+                                    <form action="{{ route('logout') }}" method="POST">
+                                        @csrf
+                                        <button type="submit" class="link no-underline hover:underline flex items-center tracking-wide transition-colors hover:text-primary">
+                                            <svg class="hidden sm:block w-4 h-4 mr-1" viewBox="0 0 24 24"><path fill="currentColor" d="M5 21q-.825 0-1.413-.587Q3 19.825 3 19V5q0-.825.587-1.413Q4.175 3 5 3h7v2H5v14h7v2Zm11-4l-1.375-1.45l2.55-2.55H9v-2h8.175l-2.55-2.55L16 7l5 5Z"/></svg>
+                                            Logout
+                                        </button>
+                                    </form>
+                                @else
+                                    <login-form></login-form>
+                                @endauth
                             </div>
                         </div>
 
@@ -64,21 +77,10 @@
                                     <x-nav-link href="#" :active="false">Pricing</x-nav-link>
                                 </ul>
                                 <div class="col-start-10 col-end-12 font-medium flex justify-end items-center">
-                                    @auth
-                                        <div class="hidden sm:block mr-5 text-zinc-900">{{ auth()->user()->email }}</div>
-                                        <form action="{{ route('logout') }}" method="POST">
-                                            @csrf
-                                            <button type="submit" class="flex flex-nowrap items-center font-medium tracking-wide py-2 px-5 sm:px-6 border border-primary-hover text-white-500 bg-primary outline-none rounded-l-full rounded-r-full hover:bg-primary-hover hover:text-white-500 transition-all duration-500 hover:shadow-primary">
-                                                <svg class="hidden sm:block w-5 h-5 mr-1.5" viewBox="0 0 24 24"><path fill="currentColor" d="M5 21q-.825 0-1.413-.587Q3 19.825 3 19V5q0-.825.587-1.413Q4.175 3 5 3h7v2H5v14h7v2Zm11-4l-1.375-1.45l2.55-2.55H9v-2h8.175l-2.55-2.55L16 7l5 5Z"/></svg>
-                                                Logout
-                                            </button>
-                                        </form>
-                                    @else
-                                        <a href="/" class="text-sm sm:text-base font-medium tracking-wide py-2 px-3 sm:px-6 border border-primary-hover text-white-500 bg-primary outline-none rounded-l-full rounded-r-full hover:bg-primary-hover hover:text-white-500 transition-all duration-500 hover:shadow-primary">
-                                            <span class="hidden sm:inline-block">Get a demo</span>
-                                            <span class="inline-block sm:hidden">Demo</span>
-                                        </a>
-                                    @endauth
+                                    <a href="/" class="text-sm sm:text-base font-medium tracking-wide py-2 px-3 sm:px-6 border border-primary-hover text-white-500 bg-primary outline-none rounded-l-full rounded-r-full hover:bg-primary-hover hover:text-white-500 transition-all duration-500 hover:shadow-primary">
+                                        <span class="hidden sm:inline-block">Get a demo</span>
+                                        <span class="inline-block sm:hidden">Demo</span>
+                                    </a>
                                 </div>
                             </nav>
                         </div>
