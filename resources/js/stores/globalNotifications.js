@@ -1,8 +1,6 @@
 import {defineStore} from 'pinia';
 
 export const useGlobalNotifications = defineStore('globalNotifications', {
-    persist: true,
-
     state: () => {
         return {
             title: null,

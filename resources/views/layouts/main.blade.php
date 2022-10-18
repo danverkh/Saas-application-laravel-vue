@@ -43,7 +43,7 @@
                         <div class="bg-zinc-50 border-b border-b-zinc-200">
                             <div class="max-w-screen-xl mx-auto px-6 xl:px-2 flex justify-end items-center py-1 sm:py-2">
                                 @auth
-                                    <div class="text-sm hidden sm:block text-zinc-900">{{ auth()->user()->email }}</div>
+                                    <div class="text-sm text-zinc-900">{{ auth()->user()->email }}</div>
 
                                     <div class="text-zinc-300 mx-3">|</div>
 

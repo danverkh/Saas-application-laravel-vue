@@ -58,6 +58,7 @@
 import MarketSelect from './MarketSelect.vue';
 import {useCart} from "@/stores/cart";
 import AutoSuggest from "@/components/AutoSuggest.vue";
+import Domain from "@/services/Domain";
 
 export default {
     name: "MainSearch",
@@ -66,7 +67,7 @@ export default {
 
     data() {
         return {
-            market: useCart().market || 'at',
+            market: useCart().market,
             domain: '',
             invalid: false,
             initialSuggestions: [],
@@ -77,6 +78,8 @@ export default {
         domain(value) {
             if (value.length > 0 || !value.includes('.')) {
                 this.invalid = false;
+
+                this.market = Domain.getMarket(value);
             }
         },
     },
