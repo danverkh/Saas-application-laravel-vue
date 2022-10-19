@@ -64,7 +64,7 @@ const selectedItem = ref(items.find(i => i.value === props.selected) || items[0]
 
 const emit = defineEmits(['changed']);
 
-watch(selectedItem, (item) => {
-    emit('changed', item.value);
-});
+watch(selectedItem, item => emit('changed', item.value));
+
+watch(() => props.selected, selected => selectedItem.value = items.find(i => i.value === selected));
 </script>

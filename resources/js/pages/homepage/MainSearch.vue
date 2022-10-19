@@ -1,5 +1,5 @@
 <template>
-    <market-select @changed="market = $event" :selected="market" class="grow-0"></market-select>
+    <MarketSelect @changed="market = $event" :selected="market" class="grow-0"></MarketSelect>
 
     <div class="flex-1">
         <label class="block text-gray-500 mb-2 inline-block" @click="focusSearch">Domain</label>
@@ -71,6 +71,7 @@ export default {
             domain: '',
             invalid: false,
             initialSuggestions: [],
+            marketIfNotDetected: 'uk',
         };
     },
 
@@ -95,11 +96,21 @@ export default {
             return axios.get(route('api.autosuggest.domain'), {params: {domain: this.domain}});
         },
 
-        search() {
+        async search() {
             if (this.domain.length === 0) {
                 this.invalid = true;
             } else {
                 const domain = encodeURIComponent(this.domain);
+
+                if (this.market === null) {
+                    try {
+                        const response = await axios.get(route('api.domain.market.guess'), {params: {domain}});
+                        this.market = response.data.market || this.marketIfNotDetected;
+                    } catch (error) {
+                        console.error('Failed to fetch market', error);
+                        this.market = this.marketIfNotDetected;
+                    }
+                }
 
                 useCart().market = this.market;
                 useCart().clearSelection();

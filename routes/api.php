@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AutoSuggestController;
 use App\Http\Controllers\BookADemoController;
+use App\Http\Controllers\DomainController;
 use App\Http\Controllers\RankingsController;
 use App\Http\Controllers\PreviewRankController;
 use Illuminate\Support\Facades\Route;
@@ -19,4 +20,5 @@ use Illuminate\Support\Facades\Route;
 Route::get('rankings', [RankingsController::class, 'index'])->name('api.rankings');
 Route::get('preview/rank', [PreviewRankController::class, 'index'])->name('api.preview_rank');
 Route::get('autosuggest/domain', [AutoSuggestController::class, 'domain'])->name('api.autosuggest.domain');
+Route::get('domain/market/guess', [DomainController::class, 'marketGuess'])->name('api.domain.market.guess');
 Route::post('book-a-demo', [BookADemoController::class, 'store'])->name('api.book_a_demo.submit');
