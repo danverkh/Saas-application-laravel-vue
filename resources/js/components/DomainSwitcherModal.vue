@@ -18,7 +18,7 @@ export default {
 
     methods: {
         initSearch() {
-            this.$refs.search.clear();
+            this.$refs.search.populateDomain();
             this.$refs.search.focusSearch();
         },
     },

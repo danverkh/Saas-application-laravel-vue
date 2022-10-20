@@ -131,6 +131,10 @@ export default {
             this.$refs.search.clear();
         },
 
+        populateDomain() {
+            this.domain = useCart().domain;
+        },
+
         focusSearch() {
             this.$refs.search.focus();
         },
