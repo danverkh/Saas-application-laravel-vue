@@ -21,9 +21,7 @@ Route::get('/test/transaction', [\App\Http\Controllers\TestController::class, 't
 
 Route::get('/', HomepageController::class)->name('homepage');
 
-Route::get('{market}/{query}', [BookingController::class, 'index'])
-    ->whereIn('market', ['at', 'ch', 'de', 'uk', 'fr', 'it', 'es'])
-    ->name('booking');
+Route::get('{market}/{query}', [BookingController::class, 'index'])->name('booking');
 
 Route::get('how-it-works', HowItWorksController::class)->name('how_it_works');
 Route::get('success-stories', SuccessStoriesController::class)->name('success_stories');

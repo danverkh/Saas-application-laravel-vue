@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Services\Domain;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Str;
 
 class DomainController extends Controller
 {
@@ -24,8 +24,9 @@ class DomainController extends Controller
                   ->where('mail_domain', 'LIKE', "$request->domain%")
                   ->first();
 
-        $market = $item->language_detected ?? $item->registrant_country ?? null;
-        $market = Str::lower($market);
+        $languageOrCountryCode = $item->language_detected ?? $item->registrant_country ?? null;
+
+        $market = Domain::getMarket($languageOrCountryCode, $request->domain);
 
         return response()->json(compact('market'));
     }

@@ -2,25 +2,19 @@
 
 namespace App\Services\DataForSeo;
 
+use App\Models\Country;
 use Illuminate\Support\Str;
 
 class Params
 {
-    private $languageByLocation = [
-        'AT' => ['location' => 'Austria', 'language' => 'German'],
-        'BE' => ['location' => 'Belgium', 'language' => 'French'],
-        'CH' => ['location' => 'Switzerland', 'language' => 'German'],
-        'DE' => ['location' => 'Germany', 'language' => 'German'],
-        'FR' => ['location' => 'France', 'language' => 'French'],
-        'IT' => ['location' => 'Italy', 'language' => 'Italian'],
-        'ES' => ['location' => 'Spain', 'language' => 'Spanish'],
-        'UK' => ['location' => 'United Kingdom', 'language' => 'English'],
-        'US' => ['location' => 'United States', 'language' => 'English'],
-    ];
-
     public string $query;
     public string $market;
     public int    $limit;
+
+    /**
+     * @var \App\Models\Country
+     */
+    public Country $country;
 
     /**
      * @param string $query
@@ -32,6 +26,10 @@ class Params
         $this->query  = $query;
         $this->market = Str::upper($market);
         $this->limit  = $limit;
+
+        $this->country = Country::where('iso2', $this->market)
+                                ->orWhere('tld', $this->market)
+                                ->first();
     }
 
     /**
@@ -39,7 +37,7 @@ class Params
      */
     public function getLocation(): string
     {
-        return data_get($this->languageByLocation[$this->market], 'location');
+        return $this->country->name ?? 'United Kingdom';
     }
 
     /**
@@ -47,6 +45,6 @@ class Params
      */
     public function getLanguage(): string
     {
-        return data_get($this->languageByLocation[$this->market], 'language');
+        return $this->country->languages->first()->name ?? 'English';
     }
 }

@@ -1,7 +1,7 @@
 <template>
-    <MarketSelect @changed="market = $event" :selected="market" class="grow-0"></MarketSelect>
+    <MarketSelect @changed="market = $event" :selected="market" class="grow-0" :class="[{'pointer-events-none': submitted}]"></MarketSelect>
 
-    <div class="flex-1">
+    <div class="flex-1" :class="[{'pointer-events-none': submitted}]">
         <label class="block text-gray-500 mb-2 inline-block" @click="focusSearch">Domain</label>
 
         <AutoSuggest v-model="domain"
@@ -45,10 +45,12 @@
     </div>
 
     <div class="grow-0">
-        <button @click="search" class="btn btn-lg no-animation gap-2 tracking-widest bg-gray-900 h-[62px] min-h-[62px] md:px-7 group">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6 md:-ml-1 group-hover:scale-105 transition-all">
+        <button @click="search" :class="[{'pointer-events-none opacity-75': submitted}]" class="btn btn-lg no-animation gap-2 tracking-widest bg-gray-900 h-[62px] min-h-[62px] md:px-7 group">
+            <Spinner v-if="submitted" :size="22" :border-width="2" color="#fff" class="md:-ml-1 md:mr-0.5"></Spinner>
+            <svg v-else xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6 md:-ml-1 group-hover:scale-105 transition-all">
                 <path fill-rule="evenodd" d="M10.5 3.75a6.75 6.75 0 100 13.5 6.75 6.75 0 000-13.5zM2.25 10.5a8.25 8.25 0 1114.59 5.28l4.69 4.69a.75.75 0 11-1.06 1.06l-4.69-4.69A8.25 8.25 0 012.25 10.5z" clip-rule="evenodd"/>
             </svg>
+
             <span class="md:ml-1 hidden md:inline">Search</span>
         </button>
     </div>
@@ -59,17 +61,19 @@ import MarketSelect from './MarketSelect.vue';
 import {useCart} from "@/stores/cart";
 import AutoSuggest from "@/components/AutoSuggest.vue";
 import Domain from "@/services/Domain";
+import Spinner from "@/components/Spinner.vue";
 
 export default {
     name: "MainSearch",
 
-    components: {AutoSuggest, MarketSelect},
+    components: {Spinner, AutoSuggest, MarketSelect},
 
     data() {
         return {
             market: useCart().market,
             domain: '',
             invalid: false,
+            submitted: false,
             initialSuggestions: [],
             marketIfNotDetected: 'uk',
         };
@@ -100,16 +104,20 @@ export default {
             if (this.domain.length === 0) {
                 this.invalid = true;
             } else {
+
                 const domain = encodeURIComponent(this.domain);
 
                 if (this.market === null) {
+                    this.submitted = true;
+
                     try {
                         const response = await axios.get(route('api.domain.market.guess'), {params: {domain}});
-                        this.market = response.data.market || this.marketIfNotDetected;
+                        this.market    = response.data.market || this.marketIfNotDetected;
                     } catch (error) {
                         console.error('Failed to fetch market', error);
                         this.market = this.marketIfNotDetected;
                     }
+                    setTimeout(() => this.submitted = false, 2000);
                 }
 
                 useCart().market = this.market;
