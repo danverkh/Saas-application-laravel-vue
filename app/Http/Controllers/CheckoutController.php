@@ -9,6 +9,7 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class CheckoutController extends Controller
 {
@@ -19,18 +20,30 @@ class CheckoutController extends Controller
      */
     public function order(OrderRequest $request): JsonResponse
     {
-        $user = DB::transaction(static function () use ($request) {
-            $user = User::firstWhere('email', $request->email) ?? CreateUser::handle($request->email);
+        try {
+            $user = DB::transaction(static function () use ($request) {
+                $user = User::firstWhere('email', $request->email) ?? CreateUser::handle($request->email);
 
-            /** @var \App\Models\Order $order */
-            $order = $user->orders()->create($request->validated());
+                /** @var \App\Models\Order $order */
+                $order = $user->orders()->create($request->validated());
 
-            foreach ($request->selectedItems as $keyword) {
-                $order->keywords()->create($keyword);
-            }
+                foreach ($request->selectedItems as $keyword) {
+                    $order->keywords()->create($keyword);
+                }
 
-            return $user;
-        });
+                return $user;
+            });
+        } catch (\Throwable $e) {
+            Log::error('Failed to create order', [
+                'message' => $e->getMessage(),
+                'request' => $request->validated(),
+                'trace'   => $e->getTraceAsString(),
+            ]);
+
+            DB::table('failed_orders_log')->insert(['request' => $request->validated()]);
+
+            return response()->json(['status' => 'error']);
+        }
 
         Auth::guard('web')->login($user);
 
