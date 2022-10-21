@@ -18,12 +18,21 @@ export const useGlobalNotifications = defineStore('globalNotifications', {
         },
 
         open(config) {
-            this.title = config.title || '';
-            this.message = config.message || '';
-            this.type = config.type || '';
-            this.opened = true;
+            let timeout = 0;
 
-            this.timeoutId = setTimeout(() => this.opened = false, config.timeout || 3000);
+            if (this.opened) {
+                this.close();
+                timeout = 400;
+            }
+
+            setTimeout(() => {
+                this.title = config.title || '';
+                this.message = config.message || '';
+                this.type = config.type || '';
+                this.opened = true;
+
+                this.timeoutId = setTimeout(() => this.opened = false, config.timeout || 3000);
+            }, timeout);
         },
     },
 });
