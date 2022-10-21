@@ -108,7 +108,7 @@ export default {
                         scrollToError();
                     } else {
                         console.error('Failed to submit form', error);
-                        GlobalNotification.error('Whoops, something went wrong... Please try again later.');
+                        GlobalNotification.error({title: 'Whoops, something went wrong', message: 'Please try again later.'});
                     }
                 })
                 .finally(() => this.requestPending = false);

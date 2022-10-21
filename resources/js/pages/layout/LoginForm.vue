@@ -83,7 +83,7 @@ export default {
                         });
                     } else {
                         console.error('Failed to login', error);
-                        GlobalNotification.error('Whoops, something went wrong... Please try again later.');
+                        GlobalNotification.error({title: 'Whoops, something went wrong', message: 'Please try again later.'});
                     }
                 })
                 .finally(() => {
