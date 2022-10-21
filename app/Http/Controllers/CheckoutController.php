@@ -17,6 +17,7 @@ class CheckoutController extends Controller
      * @param \App\Http\Requests\OrderRequest $request
      *
      * @return \Illuminate\Http\JsonResponse
+     * @throws \JsonException
      */
     public function order(OrderRequest $request): JsonResponse
     {
@@ -40,9 +41,11 @@ class CheckoutController extends Controller
                 'trace'   => $e->getTraceAsString(),
             ]);
 
-            DB::table('failed_orders_log')->insert(['request' => $request->validated()]);
+            DB::table('failed_orders_log')->insert([
+                'request' => json_encode($request->validated(), JSON_THROW_ON_ERROR),
+            ]);
 
-            return response()->json(['status' => 'error']);
+            return response()->json(['status' => 'error'], 500);
         }
 
         Auth::guard('web')->login($user);
