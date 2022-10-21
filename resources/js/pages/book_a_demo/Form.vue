@@ -62,6 +62,7 @@ import Select from "@/components/Select.vue";
 import {scrollToError} from "@/services/ValidationService";
 import Spinner from "@/components/Spinner.vue";
 import SuccessMessage from "@/components/SuccessMessage.vue";
+import GlobalNotification from "@/services/GlobalNotification";
 
 export default {
     name: "BookADemoForm",
@@ -107,7 +108,7 @@ export default {
                         scrollToError();
                     } else {
                         console.error('Failed to submit form', error);
-                        alert('Whoops, something went wrong... Please try again later.');
+                        GlobalNotification.error('Whoops, something went wrong... Please try again later.');
                     }
                 })
                 .finally(() => this.requestPending = false);

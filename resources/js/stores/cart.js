@@ -2,6 +2,7 @@ import {defineStore} from 'pinia';
 import axios from 'axios';
 import FullScreenSpinner from '@/services/FullScreenSpinner';
 import {scrollToError} from '@/services/ValidationService';
+import GlobalNotification from "@/services/GlobalNotification";
 
 export const useCart = defineStore('cart', {
     persist: true,
@@ -42,7 +43,7 @@ export const useCart = defineStore('cart', {
                             scrollToError();
                         } else {
                             console.error('Failed to create order', error);
-                            alert('Whoops, something went wrong... Please try again later.');
+                            GlobalNotification.error('Whoops, something went wrong... Please try again later.');
                         }
                         FullScreenSpinner.close();
                     });

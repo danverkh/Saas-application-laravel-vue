@@ -129,7 +129,7 @@ export default {
                     this.rankingItems.setItems(resp.data.rows);
                 })
                 .catch(error => {
-                    console.error('Something wen wrong', error);
+                    console.error('Something went wrong', error);
 
                     if (error.response.status === 429) {
                         this.error = 'Too many search attempts, please try again in a minute';
