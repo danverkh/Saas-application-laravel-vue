@@ -25,20 +25,166 @@
         <div id="hero-bg" class="absolute top-0 left-0 right-0 bottom-0 z-0 overflow-hidden"></div>
     </div>
 
-    <div class="mb-16">
+    <div>
         <x-search-domain></x-search-domain>
     </div>
 
-    {{--
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            Test
-        </h2>
-    </x-slot>
+    <section class="max-w-screen-xl mx-auto px-6 py-20">
+        <div class="text-5xl font-medium text-gray-900 text-center mb-12">Why should you care</div>
 
-    <div class="py-12">
-        Test
-    </div>--}}
+        <div class="flex flex-row">
+            <div class="basis-1/2 flex justify-center">
+                <img src="/img/illustrations/chart_euro.svg" class="max-w-xs h-auto">
+            </div>
+            <div class="basis-1/2 leading-loose text-xl">
+                Ads are too expensive. Total budget of seo agencies for keyword is probably greater then traffic value. There are no “organic” search results, people rank because
+                they pay.
+            </div>
+        </div>
+    </section>
+
+    <div class="bg-zinc-100 py-12">
+        <section class="max-w-screen-xl mx-auto text-center text-primary font-medium text-5xl">
+            Solution
+        </section>
+    </div>
+
+    <section class="max-w-screen-xl mx-auto px-10 py-20">
+        <div class="flex flex-row gap-x-20 flex-row-reverse">
+            <div class="basis-1/2 flex justify-start">
+                <img src="/img/illustrations/investment_data.svg" class="max-w-[300px] h-auto">
+            </div>
+            <div class="basis-1/2 text-right">
+                <div class="text-3xl font-medium text-gray-900 mb-3">Only pay for Performance</div>
+                <div class="leading-loose text-xl">Costs only for actual traffic received</div>
+            </div>
+        </div>
+    </section>
+
+    <div class="bg-zinc-100">
+        <section class="max-w-screen-xl mx-auto px-10 py-20">
+            <div class="flex flex-row gap-x-20">
+                <div class="basis-1/2 flex justify-end">
+                    <img src="/img/illustrations/lower_prices.svg" class="max-w-[200px] h-auto">
+                </div>
+                <div class="basis-1/2">
+                    <div class="text-3xl font-medium text-gray-900 mb-3">Lower prices</div>
+                    <div class="leading-loose text-xl">Lower traffic acquisition costs than other channels</div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <section class="max-w-screen-xl mx-auto px-10 py-20">
+        <div class="flex flex-row gap-x-20 flex-row-reverse">
+            <div class="basis-1/2 flex justify-start">
+                <img src="/img/illustrations/social.svg" class="max-w-[350px] h-auto">
+            </div>
+            <div class="basis-1/2 text-right">
+                <div class="text-3xl font-medium text-gray-900 mb-3">Bare-minimum customer service</div>
+                <div class="leading-loose text-xl">
+                    We do only offer minimum of service/consulting but focus only on getting you traffic.
+                    This leads to lower prices for you if you do not need service/consulting.
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="bg-zinc-100">
+        <section class="max-w-screen-xl mx-auto px-10 py-20">
+            <div class="flex flex-row gap-x-20">
+                <div class="basis-1/2 flex justify-end">
+                    <img src="/img/illustrations/data.svg" class="max-w-[300px] h-auto">
+                </div>
+                <div class="basis-1/2">
+                    <div class="text-3xl font-medium text-gray-900 mb-5">Work with the best data</div>
+                    <div class="leading-loose text-lg">
+                        <ul class="red-dots">
+                            <li>Most people user SEO tools to get keyword data, which is often outdated</li>
+                            <li>We directly integrate with the <a href="https://developers.google.com/google-ads/api/docs/start">Google Ads API Endpoint</a> to get you the best
+                                data to improve decisionmaking
+                            </li>
+                            <li>Lower traffic acquisition costs than other channels</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <section class="max-w-screen-xl mx-auto px-10 py-20">
+        <div class="flex flex-row gap-x-20 flex-row-reverse">
+            <div class="basis-1/2 flex justify-start">
+                <img src="/img/illustrations/campaigns.svg" class="max-w-[300px] h-auto">
+            </div>
+            <div class="basis-1/2 text-right">
+                <div class="text-3xl font-medium text-gray-900 mb-3">The best performance in the market</div>
+                <div class="leading-loose text-xl">
+                     Look at hundreds of successful campaigns
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="bg-zinc-100">
+        <section class="max-w-screen-xl mx-auto px-10 py-20">
+            <div class="flex flex-row gap-x-20">
+                <div class="basis-1/2 flex justify-end">
+                    <img src="/img/illustrations/gift.svg" class="max-w-[300px] h-auto">
+                </div>
+                <div class="basis-1/2">
+                    <div class="text-3xl font-medium text-gray-900 mb-5">Free bonus items for you</div>
+                    <div class="leading-loose text-xl">
+                        as an AutoRanker customer you get free things like AutoSuggest keywords or offers from agencies for website analysis (your data is not shared)
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <section class="max-w-screen-xl mx-auto px-10 py-20">
+        <div class="flex flex-row gap-x-20 flex-row-reverse">
+            <div class="basis-1/2 flex justify-start">
+                <img src="/img/illustrations/dashboard.svg" class="max-w-[300px] h-auto">
+            </div>
+            <div class="basis-1/2 text-right">
+                <div class="text-3xl font-medium text-gray-900 mb-3">View Campaign in Dashboard</div>
+                <div class="leading-loose text-xl">
+                    Always view all stats in your dashboard
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="bg-zinc-100">
+        <section class="max-w-screen-xl mx-auto px-10 py-20">
+            <div class="flex flex-row gap-x-20">
+                <div class="basis-1/2 flex justify-end">
+                    <img src="/img/illustrations/email.svg" class="max-w-[250px] h-auto">
+                </div>
+                <div class="basis-1/2">
+                    <div class="text-3xl font-medium text-gray-900 mb-5">E-Mail reportings</div>
+                    <div class="leading-loose text-xl">
+                        We send out a lot of emails with updates regarding your campaign
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <section class="max-w-screen-xl mx-auto px-10 py-20">
+        <div class="flex flex-row gap-x-20 flex-row-reverse">
+            <div class="basis-1/2 flex justify-start">
+                <img src="/img/illustrations/ml.svg" class="max-w-[300px] h-auto">
+            </div>
+            <div class="basis-1/2 text-right">
+                <div class="text-3xl font-medium text-gray-900 mb-3">Compliance built-in</div>
+                <div class="leading-loose text-xl">
+                    We automatically check content of websites promoted using machine learning. This leads to quicker approvals of campaigns and lower costs
+                </div>
+            </div>
+        </div>
+    </section>
 
     @push('script')
         <script src="/js/three.min.js"></script>

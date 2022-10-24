@@ -81,3 +81,19 @@ html, body {
         }
     }
 }
+
+ul.red-dots li {
+    line-height: 25px;
+    padding-left: 25px;
+    margin-bottom: 10px;
+}
+
+ul.red-dots li::before {
+    content: "\2022";
+    color: red;
+    font-weight: bold;
+    display: inline-block;
+    width: 25px;
+    margin-left: -25px;
+    padding-right: 25px;
+}
