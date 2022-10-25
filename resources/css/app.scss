@@ -97,3 +97,36 @@ ul.red-dots li::before {
     margin-left: -25px;
     padding-right: 25px;
 }
+
+.reveal.scale-in {
+    opacity: 0;
+    transform: scale(0.95);
+    transition: all 0.4s ease-out;
+    transition-delay: 0.4s;
+}
+.reveal.scale-in.shown {
+    opacity: 1;
+    transform: none;
+}
+
+.reveal.fade-in-left {
+    opacity: 0;
+    transform: translateX(-7px);
+    transition: all 0.4s ease-out;
+    transition-delay: 0.4s;
+}
+.reveal.fade-in-left.shown {
+    opacity: 1;
+    transform: none;
+}
+
+.reveal.fade-in-right {
+    opacity: 0;
+    transform: translateX(7px);
+    transition: all 0.4s ease-out;
+    transition-delay: 0.4s;
+}
+.reveal.fade-in-right.shown {
+    opacity: 1;
+    transform: none;
+}

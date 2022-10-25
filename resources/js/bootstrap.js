@@ -4,7 +4,9 @@
 import '@vime/core/themes/default.css';
 import '@vime/core/themes/light.css';
 
-import 'sticky-sidebar-v2/dist/sticky-sidebar.min';
+import 'sticky-sidebar-v2/dist/sticky-sidebar.min.js';
+import scrollObserver from './plugins/ScrollObserver.js';
+window.scrollObserver = scrollObserver;
 
 /**
  * We'll load the axios HTTP library which allows us to easily issue requests
