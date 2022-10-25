@@ -60,29 +60,31 @@
                             </div>
                         </div>
 
-                        <div class="backdrop-blur-[10px] bg-white-500/90 transition-all py-2 shadow-lg">
-                            <nav class="max-w-screen-xl mx-auto px-6 xl:px-2 grid grid-flow-col py-3 sm:py-4">
-                                <div class="col-start-1 col-end-2 flex items-center">
-                                    <mobile-nav-button class="w-12 h-12 flex items-center mr-1 sm:mr-5 lg:hidden"></mobile-nav-button>
+                        <div class="transition-all shadow-lg">
+                            <div class="backdrop-blur-[10px] bg-white-500/90 py-2">
+                                <nav class="max-w-screen-xl mx-auto px-6 xl:px-2 grid grid-flow-col py-3 sm:py-4">
+                                    <div class="col-start-1 col-end-2 flex items-center">
+                                        <mobile-nav-button class="w-12 h-12 flex items-center mr-1 sm:mr-5 lg:hidden"></mobile-nav-button>
 
-                                    <a href="{{ route('homepage') }}">
-                                        <x-application-logo class="h-10 sm:h-12 w-auto"></x-application-logo>
-                                    </a>
-                                </div>
+                                        <a href="{{ route('homepage') }}">
+                                            <x-application-logo class="h-10 sm:h-12 w-auto"></x-application-logo>
+                                        </a>
+                                    </div>
 
-                                <ul class="hidden lg:flex col-start-4 col-end-8 text-black-500  items-center">
-                                    <x-nav-link :href="route('how_it_works')" :active="request()->routeIs('how_it_works')">How it works</x-nav-link>
-                                    <x-nav-link :href="route('success_stories')" :active="request()->routeIs('success_stories')">Success stories</x-nav-link>
-                                    <x-nav-link :href="route('about_us')" :active="request()->routeIs('about_us')">About us</x-nav-link>
-                                    <x-nav-link href="#" :active="false">Pricing</x-nav-link>
-                                </ul>
-                                <div class="col-start-10 col-end-12 font-medium flex justify-end items-center">
-                                    <a href="/" class="text-sm sm:text-base font-medium tracking-wide py-2 px-3 sm:px-6 border border-primary-hover text-white-500 bg-primary outline-none rounded-l-full rounded-r-full hover:bg-primary-hover hover:text-white-500 transition-all duration-500 hover:shadow-primary">
-                                        <span class="hidden sm:inline-block">Get a demo</span>
-                                        <span class="inline-block sm:hidden">Demo</span>
-                                    </a>
-                                </div>
-                            </nav>
+                                    <ul class="hidden lg:flex col-start-4 col-end-8 text-black-500  items-center">
+                                        <x-nav-link :href="route('how_it_works')" :active="request()->routeIs('how_it_works')">How it works</x-nav-link>
+                                        <x-nav-link :href="route('success_stories')" :active="request()->routeIs('success_stories')">Success stories</x-nav-link>
+                                        <x-nav-link :href="route('about_us')" :active="request()->routeIs('about_us')">About us</x-nav-link>
+                                        <x-nav-link href="#" :active="false">Pricing</x-nav-link>
+                                    </ul>
+                                    <div class="col-start-10 col-end-12 font-medium flex justify-end items-center">
+                                        <a href="/" class="text-sm sm:text-base font-medium tracking-wide py-2 px-3 sm:px-6 border border-primary-hover text-white-500 bg-primary outline-none rounded-l-full rounded-r-full hover:bg-primary-hover hover:text-white-500 transition-all duration-500 hover:shadow-primary">
+                                            <span class="hidden sm:inline-block">Get a demo</span>
+                                            <span class="inline-block sm:hidden">Demo</span>
+                                        </a>
+                                    </div>
+                                </nav>
+                            </div>
                         </div>
                     </header>
 
