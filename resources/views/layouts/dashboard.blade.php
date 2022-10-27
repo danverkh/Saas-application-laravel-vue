@@ -28,7 +28,6 @@
 
             <!-- Global -->
             <full-screen-spinner></full-screen-spinner>
-            <domain-switcher-modal></domain-switcher-modal>
             <global-notifications></global-notifications>
 
             @env('local')
@@ -42,21 +41,17 @@
                     <header class="sticky top-0 w-full z-40">
                         <div class="bg-zinc-50 border-b border-b-zinc-200">
                             <div class="max-w-screen-xl mx-auto px-6 xl:px-2 flex justify-end items-center py-1 sm:py-2">
-                                @auth
-                                    <div class="text-sm text-zinc-900">{{ auth()->user()->email }}</div>
+                                <div class="text-sm text-zinc-900">{{ auth()->user()->email }}</div>
 
-                                    <div class="text-zinc-300 mx-3">|</div>
+                                <div class="text-zinc-300 mx-3">|</div>
 
-                                    <form action="{{ route('logout') }}" method="POST">
-                                        @csrf
-                                        <button type="submit" class="link no-underline hover:underline flex items-center tracking-wide transition-colors hover:text-primary">
-                                            <svg class="hidden sm:block w-4 h-4 mr-1" viewBox="0 0 24 24"><path fill="currentColor" d="M5 21q-.825 0-1.413-.587Q3 19.825 3 19V5q0-.825.587-1.413Q4.175 3 5 3h7v2H5v14h7v2Zm11-4l-1.375-1.45l2.55-2.55H9v-2h8.175l-2.55-2.55L16 7l5 5Z"/></svg>
-                                            Logout
-                                        </button>
-                                    </form>
-                                @else
-                                    <login-form></login-form>
-                                @endauth
+                                <form action="{{ route('logout') }}" method="POST">
+                                    @csrf
+                                    <button type="submit" class="link no-underline hover:underline flex items-center tracking-wide transition-colors hover:text-primary">
+                                        <svg class="hidden sm:block w-4 h-4 mr-1" viewBox="0 0 24 24"><path fill="currentColor" d="M5 21q-.825 0-1.413-.587Q3 19.825 3 19V5q0-.825.587-1.413Q4.175 3 5 3h7v2H5v14h7v2Zm11-4l-1.375-1.45l2.55-2.55H9v-2h8.175l-2.55-2.55L16 7l5 5Z"/></svg>
+                                        Logout
+                                    </button>
+                                </form>
                             </div>
                         </div>
 
@@ -72,17 +67,8 @@
                                     </div>
 
                                     <ul class="hidden lg:flex col-start-4 col-end-8 text-black-500  items-center">
-                                        <x-nav-link :href="route('how_it_works')" :active="request()->routeIs('how_it_works')">How it works</x-nav-link>
-                                        <x-nav-link :href="route('success_stories')" :active="request()->routeIs('success_stories')">Success stories</x-nav-link>
-                                        <x-nav-link :href="route('about_us')" :active="request()->routeIs('about_us')">About us</x-nav-link>
-                                        <x-nav-link href="#" :active="false">Pricing</x-nav-link>
+                                        <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">Dashboard</x-nav-link>
                                     </ul>
-                                    <div class="col-start-10 col-end-12 font-medium flex justify-end items-center">
-                                        <a href="/" class="text-sm sm:text-base font-medium tracking-wide py-2 px-3 sm:px-6 border border-primary-hover text-white-500 bg-primary outline-none rounded-l-full rounded-r-full hover:bg-primary-hover hover:text-white-500 transition-all duration-500 hover:shadow-primary">
-                                            <span class="hidden sm:inline-block">Get a demo</span>
-                                            <span class="inline-block sm:hidden">Demo</span>
-                                        </a>
-                                    </div>
                                 </nav>
                             </div>
                         </div>
@@ -100,10 +86,7 @@
                     <label for="mobile-menu" class="drawer-overlay mt-[100px] sm:mt-[108px]"></label>
                     <ul class="menu overflow-y-auto w-80 divide-y bg-base-100 text-base-content mt-[100px] sm:mt-[108px] p-6 pt-8 pr-7"
                         style="box-shadow: inset 0 4px 18px -9px rgba(0,0,0,0.4)">
-                        <li><x-mobile-nav-link :href="route('how_it_works')" :active="request()->routeIs('how_it_works')">How it works</x-mobile-nav-link></li>
-                        <li><x-mobile-nav-link :href="route('success_stories')" :active="request()->routeIs('success_stories')">Success stories</x-mobile-nav-link></li>
-                        <li><x-mobile-nav-link :href="route('about_us')" :active="request()->routeIs('about_us')">About us</x-mobile-nav-link></li>
-                        <li><x-mobile-nav-link href="#" :active="false">Pricing</x-mobile-nav-link></li>
+                        <li><x-mobile-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">Dashboard</x-mobile-nav-link></li>
                     </ul>
                 </div>
             </div>
