@@ -2,12 +2,22 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Models\Order;
+use Illuminate\Contracts\View\View;
 
 class DashboardController extends Controller
 {
-    public function index()
+    /**
+     * @return \Illuminate\Contracts\View\View
+     */
+    public function index(): View
     {
-        return view('dashboard.index');
+        $orders = Order::where('user_id', auth()->id())
+                       ->with(['keywords'])
+                       ->get();
+
+        dd($orders[0]->keywords->toArray());
+
+        return view('dashboard.index', compact('orders'));
     }
 }

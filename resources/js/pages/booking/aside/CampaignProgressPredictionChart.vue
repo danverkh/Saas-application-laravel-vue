@@ -19,6 +19,21 @@ export default {
 
     components: {Line},
 
+    props: {
+        value: {
+            type: String,
+            default: null,
+        },
+        impressions: {
+            type: Array,
+            default: null,
+        },
+        spend: {
+            type: Array,
+            default: null,
+        },
+    },
+
     data() {
         return {
             // 1. percentage of the random number
@@ -118,11 +133,11 @@ export default {
 
     computed: {
         impressions() {
-            return useForecastedResults(ref(1)).impressions.value;
+            return this.impressions || useForecastedResults(ref(1)).impressions.value;
         },
 
         spend() {
-            return useForecastedResults(ref(1)).spend.value;
+            return this.spend || useForecastedResults(ref(1)).spend.value;
         },
     },
 
@@ -132,6 +147,7 @@ export default {
                 this.chartData.datasets[0].data = this.dataProgression.map((dayData, index) => this.deterministicRandom('spend', dayData, index));
             },
             deep: true,
+            immediate: true,
         },
 
         spend: {
@@ -139,6 +155,7 @@ export default {
                 this.chartData.datasets[1].data = this.dataProgression.map((dayData, index) => this.deterministicRandom('impressions', dayData, index));
             },
             deep: true,
+            immediate: true,
         },
     },
 
@@ -150,7 +167,8 @@ export default {
 
             if (maxPercentage === 0) return 0;
 
-            const seed = `${useCart().domain}.${name}.${index}`;
+            const value = this.value || useCart().domain;
+            const seed = `${value}.${name}.${index}`;
 
             let min = this[name].min * minAmplifier;
             let max = this[name].max * maxAmplifier;
