@@ -20,6 +20,23 @@ class GlobalNotifications {
     close() {
         useGlobalNotifications().close();
     }
+
+    handle(config) {
+        if (config.error) {
+            const payload = {message: 'Please try again'};
+
+            switch (config.error) {
+                case 'unauthorized':
+                    payload.title = 'You are not authorized to view the page';
+                    payload.message = 'Make sure you are logged in';
+                    break;
+                default:
+                    payload.title = 'Whoops, something went wrong';
+            }
+
+            this.error(payload);
+        }
+    }
 }
 
 export default new GlobalNotifications;

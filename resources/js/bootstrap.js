@@ -8,6 +8,10 @@ import 'sticky-sidebar-v2/dist/sticky-sidebar.min.js';
 import scrollObserver from './plugins/ScrollObserver.js';
 window.scrollObserver = scrollObserver;
 
+// Global helper functions
+import GlobalNotification from "@/services/GlobalNotification";
+window.GlobalNotification = GlobalNotification;
+
 /**
  * We'll load the axios HTTP library which allows us to easily issue requests
  * to our Laravel back-end. This library automatically handles sending the

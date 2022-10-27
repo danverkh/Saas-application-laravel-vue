@@ -5,6 +5,7 @@ use App\Http\Controllers\Auth\LoginLinkController;
 use App\Http\Controllers\BookADemoController;
 use App\Http\Controllers\BookingController;
 use App\Http\Controllers\CheckoutController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\HomepageController;
 use App\Http\Controllers\HowItWorksController;
 use App\Http\Controllers\SuccessStoriesController;
@@ -32,6 +33,10 @@ Route::post('checkout/order', [CheckoutController::class, 'order'])->name('check
 Route::get('thank-you', [CheckoutController::class, 'thankYou'])->name('checkout.thank_you');
 
 Route::get('user/{hash}', LoginLinkController::class)->name('login.link');
+
+Route::group(['prefix' => 'dashboard', 'middleware' => 'auth'], function () {
+    Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
+});
 
 //Route::get('/dashboard', function () {
 //    return view('dashboard');

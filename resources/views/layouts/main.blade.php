@@ -171,5 +171,13 @@
         </div>
 
         @stack('script')
+
+        @if(session()->has('error'))
+            <script>
+                document.addEventListener("DOMContentLoaded", function () {
+                    window.GlobalNotification.handle({error: '{{ session('error') }}'});
+                });
+            </script>
+        @endif
     </body>
 </html>
