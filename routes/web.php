@@ -17,12 +17,7 @@ use Illuminate\Support\Facades\Route;
 |--------------------------------------------------------------------------
 */
 
-Route::get('/test/database', [\App\Http\Controllers\TestController::class, 'database']);
-Route::get('/test/transaction', [\App\Http\Controllers\TestController::class, 'transaction']);
-
 Route::get('/', HomepageController::class)->name('homepage');
-
-Route::get('{market}/{query}', [BookingController::class, 'index'])->name('booking');
 
 Route::get('how-it-works', HowItWorksController::class)->name('how_it_works');
 Route::get('success-stories', SuccessStoriesController::class)->name('success_stories');
@@ -34,9 +29,12 @@ Route::get('thank-you', [CheckoutController::class, 'thankYou'])->name('checkout
 
 Route::get('user/{hash}', LoginLinkController::class)->name('login.link');
 
-Route::group(['prefix' => 'dashboard', 'middleware' => 'auth'], function () {
-    Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
+Route::group(['prefix' => 'dashboard', 'as' => 'dashboard.', 'middleware' => 'auth'], function () {
+    Route::redirect('/', 'dashboard/reports');
+    Route::get('reports', [DashboardController::class, 'reports'])->name('reports');
 });
+
+Route::get('{market}/{query}', [BookingController::class, 'index'])->name('booking');
 
 //Route::get('/dashboard', function () {
 //    return view('dashboard');

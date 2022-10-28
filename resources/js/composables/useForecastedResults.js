@@ -4,8 +4,10 @@ import round from "lodash/round";
 import ceil from "lodash/ceil";
 import {useRankingItemsStore} from "@/stores/rankingItems";
 
-export function useForecastedResults(days) {
-    const rankingItems = useRankingItemsStore();
+export function useForecastedResults(days, item = null) {
+    const rankingItems = (item !== null)
+        ? {selectedItems: [item]}
+        : useRankingItemsStore();
 
     const conversionRate = ref(0.018);
 

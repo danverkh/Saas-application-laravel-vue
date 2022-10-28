@@ -9,18 +9,19 @@
 
             <div class="w-8 h-1 bg-primary mt-2 mb-4 mx-auto"></div>
 
-            <div class="flex gap-5">
-                <div class="w-1/2">
+            <div class="flex flex-col lg:flex-row gap-10">
+                <div class="w-full lg:w-1/2">
                     <div class="text-xl font-medium text-zinc-700 text-center mb-4">Ranking improvement</div>
+                    <ranking-improvement-chart></ranking-improvement-chart>
                 </div>
 
-                <div class="w-1/2">
+                <div class="w-full lg:w-1/2">
                     <div class="text-xl font-medium text-zinc-700 text-center mb-4">Estimated clicks & traffic</div>
 
                     <campaign-progress-prediction-chart
                         value="{{ $keyword->keyword }}"
-                        :impressions=""
-                        :spend=""
+                        :data='@json($keyword)'
+                        :options="{yAxis: true}"
                     ></campaign-progress-prediction-chart>
                 </div>
             </div>

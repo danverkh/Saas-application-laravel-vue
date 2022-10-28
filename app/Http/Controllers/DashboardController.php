@@ -10,14 +10,12 @@ class DashboardController extends Controller
     /**
      * @return \Illuminate\Contracts\View\View
      */
-    public function index(): View
+    public function reports(): View
     {
         $orders = Order::where('user_id', auth()->id())
                        ->with(['keywords'])
                        ->get();
 
-        dd($orders[0]->keywords->toArray());
-
-        return view('dashboard.index', compact('orders'));
+        return view('dashboard.reports', compact('orders'));
     }
 }

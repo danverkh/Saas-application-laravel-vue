@@ -28,6 +28,7 @@
 
             <!-- Global -->
             <full-screen-spinner></full-screen-spinner>
+            <domain-switcher-modal></domain-switcher-modal>
             <global-notifications></global-notifications>
 
             @env('local')
@@ -67,8 +68,14 @@
                                     </div>
 
                                     <ul class="hidden lg:flex col-start-4 col-end-8 text-black-500  items-center">
-                                        <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">Dashboard</x-nav-link>
+                                        <x-nav-link :href="route('dashboard.reports')" :active="request()->routeIs('dashboard.reports')">Reports</x-nav-link>
                                     </ul>
+
+                                    <div class="col-start-10 col-end-12 font-medium flex justify-end items-center">
+                                        <button onclick="document.getElementById('domain-switcher-modal').checked = true" class="text-sm sm:text-base font-medium tracking-wide py-2 px-3 sm:px-6 border border-primary-hover text-white-500 bg-primary outline-none rounded-l-full rounded-r-full hover:bg-primary-hover hover:text-white-500 transition-all duration-500 hover:shadow-primary">
+                                            Add keyword
+                                        </button>
+                                    </div>
                                 </nav>
                             </div>
                         </div>
@@ -86,7 +93,7 @@
                     <label for="mobile-menu" class="drawer-overlay mt-[100px] sm:mt-[108px]"></label>
                     <ul class="menu overflow-y-auto w-80 divide-y bg-base-100 text-base-content mt-[100px] sm:mt-[108px] p-6 pt-8 pr-7"
                         style="box-shadow: inset 0 4px 18px -9px rgba(0,0,0,0.4)">
-                        <li><x-mobile-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">Dashboard</x-mobile-nav-link></li>
+                        <li><x-mobile-nav-link :href="route('dashboard.reports')" :active="request()->routeIs('dashboard.reports')">Reports</x-mobile-nav-link></li>
                     </ul>
                 </div>
             </div>

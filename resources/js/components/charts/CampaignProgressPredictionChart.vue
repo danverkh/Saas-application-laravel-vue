@@ -24,13 +24,13 @@ export default {
             type: String,
             default: null,
         },
-        impressions: {
-            type: Array,
+        data: {
+            type: Object,
             default: null,
         },
-        spend: {
-            type: Array,
-            default: null,
+        options: {
+            type: Object,
+            default: {},
         },
     },
 
@@ -99,11 +99,14 @@ export default {
                 scales: {
                     y: {
                         ticks: {
-                            display: false,
+                            display: this.options.yAxis || false,
+                            color: 'rgba(120, 120, 120, 1)',
                         },
                         grid: {
-                            display: false,
-                            borderColor: 'transparent',
+                            display: this.options.yAxis || false,
+                            color: 'rgba(120, 120, 120, .2)',
+                            borderDash: [5, 5],
+                            borderColor: 'rgba(120, 120, 120, .2)',
                         },
                     },
                     x: {
@@ -115,12 +118,12 @@ export default {
                             borderDash: [5, 5],
                             borderColor: 'rgba(120, 120, 120, .2)',
                         },
-                    }
+                    },
                 },
                 interaction: {
                     mode: 'nearest',
                     axis: 'x',
-                    intersect: false
+                    intersect: false,
                 },
                 elements: {
                     point: {
@@ -133,11 +136,11 @@ export default {
 
     computed: {
         impressions() {
-            return this.impressions || useForecastedResults(ref(1)).impressions.value;
+            return useForecastedResults(ref(1), this.data).impressions.value;
         },
 
         spend() {
-            return this.spend || useForecastedResults(ref(1)).spend.value;
+            return useForecastedResults(ref(1), this.data).spend.value;
         },
     },
 

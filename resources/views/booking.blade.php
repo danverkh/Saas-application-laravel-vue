@@ -79,7 +79,7 @@
         <script type="text/javascript">
             document.addEventListener('DOMContentLoaded', function () {
                 var sidebar = new StickySidebar('#sidebar', {
-                    topSpacing: 140,
+                    topSpacing: 160,
                     bottomSpacing: 20,
                     containerSelector: '#slider-container',
                     innerWrapperSelector: '.sidebar-inner',

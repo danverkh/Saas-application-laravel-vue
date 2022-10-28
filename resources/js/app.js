@@ -22,11 +22,15 @@ import FullScreenSpinner from './components/FullScreenSpinner.vue'
 import DomainSwitcherModal from './components/DomainSwitcherModal.vue'
 import GlobalNotifications from './components/GlobalNotifications.vue'
 import LoginForm from './pages/layout/LoginForm.vue'
+import CampaignProgressPredictionChart from './components/charts/CampaignProgressPredictionChart.vue'
+import RankingImprovementChart from './components/charts/RankingImprovementChart.vue'
 
 app.component('full-screen-spinner', FullScreenSpinner)
 app.component('domain-switcher-modal', DomainSwitcherModal)
 app.component('global-notifications', GlobalNotifications)
 app.component('login-form', LoginForm)
+app.component('campaign-progress-prediction-chart', CampaignProgressPredictionChart)
+app.component('ranking-improvement-chart', RankingImprovementChart)
 
 // Homepage
 import MainSearch from './pages/homepage/MainSearch.vue'
@@ -44,14 +48,12 @@ import PreviewRankModal from './pages/booking/PreviewRankModal.vue'
 import DomainSwitcher from './pages/booking/aside/DomainSwitcher.vue'
 import ForecastedResults from './pages/booking/aside/ForecastedResults.vue'
 import Checkout from './pages/booking/aside/Checkout.vue'
-import CampaignProgressPredictionChart from './pages/booking/aside/CampaignProgressPredictionChart.vue'
 
 app.component('rankings-table', RankingsTable)
 app.component('checkout', Checkout)
 app.component('domain-switcher', DomainSwitcher)
 app.component('forecasted-results', ForecastedResults)
 app.component('preview-rank-modal', PreviewRankModal)
-app.component('campaign-progress-prediction-chart', CampaignProgressPredictionChart)
 
 // Checkout
 import SubmitOrderButton from './pages/checkout/SubmitOrderButton.vue'
