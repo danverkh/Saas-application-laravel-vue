@@ -68,7 +68,7 @@ export default {
             axios.post(route('login'), this.form)
                 .then(({data}) => {
                     if (data.status === 'success') {
-                        window.location.reload();
+                        window.location.href = route('dashboard.reports');
                     }
                 })
                 .catch(error => {
