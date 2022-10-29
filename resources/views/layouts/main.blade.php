@@ -49,7 +49,7 @@
 
                                     <form action="{{ route('logout') }}" method="POST">
                                         @csrf
-                                        <button type="submit" class="link no-underline hover:underline flex items-center tracking-wide transition-colors hover:text-primary">
+                                        <button type="submit" class="link no-underline hover:underline flex items-center tracking-wide transition-colors text-primary/80 hover:text-primary">
                                             <svg class="hidden sm:block w-4 h-4 mr-1" viewBox="0 0 24 24"><path fill="currentColor" d="M5 21q-.825 0-1.413-.587Q3 19.825 3 19V5q0-.825.587-1.413Q4.175 3 5 3h7v2H5v14h7v2Zm11-4l-1.375-1.45l2.55-2.55H9v-2h8.175l-2.55-2.55L16 7l5 5Z"/></svg>
                                             Logout
                                         </button>

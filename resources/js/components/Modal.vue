@@ -4,7 +4,7 @@
         <label :for="name" class="modal py-10 overflow-y-auto" @click="close">
             <div class="modal-box max-h-max m-auto" :class="[classes, width, overflow]">
                 <label :for="name" class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2 z-50 hover:text-primary hover:bg-primary-50/50">✕</label>
-                <h3 v-if="title" class="text-lg font-bold">{{ title }}</h3>
+                <h3 v-if="title" class="text-lg font-bold" :class="[titleClass]">{{ title }}</h3>
 
                 <slot></slot>
             </div>
@@ -22,6 +22,7 @@ export default {
         name: String,
         title: String,
         width: String,
+        titleClass: String,
         classes: String,
         overflow: {
             type: String,
