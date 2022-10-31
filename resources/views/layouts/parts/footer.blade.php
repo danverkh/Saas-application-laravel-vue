@@ -23,10 +23,10 @@
         <div class="flex flex-col">
             <ul class="text-black-500 mt-11">
                 <li class="my-2 hover:text-primary cursor-pointer transition-all">
-                    <x-link href="#" :with-color="false">Imprint</x-link>
+                    <x-link href="{{ route('imprint') }}" :with-color="false">Imprint</x-link>
                 </li>
                 <li class="my-2 hover:text-primary cursor-pointer transition-all">
-                    <x-link href="#" :with-color="false">Data Privacy</x-link>
+                    <x-link href="{{ route('data_privacy') }}" :with-color="false">Data Privacy</x-link>
                 </li>
                 <li class="my-2 hover:text-primary cursor-pointer transition-all">
                     <x-link href="#" :with-color="false">Keyword Finder</x-link>

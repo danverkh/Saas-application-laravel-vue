@@ -8,6 +8,7 @@ use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\HomepageController;
 use App\Http\Controllers\HowItWorksController;
+use App\Http\Controllers\StaticPageController;
 use App\Http\Controllers\SuccessStoriesController;
 use Illuminate\Support\Facades\Route;
 
@@ -33,6 +34,9 @@ Route::group(['prefix' => 'dashboard', 'as' => 'dashboard.', 'middleware' => 'au
     Route::get('/', [DashboardController::class, 'index'])->name('index');
     Route::get('reports', [DashboardController::class, 'reports'])->name('reports');
 });
+
+Route::get('imprint', [StaticPageController::class, 'imprint'])->name('imprint');
+Route::get('data-privacy', [StaticPageController::class, 'dataPrivacy'])->name('data_privacy');
 
 Route::get('{market}/{query}', [BookingController::class, 'index'])->name('booking');
 
