@@ -30,7 +30,7 @@ Route::get('thank-you', [CheckoutController::class, 'thankYou'])->name('checkout
 Route::get('user/{hash}', LoginLinkController::class)->name('login.link');
 
 Route::group(['prefix' => 'dashboard', 'as' => 'dashboard.', 'middleware' => 'auth'], function () {
-    Route::redirect('/', 'dashboard/reports');
+    Route::get('/', [DashboardController::class, 'index'])->name('index');
     Route::get('reports', [DashboardController::class, 'reports'])->name('reports');
 });
 

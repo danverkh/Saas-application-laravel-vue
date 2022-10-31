@@ -21,6 +21,7 @@ export default {
                     {
                         label: 'ranking',
                         backgroundColor: "#22c55e",
+                        borderRadius: 5,
                         data: [...Array(30).keys()].map(i => i).reverse(),
                     },
                 ]
@@ -31,9 +32,19 @@ export default {
                         display: false,
                     },
                     tooltip: {
-                        callbacks: {
-
-                        },
+                        callbacks: {},
+                    },
+                },
+                animation: {
+                    onComplete: () => {
+                        this.delayed = true;
+                    },
+                    delay: (context) => {
+                        let delay = 0;
+                        if (context.type === 'data' && context.mode === 'default' && !this.delayed) {
+                            delay = context.dataIndex * 300 + context.datasetIndex * 100;
+                        }
+                        return delay;
                     },
                 },
                 scales: {
