@@ -192,7 +192,7 @@
 
         <script>
             document.addEventListener("DOMContentLoaded", function () {
-                window.scrollObserver('.reveal', {once: true, threshold: 0.5});
+                window.scrollObserver('.reveal', {once: true, threshold: 0.4});
 
                 VANTA.NET({
                     el: "#hero-bg",
