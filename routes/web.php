@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AboutUsController;
+use App\Http\Controllers\AccountController;
 use App\Http\Controllers\Auth\LoginLinkController;
 use App\Http\Controllers\BookADemoController;
 use App\Http\Controllers\BookingController;
@@ -8,8 +9,10 @@ use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\HomepageController;
 use App\Http\Controllers\HowItWorksController;
+use App\Http\Controllers\CampaignsController;
 use App\Http\Controllers\StaticPageController;
 use App\Http\Controllers\SuccessStoriesController;
+use App\Http\Controllers\SupportController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -32,7 +35,9 @@ Route::get('user/{hash}', LoginLinkController::class)->name('login.link');
 
 Route::group(['prefix' => 'dashboard', 'as' => 'dashboard.', 'middleware' => 'auth'], function () {
     Route::get('/', [DashboardController::class, 'index'])->name('index');
-    Route::get('reports', [DashboardController::class, 'reports'])->name('reports');
+    Route::get('campaigns', [CampaignsController::class, 'index'])->name('campaigns');
+    Route::get('account', [AccountController::class, 'index'])->name('account');
+    Route::get('support', [SupportController::class, 'index'])->name('support');
 });
 
 Route::get('imprint', [StaticPageController::class, 'imprint'])->name('imprint');
