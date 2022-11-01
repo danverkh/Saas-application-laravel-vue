@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Order;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 
@@ -12,6 +13,10 @@ class CampaignsController extends Controller
      */
     public function index(): View
     {
-        return view('dashboard.campaigns');
+        $orders = Order::where('user_id', auth()->id())
+                       ->with(['keywords'])
+                       ->get();
+
+        return view('dashboard.campaigns', compact('orders'));
     }
 }
