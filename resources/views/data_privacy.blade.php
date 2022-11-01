@@ -32,8 +32,10 @@
 
             <h3 class="text-3xl mt-20 font-semibold pt-5 pb-1">More Information</h3>
             <p>Your trust is important for us. Thus, we always want to answer to you when it comes to the processing of your personal data.</p>
-            <p>If you have any questions that are not answered in this data privacy statement or you want to have more detailed information about one provision:</p>
-            <p><x-link href="{{ route('imprint') }}" active>Please contact us at any time.</x-link></p>
+            <p>
+                If you have any questions that are not answered in this data privacy statement or you want to have more detailed information about one provision:
+                <x-link href="{{ route('imprint') }}" active>Please contact us at any time.</x-link>
+            </p>
         </div>
     </x-container>
 </x-main-layout>
