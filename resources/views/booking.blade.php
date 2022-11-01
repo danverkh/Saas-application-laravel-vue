@@ -50,7 +50,7 @@
 
                             <forecasted-results></forecasted-results>
 
-                            <div class="text-sm -mb-6 -mx-8 pt-4 pb-5 px-8 bg-zinc-50 text-zinc-500">
+                            <div class="text-sm -mb-6 -mx-8 pt-4 pb-5 px-8 bg-zinc-50 text-zinc-500 border-t border-zinc-100">
                                 Forecasted results are directional estimates and do not guarantee performance.
                                 <a href="#" class="text-primary hover:underline whitespace-nowrap">Learn more</a>
                             </div>
