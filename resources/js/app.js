@@ -61,9 +61,11 @@ import SubmitOrderButton from './pages/checkout/SubmitOrderButton.vue'
 app.component('submit-order-button', SubmitOrderButton)
 
 // Dashboard
-import CancelKeywordConfirmation from './pages/dashboard/reports/CancelKeywordConfirmation.vue'
+import CancelKeywordConfirmation from './pages/dashboard/campaigns/CancelKeywordConfirmation.vue'
+import KeywordStats from './pages/dashboard/campaigns/KeywordStats.vue'
 
 app.component('cancel-keyword-confirmation', CancelKeywordConfirmation)
+app.component('keyword-stats', KeywordStats)
 
 // Book a demo
 import BookADemoForm from './pages/book_a_demo/Form.vue'

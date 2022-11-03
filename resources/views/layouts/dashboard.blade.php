@@ -68,7 +68,7 @@
                                     </div>
 
                                     <ul class="hidden lg:flex col-start-4 col-end-8 text-black-500  items-center">
-                                        <x-nav-link :href="route('dashboard.campaigns')" :active="request()->routeIs('dashboard.campaigns')">My Campaigns</x-nav-link>
+                                        <x-nav-link :href="route('dashboard.campaigns')" :active="request()->routeIs('dashboard.campaigns.keyword')">My Campaigns</x-nav-link>
                                         <x-nav-link :href="route('dashboard.account')" :active="request()->routeIs('dashboard.account')">My Account</x-nav-link>
                                         <x-nav-link :href="route('dashboard.support')" :active="request()->routeIs('dashboard.support')">Support</x-nav-link>
                                     </ul>
@@ -95,7 +95,7 @@
                     <label for="mobile-menu" class="drawer-overlay mt-[100px] sm:mt-[108px]"></label>
                     <ul class="menu overflow-y-auto w-80 divide-y bg-base-100 text-base-content mt-[100px] sm:mt-[108px] p-6 pt-8 pr-7"
                         style="box-shadow: inset 0 4px 18px -9px rgba(0,0,0,0.4)">
-                        <li><x-mobile-nav-link :href="route('dashboard.campaigns')" :active="request()->routeIs('dashboard.campaigns')">My Campaign</x-mobile-nav-link></li>
+                        <li><x-mobile-nav-link :href="route('dashboard.campaigns')" :active="request()->routeIs('dashboard.campaigns.keyword')">My Campaign</x-mobile-nav-link></li>
                         <li><x-mobile-nav-link :href="route('dashboard.account')" :active="request()->routeIs('dashboard.account')">My Account</x-mobile-nav-link></li>
                         <li><x-mobile-nav-link :href="route('dashboard.support')" :active="request()->routeIs('dashboard.support')">Support</x-mobile-nav-link></li>
                     </ul>

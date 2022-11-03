@@ -8,16 +8,21 @@
         <div id="slider-container" class="flex-col flex flex-nowrap gap-6 xl:flex-row">
             <div id="sidebar" class="sidebar w-full z-10">
                 <div class="sidebar__inner flex flex-col gap-6 md:block md:columns-2 md:space-y-6 xl:flex xl:columns-1 xl:space-y-0">
-                    <x-card class="border-t-4 border-primary overflow-visible" bodyClass="px-5 py-3">
+                    <x-card class="border-t-4 border-primary overflow-visible" bodyClass="px-5 py-1">
                         <div class="divide-y">
                             @foreach($domains as $domain)
                                 <div class="dropdown dropdown-right w-full py-2">
-                                    <label tabindex="0" class="btn btn-block normal-case btn-ghost {{ ($domain->keywords->contains($keyword)) ? 'text-primary' : '' }}">
+                                    <label tabindex="0" class="btn btn-ghost btn-block text-base normal-case break-all {{ ($domain->keywords->contains($keyword)) ? 'text-primary' : '' }}">
                                         {{ $domain->name }}
                                     </label>
-                                    <ul tabindex="0" class="dropdown-content menu p-2 shadow-lg bg-base-100 rounded-box w-52 ml-3">
+                                    <ul tabindex="0" class="dropdown-content menu p-2 shadow-lg bg-base-100 divide-y rounded-box w-52 ml-3">
                                         @foreach($domain->keywords as $domainKeyword)
-                                            <li><a href="{{ route('dashboard.campaigns.keyword', $domainKeyword) }}" class="{{ ($domainKeyword->id === $keyword->id) ? 'text-primary' : '' }}">{{ $domainKeyword->keyword }}</a></li>
+                                            <li class="px-2 py-2">
+                                                <a href="{{ route('dashboard.campaigns.keyword', $domainKeyword) }}"
+                                                   class="py-2 {{ ($domainKeyword->id === $keyword->id) ? 'text-primary' : '' }}">
+                                                    {{ $domainKeyword->keyword }}
+                                                </a>
+                                            </li>
                                         @endforeach
                                     </ul>
                                 </div>
@@ -51,7 +56,7 @@
                                         <path fill="currentColor" d="M12 10c-1.1 0-2 .9-2 2s.9 2 2 2s2-.9 2-2s-.9-2-2-2zm0-6c-1.1 0-2 .9-2 2s.9 2 2 2s2-.9 2-2s-.9-2-2-2zm0 12c-1.1 0-2 .9-2 2s.9 2 2 2s2-.9 2-2s-.9-2-2-2z"/>
                                     </svg>
                                 </label>
-                                <ul tabindex="0" class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52 mt-3">
+                                <ul tabindex="0" class="dropdown-content menu p-2 shadow-lg bg-base-100 rounded-box w-52 mt-2">
                                     <li>
                                         <button class="text-red-600" onclick="document.getElementById('cancel-keyword-confirmation').checked = true">
                                             <svg class="w-4 h-4 md:w-5 md:h-5 cursor-pointer text-red-600" width="32" height="32" viewBox="0 0 24 24">
@@ -66,35 +71,7 @@
                     </div>
 
                     <div class="border-b border-zinc-200">
-                        <div class="bg-accent inline-block px-5 py-6 text-white min-w-[150px]">
-                            <div class="text-sm font-light flex">
-                                Clicks
-                                <svg class="w-3.5 h-3.5 mt-1 ml-1" width="32" height="32" viewBox="0 0 32 32">
-                                    <path fill="currentColor" d="m24 12l-8 10l-8-10z"/>
-                                </svg>
-                            </div>
-                            <div class="text-3xl font-normal mt-1">672</div>
-                        </div>
-
-                        <div class="bg-primary inline-block px-5 py-6 text-white min-w-[150px]">
-                            <div class="text-sm font-light flex">
-                                Impressions
-                                <svg class="w-3.5 h-3.5 mt-1 ml-1" width="32" height="32" viewBox="0 0 32 32">
-                                    <path fill="currentColor" d="m24 12l-8 10l-8-10z"/>
-                                </svg>
-                            </div>
-                            <div class="text-3xl font-normal mt-1">4.32K</div>
-                        </div>
-
-                        <div class="inline-block px-5 py-6 text-zinc-800 min-w-[150px] border-r">
-                            <div class="text-sm font-light flex">Avg. CPC</div>
-                            <div class="text-3xl font-normal mt-1">€0.96</div>
-                        </div>
-
-                        <div class="inline-block px-5 py-6 text-zinc-800 min-w-[150px] border-r">
-                            <div class="text-sm font-light flex">Cost</div>
-                            <div class="text-3xl font-normal mt-1">€648</div>
-                        </div>
+                        <keyword-stats></keyword-stats>
                     </div>
 
                     <div class="flex flex-col lg:flex-row gap-6 md:gap-10 p-6 md:p-10 pt-7">
