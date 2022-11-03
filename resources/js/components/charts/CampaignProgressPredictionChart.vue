@@ -11,6 +11,7 @@ import {useForecastedResults} from "@/composables/useForecastedResults";
 import {ref} from 'vue';
 import dayjs from "dayjs";
 import Helpers from "@/services/Helpers";
+import EventBus from "@/services/EventBus";
 
 ChartJS.register(Tooltip, CategoryScale, LinearScale, PointElement, LineElement);
 
@@ -148,6 +149,7 @@ export default {
         impressions: {
             handler() {
                 this.chartData.datasets[0].data = this.dataProgression.map((dayData, index) => this.deterministicRandom('spend', dayData, index));
+                EventBus.emit('spend.sum', this.chartData.datasets[0].data.reduce((acc, i) => acc + i, 0));
             },
             deep: true,
             immediate: true,
@@ -156,6 +158,7 @@ export default {
         spend: {
             handler() {
                 this.chartData.datasets[1].data = this.dataProgression.map((dayData, index) => this.deterministicRandom('impressions', dayData, index));
+                EventBus.emit('impressions.sum', this.chartData.datasets[1].data.reduce((acc, i) => acc + i, 0));
             },
             deep: true,
             immediate: true,

@@ -77,7 +77,7 @@
                     <div class="flex flex-col lg:flex-row gap-6 md:gap-10 p-6 md:p-10 pt-7">
                         <div class="w-full lg:w-1/2">
                             <div class="text-md md:text-xl font-medium text-zinc-700 text-center mb-2">Ranking improvement</div>
-                            <ranking-improvement-chart></ranking-improvement-chart>
+                            <keyword-ranking-improvement-chart></keyword-ranking-improvement-chart>
                         </div>
 
                         <div class="w-full lg:w-1/2">

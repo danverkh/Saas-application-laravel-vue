@@ -3,7 +3,7 @@
         <div class="mt-2">Are you sure you want to cancel this keyword?</div>
 
         <div class="modal-action">
-            <button @click="close" class="btn">No</button>
+            <button @click="close" class="btn px-8">No</button>
             <button @click="submit" class="btn bg-red-600 border-red-700 hover:bg-red-700 hover:border-red-800">Yes, I'm sure</button>
         </div>
     </Modal>

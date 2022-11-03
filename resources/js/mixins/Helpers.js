@@ -24,6 +24,12 @@ export default {
             return number;
         },
 
+        shortenNumber(value, decimals = 2) {
+            return Math.abs(value) > 999
+                ? Math.sign(value) * ((Math.abs(value) / 1000).toFixed(decimals)) + 'k'
+                : Math.sign(value) * Math.abs(value);
+        },
+
         openModal(name) {
             document.getElementById(name).checked = true;
         },

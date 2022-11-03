@@ -22,15 +22,11 @@ import FullScreenSpinner from './components/FullScreenSpinner.vue'
 import DomainSwitcherModal from './components/DomainSwitcherModal.vue'
 import GlobalNotifications from './components/GlobalNotifications.vue'
 import LoginForm from './pages/layout/LoginForm.vue'
-import CampaignProgressPredictionChart from './components/charts/CampaignProgressPredictionChart.vue'
-import RankingImprovementChart from './components/charts/RankingImprovementChart.vue'
 
 app.component('full-screen-spinner', FullScreenSpinner)
 app.component('domain-switcher-modal', DomainSwitcherModal)
 app.component('global-notifications', GlobalNotifications)
 app.component('login-form', LoginForm)
-app.component('campaign-progress-prediction-chart', CampaignProgressPredictionChart)
-app.component('ranking-improvement-chart', RankingImprovementChart)
 
 // Homepage
 import MainSearch from './pages/homepage/MainSearch.vue'
@@ -63,9 +59,13 @@ app.component('submit-order-button', SubmitOrderButton)
 // Dashboard
 import CancelKeywordConfirmation from './pages/dashboard/campaigns/CancelKeywordConfirmation.vue'
 import KeywordStats from './pages/dashboard/campaigns/KeywordStats.vue'
+import KeywordRankingImprovementChart from './pages/dashboard/campaigns/KeywordRankingImprovementChart.vue'
+import CampaignProgressPredictionChart from './components/charts/CampaignProgressPredictionChart.vue'
 
 app.component('cancel-keyword-confirmation', CancelKeywordConfirmation)
 app.component('keyword-stats', KeywordStats)
+app.component('keyword-ranking-improvement-chart', KeywordRankingImprovementChart)
+app.component('campaign-progress-prediction-chart', CampaignProgressPredictionChart)
 
 // Book a demo
 import BookADemoForm from './pages/book_a_demo/Form.vue'
