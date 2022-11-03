@@ -6,12 +6,13 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class OrderKeyword extends Model
+class Keyword extends Model
 {
     use HasFactory;
 
     protected $fillable = [
         'order_id',
+        'domain_id',
         'keyword',
         'search_volume',
         'cpc',
@@ -29,5 +30,13 @@ class OrderKeyword extends Model
     public function order(): BelongsTo
     {
         return $this->belongsTo(Order::class);
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function domain(): BelongsTo
+    {
+        return $this->belongsTo(Domain::class);
     }
 }

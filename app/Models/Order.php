@@ -25,10 +25,18 @@ class Order extends Model
     }
 
     /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function domain(): BelongsTo
+    {
+        return $this->belongsTo(Domain::class);
+    }
+
+    /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function keywords(): HasMany
     {
-        return $this->hasMany(OrderKeyword::class);
+        return $this->hasMany(Keyword::class)->orderBy('keyword');
     }
 }

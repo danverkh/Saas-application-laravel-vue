@@ -36,6 +36,7 @@ Route::get('user/{hash}', LoginLinkController::class)->name('login.link');
 Route::group(['prefix' => 'dashboard', 'as' => 'dashboard.', 'middleware' => 'auth'], function () {
     Route::get('/', [DashboardController::class, 'index'])->name('index');
     Route::get('campaigns', [CampaignsController::class, 'index'])->name('campaigns');
+    Route::get('campaigns/{keyword}/keyword', [CampaignsController::class, 'keyword'])->name('campaigns.keyword');
     Route::get('account', [AccountController::class, 'index'])->name('account');
     Route::get('support', [SupportController::class, 'index'])->name('support');
 });
