@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Actions\User\CreateUser;
 use App\Http\Requests\OrderRequest;
+use App\Models\Domain;
 use App\Models\User;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\JsonResponse;
@@ -25,11 +26,19 @@ class CheckoutController extends Controller
             $user = DB::transaction(static function () use ($request) {
                 $user = User::firstWhere('email', $request->email) ?? CreateUser::handle($request->email);
 
+                $domain = Domain::firstOrCreate(['name' => $request->validated('domain')]);
+
                 /** @var \App\Models\Order $order */
-                $order = $user->orders()->create($request->validated());
+                $order = $user->orders()->create([
+                    ...$request->validated(),
+                    'domain_id' => $domain->id,
+                ]);
 
                 foreach ($request->selectedItems as $keyword) {
-                    $order->keywords()->create($keyword);
+                    $order->keywords()->create([
+                        ...$keyword,
+                        'domain_id' => $domain->id,
+                    ]);
                 }
 
                 return $user;
