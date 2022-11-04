@@ -2,16 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Contracts\View\View;
-use Illuminate\Http\Request;
+use Illuminate\Http\RedirectResponse;
 
 class AccountController extends Controller
 {
     /**
-     * @return \Illuminate\Contracts\View\View
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function index(): View
+    public function index(): RedirectResponse
     {
-        return view('dashboard.account');
+        return redirect()->route('dashboard.account.billing_address');
     }
 }
