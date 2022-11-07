@@ -20,4 +20,15 @@ class Country extends Model
     {
         return $this->belongsToMany(Language::class, 'country_has_language');
     }
+
+    /**
+     * @return array
+     */
+    public static function dropdownOptions(): array
+    {
+        return self::orderBy('name')
+                   ->get(['name', 'id'])
+                   ->map(fn($item) => ['label' => $item->name, 'value' => $item->id])
+                   ->toArray();
+    }
 }

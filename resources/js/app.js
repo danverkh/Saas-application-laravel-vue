@@ -61,11 +61,13 @@ import CancelKeywordConfirmation from './pages/dashboard/campaigns/CancelKeyword
 import KeywordStats from './pages/dashboard/campaigns/KeywordStats.vue'
 import KeywordRankingImprovementChart from './pages/dashboard/campaigns/KeywordRankingImprovementChart.vue'
 import CampaignProgressPredictionChart from './components/charts/CampaignProgressPredictionChart.vue'
+import BillingAddress from './pages/dashboard/account/BillingAddress.vue'
 
 app.component('cancel-keyword-confirmation', CancelKeywordConfirmation)
 app.component('keyword-stats', KeywordStats)
 app.component('keyword-ranking-improvement-chart', KeywordRankingImprovementChart)
 app.component('campaign-progress-prediction-chart', CampaignProgressPredictionChart)
+app.component('billing-address', BillingAddress)
 
 // Book a demo
 import BookADemoForm from './pages/book_a_demo/Form.vue'

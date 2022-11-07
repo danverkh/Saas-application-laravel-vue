@@ -20,7 +20,7 @@
 
             <div id="content" class="space-y-10">
                 <div class="card w-full bg-base-100 shadow-lg rounded-xl border border-zinc-100">
-                    <div class="flex flex-col lg:flex-row gap-6 md:gap-10 p-6 md:p-10 pt-7">
+                    <div class="p-8">
                         @include("dashboard.account.{$page}")
                     </div>
                 </div>

@@ -21,6 +21,7 @@ Route::group(['as' => 'dashboard.', 'middleware' => 'auth'], function () {
 
     Route::get('account', [AccountController::class, 'index'])->name('account');
     Route::get('account/billing-address', [AccountBillingAddressController::class, 'show'])->name('account.billing_address');
+    Route::put('account/billing-address', [AccountBillingAddressController::class, 'update'])->name('account.billing_address.save');
 
     Route::get('support', [SupportController::class, 'show'])->name('support');
 });

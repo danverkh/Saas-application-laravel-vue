@@ -12,6 +12,40 @@
 
 namespace App\Models{
 /**
+ * App\Models\BillingAddress
+ *
+ * @property int $id
+ * @property int $user_id
+ * @property int $country_id
+ * @property string $company_name
+ * @property string $street
+ * @property string $zip
+ * @property string $city
+ * @property string $vat_number
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \App\Models\Country $country
+ * @property-read \App\Models\User $user
+ * @method static \Illuminate\Database\Eloquent\Builder|BillingAddress newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|BillingAddress newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|BillingAddress query()
+ * @method static \Illuminate\Database\Eloquent\Builder|BillingAddress whereCity($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|BillingAddress whereCompanyName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|BillingAddress whereCountryId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|BillingAddress whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|BillingAddress whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|BillingAddress whereStreet($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|BillingAddress whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|BillingAddress whereUserId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|BillingAddress whereVatNumber($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|BillingAddress whereZip($value)
+ * @mixin \Eloquent
+ */
+	class IdeHelperBillingAddress {}
+}
+
+namespace App\Models{
+/**
  * App\Models\Country
  *
  * @property int $id
@@ -29,7 +63,6 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|Country whereIso3($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Country whereName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Country whereTld($value)
- * @mixin \Eloquent
  */
 	class IdeHelperCountry {}
 }
@@ -51,7 +84,6 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|Domain whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Domain whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Domain whereName($value)
- * @mixin \Eloquent
  */
 	class IdeHelperDomain {}
 }
@@ -93,7 +125,6 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|Keyword whereSearchVolume($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Keyword whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Keyword whereUrl($value)
- * @mixin \Eloquent
  */
 	class IdeHelperKeyword {}
 }
@@ -113,7 +144,6 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|Language whereCode($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Language whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Language whereName($value)
- * @mixin \Eloquent
  */
 	class IdeHelperLanguage {}
 }
@@ -141,7 +171,6 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|Order whereMarket($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Order whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Order whereUserId($value)
- * @mixin \Eloquent
  */
 	class IdeHelperOrder {}
 }
@@ -159,6 +188,7 @@ namespace App\Models{
  * @property string|null $remember_token
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \App\Models\BillingAddress|null $billingAddress
  * @property-read \Illuminate\Notifications\DatabaseNotificationCollection|\Illuminate\Notifications\DatabaseNotification[] $notifications
  * @property-read int|null $notifications_count
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Order[] $orders
@@ -178,7 +208,6 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|User wherePassword($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User whereRememberToken($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User whereUpdatedAt($value)
- * @mixin \Eloquent
  */
 	class IdeHelperUser {}
 }
