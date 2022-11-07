@@ -3,9 +3,9 @@
 
 <x-dashboard-layout>
     <x-container class="mb-8">
-        <div id="slider-container" class="flex-col flex flex-nowrap gap-6 xl:flex-row">
-            <div id="sidebar" class="sidebar w-full z-10">
-                <div class="sidebar__inner flex flex-col gap-6 md:block md:columns-2 md:space-y-6 xl:flex xl:columns-1 xl:space-y-0">
+        <div id="slider-container" class="flex flex-nowrap flex-col md:flex-row gap-6">
+            <div id="sidebar" class="sidebar z-10 md:w-1/3">
+                <div class="sidebar__inner flex flex-col gap-6 md:block md:space-y-6 md:flex md:space-y-0">
                     <x-card class="border-t-4 border-primary overflow-visible" bodyClass="px-5 py-1">
                         <div class="divide-y">
                             <div class="py-2">
@@ -18,8 +18,8 @@
                 </div>
             </div>
 
-            <div id="content" class="space-y-10">
-                <div class="card max-w-xl bg-base-100 shadow-lg rounded-xl border border-zinc-100">
+            <div id="content" class="space-y-10 md:w-2/3">
+                <div class="card md:max-w-xl bg-base-100 shadow-lg rounded-xl border border-zinc-100">
                     <div class="p-10">
                         @include("dashboard.account.{$page}")
                     </div>

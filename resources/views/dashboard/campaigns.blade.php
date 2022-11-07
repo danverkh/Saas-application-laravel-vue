@@ -7,11 +7,11 @@
     <x-container class="mb-8">
         <div id="slider-container" class="flex-col flex flex-nowrap gap-6 xl:flex-row">
             <div id="sidebar" class="sidebar w-full z-10">
-                <div class="sidebar__inner flex flex-col gap-6 md:block md:columns-2 md:space-y-6 xl:flex xl:columns-1 xl:space-y-0">
-                    <x-card class="border-t-4 border-primary overflow-visible" bodyClass="px-5 py-1">
+                <div class="sidebar__inner flex flex-col gap-6 md:block md:space-y-6 xl:flex xl:space-y-0">
+                    <x-card class="border-t-4 border-primary overflow-visible md:w-1/2 xl:w-full" bodyClass="px-5 py-1">
                         <div class="divide-y">
                             @foreach($domains as $domain)
-                                <div class="dropdown dropdown-right w-full py-2">
+                                <div class="dropdown dropdown-end w-full py-2">
                                     <label tabindex="0" class="btn btn-ghost btn-block text-base normal-case break-all {{ ($domain->keywords->contains($keyword)) ? 'text-primary' : '' }}">
                                         {{ $domain->name }}
                                     </label>
