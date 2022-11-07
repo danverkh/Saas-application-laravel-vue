@@ -27,9 +27,18 @@ class AccountBillingAddressRequest extends FormRequest
             'country_id'   => 'required|exists:countries,id',
             'company_name' => 'present',
             'street'       => 'required',
-            'zip'          => 'required',
+            'postal_code'  => 'required',
             'city'         => 'required',
             'vat_number'   => 'present',
         ];
+    }
+
+
+    /**
+     * @return string[]
+     */
+    public function attributes(): array
+    {
+        return ['country_id' => 'country'];
     }
 }

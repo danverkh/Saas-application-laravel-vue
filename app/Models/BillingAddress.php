@@ -18,7 +18,7 @@ class BillingAddress extends Model
         'country_id',
         'company_name',
         'street',
-        'zip',
+        'postal_code',
         'city',
         'vat_number',
     ];

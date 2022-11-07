@@ -19,8 +19,8 @@
             </div>
 
             <div id="content" class="space-y-10">
-                <div class="card w-full bg-base-100 shadow-lg rounded-xl border border-zinc-100">
-                    <div class="p-8">
+                <div class="card max-w-xl bg-base-100 shadow-lg rounded-xl border border-zinc-100">
+                    <div class="p-10">
                         @include("dashboard.account.{$page}")
                     </div>
                 </div>

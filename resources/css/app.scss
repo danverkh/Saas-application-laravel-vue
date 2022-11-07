@@ -130,3 +130,12 @@ ul.red-dots li::before {
     opacity: 1;
     transform: none;
 }
+
+.required:after {
+    content: '*';
+    color: #dc2626;
+    opacity: 0.75;
+    font-weight: bold;
+    margin-left: 3px;
+    font-size: 0.9rem;
+}

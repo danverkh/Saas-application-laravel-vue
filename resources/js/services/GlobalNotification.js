@@ -14,7 +14,7 @@ class GlobalNotifications {
     }
 
     error(config) {
-        useGlobalNotifications().open({type: 'error', ...config});
+        useGlobalNotifications().open({type: 'error', timeout: 5000, ...config});
     }
 
     close() {

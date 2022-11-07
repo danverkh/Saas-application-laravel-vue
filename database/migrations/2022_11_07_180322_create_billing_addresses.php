@@ -17,11 +17,11 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained();
             $table->foreignId('country_id')->constrained();
-            $table->string('company_name');
+            $table->string('company_name')->nullable();
             $table->string('street');
-            $table->string('zip');
+            $table->string('postal_code');
             $table->string('city');
-            $table->string('vat_number');
+            $table->string('vat_number')->nullable();
             $table->timestamps();
         });
     }

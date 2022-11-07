@@ -19,12 +19,12 @@
         </div>
 
         <div class="flex flex-row flex-nowrap mt-6 gap-x-6">
-            <div class="basis-1/2 flex flex-col gap-y-2">
+            <div class="w-1/2 flex flex-col gap-y-2">
                 <label for="name" class="whitespace-nowrap font-medium">Your name</label>
                 <Input v-model="form.name" id="name" :error="validationErrors?.name" @change="validationErrors.name = null" class="text-zinc-900 text-base"/>
             </div>
 
-            <div class="basis-1/2 flex flex-col gap-y-2">
+            <div class="w-1/2 flex flex-col gap-y-2">
                 <label for="email" class="whitespace-nowrap font-medium">Your email</label>
                 <Input v-model="form.email" type="email" id="email" :error="validationErrors?.email" @change="validationErrors.email = null" class="text-zinc-900 text-base"/>
             </div>
