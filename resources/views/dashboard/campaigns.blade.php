@@ -15,7 +15,7 @@
                                     <label tabindex="0" class="btn btn-ghost btn-block text-base normal-case break-all {{ ($domain->keywords->contains($keyword)) ? 'text-primary' : '' }}">
                                         {{ $domain->name }}
                                     </label>
-                                    <ul tabindex="0" class="dropdown-content menu p-2 shadow-lg bg-base-100 divide-y rounded-box w-52 ml-3">
+                                    <ul tabindex="0" class="dropdown-content menu p-2 shadow-lg bg-base-100 divide-y rounded-box w-52 ml-3 border border-zinc-200/80">
                                         @foreach($domain->keywords as $domainKeyword)
                                             <li class="px-2 py-2">
                                                 <a href="{{ route('dashboard.campaigns.keyword', $domainKeyword) }}"
