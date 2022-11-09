@@ -9,6 +9,11 @@
                     <x-card class="border-t-4 border-primary overflow-visible" bodyClass="px-5 py-1">
                         <div class="divide-y">
                             <div class="py-2">
+                                <a href="{{ route('dashboard.account.details') }}" class="btn btn-ghost btn-block text-base normal-case break-all {{ request()->routeIs('dashboard.account.details') ? 'text-primary' : '' }}">
+                                    Details
+                                </a>
+                            </div>
+                            <div class="py-2">
                                 <a href="{{ route('dashboard.account.billing_address') }}" class="btn btn-ghost btn-block text-base normal-case break-all {{ request()->routeIs('dashboard.account.billing_address') ? 'text-primary' : '' }}">
                                     Billing Address
                                 </a>

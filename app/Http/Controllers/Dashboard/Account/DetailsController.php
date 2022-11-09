@@ -1,19 +1,20 @@
 <?php
 
-namespace App\Http\Controllers\Dashboard;
+namespace App\Http\Controllers\Dashboard\Account;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Contracts\View\View;
 
-class AccountController extends Controller
+class DetailsController extends Controller
 {
     /**
      * @return \Illuminate\Contracts\View\View
      */
-    public function index(): View
+    public function show(): View
     {
         return view('dashboard.account', [
-            'user' => auth()->user(),
+            'page'  => 'details',
+            'title' => 'Details',
         ]);
     }
 }

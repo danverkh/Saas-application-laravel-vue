@@ -11,6 +11,6 @@ class AccountController extends Controller
      */
     public function index(): RedirectResponse
     {
-        return redirect()->route('dashboard.account.billing_address');
+        return redirect()->route('dashboard.account.details');
     }
 }
