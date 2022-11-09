@@ -1,7 +1,7 @@
 <template>
     <OnClickOutside @trigger="close" class="relative">
         <input :value="modelValue"
-               @input="$emit('update:modelValue', $event.target.value); debouncedFetch()"
+               @input="$emit('update:modelValue', $event.target.value); suggestionsShow()"
                v-bind="$attrs"
                @focus="open"
                @focusout="close"
@@ -102,12 +102,6 @@ export default {
 
     created() {
         this.debouncedFetch = debounce(() => {
-            // 1. check if we can use initial suggestions
-            if (this.modelValue.length < 3) {
-                this.useInitialSuggestions();
-                return;
-            }
-
             // 2. check if we have enough results from the previous response
             if (this.filterFetched) {
                 const foundItems = this.fetchedItems.filter(item => item[this.selectionProperty].startsWith(this.modelValue));
@@ -124,6 +118,15 @@ export default {
     },
 
     methods: {
+        suggestionsShow() {
+            if (this.modelValue.length < 3) {
+                // 1. check if we can use initial suggestions
+                this.useInitialSuggestions();
+            } else {
+                this.debouncedFetch();
+            }
+        },
+
         fetchNew() {
             this.fetching = true;
 
