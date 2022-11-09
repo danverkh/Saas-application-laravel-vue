@@ -30,22 +30,16 @@ class RankingsController extends Controller
 
         abort_if(RateLimiter::tooManyAttempts($limiterKey, 10), 429, 'Too many attempts');
 
-        try {
-            $key = "rankings.{$params['market']}.{$params['domain']}";
+        $key = "rankings.{$params['market']}.{$params['domain']}";
 
-            $data = Cache::remember($key, now()->addHours(3), static function () use ($limiterKey, $client, $params) {
-                RateLimiter::hit($limiterKey);
+        $data = Cache::remember($key, now()->addHours(3), static function () use ($limiterKey, $client, $params) {
+            RateLimiter::hit($limiterKey);
 
-                return $client->requestType(DataForSeoRequest::TYPE_DOMAIN_SEARCH)
-                              ->params($params['domain'], $params['market'])
-                              ->fetch()
-                              ->result();
-            });
-        } catch (Exception $e) {
-            Log::error('Failed to fetch rankings: ' . $e, $params);
-
-            return response()->json(['status' => 'failed'], Response::HTTP_INTERNAL_SERVER_ERROR);
-        }
+            return $client->requestType(DataForSeoRequest::TYPE_DOMAIN_SEARCH)
+                          ->params($params['domain'], $params['market'])
+                          ->fetch()
+                          ->result();
+        });
 
         return response()->json(['status' => 'success', 'rows' => $data]);
     }
