@@ -6,7 +6,7 @@
 
     <x-container>
         <div class="max-w-screen-xl mx-auto mb-8">
-            <div id="slider-container" class="flex-col flex flex-nowrap gap-6 xl:flex-row">
+            <div id="sidebar-container" class="flex-col flex flex-nowrap gap-6 xl:flex-row">
                 <div id="content" class="content w-full flex flex-col gap-6">
                     <x-card class="border-t-4 border-primary gap-0">
                         <div class="flex flex-nowrap gap-6">
@@ -81,7 +81,7 @@
                 var sidebar = new StickySidebar('#sidebar', {
                     topSpacing: 160,
                     bottomSpacing: 20,
-                    containerSelector: '#slider-container',
+                    containerSelector: '#sidebar-container',
                     innerWrapperSelector: '.sidebar-inner',
                     scrollContainer: '.drawer-content',
                     minWidth: 1279,

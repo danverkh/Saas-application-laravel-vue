@@ -21,7 +21,7 @@
 
     <div class="inline-block px-5 py-6 text-zinc-800 min-w-[150px] border-r">
         <div class="text-sm font-light flex">Avg. CPC</div>
-        <div class="text-3xl font-normal mt-1">€0.96</div>
+        <div class="text-3xl font-normal mt-1">{{ money(0.96) }}</div>
     </div>
 
     <div class="inline-block px-5 py-6 text-zinc-800 min-w-[150px] border-r">

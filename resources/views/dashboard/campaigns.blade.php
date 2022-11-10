@@ -5,7 +5,7 @@
     <cancel-keyword-confirmation></cancel-keyword-confirmation>
 
     <x-container class="mb-8">
-        <div id="slider-container" class="flex-col flex flex-nowrap gap-6 xl:flex-row">
+        <div id="sidebar-container" class="flex-col flex flex-nowrap gap-6 xl:flex-row">
             <div id="sidebar" class="sidebar w-full z-10">
                 <div class="sidebar__inner flex flex-col gap-6 md:block md:space-y-6 xl:flex xl:space-y-0">
                     <x-card class="border-t-4 border-primary overflow-visible md:w-1/2 xl:w-full" bodyClass="px-5 py-1">
@@ -101,7 +101,7 @@
                 var sidebar = new StickySidebar('#sidebar', {
                     topSpacing: 160,
                     bottomSpacing: 20,
-                    containerSelector: '#slider-container',
+                    containerSelector: '#sidebar-container',
                     innerWrapperSelector: '.sidebar-inner',
                     scrollContainer: '.drawer-content',
                     minWidth: 1279,
