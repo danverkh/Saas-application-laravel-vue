@@ -70,7 +70,7 @@
                         </div>
                     </div>
 
-                    <div class="border-b border-zinc-200">
+                    <div class="border-b border-zinc-200 grid grid-cols-2 md:block">
                         <keyword-stats></keyword-stats>
                     </div>
 
