@@ -3,9 +3,10 @@
     'line' => true,
     'textSize' => 'text-4xl xl:text-5xl',
     'lineHeight' => 'h-[4px]',
+    'margin' => 'mb-10 md:mb-12',
 ])
 
-<h2 {{ $attributes->merge(['class' => 'mb-10 md:mb-12 font-medium ' . $textSize]) }}>
+<h2 {{ $attributes->merge(['class' => 'font-medium ' . $textSize .' '. $margin]) }}>
     <div class="relative inline-block text-zinc-900">
         {{ $slot }}
 

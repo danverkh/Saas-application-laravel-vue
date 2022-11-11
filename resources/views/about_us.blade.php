@@ -85,16 +85,16 @@
     <section class="bg-zinc-100">
         <div class="py-16 lg:py-24 mx-auto lg:pr-0 lg:mr-0">
             <div class="items-end justify-between max-w-7xl sm:flex mx-auto mb-14 px-5">
-                <x-subtitle class="mb-5 sm:mb-0" text-size="text-3xl lg:text-4xl" :line="false">Reviews from our customers</x-subtitle>
+                <x-subtitle margin="mb-5 sm:mb-0" text-size="text-3xl lg:text-4xl" :line="false">Reviews from our customers</x-subtitle>
 
                 <div class="flex lg:mt-0">
-                    <button class="p-3 bg-primary text-white rounded-full focus:outline-none transition-all hover:scale-105 prev-button mr-3">
+                    <button class="p-3 bg-secondary text-white rounded-full focus:outline-none transition-all hover:scale-105 prev-button mr-3">
                         <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 transform -rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
                         </svg>
                     </button>
 
-                    <button class="p-3 bg-primary text-white rounded-full focus:outline-none transition-all hover:scale-105 next-button">
+                    <button class="p-3 bg-secondary text-white rounded-full focus:outline-none transition-all hover:scale-105 next-button">
                         <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
                         </svg>
