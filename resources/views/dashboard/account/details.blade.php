@@ -27,8 +27,9 @@
 
         <div class="bg-zinc-50 rounded-xl border border-zinc-200 border border-zinc-200">
             <div class="flex items-center bg-zinc-100 text-lg text-zinc-900 px-4 py-3 rounded-t-xl">
-                <svg class="text-primary w-6 h-6 mr-3" width="32" height="32" viewBox="0 0 32 32">
-                    <path fill="currentColor" d="M2 7v17h28V7H2zm4 2h20a2 2 0 0 0 2 2v9a2 2 0 0 0-2 2H6a2 2 0 0 0-2-2v-9a2 2 0 0 0 2-2zm9 2c0 1.439-.561 2-2 2v2c.776 0 1.437-.151 2-.412V20h2v-9h-2zm-6.5 3a1.5 1.5 0 1 0 .001 3.001A1.5 1.5 0 0 0 8.5 14zm15 0a1.5 1.5 0 1 0 .001 3.001A1.5 1.5 0 0 0 23.5 14z"/>
+                <svg class="text-primary w-6 h-6 mr-3" width="32" height="32" viewBox="0 0 24 24">
+                    <path fill="currentColor" d="M19 5.25H5A1.76 1.76 0 0 0 3.25 7v10A1.76 1.76 0 0 0 5 18.75h14A1.76 1.76 0 0 0 20.75 17V7A1.76 1.76 0 0 0 19 5.25ZM5 6.75h14a.25.25 0 0 1 .25.25v2.25H4.75V7A.25.25 0 0 1 5 6.75Zm14 10.5H5a.25.25 0 0 1-.25-.25v-6.25h14.5V17a.25.25 0 0 1-.25.25Z"/>
+                    <path fill="currentColor" d="M9 13H7a1 1 0 0 0 0 2h2a1 1 0 0 0 0-2Z"/>
                 </svg>
                 Funding Source
             </div>
