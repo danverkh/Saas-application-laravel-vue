@@ -61,7 +61,7 @@
     <div class="bg-primary">
         <x-container>
             <div class="mx-auto lg:max-w-xl text-center">
-                <x-subtitle>Our team</x-subtitle>
+                <x-subtitle :line="false" text-color="text-white">Our team</x-subtitle>
             </div>
 
             <div class="grid gap-10 mx-auto lg:grid-cols-2 lg:max-w-screen-lg mb-6">
