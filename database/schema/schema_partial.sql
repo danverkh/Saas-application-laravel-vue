@@ -17,6 +17,7 @@ CREATE TABLE `autoranker_keywords` (
    `termination_recorded_date` date DEFAULT NULL,
    `setup_fee_invoiced` enum('FALSE','TRUE') CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT 'FALSE',
    `order_fulfillment_request_date` datetime DEFAULT CURRENT_TIMESTAMP,
+   `order_fulfillment_employee_id` int NULL,
    `autoranker_experiment_id` int DEFAULT NULL,
    `recurring_month_invoiced` varchar(7) COLLATE utf8mb4_general_ci DEFAULT NULL,
    `top_ten_notification_sent` datetime DEFAULT NULL,
