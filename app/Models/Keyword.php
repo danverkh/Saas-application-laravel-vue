@@ -13,6 +13,8 @@ class Keyword extends Model
 {
     use HasFactory;
 
+    protected $table = 'autoranker_keywords';
+
     protected $fillable = [
         'order_id',
         'domain_id',

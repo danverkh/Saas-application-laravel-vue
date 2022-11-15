@@ -215,5 +215,5 @@ CREATE TABLE `search_term_connections` (
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 # mysql users
-CREATE USER 'autoranker_www'@'%' IDENTIFIED BY 'password';
-GRANT SELECT ON gsqt_core.prospect_mail_domains TO 'autoranker_www'@'%';
+#CREATE USER 'autoranker_www'@'%' IDENTIFIED BY 'password';
+#GRANT SELECT ON gsqt_core.prospect_mail_domains TO 'autoranker_www'@'%';

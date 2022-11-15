@@ -14,6 +14,8 @@ class Order extends Model
 {
     use HasFactory;
 
+    public $timestamps = false;
+
     protected $fillable = [
         'user_id',
         'domain_id',
@@ -26,14 +28,6 @@ class Order extends Model
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
-    }
-
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
-    public function domain(): BelongsTo
-    {
-        return $this->belongsTo(Domain::class);
     }
 
     /**
