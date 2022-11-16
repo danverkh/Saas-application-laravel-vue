@@ -22,7 +22,7 @@ class CheckoutController extends Controller
      */
     public function order(OrderRequest $request): JsonResponse
     {
-        //try {
+        try {
             $user = DB::transaction(static function () use ($request) {
                 $exists = User::where('email', $request->email)->exists();
 
@@ -61,19 +61,19 @@ class CheckoutController extends Controller
 
                 return $user;
             });
-        //} catch (\Throwable $e) {
-        //    Log::error('Failed to create order', [
-        //        'message' => $e->getMessage(),
-        //        'request' => $request->validated(),
-        //        'trace'   => $e->getTraceAsString(),
-        //    ]);
-        //
-        //    DB::table('failed_orders_log')->insert([
-        //        'request' => json_encode($request->validated(), JSON_THROW_ON_ERROR),
-        //    ]);
-        //
-        //    return response()->json(['status' => 'error'], 500);
-        //}
+        } catch (\Throwable $e) {
+            Log::error('Failed to create order', [
+                'message' => $e->getMessage(),
+                'request' => $request->validated(),
+                'trace'   => $e->getTraceAsString(),
+            ]);
+
+            DB::table('failed_orders_log')->insert([
+                'request' => json_encode($request->validated(), JSON_THROW_ON_ERROR),
+            ]);
+
+            return response()->json(['status' => 'error'], 500);
+        }
 
         Auth::guard('web')->login($user);
 
