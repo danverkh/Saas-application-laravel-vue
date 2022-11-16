@@ -17,9 +17,20 @@ class Order extends Model
     public $timestamps = false;
 
     protected $fillable = [
-        'user_id',
-        'domain_id',
-        'market',
+        'name',
+        'client_id',
+        'employee_id',
+        'contact_first_name',
+        'contact_last_name',
+        'contact_gender',
+        'contact_email',
+        'contact_language',
+        'contact_style',
+        'first_upsell_email_sent',
+        'second_upsell_email_sent',
+        'creation_date',
+        'client_account_created',
+        'order_confirmation_sent',
     ];
 
     /**

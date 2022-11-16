@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
-use App\Models\Domain;
 use App\Models\Keyword;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;

@@ -17,11 +17,11 @@ namespace App\Models{
  * @property int $id
  * @property int $user_id
  * @property int $country_id
- * @property string $company_name
+ * @property string|null $company_name
  * @property string $street
- * @property string $zip
+ * @property string $postal_code
  * @property string $city
- * @property string $vat_number
+ * @property string|null $vat_number
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \App\Models\Country $country
@@ -34,14 +34,124 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|BillingAddress whereCountryId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|BillingAddress whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|BillingAddress whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|BillingAddress wherePostalCode($value)
  * @method static \Illuminate\Database\Eloquent\Builder|BillingAddress whereStreet($value)
  * @method static \Illuminate\Database\Eloquent\Builder|BillingAddress whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|BillingAddress whereUserId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|BillingAddress whereVatNumber($value)
- * @method static \Illuminate\Database\Eloquent\Builder|BillingAddress whereZip($value)
- * @mixin \Eloquent
  */
 	class IdeHelperBillingAddress {}
+}
+
+namespace App\Models{
+/**
+ * App\Models\Client
+ *
+ * @property int $id
+ * @property string $name
+ * @property string $legal_person
+ * @property string $owner
+ * @property int|null $bank_details_id
+ * @property string|null $vatin
+ * @property string|null $street
+ * @property string|null $zip
+ * @property string|null $city
+ * @property string|null $country
+ * @property string|null $extra_info
+ * @property string $accounting_email
+ * @property string $industry
+ * @property string $source
+ * @property int|null $payment_due_days
+ * @property string $payment_method
+ * @property string|null $stripe_customer_id
+ * @property string|null $stripe_payment_method_id
+ * @property int|null $termination_notice_period_in_days
+ * @property string $creation_date
+ * @property int $employee_id
+ * @property string|null $deletion_date
+ * @property string $send_info_emails
+ * @property string|null $last_info_email_sent_date
+ * @property string|null $retention_email_1_sent
+ * @property string|null $retention_email_2_sent
+ * @property string|null $retention_email_3_sent
+ * @property string|null $retention_email_4_sent
+ * @property float|null $not_canceled_mrr
+ * @property string|null $autoranker_bonus_email_1_sent
+ * @property string $accountmanager_introduction_sent
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\ClientAccount[] $account
+ * @property-read int|null $account_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Order[] $orders
+ * @property-read int|null $orders_count
+ * @method static \Illuminate\Database\Eloquent\Builder|Client newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Client newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Client query()
+ * @method static \Illuminate\Database\Eloquent\Builder|Client whereAccountingEmail($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Client whereAccountmanagerIntroductionSent($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Client whereAutorankerBonusEmail1Sent($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Client whereBankDetailsId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Client whereCity($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Client whereCountry($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Client whereCreationDate($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Client whereDeletionDate($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Client whereEmployeeId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Client whereExtraInfo($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Client whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Client whereIndustry($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Client whereLastInfoEmailSentDate($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Client whereLegalPerson($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Client whereName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Client whereNotCanceledMrr($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Client whereOwner($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Client wherePaymentDueDays($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Client wherePaymentMethod($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Client whereRetentionEmail1Sent($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Client whereRetentionEmail2Sent($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Client whereRetentionEmail3Sent($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Client whereRetentionEmail4Sent($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Client whereSendInfoEmails($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Client whereSource($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Client whereStreet($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Client whereStripeCustomerId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Client whereStripePaymentMethodId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Client whereTerminationNoticePeriodInDays($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Client whereVatin($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Client whereZip($value)
+ */
+	class IdeHelperClient {}
+}
+
+namespace App\Models{
+/**
+ * App\Models\ClientAccount
+ *
+ * @property int $id
+ * @property int $client_id
+ * @property string|null $first_name
+ * @property string|null $last_name
+ * @property string|null $gender
+ * @property string $email
+ * @property string $language
+ * @property string $contact_style
+ * @property string|null $password
+ * @property string $creation_date
+ * @property string|null $deletion_date
+ * @property-read \App\Models\Client $client
+ * @method static \Illuminate\Database\Eloquent\Builder|ClientAccount newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|ClientAccount newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|ClientAccount query()
+ * @method static \Illuminate\Database\Eloquent\Builder|ClientAccount whereClientId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ClientAccount whereContactStyle($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ClientAccount whereCreationDate($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ClientAccount whereDeletionDate($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ClientAccount whereEmail($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ClientAccount whereFirstName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ClientAccount whereGender($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ClientAccount whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ClientAccount whereLanguage($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ClientAccount whereLastName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ClientAccount wherePassword($value)
+ */
+	class IdeHelperClientAccount {}
 }
 
 namespace App\Models{
@@ -69,62 +179,68 @@ namespace App\Models{
 
 namespace App\Models{
 /**
- * App\Models\Domain
- *
- * @property int $id
- * @property string $name
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Keyword[] $keywords
- * @property-read int|null $keywords_count
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Order[] $orders
- * @property-read int|null $orders_count
- * @method static \Illuminate\Database\Eloquent\Builder|Domain newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|Domain newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|Domain query()
- * @method static \Illuminate\Database\Eloquent\Builder|Domain whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Domain whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Domain whereName($value)
- */
-	class IdeHelperDomain {}
-}
-
-namespace App\Models{
-/**
  * App\Models\Keyword
  *
  * @property int $id
  * @property int $order_id
- * @property int|null $domain_id
  * @property string $keyword
+ * @property string|null $domain
+ * @property string|null $path_to_ranking_subpage
+ * @property string $country
+ * @property string $monthly_fee
+ * @property string $setup_fee
  * @property int|null $search_volume
- * @property float|null $cpc
- * @property float|null $competition
- * @property int|null $current_rank
- * @property float|null $maximum_cost
- * @property string|null $projected_clicks
- * @property string|null $projected_traffic
- * @property string|null $url
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
- * @property-read \App\Models\Domain|null $domain
+ * @property string $creation_date
+ * @property string|null $start_date
+ * @property string|null $termination_date
+ * @property string $termination_confirmed
+ * @property string $termination_executed
+ * @property int|null $termination_reason_id
+ * @property string|null $termination_recorded_date
+ * @property string $setup_fee_invoiced
+ * @property string|null $order_fulfillment_request_date
+ * @property int|null $order_fulfillment_employee_id
+ * @property int|null $autoranker_experiment_id
+ * @property string|null $recurring_month_invoiced
+ * @property string|null $top_ten_notification_sent
+ * @property string|null $top_five_notification_sent
+ * @property int|null $last_rank_reported
+ * @property int|null $last_website_ranking
+ * @property string|null $last_website_ranking_update_date
+ * @property string|null $ranking_subpage_content
+ * @property string|null $ranking_subpage_content_last_fetched
  * @property-read \App\Models\Order $order
  * @method static \Illuminate\Database\Eloquent\Builder|Keyword newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Keyword newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Keyword query()
- * @method static \Illuminate\Database\Eloquent\Builder|Keyword whereCompetition($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Keyword whereCpc($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Keyword whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Keyword whereCurrentRank($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Keyword whereDomainId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Keyword whereAutorankerExperimentId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Keyword whereCountry($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Keyword whereCreationDate($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Keyword whereDomain($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Keyword whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Keyword whereKeyword($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Keyword whereMaximumCost($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Keyword whereLastRankReported($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Keyword whereLastWebsiteRanking($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Keyword whereLastWebsiteRankingUpdateDate($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Keyword whereMonthlyFee($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Keyword whereOrderFulfillmentEmployeeId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Keyword whereOrderFulfillmentRequestDate($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Keyword whereOrderId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Keyword whereProjectedClicks($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Keyword whereProjectedTraffic($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Keyword wherePathToRankingSubpage($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Keyword whereRankingSubpageContent($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Keyword whereRankingSubpageContentLastFetched($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Keyword whereRecurringMonthInvoiced($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Keyword whereSearchVolume($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Keyword whereUpdatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Keyword whereUrl($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Keyword whereSetupFee($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Keyword whereSetupFeeInvoiced($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Keyword whereStartDate($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Keyword whereTerminationConfirmed($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Keyword whereTerminationDate($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Keyword whereTerminationExecuted($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Keyword whereTerminationReasonId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Keyword whereTerminationRecordedDate($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Keyword whereTopFiveNotificationSent($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Keyword whereTopTenNotificationSent($value)
  */
 	class IdeHelperKeyword {}
 }
@@ -153,24 +269,41 @@ namespace App\Models{
  * App\Models\Order
  *
  * @property int $id
- * @property int $user_id
- * @property int|null $domain_id
- * @property string $market
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
- * @property-read \App\Models\Domain|null $domain
+ * @property string $name
+ * @property int $client_id
+ * @property int $employee_id
+ * @property string|null $contact_first_name
+ * @property string|null $contact_last_name
+ * @property string|null $contact_gender
+ * @property string $contact_email
+ * @property string $contact_language
+ * @property string $contact_style
+ * @property string $first_upsell_email_sent
+ * @property string $second_upsell_email_sent
+ * @property string $creation_date
+ * @property string $client_account_created
+ * @property string $order_confirmation_sent
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Keyword[] $keywords
  * @property-read int|null $keywords_count
  * @property-read \App\Models\User $user
  * @method static \Illuminate\Database\Eloquent\Builder|Order newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Order newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Order query()
- * @method static \Illuminate\Database\Eloquent\Builder|Order whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Order whereDomainId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Order whereClientAccountCreated($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Order whereClientId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Order whereContactEmail($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Order whereContactFirstName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Order whereContactGender($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Order whereContactLanguage($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Order whereContactLastName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Order whereContactStyle($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Order whereCreationDate($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Order whereEmployeeId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Order whereFirstUpsellEmailSent($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Order whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Order whereMarket($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Order whereUpdatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Order whereUserId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Order whereName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Order whereOrderConfirmationSent($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Order whereSecondUpsellEmailSent($value)
  */
 	class IdeHelperOrder {}
 }
