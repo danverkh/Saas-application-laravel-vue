@@ -18,7 +18,7 @@
             <div class="flex flex-nowrap items-center gap-x-4">
                 <div class="line h-5 bg-zinc-300"></div>
 
-                <svg @click="openOrganicSearch" width="24" height="24" viewBox="0 0 512 512" class="text-[#4285F4] cursor-pointer">
+                <svg width="24" height="24" viewBox="0 0 512 512" class="text-[#4285F4]">
                     <path d="M344.5 298c15-23.6 23.8-51.6 23.8-81.7 0-84.1-68.1-152.3-152.1-152.3C132.1 64 64 132.2 64 216.3c0 84.1 68.1 152.3 152.1 152.3 30.5 0 58.9-9 82.7-24.4l6.9-4.8L414.3 448l33.7-34.3-108.5-108.6 5-7.1zm-43.1-166.8c22.7 22.7 35.2 52.9 35.2 85s-12.5 62.3-35.2 85c-22.7 22.7-52.9 35.2-85 35.2s-62.3-12.5-85-35.2c-22.7-22.7-35.2-52.9-35.2-85s12.5-62.3 35.2-85c22.7-22.7 52.9-35.2 85-35.2s62.3 12.5 85 35.2z" fill="currentColor"/>
                 </svg>
             </div>
@@ -42,7 +42,7 @@
                             <span class="text-zinc-900">{{ breadcrumbDomain(result.breadcrumb) }}</span>
                             <span v-if="result.breadcrumb.includes('›')"> › {{ breadcrumbs(result.breadcrumb) }}</span>
                         </div>
-                        <div @click="openOrganicSearch" class="link text-lg text-blue-700 mb-2 cursor-pointer no-underline hover:underline hover:decoration-2">{{ result.title }}</div>
+                        <a :href="result.url" target="_blank" class="link text-lg text-blue-700 mb-2 cursor-pointer no-underline hover:underline hover:decoration-2">{{ result.title }}</a>
                         <div class="description text-sm text-zinc-600">
                             {{ (result.description.length > descriptionLimit) ? result.description.substring(0, descriptionLimit) + '...' : result.description }}
                         </div>
@@ -104,10 +104,6 @@ export default {
 
         abortFetch() {
             usePreviewRankStore().abortFetch();
-        },
-
-        openOrganicSearch() {
-            window.open('https://www.google.com/search?q='+encodeURIComponent(this.keyword), '_blank');
         },
     },
 }

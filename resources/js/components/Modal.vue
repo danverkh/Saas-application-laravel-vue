@@ -55,7 +55,7 @@ export default {
 
     methods: {
         close(event) {
-            if (event.target.nodeName !== 'LABEL' && event.target.className !== 'modal') {
+            if (event.target.nodeName !== 'LABEL' && event.target.nodeName !== 'A' && event.target.className !== 'modal') {
                 event.preventDefault();
             } else {
                 this.$emit('closed');
