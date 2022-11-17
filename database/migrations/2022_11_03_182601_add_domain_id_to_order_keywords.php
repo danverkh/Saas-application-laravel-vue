@@ -18,12 +18,6 @@ return new class extends Migration
         Schema::table('order_keywords', function (Blueprint $table) {
             $table->foreignId('domain_id')->after('order_id')->nullable()->constrained();
         });
-
-        Keyword::with('order')
-               ->get()
-               ->each(static function (Keyword $keyword) {
-                $keyword->forceFill(['domain_id' => $keyword->order->domain_id])->save();
-            });
     }
 
     /**
