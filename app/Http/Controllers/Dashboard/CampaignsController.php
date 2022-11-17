@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Dashboard;
 use App\Http\Controllers\Controller;
 use App\Models\Keyword;
 use Illuminate\Contracts\View\View;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\RedirectResponse;
 
 class CampaignsController extends Controller
@@ -14,15 +15,13 @@ class CampaignsController extends Controller
      */
     public function index(): RedirectResponse
     {
-        $domain = Domain::query()
-                        ->whereHas('orders', static function ($query) {
-                            $query->where('user_id', auth()->id());
-                        })
-                        ->with('keywords')
-                        ->orderBy('name')
-                        ->firstOrFail();
+        $keyword = Keyword::query()
+                          ->whereHas('order.client.accounts', static function (Builder $query) {
+                              $query->where('email', auth()->user()->email);
+                          })
+                          ->first();
 
-        return redirect()->route('dashboard.campaigns.keyword', $domain->keywords->first());
+        return redirect()->route('dashboard.campaigns.keyword', $keyword);
     }
 
     /**
