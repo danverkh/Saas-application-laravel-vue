@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Actions\Client\CreateClientAccount;
 use App\Actions\User\CreateUser;
 use App\Http\Requests\OrderRequest;
+use App\Models\Enums\Boolean;
 use App\Models\User;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\JsonResponse;
@@ -39,7 +40,7 @@ class CheckoutController extends Controller
                     'name'                   => $request->domain . ' - '.count($request->selectedItems).' keywords',
                     'contact_email'          => $request->email,
                     'contact_language'       => $request->market,
-                    'client_account_created' => $exists ? 'FALSE' : 'TRUE',
+                    'client_account_created' => $exists ? Boolean::FALSE() : Boolean::TRUE(),
                     'employee_id'            => 0,
                     'creation_date'          => now()->toDateTimeString(),
                 ]);
@@ -52,9 +53,9 @@ class CheckoutController extends Controller
                         'search_volume'         => $item['search_volume'],
                         'monthly_fee'           => 0, // TODO: what fee to use here?
                         'setup_fee'             => 0, // TODO: what fee to use here?
-                        'termination_confirmed' => 'FALSE',
-                        'termination_executed'  => 'FALSE',
-                        'setup_fee_invoiced'    => 'FALSE',
+                        'termination_confirmed' => Boolean::FALSE(),
+                        'termination_executed'  => Boolean::FALSE(),
+                        'setup_fee_invoiced'    => Boolean::FALSE(),
                         'creation_date'         => now()->toDateTimeString(),
                     ]);
                 }

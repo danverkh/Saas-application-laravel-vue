@@ -78,8 +78,8 @@ namespace App\Models{
  * @property float|null $not_canceled_mrr
  * @property string|null $autoranker_bonus_email_1_sent
  * @property string $accountmanager_introduction_sent
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\ClientAccount[] $account
- * @property-read int|null $account_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\ClientAccount[] $accounts
+ * @property-read int|null $accounts_count
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Order[] $orders
  * @property-read int|null $orders_count
  * @method static \Illuminate\Database\Eloquent\Builder|Client newModelQuery()
@@ -322,6 +322,7 @@ namespace App\Models{
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \App\Models\BillingAddress|null $billingAddress
+ * @property-read \App\Models\ClientAccount|null $clientAccount
  * @property-read \Illuminate\Notifications\DatabaseNotificationCollection|\Illuminate\Notifications\DatabaseNotification[] $notifications
  * @property-read int|null $notifications_count
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Order[] $orders
