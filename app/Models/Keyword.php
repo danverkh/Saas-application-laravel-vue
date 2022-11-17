@@ -26,6 +26,7 @@ class Keyword extends Model
         'monthly_fee',
         'setup_fee',
         'search_volume',
+        'maximum_cost',
         'creation_date',
         'start_date',
         'termination_date',

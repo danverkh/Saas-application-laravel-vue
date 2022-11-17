@@ -19,6 +19,8 @@ class CampaignsController extends Controller
                           ->whereHas('order.client.accounts', static function (Builder $query) {
                               $query->where('email', auth()->user()->email);
                           })
+                          ->orderBy('domain')
+                          ->orderBy('keyword')
                           ->first();
 
         return redirect()->route('dashboard.campaigns.keyword', $keyword);
@@ -31,13 +33,13 @@ class CampaignsController extends Controller
      */
     public function keyword(Keyword $keyword): View
     {
-        $domains = Domain::query()
-                         ->whereHas('orders', static function ($query) {
-                             $query->where('user_id', auth()->id());
-                         })
-                         ->with(['keywords'])
-                         ->orderBy('name')
-                         ->get();
+        $domains = Keyword::query()
+                          ->whereHas('order.client.accounts', static function (Builder $query) {
+                              $query->where('email', auth()->user()->email);
+                          })
+                          ->get()
+                          ->groupBy('domain')
+                          ->sortKeys();
 
         return view('dashboard.campaigns', compact('domains', 'keyword'));
     }

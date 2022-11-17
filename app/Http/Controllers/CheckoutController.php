@@ -37,7 +37,7 @@ class CheckoutController extends Controller
 
                 /** @var \App\Models\Order $order */
                 $order = $user->clientAccount->client->orders()->create([
-                    'name'                   => $request->domain . ' - '.count($request->selectedItems).' keywords',
+                    'name'                   => $request->domain . ' - ' . count($request->selectedItems) . ' keywords',
                     'contact_email'          => $request->email,
                     'contact_language'       => $request->market,
                     'client_account_created' => $exists ? Boolean::FALSE() : Boolean::TRUE(),
@@ -51,6 +51,7 @@ class CheckoutController extends Controller
                         'domain'                => $request->domain,
                         'country'               => $request->market,
                         'search_volume'         => $item['search_volume'],
+                        'maximum_cost'          => $item['maximum_cost'],
                         'monthly_fee'           => 0, // TODO: what fee to use here?
                         'setup_fee'             => 0, // TODO: what fee to use here?
                         'termination_confirmed' => Boolean::FALSE(),

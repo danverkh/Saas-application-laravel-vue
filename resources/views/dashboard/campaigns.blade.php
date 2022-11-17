@@ -10,16 +10,16 @@
                 <div class="sidebar__inner flex flex-col gap-6 md:block md:space-y-6 xl:flex xl:space-y-0">
                     <x-card class="border-t-4 border-primary overflow-visible md:w-1/2 xl:w-full" bodyClass="px-5 py-1">
                         <div class="divide-y">
-                            @foreach($domains as $domain)
+                            @foreach($domains as $domain => $keywords)
                                 <div class="dropdown dropdown-end w-full py-2">
-                                    <label tabindex="0" class="btn btn-ghost btn-block text-base normal-case break-all {{ ($domain->keywords->contains($keyword)) ? 'text-primary' : '' }}">
-                                        {{ $domain->name }}
+                                    <label tabindex="0" class="btn btn-ghost btn-block text-base normal-case break-all {{ (collect($keywords)->contains('keyword', $keyword->keyword)) ? 'text-primary' : '' }}">
+                                        {{ $domain }}
                                     </label>
                                     <ul tabindex="0" class="dropdown-content menu p-2 shadow-lg bg-base-100 divide-y rounded-box w-52 ml-3 border border-zinc-200/80">
-                                        @foreach($domain->keywords as $domainKeyword)
+                                        @foreach(collect($keywords)->sortBy('keyword') as $domainKeyword)
                                             <li class="px-2 py-2">
-                                                <a href="{{ route('dashboard.campaigns.keyword', $domainKeyword) }}"
-                                                   class="py-2 {{ ($domainKeyword->id === $keyword->id) ? 'text-primary' : '' }}">
+                                                <a href="{{ route('dashboard.campaigns.keyword', $domainKeyword->id) }}"
+                                                    class="py-2 {{ ($domainKeyword->id === $keyword->id) ? 'text-primary' : '' }}">
                                                     {{ $domainKeyword->keyword }}
                                                 </a>
                                             </li>
@@ -38,7 +38,7 @@
                         <div class="flex flex-col space-y-1 md:space-y-0 md:flex-row md:space-x-4">
                             <div>
                                 <div class="text-zinc-600 text-xs md:text-sm">Domain</div>
-                                <div class="text-zinc-800 text-xl md:text-2xl font-medium">{{ $keyword->domain->name }}</div>
+                                <div class="text-zinc-800 text-xl md:text-2xl font-medium">{{ $keyword->domain }}</div>
                             </div>
 
                             <div class="divider divider-vertical md:divider-horizontal"></div>
