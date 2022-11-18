@@ -6,6 +6,10 @@ html, body {
     @apply text-zinc-600;
 }
 
+#hero-bg {
+    background-color: #d9e8ff;
+}
+
 .table {
     &.table-compact {
         th, td {

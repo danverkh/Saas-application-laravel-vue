@@ -6,8 +6,9 @@
         <div class="relative z-10 max-w-screen-xl px-6 py-24 mx-auto gap-10 items-center flex flex-col md:flex-row">
             <div class="basis-1/2 flex flex-col justify-center items-start row-start-2 sm:row-start-1 md:pt-12">
                 <h1 class="text-6xl md:text-5xl lg:text-6xl leading-tight md:leading-[1.1] lg:leading-tight font-medium text-zinc-900">
-                    Get additional<br>
-                    website <strong>visitors<span class="text-primary">.</span></strong>
+                    Get Clicks from 0.10€<br>
+                    and Leads from 10€<br>
+                    <strong>with AutoRanker<span class="text-primary">.</span></strong>
                 </h1>
 
                 <p class="text-md md:text-sm lg:text-md xl:text-lg text-gray-500/80 mt-4 mb-6 leading-loose md:leading-relaxed lg:leading-loose xl:leading-relaxed">
@@ -188,29 +189,5 @@
 
     @push('script')
         <script src="/js/three.min.js"></script>
-        <script src="/js/vanta.net.min.js"></script>
-
-        <script>
-            document.addEventListener("DOMContentLoaded", function () {
-                window.scrollObserver('.reveal', {once: true, threshold: 0.4});
-
-                VANTA.NET({
-                    el: "#hero-bg",
-                    mouseControls: false,
-                    touchControls: false,
-                    gyroControls: false,
-                    minHeight: 300.00,
-                    minWidth: 800.00,
-                    scale: 1.00,
-                    scaleMobile: 1.00,
-                    color: 0xFFB4BF,
-                    backgroundColor: 0xffffff,
-                    points: 5.00,
-                    maxDistance: 75.00,
-                    showDots: false,
-                    spacing: 60.00,
-                });
-            });
-        </script>
     @endpush
 </x-main-layout>
