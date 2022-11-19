@@ -21,11 +21,13 @@ app.component('video-player', VideoPlayer)
 import FullScreenSpinner from './components/FullScreenSpinner.vue'
 import DomainSwitcherModal from './components/DomainSwitcherModal.vue'
 import GlobalNotifications from './components/GlobalNotifications.vue'
+import AssistantModal from './components/AssistantModal.vue'
 import LoginForm from './pages/layout/LoginForm.vue'
 
 app.component('full-screen-spinner', FullScreenSpinner)
 app.component('domain-switcher-modal', DomainSwitcherModal)
 app.component('global-notifications', GlobalNotifications)
+app.component('assistant-modal', AssistantModal)
 app.component('login-form', LoginForm)
 
 // Homepage

@@ -29,6 +29,7 @@
             <!-- Global -->
             <full-screen-spinner></full-screen-spinner>
             <domain-switcher-modal></domain-switcher-modal>
+            <assistant-modal></assistant-modal>
             <global-notifications></global-notifications>
 
             @env('local')

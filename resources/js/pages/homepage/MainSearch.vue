@@ -9,7 +9,7 @@
                      :request="suggestionsRequest"
                      :initial-suggestions="initialSuggestions"
                      filter-fetched
-                     submit-on-select
+                     :submit-on-select="submitOnSelect"
                      selection-property="domain"
                      placeholder="Please enter a domain here..."
                      ref="search"
@@ -44,7 +44,7 @@
         </AutoSuggest>
     </div>
 
-    <div class="grow-0">
+    <div v-if="!noSearch" class="grow-0">
         <button @click="search" :class="[{'pointer-events-none opacity-75': submitted}]" class="btn btn-lg no-animation gap-2 tracking-widest bg-gray-900 h-[62px] min-h-[62px] md:px-7 group">
             <Spinner v-if="submitted" :size="22" :border-width="2" color="#fff" class="md:-ml-1 md:mr-0.5"></Spinner>
             <svg v-else xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6 md:-ml-1 group-hover:scale-105 transition-all">
@@ -68,6 +68,19 @@ export default {
 
     components: {Spinner, AutoSuggest, MarketSelect},
 
+    emits: ['market', 'domain'],
+
+    props: {
+        noSearch: {
+            type: Boolean,
+            default: false,
+        },
+        submitOnSelect: {
+            type: Boolean,
+            default: true,
+        },
+    },
+
     data() {
         return {
             market: useCart().market,
@@ -86,6 +99,11 @@ export default {
 
                 this.market = Domain.getMarket(value);
             }
+            this.$emit('domain', value);
+        },
+
+        market(value) {
+            this.$emit('market', value);
         },
     },
 
