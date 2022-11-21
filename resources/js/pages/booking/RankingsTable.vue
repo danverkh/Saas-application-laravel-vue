@@ -93,6 +93,7 @@ import {useCart} from '@/stores/cart';
 import axios from 'axios';
 import Spinner from '@/components/Spinner.vue';
 import Modal from "@/services/Modal";
+import Url from "@/services/Url";
 
 export default {
     name: "RankingsTable",
@@ -124,7 +125,13 @@ export default {
             this.loading = true;
             this.error   = null;
 
-            axios.get(route('api.rankings'), {params: {market: this.market, domain: this.domain}})
+            const params = {
+                market: this.market,
+                domain: this.domain,
+                assistant: Url.getParam('assistant'),
+            };
+
+            axios.get(route('api.rankings'), {params})
                 .then(resp => {
                     this.rankingItems.setItems(resp.data.rows);
                 })

@@ -79,7 +79,7 @@ class Request
     {
         /** @var \App\Services\DataForSeo\Modifiers\ModifierContract $modifier */
         $modifier = match ($this->requestType) {
-            self::TYPE_DOMAIN_SEARCH => new DomainSearchModifier(),
+            self::TYPE_DOMAIN_SEARCH => new DomainSearchModifier($params['assistant']),
             self::TYPE_GOOGLE_KEYWORD => new GoogleKeywordSearchModifier($params['domain']),
         };
 

@@ -188,8 +188,6 @@
     </section>
 
     @push('script')
-        <script src="/js/three.min.js"></script>
-
         <script>
             document.addEventListener("DOMContentLoaded", function () {
                 window.scrollObserver('.reveal', {once: true, threshold: 0.4});

@@ -62,6 +62,7 @@ import {useCart} from "@/stores/cart";
 import AutoSuggest from "@/components/AutoSuggest.vue";
 import Domain from "@/services/Domain";
 import Spinner from "@/components/Spinner.vue";
+import Assistant from "@/services/Assistant";
 
 export default {
     name: "MainSearch",
@@ -88,7 +89,6 @@ export default {
             invalid: false,
             submitted: false,
             initialSuggestions: [],
-            marketIfNotDetected: 'uk',
         };
     },
 
@@ -130,7 +130,7 @@ export default {
 
                     try {
                         const response = await axios.get(route('api.domain.market.guess'), {params: {domain}});
-                        this.market    = response.data.market || this.marketIfNotDetected;
+                        this.market    = response.data.market || Assistant.marketIfNotDetected;
                     } catch (error) {
                         console.error('Failed to fetch market', error);
                         this.market = this.marketIfNotDetected;
