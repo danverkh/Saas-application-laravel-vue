@@ -75,9 +75,10 @@
                                     </ul>
 
                                     <div class="col-start-10 col-end-12 font-medium flex justify-end items-center">
-                                        <button onclick="document.getElementById('domain-switcher-modal').checked = true" class="text-sm sm:text-base font-medium tracking-wide py-2 px-3 sm:px-6 border border-primary-hover text-white-500 bg-primary outline-none rounded-l-full rounded-r-full hover:bg-primary-hover hover:text-white-500 transition-all duration-500 hover:shadow-primary">
-                                            Build new Campaign
-                                        </button>
+                                        <div onclick="document.getElementById('assistant-modal').checked = true" class="cursor-pointer select-none text-sm sm:text-base font-medium tracking-wide py-2 px-3 sm:px-6 border border-primary-hover text-white-500 bg-primary outline-none rounded-l-full rounded-r-full hover:bg-primary-hover hover:text-white-500 transition-all duration-500 hover:shadow-primary">
+                                            <span class="hidden sm:inline-block">Create a Campaign</span>
+                                            <span class="inline-block sm:hidden">Campaign</span>
+                                        </div>
                                     </div>
                                 </nav>
                             </div>
