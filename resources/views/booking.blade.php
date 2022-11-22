@@ -3,6 +3,7 @@
 
 <x-main-layout>
     <preview-rank-modal></preview-rank-modal>
+    <add-keywords-modal></add-keywords-modal>
 
     <x-container>
         <div class="max-w-screen-xl mx-auto mb-8">
@@ -43,7 +44,7 @@
                 <!-- Aside -->
                 <div id="sidebar" class="sidebar w-full">
                     <div class="sidebar__inner flex flex-col gap-6 md:block md:columns-2 md:space-y-6 xl:flex xl:columns-1 xl:space-y-0">
-                        <x-card class="md:order-1 xl:order-3 border-t-4 border-zinc-300">
+                        <x-card class="md:order-1 xl:order-4 border-t-4 border-zinc-300">
                             <h4 class="-mt-2 font-medium text-xl">Forecasted Results</h4>
 
                             <div class="divider divider-vertical my-0"></div>
@@ -56,7 +57,7 @@
                             </div>
                         </x-card>
 
-                        <x-card class="md:order-3 xl:order-4 border-t-4 border-zinc-300">
+                        <x-card class="md:order-3 xl:order-5 border-t-4 border-zinc-300">
                             <h4 class="-mt-2 font-medium text-md">Campaign Progress Prediction</h4>
 
                             <div class="divider divider-vertical my-0"></div>
@@ -64,9 +65,14 @@
                             <campaign-progress-prediction-chart></campaign-progress-prediction-chart>
                         </x-card>
 
-                        <x-card class="md:order-2 xl:order-2 border-t-4 border-zinc-300">
+                        <x-card class="md:order-2 xl:order-3 border-t-4 border-zinc-300">
                             <domain-switcher market="{{ $market }}" domain="{{ $domain }}"></domain-switcher>
                         </x-card>
+
+                        <div onclick="document.getElementById('add-keywords-modal').checked = true" class="xl:order-2 flex flex-nowrap items-center text-base font-semibold text-white tracking-wider p-4 select-none transition duration-500 ease-in-out transform bg-accent rounded-2xl shadow-lg shadow-zinc-300 border border-accent/50 hover:shadow-accent/50 overflow-hidden cursor-pointer focus:outline-accent">
+                            <svg class="w-7 h-7 mr-3" width="32" height="32" viewBox="0 0 24 24"><path fill="currentColor" d="M11 19v-6H5v-2h6V5h2v6h6v2h-6v6Z"/></svg>
+                            Add your own keyword
+                        </div>
 
                         <checkout class="md:order-4 xl:order-1"></checkout>
                     </div>
@@ -90,3 +96,9 @@
         </script>
     @endpush
 </x-main-layout>
+<script>
+    import AddKeywordsModal from "@/pages/booking/AddKeywordsModal";
+    export default {
+        components: {AddKeywordsModal}
+    }
+</script>

@@ -43,6 +43,7 @@ app.component('how-it-works-chart', HowItWorksChart)
 // Booking page
 import RankingsTable from './pages/booking/RankingsTable.vue'
 import PreviewRankModal from './pages/booking/PreviewRankModal.vue'
+import AddKeywordsModal from './pages/booking/AddKeywordsModal.vue'
 import DomainSwitcher from './pages/booking/aside/DomainSwitcher.vue'
 import ForecastedResults from './pages/booking/aside/ForecastedResults.vue'
 import Checkout from './pages/booking/aside/Checkout.vue'
@@ -52,6 +53,7 @@ app.component('checkout', Checkout)
 app.component('domain-switcher', DomainSwitcher)
 app.component('forecasted-results', ForecastedResults)
 app.component('preview-rank-modal', PreviewRankModal)
+app.component('add-keywords-modal', AddKeywordsModal)
 
 // Checkout
 import SubmitOrderButton from './pages/checkout/SubmitOrderButton.vue'
