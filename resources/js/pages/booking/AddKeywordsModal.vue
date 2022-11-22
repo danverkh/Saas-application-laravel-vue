@@ -66,7 +66,9 @@ export default {
 
     computed: {
         keywordIsValid() {
-            return this.keyword.length > 2 && !this.keywords.find(i => i === this.keyword);
+            return this.keyword.length > 2
+                && !this.keywords.find(i => i === this.keyword)
+                && this.keywords.length < 10;
         },
     },
 
