@@ -27,7 +27,7 @@
                     <div class="overflow-x-auto">
                         <table class="table table-zebra w-full">
                             <tbody>
-                                <tr v-for="(keywordItem, index) in keywords" :key="`keyword-${index}`">
+                                <tr v-for="(keywordItem, index) in keywords" :key="`keyword-${index}`" class="border-b border-gray-200 last:border-b-0">
                                     <th class="py-2">{{ index + 1 }}.</th>
                                     <td class="py-2 w-full" :class="{'text-red-500': keywordItem === keyword}">{{ keywordItem }}</td>
                                     <td class="py-2">
@@ -41,9 +41,7 @@
                     </div>
                 </div>
 
-                <div v-else class="text-sm text-center bg-accent bg-opacity-10 p-4">
-                    Please add at least one keyword
-                </div>
+                <div v-else class="text-sm text-center bg-accent bg-opacity-10 p-4">Please add at least one keyword</div>
             </div>
 
             <SubmitButton @click="submit" class="!py-3" :disabled="!keywords.length">Submit</SubmitButton>
@@ -57,6 +55,9 @@ import Spinner from "@/components/Spinner.vue";
 import Input from "@/components/Input.vue";
 import SubmitButton from "@/components/SubmitButton.vue";
 import {useRankingItemsStore} from "@/stores/rankingItems";
+import axios from "axios";
+import {useCart} from "@/stores/cart";
+import GlobalNotification from "@/services/GlobalNotification";
 
 export default {
     name: 'AddKeywordsModal',
@@ -67,6 +68,7 @@ export default {
         return {
             keyword: '',
             keywords: [],
+            requestPending: false,
         };
     },
 
@@ -105,7 +107,23 @@ export default {
         },
 
         submit() {
-            alert('Not implemented');
+            this.requestPending = true;
+
+            const params = {
+                market: useCart().market,
+                domain: useCart().domain,
+                keywords: this.keywords,
+            };
+
+            axios.get(route('api.rankings'), {params})
+                .then(resp => {
+
+                })
+                .catch(error => {
+                    console.error('Failed to submit keywords', error);
+                    GlobalNotification.error({title: 'Whoops, something went wrong', message: 'Please try again later.'});
+                })
+                .finally(() => this.requestPending = false);
         },
     },
 }

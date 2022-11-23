@@ -1,20 +1,17 @@
 <?php
 
-use App\Http\Controllers\AutoSuggestController;
+use App\Http\Controllers\Api\AutoSuggestController;
+use App\Http\Controllers\Api\DomainController;
+use App\Http\Controllers\Api\KeywordsController;
+use App\Http\Controllers\Api\PreviewRankController;
+use App\Http\Controllers\Api\RankingsController;
 use App\Http\Controllers\BookADemoController;
-use App\Http\Controllers\DomainController;
-use App\Http\Controllers\RankingsController;
-use App\Http\Controllers\PreviewRankController;
 use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
 | API Routes
 |--------------------------------------------------------------------------
-|
-| Here is where you can register API routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| is assigned the "api" middleware group. Enjoy building your API!
 */
 
 Route::get('rankings', [RankingsController::class, 'index'])->name('api.rankings');
@@ -22,3 +19,4 @@ Route::get('preview/rank', [PreviewRankController::class, 'index'])->name('api.p
 Route::get('autosuggest/domain', [AutoSuggestController::class, 'domain'])->name('api.autosuggest.domain');
 Route::get('domain/market/guess', [DomainController::class, 'marketGuess'])->name('api.domain.market.guess');
 Route::post('book-a-demo', [BookADemoController::class, 'store'])->name('api.book_a_demo.submit');
+Route::get('keywords/validate', [KeywordsController::class, 'validateKeywords'])->name('api.keywords.validate');

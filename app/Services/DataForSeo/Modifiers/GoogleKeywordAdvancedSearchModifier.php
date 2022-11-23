@@ -5,7 +5,7 @@ namespace App\Services\DataForSeo\Modifiers;
 use App\Services\DataForSeo\Result;
 use Illuminate\Pipeline\Pipeline;
 
-class GoogleKeywordSearchModifier implements ModifierContract
+class GoogleKeywordAdvancedSearchModifier implements ModifierContract
 {
     /**
      * @var string

@@ -4,7 +4,7 @@ namespace App\Services\DataForSeo\Requests;
 
 use App\Services\DataForSeo\Result;
 
-class GoogleKeywordSearch extends AbstractRequest
+class GoogleKeywordAdvancedSearch extends AbstractRequest
 {
     /**
      * @return Result

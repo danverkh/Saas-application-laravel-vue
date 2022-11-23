@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
+use App\Http\Controllers\Controller;
 use App\Services\DataForSeo\Request as DataForSeoRequest;
 use Exception;
 use Illuminate\Http\JsonResponse;
@@ -30,7 +31,7 @@ class PreviewRankController extends Controller
             $key = "preview-rank.{$params['market']}.{$params['keyword']}";
 
             $data = Cache::remember($key, now()->addHours(3), static function () use ($client, $params) {
-                return $client->requestType(DataForSeoRequest::TYPE_GOOGLE_KEYWORD)
+                return $client->requestType(DataForSeoRequest::TYPE_GOOGLE_KEYWORD_ADVANCED)
                               ->params($params['keyword'], $params['market'])
                               ->fetch()
                               ->result(['domain' => $params['domain']]);

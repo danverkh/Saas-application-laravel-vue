@@ -3,14 +3,16 @@
 namespace App\Services\DataForSeo;
 
 use App\Services\DataForSeo\Modifiers\DomainSearchModifier;
-use App\Services\DataForSeo\Modifiers\GoogleKeywordSearchModifier;
+use App\Services\DataForSeo\Modifiers\GoogleKeywordAdvancedSearchModifier;
 use App\Services\DataForSeo\Requests\DomainSearch;
-use App\Services\DataForSeo\Requests\GoogleKeywordSearch;
+use App\Services\DataForSeo\Requests\GoogleKeywordAdvancedSearch;
+use App\Services\DataForSeo\Requests\GoogleKeywordRegularSearch;
 
 class Request
 {
-    public const TYPE_DOMAIN_SEARCH  = 'domain';
-    public const TYPE_GOOGLE_KEYWORD = 'google-keyword';
+    public const TYPE_DOMAIN_SEARCH           = 'domain';
+    public const TYPE_GOOGLE_KEYWORD_REGULAR  = 'google-keyword-regular';
+    public const TYPE_GOOGLE_KEYWORD_ADVANCED = 'google-keyword-advanced';
 
     /**
      * @var \App\Services\DataForSeo\Params
@@ -60,7 +62,8 @@ class Request
     {
         $request = match ($this->requestType) {
             self::TYPE_DOMAIN_SEARCH => new DomainSearch(),
-            self::TYPE_GOOGLE_KEYWORD => new GoogleKeywordSearch(),
+            self::TYPE_GOOGLE_KEYWORD_REGULAR => new GoogleKeywordRegularSearch(),
+            self::TYPE_GOOGLE_KEYWORD_ADVANCED => new GoogleKeywordAdvancedSearch(),
         };
 
         $request->setParams($this->params);
@@ -80,9 +83,17 @@ class Request
         /** @var \App\Services\DataForSeo\Modifiers\ModifierContract $modifier */
         $modifier = match ($this->requestType) {
             self::TYPE_DOMAIN_SEARCH => new DomainSearchModifier($params['assistant']),
-            self::TYPE_GOOGLE_KEYWORD => new GoogleKeywordSearchModifier($params['domain']),
+            self::TYPE_GOOGLE_KEYWORD_ADVANCED => new GoogleKeywordAdvancedSearchModifier($params['domain']),
         };
 
         return $modifier->handle($this->result);
+    }
+
+    /**
+     * @return array
+     */
+    public function rawItems(): array
+    {
+        return $this->result->items();
     }
 }
