@@ -13,7 +13,7 @@
                      selection-property="domain"
                      placeholder="Please enter a domain here..."
                      ref="search"
-                     :class="{'border-primary': invalid}"
+                     :class="{'border-red-500': invalid}"
                      class="main-search">
 
             <template #item="{item, state, highlightFound}">

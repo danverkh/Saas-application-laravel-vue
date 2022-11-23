@@ -1,8 +1,8 @@
 <template>
     <div class="flex flex-col flex-nowrap w-full" :class="containerClass">
         <input :type="type"
-               class="input w-full text-md ring-1 ring-gray-300 px-4 py-1 hover:ring-2 hover:ring-primary/50 focus:ring-2 focus:ring-primary/50 focus:outline-none"
-               :class="{'bg-gray-50 text-gray-600': disabled || readonly, 'ring-red-500/50': error}"
+               class="input w-full text-md ring-1 ring-gray-300 px-4 py-1 hover:ring-2 hover:ring-accent/50 focus:ring-2 focus:ring-accent/50 focus:outline-none"
+               :class="{'bg-gray-50 text-gray-600': disabled || readonly, 'ring-red-500/75': error}"
                v-bind="$attrs"
                :disabled="disabled || readonly"
                :value="modelValue"

@@ -1,5 +1,5 @@
 <template>
-    <div :class="[disabled ? 'pointer-events-none opacity-75' : 'cursor-pointer', colorClasses]"
+    <div :class="[disabled ? 'pointer-events-none opacity-50' : 'cursor-pointer', colorClasses]"
          class="group flex flex-nowrap items-center justify-center pl-3 pr-5 py-5 text-lg md:text-base xl:text-md font-semibold text-white tracking-wider uppercase
                 select-none transition duration-500 ease-in-out transform rounded-2xl shadow-lg shadow-zinc-300 border overflow-hidden">
 

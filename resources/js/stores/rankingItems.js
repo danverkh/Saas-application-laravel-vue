@@ -37,5 +37,11 @@ export const useRankingItemsStore = defineStore('rankingItems', {
         saveSelectedItems() {
             useCart().setSelectedItems(this.items.filter(item => item.selected));
         },
+
+        contains(keyword) {
+            const keywordLowerCase = keyword.toLowerCase();
+
+            return this.items.find(i => i.keyword === keywordLowerCase);
+        },
     },
 });

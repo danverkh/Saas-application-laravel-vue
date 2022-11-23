@@ -96,9 +96,3 @@
         </script>
     @endpush
 </x-main-layout>
-<script>
-    import AddKeywordsModal from "@/pages/booking/AddKeywordsModal";
-    export default {
-        components: {AddKeywordsModal}
-    }
-</script>

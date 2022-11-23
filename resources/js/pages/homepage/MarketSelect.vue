@@ -4,11 +4,11 @@
             <div class="relative mt-1">
                 <ListboxLabel class="text-zinc-500">Market</ListboxLabel>
 
-                <ListboxButton class="relative w-full cursor-pointer rounded-lg bg-white mt-1 py-4 pl-2 sm:pl-3 pr-8 text-left ring-1 ring-zinc-300 hover:ring-2 hover:ring-primary/50 sm:text-sm transition-all focus:ring-2 focus:ring-primary/50 focus:outline-none">
+                <ListboxButton class="relative w-full cursor-pointer rounded-lg bg-white mt-1 py-4 pl-2 sm:pl-3 pr-8 text-left ring-1 ring-zinc-300 hover:ring-2 hover:ring-accent/50 sm:text-sm transition-all focus:ring-2 focus:ring-accent/50 focus:outline-none">
                     <span class="block truncate text-lg text-center font-semibold">{{ selectedItem.label }}</span>
                     <span class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
-                    <ChevronUpDownIcon class="h-5 w-5 text-zinc-400" aria-hidden="true" />
-                </span>
+                        <ChevronUpDownIcon class="h-5 w-5 text-zinc-400" aria-hidden="true" />
+                    </span>
                 </ListboxButton>
 
                 <transition
