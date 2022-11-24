@@ -35,7 +35,7 @@ class RankingsController extends Controller
             RateLimiter::hit($limiterKey);
 
             return $client->requestType(DataForSeoRequest::TYPE_DOMAIN_SEARCH)
-                          ->params($params['domain'], $params['market'])
+                          ->params(['domain' => $params['domain']], $params['market'])
                           ->fetch()
                           ->result(['assistant' => $params['assistant'] ?? null]);
         });

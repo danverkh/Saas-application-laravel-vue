@@ -7,7 +7,7 @@ use Illuminate\Support\Str;
 
 class Params
 {
-    public string $query;
+    public array  $params;
     public string $market;
     public int    $limit;
 
@@ -17,19 +17,37 @@ class Params
     public Country $country;
 
     /**
-     * @param string $query
+     * @param array  $params
      * @param string $market
      * @param int    $limit
      */
-    public function __construct(string $query, string $market, int $limit)
+    public function __construct(array $params, string $market, int $limit)
     {
-        $this->query  = $query;
+        $this->params = $params;
         $this->market = Str::upper($market);
         $this->limit  = $limit;
 
         $this->country = Country::where('iso2', $this->market)
                                 ->orWhere('tld', $this->market)
                                 ->first();
+    }
+
+    /**
+     * @param string $key
+     *
+     * @return mixed|null
+     */
+    public function get(string $key): mixed
+    {
+        return $this->params[$key] ?? null;
+    }
+
+    /**
+     * @return array
+     */
+    public function all(): array
+    {
+        return $this->params;
     }
 
     /**

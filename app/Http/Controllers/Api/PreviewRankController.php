@@ -32,7 +32,7 @@ class PreviewRankController extends Controller
 
             $data = Cache::remember($key, now()->addHours(3), static function () use ($client, $params) {
                 return $client->requestType(DataForSeoRequest::TYPE_GOOGLE_KEYWORD_ADVANCED)
-                              ->params($params['keyword'], $params['market'])
+                              ->params(['keyword' => $params['keyword']], $params['market'])
                               ->fetch()
                               ->result(['domain' => $params['domain']]);
             });

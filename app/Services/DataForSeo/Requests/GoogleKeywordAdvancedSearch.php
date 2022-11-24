@@ -12,7 +12,7 @@ class GoogleKeywordAdvancedSearch extends AbstractRequest
     public function fetch(): Result
     {
         $params[] = [
-            'keyword'       => $this->params->query,
+            'keyword'       => $this->params->get('keyword'),
             'location_name' => $this->params->getLocation(),
             'language_name' => $this->params->getLanguage(),
             'limit'         => $this->params->limit,
@@ -23,7 +23,7 @@ class GoogleKeywordAdvancedSearch extends AbstractRequest
 
         $data = [
             'hasPaidAds' => collect(data_get($result, 'tasks.0.result.0.item_types', []))->contains('paid'),
-            'keywords'   => $this->params->query,
+            'keywords'   => $this->params->get('keyword'),
         ];
 
         $items = collect($items)

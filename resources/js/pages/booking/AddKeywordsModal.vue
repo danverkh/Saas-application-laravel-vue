@@ -28,9 +28,9 @@
                         <table class="table table-zebra w-full">
                             <tbody>
                                 <tr v-for="(keywordItem, index) in keywords" :key="`keyword-${index}`" class="border-b border-gray-200 last:border-b-0">
-                                    <th class="py-2">{{ index + 1 }}.</th>
-                                    <td class="py-2 w-full" :class="{'text-red-500': keywordItem === keyword}">{{ keywordItem }}</td>
-                                    <td class="py-2">
+                                    <th class="py-2" :class="{'!bg-accent !bg-opacity-10': keywordItem.value === keyword}">{{ index + 1 }}.</th>
+                                    <td class="py-2 w-full" :class="{'!bg-accent !bg-opacity-10': keywordItem.value === keyword}">{{ keywordItem.value }}</td>
+                                    <td class="py-2" :class="{'!bg-accent !bg-opacity-10': keywordItem.value === keyword}">
                                         <svg @click="removeKeyword(index)" class="h-4 w-4 text-red-600 cursor-pointer" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
                                         </svg>
@@ -68,6 +68,7 @@ export default {
         return {
             keyword: '',
             keywords: [],
+            maxRetry: 2,
             requestPending: false,
         };
     },
@@ -92,9 +93,16 @@ export default {
     methods: {
         addKeyword() {
             if (this.keywordIsValid) {
-                this.keywords.push(this.keyword);
+                this.keywords.push({
+                    value: this.keyword,
+                    status: 'new',
+                    requestPending: false,
+                    retry: 0,
+                });
                 this.keyword = '';
                 this.$refs.keyword.focus();
+
+                this.validateKeyword(this.keywords[this.keywords.length - 1]);
             }
         },
 
@@ -106,24 +114,34 @@ export default {
             this.keywords = [];
         },
 
-        submit() {
-            this.requestPending = true;
-
+        validateKeyword(keyword) {
             const params = {
                 market: useCart().market,
                 domain: useCart().domain,
-                keywords: this.keywords,
+                keyword: keyword.value,
             };
 
-            axios.get(route('api.rankings'), {params})
-                .then(resp => {
+            keyword.requestPending = true;
 
+            axios.get(route('api.keyword.validate'), {params})
+                .then(({data}) => {
+                    keyword.status = data.result;
                 })
                 .catch(error => {
-                    console.error('Failed to submit keywords', error);
-                    GlobalNotification.error({title: 'Whoops, something went wrong', message: 'Please try again later.'});
+                    console.error('Failed to validate keyword', error);
+
+                    // retry
+                    if (keyword.retry < this.maxRetry) {
+                        keyword.retry++;
+                        this.validateKeyword(keyword);
+                    }
+                    // GlobalNotification.error({title: 'Whoops, something went wrong', message: 'Please try again later.'});
                 })
-                .finally(() => this.requestPending = false);
+                .finally(() => keyword.requestPending = false);
+        },
+
+        submit() {
+            this.requestPending = true;
         },
     },
 }

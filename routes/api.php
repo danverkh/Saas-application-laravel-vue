@@ -19,4 +19,4 @@ Route::get('preview/rank', [PreviewRankController::class, 'index'])->name('api.p
 Route::get('autosuggest/domain', [AutoSuggestController::class, 'domain'])->name('api.autosuggest.domain');
 Route::get('domain/market/guess', [DomainController::class, 'marketGuess'])->name('api.domain.market.guess');
 Route::post('book-a-demo', [BookADemoController::class, 'store'])->name('api.book_a_demo.submit');
-Route::get('keywords/validate', [KeywordsController::class, 'validateKeywords'])->name('api.keywords.validate');
+Route::get('keyword/validate', [KeywordsController::class, 'validateKeyword'])->name('api.keyword.validate');

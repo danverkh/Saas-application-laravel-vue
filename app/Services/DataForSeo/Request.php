@@ -30,15 +30,15 @@ class Request
     private string $requestType;
 
     /**
-     * @param string $query
+     * @param array  $params
      * @param string $market
      * @param int    $limit
      *
      * @return \App\Services\DataForSeo\Request
      */
-    public function params(string $query, string $market, int $limit = 500): self
+    public function params(array $params, string $market, int $limit = 500): self
     {
-        $this->params = new Params($query, $market, $limit);
+        $this->params = new Params($params, $market, $limit);
 
         return $this;
     }

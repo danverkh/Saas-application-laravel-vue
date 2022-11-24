@@ -14,7 +14,7 @@ class DomainSearch extends AbstractRequest
         $data = [];
 
         $items = $this->domainBySearchEngineRanking(
-            $this->ensureCorrectDomainFormat($this->params->query)
+            $this->ensureCorrectDomainFormat($this->params->get('domain'))
         );
 
         return new Result($data, $items);
