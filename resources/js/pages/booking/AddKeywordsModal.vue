@@ -1,5 +1,5 @@
 <template>
-    <Modal name="add-keywords-modal" classes="max-w-md px-10 py-9" @closed="clearKeywords">
+    <Modal name="add-keywords-modal" classes="max-w-md px-10 py-9">
         <div class="text-2xl text-center mb-5">Add your own keywords</div>
 
         <div class="flex flex-col gap-y-6">
@@ -28,12 +28,36 @@
                         <table class="table table-zebra w-full">
                             <tbody>
                                 <tr v-for="(keywordItem, index) in keywords" :key="`keyword-${index}`" class="border-b border-gray-200 last:border-b-0">
-                                    <th class="py-2" :class="{'!bg-accent !bg-opacity-10': keywordItem.value === keyword}">{{ index + 1 }}.</th>
-                                    <td class="py-2 w-full" :class="{'!bg-accent !bg-opacity-10': keywordItem.value === keyword}">{{ keywordItem.value }}</td>
+                                    <td class="pl-6 py-2 w-full text-lg font-semibold" :class="{'!bg-accent !bg-opacity-10': keywordItem.value === keyword}">
+                                        {{ keywordItem.value }}
+                                    </td>
+                                    <td>
+                                        <div>
+                                            <svg class="w-3 h-3" width="32" height="32" viewBox="0 0 24 24"><path fill="currentColor" d="m10 16.4l-4-4L7.4 11l2.6 2.6L16.6 7L18 8.4Z"/></svg>
+                                            possible
+                                        </div>
+
+                                        <div v-if="keywordItem.requestPending" class="flex">
+                                            <Spinner :size="16" :border-width="3" color="#3d83f6" class="-mb-0.5 mr-2"/>
+                                        </div>
+
+                                        <div v-else>
+                                            <div v-if="keywordItem.status === 'possible'">
+                                                <svg class="w-3 h-3" width="32" height="32" viewBox="0 0 24 24"><path fill="currentColor" d="m10 16.4l-4-4L7.4 11l2.6 2.6L16.6 7L18 8.4Z"/></svg>
+                                                possible
+                                            </div>
+
+                                            <div v-else-if="keywordItem.status === 'not_possible'">
+                                                not possible
+                                            </div>
+
+                                            <div v-else-if="keywordItem.status === 'failed'">
+                                                failed
+                                            </div>
+                                        </div>
+                                    </td>
                                     <td class="py-2" :class="{'!bg-accent !bg-opacity-10': keywordItem.value === keyword}">
-                                        <svg @click="removeKeyword(index)" class="h-4 w-4 text-red-600 cursor-pointer" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-                                        </svg>
+                                        <svg @click="removeKeyword(index)" class="h-4 w-4 text-red-600 cursor-pointer" width="32" height="32" viewBox="0 0 24 24"><g fill="none"><path fill-rule="evenodd" clip-rule="evenodd" d="M11 5a1 1 0 0 0-1 1h4a1 1 0 0 0-1-1h-2zm0-2a3 3 0 0 0-3 3H4a1 1 0 0 0 0 2h1v10a3 3 0 0 0 3 3h8a3 3 0 0 0 3-3V8h1a1 1 0 1 0 0-2h-4a3 3 0 0 0-3-3h-2zm0 8a1 1 0 1 0-2 0v5a1 1 0 1 0 2 0v-5zm4 0a1 1 0 1 0-2 0v5a1 1 0 1 0 2 0v-5z" fill="currentColor"/></g></svg>
                                     </td>
                                 </tr>
                             </tbody>
@@ -108,10 +132,6 @@ export default {
 
         removeKeyword(index) {
             this.keywords.splice(index, 1);
-        },
-
-        clearKeywords() {
-            this.keywords = [];
         },
 
         validateKeyword(keyword) {
