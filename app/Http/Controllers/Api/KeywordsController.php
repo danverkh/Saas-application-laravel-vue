@@ -77,9 +77,9 @@ class KeywordsController extends Controller
                 return $keywordIsRanked ? 'possible' : 'not_possible';
             });
         } catch (Exception $e) {
-            Log::notice("An Exception (likely timeout) occurred: " . $e->getMessage());
+            Log::notice("KeywordsController: An Exception (likely timeout) occurred: " . $e->getMessage());
 
-            return response()->json(['result' => 'failed'], Response::HTTP_REQUEST_TIMEOUT);
+            return response()->json(['result' => 'failed'], Response::HTTP_FAILED_DEPENDENCY);
         }
 
         return response()->json(

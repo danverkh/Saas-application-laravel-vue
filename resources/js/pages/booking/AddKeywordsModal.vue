@@ -1,5 +1,5 @@
 <template>
-    <Modal name="add-keywords-modal" classes="max-w-md px-10 py-9">
+    <Modal name="add-keywords-modal" classes="max-w-lg px-6 sm:px-10 py-7 sm:py-9">
         <div class="text-2xl text-center mb-5">Add your own keywords</div>
 
         <div class="flex flex-col gap-y-6">
@@ -22,53 +22,48 @@
                 <div v-if="keywordExistsInTheTable" class="text-xs text-red-600 mt-2">keyword already exists</div>
             </div>
 
-            <div class="border border-gray-200 rounded-lg">
-                <div v-if="keywords.length">
-                    <div class="overflow-x-auto">
-                        <table class="table table-zebra w-full">
-                            <tbody>
-                                <tr v-for="(keywordItem, index) in keywords" :key="`keyword-${index}`" class="border-b border-gray-200 last:border-b-0">
-                                    <td class="pl-6 py-2 w-full text-lg font-semibold" :class="{'!bg-accent !bg-opacity-10': keywordItem.value === keyword}">
-                                        {{ keywordItem.value }}
-                                    </td>
-                                    <td>
-                                        <div>
-                                            <svg class="w-3 h-3" width="32" height="32" viewBox="0 0 24 24"><path fill="currentColor" d="m10 16.4l-4-4L7.4 11l2.6 2.6L16.6 7L18 8.4Z"/></svg>
-                                            possible
-                                        </div>
+            <div v-if="keywords.length" class="border border-gray-200 rounded-lg">
+                <table class="table table-zebra w-full">
+                    <tbody>
+                        <tr v-for="(keywordItem, index) in keywords" :key="`keyword-${index}`" class="border-b border-gray-200 last:border-b-0">
+                            <td class="p-2 pl-4 text-sm font-semibold whitespace-normal w-2/3 overflow-hidden" :class="{'!bg-accent !bg-opacity-10': keywordItem.value === keyword}">
+                                {{ keywordItem.value }}
+                            </td>
+                            <td class="px-2 text-right" :class="{'!bg-accent !bg-opacity-10': keywordItem.value === keyword}">
+                                <div v-if="keywordItem.requestPending" class="flex">
+                                    <Spinner :size="16" :border-width="3" color="#3d83f6" class="-mb-0.5 mr-2"/>
+                                </div>
 
-                                        <div v-if="keywordItem.requestPending" class="flex">
-                                            <Spinner :size="16" :border-width="3" color="#3d83f6" class="-mb-0.5 mr-2"/>
-                                        </div>
+                                <div v-else>
+                                    <div v-if="keywordItem.status === 'possible'" class="badge badge-success gap-1 text-xs p-3">
+                                        <svg class="inline-block w-4 h-4 stroke-current -ml-0.5" width="32" height="32" viewBox="0 0 32 32"><path fill="currentColor" d="m13 24l-9-9l1.414-1.414L13 21.171L26.586 7.586L28 9L13 24z"/></svg>
+                                        possible
+                                    </div>
 
-                                        <div v-else>
-                                            <div v-if="keywordItem.status === 'possible'">
-                                                <svg class="w-3 h-3" width="32" height="32" viewBox="0 0 24 24"><path fill="currentColor" d="m10 16.4l-4-4L7.4 11l2.6 2.6L16.6 7L18 8.4Z"/></svg>
-                                                possible
-                                            </div>
+                                    <div v-else-if="keywordItem.status === 'not_possible'" class="badge badge-warning gap-1 text-xs p-3">
+                                        <span class="mr-1">✕</span>
+                                        not possible
+                                    </div>
 
-                                            <div v-else-if="keywordItem.status === 'not_possible'">
-                                                not possible
-                                            </div>
-
-                                            <div v-else-if="keywordItem.status === 'failed'">
-                                                failed
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td class="py-2" :class="{'!bg-accent !bg-opacity-10': keywordItem.value === keyword}">
-                                        <svg @click="removeKeyword(index)" class="h-4 w-4 text-red-600 cursor-pointer" width="32" height="32" viewBox="0 0 24 24"><g fill="none"><path fill-rule="evenodd" clip-rule="evenodd" d="M11 5a1 1 0 0 0-1 1h4a1 1 0 0 0-1-1h-2zm0-2a3 3 0 0 0-3 3H4a1 1 0 0 0 0 2h1v10a3 3 0 0 0 3 3h8a3 3 0 0 0 3-3V8h1a1 1 0 1 0 0-2h-4a3 3 0 0 0-3-3h-2zm0 8a1 1 0 1 0-2 0v5a1 1 0 1 0 2 0v-5zm4 0a1 1 0 1 0-2 0v5a1 1 0 1 0 2 0v-5z" fill="currentColor"/></g></svg>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-
-                <div v-else class="text-sm text-center bg-accent bg-opacity-10 p-4">Please add at least one keyword</div>
+                                    <div v-else-if="keywordItem.status === 'failed'" class="badge badge-error gap-1 text-xs p-3">
+                                        <span class="mr-1">✕</span>
+                                        failed
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="p-2" :class="{'!bg-accent !bg-opacity-10': keywordItem.value === keyword}">
+                                <svg @click="removeKeyword(index)" class="h-4 w-4 text-red-600 cursor-pointer" width="32" height="32" viewBox="0 0 24 24"><g fill="none"><path fill-rule="evenodd" clip-rule="evenodd" d="M11 5a1 1 0 0 0-1 1h4a1 1 0 0 0-1-1h-2zm0-2a3 3 0 0 0-3 3H4a1 1 0 0 0 0 2h1v10a3 3 0 0 0 3 3h8a3 3 0 0 0 3-3V8h1a1 1 0 1 0 0-2h-4a3 3 0 0 0-3-3h-2zm0 8a1 1 0 1 0-2 0v5a1 1 0 1 0 2 0v-5zm4 0a1 1 0 1 0-2 0v5a1 1 0 1 0 2 0v-5z" fill="currentColor"/></g></svg>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
 
-            <SubmitButton @click="submit" class="!py-3" :disabled="!keywords.length">Submit</SubmitButton>
+            <div v-else class="text-sm text-center text-accent bg-accent bg-opacity-10 p-4 rounded-lg ">Please add at least one keyword</div>
+
+            <div class="flex justify-end">
+                <SubmitButton @click="submit" class="!py-3 w-full !pl-5 sm:w-[210px]" :disabled="!canSubmitKeywords">Add keywords</SubmitButton>
+            </div>
         </div>
     </Modal>
 </template>
@@ -81,7 +76,6 @@ import SubmitButton from "@/components/SubmitButton.vue";
 import {useRankingItemsStore} from "@/stores/rankingItems";
 import axios from "axios";
 import {useCart} from "@/stores/cart";
-import GlobalNotification from "@/services/GlobalNotification";
 
 export default {
     name: 'AddKeywordsModal',
@@ -93,7 +87,6 @@ export default {
             keyword: '',
             keywords: [],
             maxRetry: 2,
-            requestPending: false,
         };
     },
 
@@ -111,6 +104,10 @@ export default {
 
         keywordExistsInTheTable() {
             return useRankingItemsStore().contains(this.keyword);
+        },
+
+        canSubmitKeywords() {
+            return this.keywords.some(i => i.status === 'possible');
         },
     },
 
@@ -161,7 +158,27 @@ export default {
         },
 
         submit() {
-            this.requestPending = true;
+            this.keywords.forEach(keyword => {
+                if (keyword.status === 'possible') {
+                    useRankingItemsStore().items.unshift({
+                        competition: null,
+                        cpc: null,
+                        current_rank: null,
+                        keyword: keyword.value,
+                        maximum_cost: null,
+                        projected_clicks: null,
+                        projected_traffic: null,
+                        search_volume: null,
+                        selected: false,
+                        traffic_cost: null,
+                        url: '',
+                    });
+
+                    useRankingItemsStore().add(useRankingItemsStore().items[0]);
+                }
+            });
+
+            this.keywords = this.keywords.filter(i => i.status !== 'possible');
         },
     },
 }
