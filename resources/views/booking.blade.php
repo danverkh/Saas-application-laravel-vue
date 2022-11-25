@@ -36,7 +36,7 @@
                         </div>
                     </x-card>
 
-                    <div class="bg-white shadow-lg rounded-2xl">
+                    <div class="bg-white shadow-lg rounded-2xl border-t-4 border-zinc-300">
                         <rankings-table market="{{ $market }}" domain="{{ $domain }}"></rankings-table>
                     </div>
                 </div>

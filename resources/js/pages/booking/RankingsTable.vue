@@ -1,4 +1,6 @@
 <template>
+    <RankingTableFilters/>
+
     <div class="overflow-x-auto xl:overflow-visible">
         <table v-if="!error" class="table table-compact w-full">
             <thead>
@@ -16,7 +18,7 @@
             </thead>
             <tbody>
             <template v-if="!loading">
-                <tr v-for="(item, index) in rankingItems.items" :key="`table-item-${index}`" :class="{selected: item.selected}">
+                <tr v-for="(item, index) in rankingItems.filteredItems" :key="`table-item-${index}`" :class="{selected: item.selected}">
                     <td class="whitespace-normal break-words min-w-[180px] font-medium white">
                         {{ withoutLastWord(item.keyword) }}
                         <span class="whitespace-nowrap">
@@ -94,11 +96,12 @@ import axios from 'axios';
 import Spinner from '@/components/Spinner.vue';
 import Modal from "@/services/Modal";
 import Url from "@/services/Url";
+import RankingTableFilters from "@/pages/booking/ranking/RankingTableFilters.vue";
 
 export default {
     name: "RankingsTable",
 
-    components: {Spinner},
+    components: {RankingTableFilters, Spinner},
 
     props: {
         market: String,
