@@ -49,7 +49,7 @@
                     </th>
                 </tr>
 
-                <tr v-if="rankingItems.filteredItems.length === 0" class="no-hover">
+                <tr v-if="rankingItems.filteredItems.length === 0 && rankingItems.items.length > 0" class="no-hover">
                     <td colspan="9" class="text-center !py-12">
                         <div class="text-zinc-600 text-lg mb-5 flex flex-col items-center">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-12 h-12 text-zinc-200 block mb-3">

@@ -9,9 +9,11 @@
         </div>
 
         <div class="flex-1 px-4">
-            <div v-if="filters.mustContainUrl" class="m-0 px-4 py-3 bg-zinc-100 hover:bg-zinc-300/40 rounded-lg inline-block flex-grow-0 text-sm font-medium border border-zinc-200">
+            <div v-if="filters.mustContainUrl" class="inline-flex items-center m-0 px-4 py-3 bg-zinc-100 hover:bg-zinc-300/40 rounded-lg flex-grow-0 text-sm font-medium border border-zinc-200">
+                <button class="btn btn-circle btn-ghost btn-xs mr-1 -ml-1 text-md" @click="toggleMustContainUrlFilter">
+                    <svg class="w-4 h-4" width="32" height="32" viewBox="0 0 36 36"><path fill="currentColor" d="m19.41 18l8.29-8.29a1 1 0 0 0-1.41-1.41L18 16.59l-8.29-8.3a1 1 0 0 0-1.42 1.42l8.3 8.29l-8.3 8.29A1 1 0 1 0 9.7 27.7l8.3-8.29l8.29 8.29a1 1 0 0 0 1.41-1.41Z" class="clr-i-outline clr-i-outline-path-1"/><path fill="none" d="M0 0h36v36H0z"/></svg>
+                </button>
                 with URL
-                <button class="btn btn-circle btn-xs ml-1.5" @click="toggleMustContainUrlFilter">&times;</button>
             </div>
         </div>
 
