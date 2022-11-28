@@ -9,6 +9,7 @@ export const useRankingItemsStore = defineStore('rankingItems', {
                 keyword: {
                     value: '',
                 },
+                mustContainUrl: false,
             },
         };
     },
@@ -18,7 +19,10 @@ export const useRankingItemsStore = defineStore('rankingItems', {
 
         filteredItems: (state) => {
             return state.items.filter(item => {
-                return (state.filters.keyword.value.length ? item.keyword.includes(state.filters.keyword.value) : true);
+                return state.filters.keyword.value.length
+                    ? item.keyword.includes(state.filters.keyword.value)
+                        && (!state.filters.mustContainUrl || (state.filters.mustContainUrl && item.url !== null))
+                    : true;
             });
         },
     },

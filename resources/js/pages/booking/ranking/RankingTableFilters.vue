@@ -1,10 +1,29 @@
 <template>
-    <div class="p-7 pb-6 relative md:max-w-md">
-        <svg class="w-6 h-6 text-zinc-400 absolute left-11 top-10" width="32" height="32" viewBox="0 0 24 24">
-            <path fill="currentColor" d="m21 19l-5.154-5.154a7 7 0 1 0-2 2L19 21l2-2zM5 10c0-2.757 2.243-5 5-5s5 2.243 5 5s-2.243 5-5 5s-5-2.243-5-5z"/>
-        </svg>
+    <div class="flex items-center justify-between p-7 pb-6">
+        <div class="relative md:max-w-sm">
+            <svg class="w-6 h-6 text-zinc-400 absolute left-4 top-3" width="32" height="32" viewBox="0 0 24 24">
+                <path fill="currentColor" d="m21 19l-5.154-5.154a7 7 0 1 0-2 2L19 21l2-2zM5 10c0-2.757 2.243-5 5-5s5 2.243 5 5s-2.243 5-5 5s-5-2.243-5-5z"/>
+            </svg>
 
-        <Input placeholder="Filter keywords" v-model="keyword" @change="debouncedFilter" class="text-zinc-900 text-base pl-14"/>
+            <Input placeholder="Filter keywords" v-model="keyword" @change="debouncedFilter" class="text-zinc-900 text-base pl-14"/>
+        </div>
+
+        <div class="flex-1 px-4">
+            <div v-if="filters.mustContainUrl" class="m-0 px-4 py-3 bg-zinc-100 hover:bg-zinc-300/40 rounded-lg inline-block flex-grow-0 text-sm font-medium border border-zinc-200">
+                with URL
+                <button class="btn btn-circle btn-xs ml-1.5" @click="toggleMustContainUrlFilter">&times;</button>
+            </div>
+        </div>
+
+        <div class="dropdown dropdown-end">
+            <label tabindex="0" class="btn btn-ghost text-sm">
+                <svg class="w-4 h-4 stroke-current mr-2" width="32" height="32" viewBox="0 0 24 24"><path fill="currentColor" d="M4.25 5.61C6.27 8.2 10 13 10 13v6c0 .55.45 1 1 1h2c.55 0 1-.45 1-1v-6s3.72-4.8 5.74-7.39A.998.998 0 0 0 18.95 4H5.04c-.83 0-1.3.95-.79 1.61z"/></svg>
+                Filters
+            </label>
+            <ul tabindex="0" class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52">
+                <li><a href="#" @click.prevent="toggleMustContainUrlFilter">Must contain URL</a></li>
+            </ul>
+        </div>
     </div>
 </template>
 
@@ -12,6 +31,7 @@
 import Input from "@/components/Input.vue";
 import debounce from "lodash/debounce";
 import {useRankingItemsStore} from "@/stores/rankingItems";
+import {mapState} from "pinia";
 
 export default {
     name: "RankingTableFilters",
@@ -24,6 +44,10 @@ export default {
         };
     },
 
+    computed: {
+        ...mapState(useRankingItemsStore, ['filters']),
+    },
+
     methods: {
         debouncedFilter: debounce(function () {
             this.setFilters();
@@ -31,6 +55,10 @@ export default {
 
         setFilters() {
             useRankingItemsStore().filters.keyword.value = this.keyword;
+        },
+
+        toggleMustContainUrlFilter() {
+            useRankingItemsStore().filters.mustContainUrl = !useRankingItemsStore().filters.mustContainUrl;
         },
     },
 }
