@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\KeywordsDataRequest;
 use App\Http\Requests\ValidateKeywordRequest;
 use App\Services\DataForSeo\Request as DataForSeoRequest;
 use Exception;
@@ -24,7 +25,7 @@ class KeywordsController extends Controller
         $key = "keyword-validate.{$request->keyword}.{$request->market}.{$request->domain}";
 
         try {
-            $result = Cache::remember($key, now()->addHours(3), static function () use ($request, $client) {
+            $response = Cache::remember($key, now()->addHours(3), static function () use ($request, $client) {
                 $keyword         = mb_convert_encoding($request->keyword, 'UTF-8');
                 $keywordIsRanked = false;
 
@@ -74,7 +75,21 @@ class KeywordsController extends Controller
                     }
                 }
 
-                return $keywordIsRanked ? 'possible' : 'not_possible';
+                if ($keywordIsRanked === 'possible') {
+                    $data = $client->requestType(DataForSeoRequest::TYPE_GOOGLE_ADS_SEARCH_VOLUME)
+                                   ->params(['keywords' => [$request->keyword]], $request->market)
+                                   ->fetch()
+                                   ->rawResult();
+
+                    if ($data['search_volume'] === null) { // OR cpc which we don't have
+                        $keywordIsRanked = 'not_possible';
+                    }
+                }
+
+                return [
+                    'result' => $keywordIsRanked ? 'possible' : 'not_possible',
+                    'data'   => $data ?? null,
+                ];
             });
         } catch (Exception $e) {
             Log::notice("KeywordsController: An Exception (likely timeout) occurred: " . $e->getMessage());
@@ -83,8 +98,8 @@ class KeywordsController extends Controller
         }
 
         return response()->json(
-            ['result' => $result],
-            ($result === 'failed') ? Response::HTTP_FAILED_DEPENDENCY : Response::HTTP_OK
+            $response,
+            ($response['result'] === 'failed') ? Response::HTTP_FAILED_DEPENDENCY : Response::HTTP_OK
         );
     }
 }

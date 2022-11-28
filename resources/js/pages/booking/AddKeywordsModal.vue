@@ -51,7 +51,7 @@
                                     </div>
                                 </div>
                             </td>
-                            <td class="p-2" :class="{'!bg-accent !bg-opacity-10': keywordItem.value === keyword}">
+                            <td class="p-2 pr-4" :class="{'!bg-accent !bg-opacity-10': keywordItem.value === keyword}">
                                 <svg @click="removeKeyword(index)" class="h-4 w-4 text-red-600 cursor-pointer" width="32" height="32" viewBox="0 0 24 24"><g fill="none"><path fill-rule="evenodd" clip-rule="evenodd" d="M11 5a1 1 0 0 0-1 1h4a1 1 0 0 0-1-1h-2zm0-2a3 3 0 0 0-3 3H4a1 1 0 0 0 0 2h1v10a3 3 0 0 0 3 3h8a3 3 0 0 0 3-3V8h1a1 1 0 1 0 0-2h-4a3 3 0 0 0-3-3h-2zm0 8a1 1 0 1 0-2 0v5a1 1 0 1 0 2 0v-5zm4 0a1 1 0 1 0-2 0v5a1 1 0 1 0 2 0v-5z" fill="currentColor"/></g></svg>
                             </td>
                         </tr>
@@ -87,6 +87,7 @@ export default {
             keyword: '',
             keywords: [],
             maxRetry: 2,
+            submittingKeywords: false,
         };
     },
 
@@ -143,6 +144,9 @@ export default {
             axios.get(route('api.keyword.validate'), {params})
                 .then(({data}) => {
                     keyword.status = data.result;
+                    keyword.data = data.data;
+
+                    keyword.requestPending = false;
                 })
                 .catch(error => {
                     console.error('Failed to validate keyword', error);
@@ -151,13 +155,16 @@ export default {
                     if (keyword.retry < this.maxRetry) {
                         keyword.retry++;
                         this.validateKeyword(keyword);
+                    } else {
+                        keyword.status = 'failed';
+                        keyword.requestPending = false;
                     }
-                    // GlobalNotification.error({title: 'Whoops, something went wrong', message: 'Please try again later.'});
-                })
-                .finally(() => keyword.requestPending = false);
+                });
         },
 
         submit() {
+            this.submittingKeywords = true;
+
             this.keywords.forEach(keyword => {
                 if (keyword.status === 'possible') {
                     useRankingItemsStore().items.unshift({

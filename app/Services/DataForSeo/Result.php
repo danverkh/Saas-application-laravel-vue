@@ -15,13 +15,20 @@ class Result
     private array $items;
 
     /**
+     * @var array
+     */
+    private array $result;
+
+    /**
      * @param array $data
      * @param array $items
+     * @param array $result
      */
-    public function __construct(array $data, array $items)
+    public function __construct(array $data, array $items, array $result = [])
     {
         $this->data  = $data;
         $this->items = $items;
+        $this->result = $result;
     }
 
     /**
@@ -38,5 +45,13 @@ class Result
     public function items(): array
     {
         return $this->items;
+    }
+
+    /**
+     * @return array
+     */
+    public function get(): array
+    {
+        return $this->result;
     }
 }
