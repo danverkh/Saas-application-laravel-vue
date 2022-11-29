@@ -1,5 +1,6 @@
 <template>
     <RankingTableFilters/>
+    <SetFilterModal/>
 
     <div class="overflow-x-auto xl:overflow-visible">
         <table v-if="!error" class="table table-compact w-full">
@@ -111,11 +112,12 @@ import Spinner from '@/components/Spinner.vue';
 import Modal from "@/services/Modal";
 import Url from "@/services/Url";
 import RankingTableFilters from "@/pages/booking/ranking/RankingTableFilters.vue";
+import SetFilterModal from "@/pages/booking/ranking/SetFilterModal.vue";
 
 export default {
     name: "RankingsTable",
 
-    components: {RankingTableFilters, Spinner},
+    components: {SetFilterModal, RankingTableFilters, Spinner},
 
     props: {
         market: String,

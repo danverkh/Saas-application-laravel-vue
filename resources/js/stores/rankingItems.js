@@ -10,6 +10,18 @@ export const useRankingItemsStore = defineStore('rankingItems', {
                     value: '',
                 },
                 mustContainUrl: false,
+                searchVolume: {
+                    value: null,
+                    comparisonOperator: null,
+                },
+                cpc: {
+                    value: null,
+                    comparisonOperator: null,
+                },
+                rank: {
+                    value: null,
+                    comparisonOperator: null,
+                },
             },
         };
     },
@@ -18,12 +30,27 @@ export const useRankingItemsStore = defineStore('rankingItems', {
         selectedItems: (state) => state.items.filter(item => item.selected),
 
         filteredItems: (state) => {
-            return state.items.filter(item => {
+            let items = state.items.filter(item => {
                 return state.filters.keyword.value.length
                     ? item.keyword.includes(state.filters.keyword.value)
-                        && (!state.filters.mustContainUrl || (state.filters.mustContainUrl && item.url !== null))
                     : true;
             });
+
+            if (state.filters.mustContainUrl) {
+                items = items.filter(item => item.url !== null && item.url?.length > 0);
+            }
+
+            if (state.filters.searchVolume.value !== null) {
+                items = items.filter(item => {
+                    if (state.filters.searchVolume.comparisonOperator === 'greater' && item.search_volume > state.filters.searchVolume.value) {
+                        return true;
+                    } else if (state.filters.searchVolume.comparisonOperator === 'smaller' && item.search_volume < state.filters.searchVolume.value) {
+                        return true;
+                    }
+                });
+            }
+
+            return items;
         },
     },
 
