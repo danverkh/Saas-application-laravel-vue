@@ -1,6 +1,6 @@
 class Url {
     constructor() {
-        this.parameters  = new URLSearchParams(window.location.search);
+        this.parameters = new URLSearchParams(window.location.search);
     }
 
     getParam(key, defaultValue = null) {

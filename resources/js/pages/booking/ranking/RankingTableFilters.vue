@@ -70,6 +70,8 @@ import Modal from "@/services/Modal";
 import debounce from "lodash/debounce";
 import {mapState} from "pinia";
 import {useRankingItemsStore} from "@/stores/rankingItems";
+import Url from "@/services/Url";
+import queryString from 'query-string';
 
 export default {
     name: "RankingTableFilters",
@@ -84,6 +86,25 @@ export default {
 
     computed: {
         ...mapState(useRankingItemsStore, ['filters']),
+    },
+
+    watch: {
+        filters: {
+            handler(filters) {
+                let params = Object.keys(filters).filter(key => filters[key].value);
+                console.log(params);
+                params = queryString.stringify(params);
+
+                window.history.replaceState(null, null, params);
+            },
+            deep: true,
+        },
+    },
+
+    mounted() {
+        Url.parameters.forEach((value, key) => {
+
+        });
     },
 
     methods: {
