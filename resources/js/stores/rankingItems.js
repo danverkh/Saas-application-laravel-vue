@@ -85,5 +85,15 @@ export const useRankingItemsStore = defineStore('rankingItems', {
 
             return this.items.find(i => i.keyword === keywordLowerCase);
         },
+
+        addFilter(filter, value, operator) {
+            this.filters[filter].value = value;
+            this.filters[filter].comparisonOperator = operator;
+        },
+
+        removeFilter(filter) {
+            this.filters[filter].value = null;
+            this.filters[filter].comparisonOperator = null;
+        },
     },
 });

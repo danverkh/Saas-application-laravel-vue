@@ -1,5 +1,5 @@
 <template>
-    <Modal name="set-filter-modal" classes="max-w-md px-6 sm:px-10 py-7 sm:py-9" @opened="reset">
+    <Modal name="set-filter-modal" classes="max-w-md px-6 sm:px-10 py-7 sm:py-9" @opened="opened">
         <div class="text-2xl text-center mb-6">Set filter for {{ filterLabel }}</div>
 
         <div class="flex flex-nowrap items-center">
@@ -17,8 +17,8 @@
         </div>
 
         <div class="flex justify-end mt-6">
-            <button @click="submit" class="btn btn-success px-12" :class="{'pointer-events-none opacity-25': !valid}">
-                Set
+            <button @click="submit" class="btn btn-primary px-8" :class="{'pointer-events-none opacity-25': !valid}">
+                Set filter
             </button>
         </div>
     </Modal>
@@ -57,7 +57,7 @@ export default {
         },
 
         valid() {
-            return isNumber(this.value);
+            return isNumber(this.value) && this.value > 0;
         },
     },
 
@@ -70,14 +70,14 @@ export default {
     },
 
     methods: {
-        reset() {
-            this.comparisonOperator = 'greater';
+        opened() {
+            this.value = useRankingItemsStore().filters[this.filter].value || 0;
+            this.comparisonOperator = useRankingItemsStore().filters[this.filter].comparisonOperator || 'greater';
         },
 
         submit() {
             if (this.valid) {
-                useRankingItemsStore().filters[this.filter].value = this.value;
-                useRankingItemsStore().filters[this.filter].comparisonOperator = this.comparisonOperator;
+                useRankingItemsStore().addFilter(this.filter, this.value, this.comparisonOperator);
 
                 ModalService.close('set-filter-modal');
             }

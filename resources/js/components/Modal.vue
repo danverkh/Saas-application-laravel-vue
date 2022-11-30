@@ -1,6 +1,6 @@
 <template>
     <Teleport to="body">
-        <input type="checkbox" v-model="opened" :id="name" class="modal-toggle"/>
+        <input type="checkbox" ref="modalCheckbox" v-model="opened" :id="name" class="modal-toggle" @change="stateChanged"/>
         <label :for="name" class="modal py-10 overflow-y-auto" @click="close">
             <div class="modal-box max-h-max m-auto" :class="[classes, width, overflow]">
                 <label :for="name" class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2 z-50 hover:text-primary hover:bg-primary-50/50">✕</label>
@@ -38,12 +38,6 @@ export default {
         };
     },
 
-    watch: {
-        opened(value) {
-            if (value) this.$emit('opened');
-        },
-    },
-
     mounted() {
         document.addEventListener('keyup', event => {
             if (this.opened && event.key === 'Escape') {
@@ -54,6 +48,10 @@ export default {
     },
 
     methods: {
+        stateChanged(event) {
+            if (event.target.checked) this.$emit('opened');
+        },
+
         close(event) {
             if (event.target.nodeName !== 'LABEL' && event.target.nodeName !== 'A' && event.target.className !== 'modal') {
                 event.preventDefault();
