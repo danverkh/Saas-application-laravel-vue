@@ -147,7 +147,7 @@ export default {
             const params = {
                 market: this.market,
                 domain: this.domain,
-                assistant: Url.getParam('assistant'),
+                assistant: Url.getQueryParam('assistant'),
             };
 
             axios.get(route('api.rankings'), {params})

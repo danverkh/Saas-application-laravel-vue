@@ -1,10 +1,28 @@
+import cloneDeep from "lodash/cloneDeep";
+import queryParser from "nested-query-parser";
+
 class Url {
     constructor() {
-        this.parameters = new URLSearchParams(window.location.search);
+        this.parameters = queryParser.decode(window.location.search);
     }
 
-    getParam(key, defaultValue = null) {
-        return this.parameters.get(key) || defaultValue;
+    getQueryParam(key, defaultValue = null) {
+        return this.parameters[key] || defaultValue;
+    }
+
+    setQueryParams(params) {
+        let newParams = cloneDeep(params);
+
+        Object.keys(newParams).forEach(key => {
+            if (!newParams[key].value) {
+                delete newParams[key];
+            }
+        });
+        window.history.replaceState(null, null, queryParser.encode(newParams) || window.location.pathname);
+    }
+
+    allQueryParams() {
+        return this.parameters;
     }
 }
 

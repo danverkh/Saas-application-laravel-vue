@@ -9,14 +9,14 @@
         </div>
 
         <div class="flex-1 px-4 flex flex-wrap gap-3">
-            <AppliedFilter v-if="filters.mustContainUrl"
-                           @removed="toggleMustContainUrlFilter">
+            <AppliedFilter v-if="filters.mustContainUrl.value"
+                           @removed="toggleMustContainUrl">
                 contains URL
             </AppliedFilter>
 
             <AppliedFilter v-if="filters.searchVolume.value"
                            :value="filters.searchVolume.value"
-                           :operator="filters.searchVolume.comparisonOperator"
+                           :operator="filters.searchVolume.operator"
                            @click="setFilterModal('searchVolume')"
                            @removed="removeFilter('searchVolume')">
                 Search volume
@@ -24,7 +24,7 @@
 
             <AppliedFilter v-if="filters.cpc.value"
                            :value="filters.cpc.value"
-                           :operator="filters.cpc.comparisonOperator"
+                           :operator="filters.cpc.operator"
                            @click="setFilterModal('cpc')"
                            @removed="removeFilter('cpc')">
                 CPC
@@ -32,7 +32,7 @@
 
             <AppliedFilter v-if="filters.rank.value"
                            :value="filters.rank.value"
-                           :operator="filters.rank.comparisonOperator"
+                           :operator="filters.rank.operator"
                            @click="setFilterModal('rank')"
                            @removed="removeFilter('rank')">
                 Rank
@@ -46,7 +46,7 @@
             </label>
             <ul tabindex="0" class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52 space-y-1">
                 <li>
-                    <a href="#" @click.prevent="toggleMustContainUrlFilter" :class="{'text-zinc-500/60': filters.mustContainUrl}">Must contain URL</a>
+                    <a href="#" @click.prevent="toggleMustContainUrl" :class="{'text-zinc-500/60': filters.mustContainUrl.value}">Must contain URL</a>
                 </li>
                 <li>
                     <a href="#" @click.prevent="setFilterModal('searchVolume')" :class="{'text-zinc-500/60': filters.searchVolume.value}">Search volume</a>
@@ -71,7 +71,6 @@ import debounce from "lodash/debounce";
 import {mapState} from "pinia";
 import {useRankingItemsStore} from "@/stores/rankingItems";
 import Url from "@/services/Url";
-import queryString from 'query-string';
 
 export default {
     name: "RankingTableFilters",
@@ -91,20 +90,14 @@ export default {
     watch: {
         filters: {
             handler(filters) {
-                let params = Object.keys(filters).filter(key => filters[key].value);
-                console.log(params);
-                params = queryString.stringify(params);
-
-                window.history.replaceState(null, null, params);
+                Url.setQueryParams(filters);
             },
             deep: true,
         },
     },
 
     mounted() {
-        Url.parameters.forEach((value, key) => {
-
-        });
+        this.setFiltersFromUrl();
     },
 
     methods: {
@@ -113,8 +106,8 @@ export default {
             useRankingItemsStore().filters[key].value = value;
         }, 300),
 
-        toggleMustContainUrlFilter() {
-            useRankingItemsStore().filters.mustContainUrl = !useRankingItemsStore().filters.mustContainUrl;
+        toggleMustContainUrl() {
+            useRankingItemsStore().filters.mustContainUrl.value = !useRankingItemsStore().filters.mustContainUrl.value;
         },
 
         setFilterModal(filter) {
@@ -124,6 +117,14 @@ export default {
 
         removeFilter(filter) {
             useRankingItemsStore().removeFilter(filter);
+        },
+
+        setFiltersFromUrl() {
+            const params = Url.allQueryParams();
+
+            Object.keys(params).forEach(key => {
+                this.filters[key] = params[key];
+            });
         },
     },
 }

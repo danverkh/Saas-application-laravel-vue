@@ -4,7 +4,7 @@
 
         <div class="flex flex-nowrap items-center">
             <div class="min-w-[120px] z-10">
-                <Select v-model="comparisonOperator" :options="comparisonOperators" :placeholder="null" class="rounded-r-none"></Select>
+                <Select v-model="operator" :options="operators" :placeholder="null" class="rounded-r-none"></Select>
             </div>
 
             <div class="px-3 py-2.5 text-lg bg-zinc-200 border border-zinc-300">
@@ -43,8 +43,8 @@ export default {
         return {
             filter: null,
             value: 0,
-            comparisonOperator: 'greater',
-            comparisonOperators: [
+            operator: 'greater',
+            operators: [
                 {value: 'greater', label: 'Greater'},
                 {value: 'smaller', label: 'Smaller'},
             ],
@@ -72,12 +72,12 @@ export default {
     methods: {
         opened() {
             this.value = useRankingItemsStore().filters[this.filter].value || 0;
-            this.comparisonOperator = useRankingItemsStore().filters[this.filter].comparisonOperator || 'greater';
+            this.operator = useRankingItemsStore().filters[this.filter].operator || 'greater';
         },
 
         submit() {
             if (this.valid) {
-                useRankingItemsStore().addFilter(this.filter, this.value, this.comparisonOperator);
+                useRankingItemsStore().addFilter(this.filter, this.value, this.operator);
 
                 ModalService.close('set-filter-modal');
             }

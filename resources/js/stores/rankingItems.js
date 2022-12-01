@@ -9,18 +9,20 @@ export const useRankingItemsStore = defineStore('rankingItems', {
                 keyword: {
                     value: '',
                 },
-                mustContainUrl: false,
+                mustContainUrl: {
+                    value: false,
+                },
                 searchVolume: {
                     value: null,
-                    comparisonOperator: null,
+                    operator: null,
                 },
                 cpc: {
                     value: null,
-                    comparisonOperator: null,
+                    operator: null,
                 },
                 rank: {
                     value: null,
-                    comparisonOperator: null,
+                    operator: null,
                 },
             },
         };
@@ -42,9 +44,9 @@ export const useRankingItemsStore = defineStore('rankingItems', {
 
             if (state.filters.searchVolume.value !== null) {
                 items = items.filter(item => {
-                    if (state.filters.searchVolume.comparisonOperator === 'greater' && item.search_volume > state.filters.searchVolume.value) {
+                    if (state.filters.searchVolume.operator === 'greater' && item.search_volume > state.filters.searchVolume.value) {
                         return true;
-                    } else if (state.filters.searchVolume.comparisonOperator === 'smaller' && item.search_volume < state.filters.searchVolume.value) {
+                    } else if (state.filters.searchVolume.operator === 'smaller' && item.search_volume < state.filters.searchVolume.value) {
                         return true;
                     }
                 });
@@ -88,12 +90,12 @@ export const useRankingItemsStore = defineStore('rankingItems', {
 
         addFilter(filter, value, operator) {
             this.filters[filter].value = value;
-            this.filters[filter].comparisonOperator = operator;
+            this.filters[filter].operator = operator;
         },
 
         removeFilter(filter) {
             this.filters[filter].value = null;
-            this.filters[filter].comparisonOperator = null;
+            this.filters[filter].operator = null;
         },
     },
 });
