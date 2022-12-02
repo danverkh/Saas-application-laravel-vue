@@ -187,6 +187,7 @@ export default {
                         });
 
                         useRankingItemsStore().add(useRankingItemsStore().items[0]);
+                        useRankingItemsStore().addUserAddedItem(useRankingItemsStore().items[0]);
                     }
                 });
 

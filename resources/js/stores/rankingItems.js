@@ -2,9 +2,14 @@ import {defineStore} from 'pinia'
 import {useCart} from './cart';
 
 export const useRankingItemsStore = defineStore('rankingItems', {
+    persist: {
+        paths: ['userAddedItems'],
+    },
+
     state: () => {
         return {
             items: [],
+            userAddedItems: {}, // users own keywords
             filters: {
                 keyword: {
                     value: '',
@@ -58,6 +63,12 @@ export const useRankingItemsStore = defineStore('rankingItems', {
 
     actions: {
         setItems(items) {
+            const key = useCart().domain +'_'+ useCart().market;
+
+            if (Object.keys(this.userAddedItems).length && this.userAddedItems[key]) {
+                items = this.userAddedItems[key].concat(items);
+            }
+
             const savedSelections = useCart().selectedItems;
 
             this.items = items.map(item => {
@@ -80,6 +91,16 @@ export const useRankingItemsStore = defineStore('rankingItems', {
 
         saveSelectedItems() {
             useCart().setSelectedItems(this.items.filter(item => item.selected));
+        },
+
+        addUserAddedItem(item) {
+            const key = useCart().domain +'_'+ useCart().market;
+
+            if (this.userAddedItems[key]) {
+                this.userAddedItems[key].push(item);
+            } else {
+                this.userAddedItems[key] = [item];
+            }
         },
 
         contains(keyword) {
