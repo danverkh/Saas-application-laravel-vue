@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\KeywordsDataRequest;
 use App\Http\Requests\ValidateKeywordRequest;
+use App\Services\DataForSeo\Modifiers\Actions\CalculateMissingValues;
 use App\Services\DataForSeo\Request as DataForSeoRequest;
 use Exception;
 use Illuminate\Http\JsonResponse;
@@ -75,14 +75,21 @@ class KeywordsController extends Controller
                     }
                 }
 
-                if ($keywordIsRanked === 'possible') {
+                if ($keywordIsRanked) {
                     $data = $client->requestType(DataForSeoRequest::TYPE_GOOGLE_ADS_SEARCH_VOLUME)
                                    ->params(['keywords' => [$request->keyword]], $request->market)
                                    ->fetch()
                                    ->rawResult();
 
-                    if ($data['search_volume'] === null) { // OR cpc which we don't have
-                        $keywordIsRanked = 'not_possible';
+                    if ($data['search_volume'] === null || $data['high_top_of_page_bid'] === null) {
+                        $keywordIsRanked = false;
+                    } else {
+                        $data = [
+                            'cpc'           => $data['high_top_of_page_bid'],
+                            'search_volume' => $data['search_volume'],
+                        ];
+
+                        $data = array_merge($data, CalculateMissingValues::calculate($data));
                     }
                 }
 

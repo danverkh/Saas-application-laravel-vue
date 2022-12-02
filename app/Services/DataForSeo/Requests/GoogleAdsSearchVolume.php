@@ -15,7 +15,6 @@ class GoogleAdsSearchVolume extends AbstractRequest
             'keywords'        => $this->params->get('keywords'),
             'location_name'   => $this->params->getLocation(),
             'language_name'   => $this->params->getLanguage(),
-            'date_from'       => now()->subMonth()->format('Y-m-d'),
             'search_partners' => true,
         ];
 

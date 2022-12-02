@@ -38,7 +38,7 @@ export const useRankingItemsStore = defineStore('rankingItems', {
                     : true;
             });
 
-            if (state.filters.mustContainUrl) {
+            if (state.filters.mustContainUrl.value) {
                 items = items.filter(item => item.url !== null && item.url?.length > 0);
             }
 

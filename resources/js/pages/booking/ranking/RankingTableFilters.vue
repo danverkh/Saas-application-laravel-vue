@@ -46,16 +46,16 @@
             </label>
             <ul tabindex="0" class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52 space-y-1">
                 <li>
-                    <a href="#" @click.prevent="toggleMustContainUrl" :class="{'text-zinc-500/60': filters.mustContainUrl.value}">Must contain URL</a>
+                    <button @click.prevent="toggleMustContainUrl" :class="{'text-zinc-500/60': filters.mustContainUrl.value}">Must contain URL</button>
                 </li>
                 <li>
-                    <a href="#" @click.prevent="setFilterModal('searchVolume')" :class="{'text-zinc-500/60': filters.searchVolume.value}">Search volume</a>
+                    <button @click.prevent="setFilterModal('searchVolume')" :class="{'text-zinc-500/60': filters.searchVolume.value}">Search volume</button>
                 </li>
                 <li>
-                    <a href="#" @click.prevent="setFilterModal('cpc')" :class="{'text-zinc-500/60': filters.cpc.value}">CPC</a>
+                    <button @click.prevent="setFilterModal('cpc')" :class="{'text-zinc-500/60': filters.cpc.value}">CPC</button>
                 </li>
                 <li>
-                    <a href="#" @click.prevent="setFilterModal('rank')" :class="{'text-zinc-500/60': filters.rank.value}">Rank</a>
+                    <button @click.prevent="setFilterModal('rank')" :class="{'text-zinc-500/60': filters.rank.value}">Rank</button>
                 </li>
             </ul>
         </div>

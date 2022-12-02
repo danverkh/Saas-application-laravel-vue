@@ -62,7 +62,10 @@
             <div v-else class="text-sm text-center text-accent bg-accent bg-opacity-10 p-4 rounded-lg ">Please add at least one keyword</div>
 
             <div class="flex justify-end">
-                <SubmitButton @click="submit" class="!py-3 w-full !pl-5 sm:w-[210px]" :disabled="!canSubmitKeywords">Add keywords</SubmitButton>
+                <SubmitButton @click="submit" class="!py-3 w-full !pl-5 sm:w-[210px]" :disabled="!canSubmitKeywords || submittingKeywords">
+                    <Spinner v-if="submittingKeywords" color="#fff" :size="22" :border-width="4"></Spinner>
+                    <span v-else>Add keywords</span>
+                </SubmitButton>
             </div>
         </div>
     </Modal>
@@ -70,6 +73,7 @@
 
 <script>
 import Modal from "@/components/Modal.vue";
+import ModalService from "@/services/Modal";
 import Spinner from "@/components/Spinner.vue";
 import Input from "@/components/Input.vue";
 import SubmitButton from "@/components/SubmitButton.vue";
@@ -165,27 +169,33 @@ export default {
         submit() {
             this.submittingKeywords = true;
 
-            this.keywords.forEach(keyword => {
-                if (keyword.status === 'possible') {
-                    useRankingItemsStore().items.unshift({
-                        competition: null,
-                        cpc: null,
-                        current_rank: null,
-                        keyword: keyword.value,
-                        maximum_cost: null,
-                        projected_clicks: null,
-                        projected_traffic: null,
-                        search_volume: null,
-                        selected: false,
-                        traffic_cost: null,
-                        url: '',
-                    });
+            setTimeout(() => {
+                this.keywords.forEach(keyword => {
+                    if (keyword.status === 'possible') {
+                        useRankingItemsStore().items.unshift({
+                            competition: null,
+                            cpc: keyword.data.cpc,
+                            current_rank: '-',
+                            keyword: keyword.value,
+                            maximum_cost: keyword.data.maximum_cost,
+                            projected_clicks: keyword.data.projected_clicks,
+                            projected_traffic: keyword.data.projected_traffic,
+                            search_volume: keyword.data.search_volume,
+                            selected: false,
+                            traffic_cost: null,
+                            url: '-',
+                        });
 
-                    useRankingItemsStore().add(useRankingItemsStore().items[0]);
-                }
-            });
+                        useRankingItemsStore().add(useRankingItemsStore().items[0]);
+                    }
+                });
 
-            this.keywords = this.keywords.filter(i => i.status !== 'possible');
+                this.keywords = this.keywords.filter(i => i.status !== 'possible');
+
+                ModalService.close('add-keywords-modal');
+
+                this.submittingKeywords = false;
+            }, 200);
         },
     },
 }
