@@ -1,5 +1,5 @@
 <template>
-    <RankingTableFilters/>
+    <RankingTableFilters v-if="!error"/>
     <SetFilterModal/>
 
     <div class="overflow-x-auto xl:overflow-visible">
@@ -7,7 +7,7 @@
             <thead>
             <tr>
                 <th class="cursor-default !static">Keyword</th>
-                <th><span class="tooltip cursor-default" data-tip="Search volume">Search Volume</span></th>
+                <th><span class="tooltip cursor-default" data-tip="Search volume">Search<br>Volume</span></th>
                 <th class="text-right"><span class="tooltip cursor-default" data-tip="Cost per click">CPC</span></th>
                 <th><span class="tooltip cursor-default" data-tip="Current rank">Rank</span></th>
                 <th class="min-w-[160px]"><span class="tooltip cursor-default" data-tip="Website page URL">URL</span></th>
@@ -29,8 +29,12 @@
                             </svg>
                         </span>
                     </td>
-                    <td class="text-right">{{ item.search_volume }}</td>
-                    <td class="text-right">{{ item.cpc ? money(item.cpc) : '-' }}</td>
+                    <td class="text-right">
+                        <search-volume-bar :value="item.search_volume" class="min-w-[60px]"/>
+                    </td>
+                    <td class="text-right">
+                        <cpc-bar :value="item.cpc" class="min-w-[60px]"/>
+                    </td>
                     <td class="text-right">{{ item.current_rank }}</td>
                     <td class="whitespace-normal break-all" v-html="muteDomain(item.url)"></td>
                     <td class="text-right">{{ item.projected_clicks ? number(item.projected_clicks, 1) : '-' }}</td>
@@ -113,11 +117,13 @@ import Modal from "@/services/Modal";
 import Url from "@/services/Url";
 import RankingTableFilters from "@/pages/booking/ranking/RankingTableFilters.vue";
 import SetFilterModal from "@/pages/booking/ranking/SetFilterModal.vue";
+import SearchVolumeBar from "@/pages/booking/ranking/SearchVolumeBar.vue";
+import CpcBar from "@/pages/booking/ranking/CpcBar.vue";
 
 export default {
     name: "RankingsTable",
 
-    components: {SetFilterModal, RankingTableFilters, Spinner},
+    components: {CpcBar, SearchVolumeBar, SetFilterModal, RankingTableFilters, Spinner},
 
     props: {
         market: String,

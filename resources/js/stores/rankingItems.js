@@ -1,5 +1,6 @@
 import {defineStore} from 'pinia'
 import {useCart} from './cart';
+import maxBy from 'lodash/maxBy';
 
 export const useRankingItemsStore = defineStore('rankingItems', {
     persist: {
@@ -30,6 +31,10 @@ export const useRankingItemsStore = defineStore('rankingItems', {
                     operator: null,
                 },
             },
+            max: {
+                searchVolume: 0,
+                cpc: 0,
+            },
         };
     },
 
@@ -56,6 +61,9 @@ export const useRankingItemsStore = defineStore('rankingItems', {
                     }
                 });
             }
+
+            state.max.searchVolume = maxBy(items, 'search_volume').search_volume;
+            state.max.cpc = maxBy(items, 'cpc').cpc;
 
             return items;
         },
