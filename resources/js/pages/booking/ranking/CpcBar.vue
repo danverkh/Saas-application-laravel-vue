@@ -1,7 +1,7 @@
 <template>
     <div class="w-full bg-zinc-400 my-3 rounded-xl overflow-hidden">
-        <div class="bg-primary text-xs text-white text-left px-2.5 font-medium" :style="{width: `${percentage}%`}">
-            {{ value ? money(value) : '-' }}
+        <div class="bg-primary text-[11px] text-white text-left px-2.5 font-medium" :style="{width: `${percentage}%`}">
+            {{ value ? money(value, {precision: 1}) : '-' }}
         </div>
     </div>
 </template>

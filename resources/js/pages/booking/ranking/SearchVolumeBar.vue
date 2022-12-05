@@ -1,6 +1,6 @@
 <template>
     <div class="w-full bg-zinc-400 my-3 rounded-xl overflow-hidden">
-        <div class="bg-accent text-xs text-white text-left px-2.5 font-medium" :style="{width: `${percentage}%`}">
+        <div class="bg-accent text-[11px] text-white text-left px-2.5 font-medium" :style="{width: `${percentage}%`}">
             {{ value }}
         </div>
     </div>

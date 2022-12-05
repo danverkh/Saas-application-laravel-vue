@@ -9,8 +9,9 @@
                 <th class="cursor-default !static">Keyword</th>
                 <th><span class="tooltip cursor-default" data-tip="Search volume">Search<br>Volume</span></th>
                 <th class="text-right"><span class="tooltip cursor-default" data-tip="Cost per click">CPC</span></th>
+                <th class="text-right"><span class="tooltip cursor-default" data-tip="Relevance">Rel</span></th>
                 <th><span class="tooltip cursor-default" data-tip="Current rank">Rank</span></th>
-                <th class="min-w-[160px]"><span class="tooltip cursor-default" data-tip="Website page URL">URL</span></th>
+                <th class="min-w-[150px]"><span class="tooltip cursor-default" data-tip="Website page URL">URL</span></th>
                 <th class="text-right">Projected<br>clicks</th>
                 <th class="text-right">Projected<br>traffic</th>
                 <th class="text-right">Maximum<br>monthly cost</th>
@@ -30,13 +31,16 @@
                         </span>
                     </td>
                     <td class="text-right">
-                        <search-volume-bar :value="item.search_volume" class="min-w-[60px]"/>
+                        <SearchVolumeBar :value="item.search_volume" class="min-w-[55px]"/>
                     </td>
                     <td class="text-right">
-                        <cpc-bar :value="item.cpc" class="min-w-[60px]"/>
+                        <CpcBar :value="item.cpc" class="min-w-[55px]"/>
+                    </td>
+                    <td class="text-right">
+                        <RelevanceBar :item="item"/>
                     </td>
                     <td class="text-right">{{ item.current_rank }}</td>
-                    <td class="whitespace-normal break-all" v-html="muteDomain(item.url)"></td>
+                    <td class="whitespace-normal break-all !text-xs" v-html="muteDomain(item.url)"></td>
                     <td class="text-right">{{ item.projected_clicks ? number(item.projected_clicks, 1) : '-' }}</td>
                     <td class="text-right">{{ item.projected_traffic ? number(item.projected_traffic, 1) : '-' }}</td>
                     <td class="text-right">{{ item.maximum_cost ? money(item.maximum_cost) : '-' }}</td>
@@ -88,7 +92,7 @@
 
             <tr v-else class="no-hover">
                 <td colspan="9" class="text-center !py-12">
-                    <spinner></spinner>
+                    <Spinner></Spinner>
                 </td>
             </tr>
             </tbody>
@@ -119,11 +123,12 @@ import RankingTableFilters from "@/pages/booking/ranking/RankingTableFilters.vue
 import SetFilterModal from "@/pages/booking/ranking/SetFilterModal.vue";
 import SearchVolumeBar from "@/pages/booking/ranking/SearchVolumeBar.vue";
 import CpcBar from "@/pages/booking/ranking/CpcBar.vue";
+import RelevanceBar from "@/pages/booking/ranking/RelevanceBar.vue";
 
 export default {
     name: "RankingsTable",
 
-    components: {CpcBar, SearchVolumeBar, SetFilterModal, RankingTableFilters, Spinner},
+    components: {RelevanceBar, CpcBar, SearchVolumeBar, SetFilterModal, RankingTableFilters, Spinner},
 
     props: {
         market: String,

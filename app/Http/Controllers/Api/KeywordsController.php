@@ -3,13 +3,17 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\RelevanceKeywordRequest;
 use App\Http\Requests\ValidateKeywordRequest;
 use App\Services\DataForSeo\Modifiers\Actions\CalculateMissingValues;
 use App\Services\DataForSeo\Request as DataForSeoRequest;
+use DOMDocument;
 use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Str;
 use Symfony\Component\HttpFoundation\Response;
 
 class KeywordsController extends Controller
@@ -108,5 +112,39 @@ class KeywordsController extends Controller
             $response,
             ($response['result'] === 'failed') ? Response::HTTP_FAILED_DEPENDENCY : Response::HTTP_OK
         );
+    }
+
+    /**
+     * @param \App\Http\Requests\RelevanceKeywordRequest $request
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function relevance(RelevanceKeywordRequest $request): JsonResponse
+    {
+        $score = 0;
+        $maxScore = 99 + 30 + 20;
+
+        // rank score
+        $score += 100 - max($request->rank, 100);
+
+        // keyword in page content
+        try {
+            $pageBody = Http::get($request->url)->body();
+            $count = Str::wordCount($pageBody, $request->keyword);
+
+            $score += $count * 3;
+
+            // Load HTML to DOM object
+            $dom = new DOMDocument();
+            @$dom->loadHTML($pageBody);
+            $nodes = $dom->getElementsByTagName('title');
+            $title = $nodes->item(0)->nodeValue;
+
+            $score += Str::wordCount($title, $request->keyword) * 20;
+        } catch (\Throwable $e) {
+            Log::debug('Failed to fetch url when calculating score', ['url' => $request->url, 'error' => $e->getMessage()]);
+        }
+
+        return response()->json(['percentage' => ($score/$maxScore) * 100]);
     }
 }
