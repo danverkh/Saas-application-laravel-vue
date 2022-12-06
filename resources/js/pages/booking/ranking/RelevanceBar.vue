@@ -1,8 +1,11 @@
 <template>
-    <div class="w-full bg-zinc-400 my-3 rounded-xl overflow-hidden">
-        <div class="bg-[#dccf42] text-xs text-white text-left px-2.5 font-medium" :style="{width: `${percentage}%`}">
+    <div @click="fetch" class="w-full bg-zinc-400 my-3 rounded-xl overflow-hidden">
+        <div class="bg-[#dccf42] text-xs text-white px-2.5 font-medium"
+             :class="requestPending ? 'text-center' : 'text-left'"
+             :style="{width: `${percentage}%`}">
+
             <div v-if="!requestPending">{{ percentage }}%</div>
-            <Spinner v-else></Spinner>
+            <Spinner v-else size="10" border-width="3" color="#fff"></Spinner>
         </div>
     </div>
 </template>
@@ -43,6 +46,9 @@ export default {
             };
 
             axios.get(route('api.keyword.relevance'), {params})
+                .then(({data}) => {
+                    this.percentage = data.relevance;
+                })
                 .catch(error => {
                     console.error('Failed to fetch relevance for keyword', error);
                 })

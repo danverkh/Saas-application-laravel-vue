@@ -26,8 +26,8 @@ class Result
      */
     public function __construct(array $data, array $items, array $result = [])
     {
-        $this->data  = $data;
-        $this->items = $items;
+        $this->data   = $data;
+        $this->items  = $items;
         $this->result = $result;
     }
 

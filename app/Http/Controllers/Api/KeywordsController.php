@@ -119,18 +119,18 @@ class KeywordsController extends Controller
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function relevance(RelevanceKeywordRequest $request): JsonResponse
+    public function relevance(RelevanceKeywordRequest $request, DataForSeoRequest $client): JsonResponse
     {
-        $score = 0;
+        $score    = 0;
         $maxScore = 99 + 30 + 20;
 
-        // rank score
+        // 1. rank score
         $score += 100 - max($request->rank, 100);
 
-        // keyword in page content
+        // 2. keyword in page content
         try {
             $pageBody = Http::get($request->url)->body();
-            $count = Str::wordCount($pageBody, $request->keyword);
+            $count    = Str::wordCount($pageBody, $request->keyword);
 
             $score += $count * 3;
 
@@ -145,6 +145,14 @@ class KeywordsController extends Controller
             Log::debug('Failed to fetch url when calculating score', ['url' => $request->url, 'error' => $e->getMessage()]);
         }
 
-        return response()->json(['percentage' => ($score/$maxScore) * 100]);
+        // 3. check if keyword is in the "Keywords For Site" response
+        $data = $client->requestType(DataForSeoRequest::TYPE_GOOGLE_ADS_KEYWORDS_FOR_SITE)
+                       ->params(['target' => $request->domain], $request->market)
+                       ->fetch()
+                       ->rawResult();
+
+        dd($data);
+
+        return response()->json(['percentage' => ($score / $maxScore) * 100]);
     }
 }

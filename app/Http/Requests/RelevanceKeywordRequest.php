@@ -27,6 +27,7 @@ class RelevanceKeywordRequest extends FormRequest
             'keyword' => 'required',
             'market'  => 'required',
             'domain'  => 'required',
+            'url'     => 'required',
         ];
     }
 }
