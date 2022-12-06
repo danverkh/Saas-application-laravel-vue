@@ -123,10 +123,10 @@ class KeywordsController extends Controller
     public function relevance(RelevanceKeywordRequest $request, DataForSeoRequest $client): JsonResponse
     {
         $score    = 0;
-        $maxScore = 99 + 50 + 20 + 100;
+        $maxScore = 25 + 50 + 20 + 100;
 
         // 1. rank score
-        $score += 100 - max((int) $request->rank, 100);
+        $score += (100 - min((int) $request->rank, 100)) / 4;
 
         // 2. keyword in page content
         try {

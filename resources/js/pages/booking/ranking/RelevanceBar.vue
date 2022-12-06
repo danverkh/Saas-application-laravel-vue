@@ -38,7 +38,7 @@ export default {
 
             const params = {
                 keyword: this.item.keyword,
-                rank: this.item.rank,
+                rank: this.item.current_rank,
                 url: this.item.url,
                 market: useCart().market,
                 domain: useCart().domain,
