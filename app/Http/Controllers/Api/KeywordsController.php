@@ -116,23 +116,24 @@ class KeywordsController extends Controller
 
     /**
      * @param \App\Http\Requests\RelevanceKeywordRequest $request
+     * @param \App\Services\DataForSeo\Request           $client
      *
      * @return \Illuminate\Http\JsonResponse
      */
     public function relevance(RelevanceKeywordRequest $request, DataForSeoRequest $client): JsonResponse
     {
         $score    = 0;
-        $maxScore = 99 + 30 + 20;
+        $maxScore = 99 + 50 + 20 + 100;
 
         // 1. rank score
-        $score += 100 - max($request->rank, 100);
+        $score += 100 - max((int) $request->rank, 100);
 
         // 2. keyword in page content
         try {
             $pageBody = Http::get($request->url)->body();
-            $count    = Str::wordCount($pageBody, $request->keyword);
+            $count    = Str::substrCount($pageBody, $request->keyword);
 
-            $score += $count * 3;
+            $score += max($count * 5, 50);
 
             // Load HTML to DOM object
             $dom = new DOMDocument();
@@ -140,7 +141,7 @@ class KeywordsController extends Controller
             $nodes = $dom->getElementsByTagName('title');
             $title = $nodes->item(0)->nodeValue;
 
-            $score += Str::wordCount($title, $request->keyword) * 20;
+            $score += Str::contains($title, $request->keyword) ? 20 : 0;
         } catch (\Throwable $e) {
             Log::debug('Failed to fetch url when calculating score', ['url' => $request->url, 'error' => $e->getMessage()]);
         }
@@ -151,8 +152,8 @@ class KeywordsController extends Controller
                        ->fetch()
                        ->rawResult();
 
-        dd($data);
+        $score += collect($data)->pluck('keyword')->contains($request->keyword) ? 100 : 0;
 
-        return response()->json(['percentage' => ($score / $maxScore) * 100]);
+        return response()->json(['relevance' => round(($score / $maxScore) * 100)]);
     }
 }

@@ -1,8 +1,7 @@
 <template>
-    <div class="w-full bg-zinc-400 my-3 rounded-xl overflow-hidden">
-        <div class="bg-accent text-[11px] text-white text-left px-2.5 font-medium" :style="{width: `${percentage}%`}">
-            {{ value }}
-        </div>
+    <div class="w-full bg-zinc-400 h-4 rounded-xl overflow-hidden min-w-[50px] relative">
+        <div class="text-xs text-white px-2.5 font-medium relative z-10 text-left">{{ value }}</div>
+        <div class="bg-accent h-full transition-all duration-1000 ease-out absolute top-0 left-0" :style="{right: `${100 - percentage}%`}"></div>
     </div>
 </template>
 
