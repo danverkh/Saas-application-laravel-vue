@@ -24,11 +24,9 @@ class RelevanceKeywordRequest extends FormRequest
     public function rules()
     {
         return [
-            'rank'    => 'required',
-            'keyword' => 'required',
-            'market'  => 'required',
-            'domain'  => 'required',
-            'url'     => 'required',
+            'items'  => 'required|array',
+            'market' => 'required',
+            'domain' => 'required',
         ];
     }
 }

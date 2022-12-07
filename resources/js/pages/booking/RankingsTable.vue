@@ -2,7 +2,7 @@
     <RankingTableFilters v-if="!error"/>
     <SetFilterModal/>
 
-    <div class="overflow-x-auto xl:overflow-visible">
+    <div class="overflow-x-auto">
         <table v-if="!error" class="table table-compact w-full">
             <thead>
             <tr>

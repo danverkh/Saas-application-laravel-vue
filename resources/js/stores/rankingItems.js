@@ -1,6 +1,7 @@
 import {defineStore} from 'pinia'
 import {useCart} from './cart';
 import maxBy from 'lodash/maxBy';
+import chunk from 'lodash/chunk';
 
 export const useRankingItemsStore = defineStore('rankingItems', {
     persist: {
@@ -83,7 +84,40 @@ export const useRankingItemsStore = defineStore('rankingItems', {
                 return {
                     ...item,
                     selected: savedSelections.find(i => i.keyword === item.keyword) !== undefined,
+                    relevance: null,
                 };
+            });
+
+            // call fetch relevance by chunks one after the other
+            chunk(this.items, 50).reduce(async (referencePoint, chunk) => {
+                await referencePoint;
+                await this.fetchRelevance(chunk);
+            }, Promise.resolve());
+        },
+
+        async fetchRelevance(chunk) {
+            return new Promise((resolve, reject) => {
+                const data = {
+                    items: chunk.map(row => {
+                        return {
+                            keyword: row.keyword,
+                            rank: row.current_rank,
+                            url: row.url,
+                        };
+                    }),
+                    market: useCart().market,
+                    domain: useCart().domain,
+                };
+
+               axios.post(route('api.keywords.relevance'), data)
+                    .then(({data}) => {
+                        chunk.forEach(row => row.relevance = data[row.keyword]);
+                        resolve();
+                    })
+                    .catch(error => {
+                        console.error('Failed to fetch relevance for keywords', error);
+                        reject();
+                    });
             });
         },
 

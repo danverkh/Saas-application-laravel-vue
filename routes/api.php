@@ -20,4 +20,4 @@ Route::get('autosuggest/domain', [AutoSuggestController::class, 'domain'])->name
 Route::get('domain/market/guess', [DomainController::class, 'marketGuess'])->name('api.domain.market.guess');
 Route::post('book-a-demo', [BookADemoController::class, 'store'])->name('api.book_a_demo.submit');
 Route::get('keyword/validate', [KeywordsController::class, 'validateKeyword'])->name('api.keyword.validate');
-Route::get('keyword/relevance', [KeywordsController::class, 'relevance'])->name('api.keyword.relevance');
+Route::post('keywords/relevance', [KeywordsController::class, 'relevance'])->name('api.keywords.relevance');

@@ -10,11 +10,11 @@
 
                     <div class="flex flex-col gap-y-3 mb-6">
                         <div class="flex flex-col gap-y-2">
-                            <label for="email" class="whitespace-nowrap font-medium">Your email</label>
+                            <label for="customer-email" class="whitespace-nowrap font-medium">Your email</label>
                             <Input @keyup.enter="open"
                                    v-model="email"
                                    type="email"
-                                   id="email"
+                                   id="customer-email"
                                    tabindex="1"
                                    :error="validationErrors?.email"
                                    @change="validationErrors.email = null"
@@ -75,7 +75,7 @@ export default {
             if (!this.checkoutInit) {
                 // Step 1
                 this.checkoutInit = true;
-                setTimeout(() => document.querySelector('input[type=email]').focus(), this.slideDuration);
+                setTimeout(() => document.querySelector('#customer-email').focus(), this.slideDuration);
             } else {
                 // Step 2
                 useCart()

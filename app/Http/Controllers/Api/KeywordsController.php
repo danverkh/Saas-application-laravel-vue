@@ -7,13 +7,11 @@ use App\Http\Requests\RelevanceKeywordRequest;
 use App\Http\Requests\ValidateKeywordRequest;
 use App\Services\DataForSeo\Modifiers\Actions\CalculateMissingValues;
 use App\Services\DataForSeo\Request as DataForSeoRequest;
-use DOMDocument;
+use App\Services\RelevanceCalculator;
 use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Cache;
-use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Str;
 use Symfony\Component\HttpFoundation\Response;
 
 class KeywordsController extends Controller
@@ -116,44 +114,27 @@ class KeywordsController extends Controller
 
     /**
      * @param \App\Http\Requests\RelevanceKeywordRequest $request
-     * @param \App\Services\DataForSeo\Request           $client
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function relevance(RelevanceKeywordRequest $request, DataForSeoRequest $client): JsonResponse
+    public function relevance(RelevanceKeywordRequest $request): JsonResponse
     {
-        $score    = 0;
-        $maxScore = 25 + 50 + 20 + 100;
+        $results = collect($request->items)
+            ->mapWithKeys(static function ($item) use ($request) {
+                $calculator = new RelevanceCalculator();
 
-        // 1. rank score
-        $score += (100 - min((int) $request->rank, 100)) / 4;
+                // 1. rank score
+                $calculator->rank($item['rank']);
 
-        // 2. keyword in page content
-        try {
-            $pageBody = Http::get($request->url)->body();
-            $count    = Str::substrCount($pageBody, $request->keyword);
+                // 2. keyword in page content
+                $calculator->pageContent($item['keyword'], $item['url']);
 
-            $score += max($count * 5, 50);
+                // 3. check if keyword is in the "Keywords For Site" response
+                $calculator->keywordExistsInList($item['keyword'], $request->domain, $request->market);
 
-            // Load HTML to DOM object
-            $dom = new DOMDocument();
-            @$dom->loadHTML($pageBody);
-            $nodes = $dom->getElementsByTagName('title');
-            $title = $nodes->item(0)->nodeValue;
+                return [$item['keyword'] => $calculator->getResult()];
+            });
 
-            $score += Str::contains($title, $request->keyword) ? 20 : 0;
-        } catch (\Throwable $e) {
-            Log::debug('Failed to fetch url when calculating score', ['url' => $request->url, 'error' => $e->getMessage()]);
-        }
-
-        // 3. check if keyword is in the "Keywords For Site" response
-        $data = $client->requestType(DataForSeoRequest::TYPE_GOOGLE_ADS_KEYWORDS_FOR_SITE)
-                       ->params(['target' => $request->domain], $request->market)
-                       ->fetch()
-                       ->rawResult();
-
-        $score += collect($data)->pluck('keyword')->contains($request->keyword) ? 100 : 0;
-
-        return response()->json(['relevance' => round(($score / $maxScore) * 100)]);
+        return response()->json($results);
     }
 }
