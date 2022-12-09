@@ -7,11 +7,11 @@
             <thead>
             <tr>
                 <th class="cursor-default !static">Keyword</th>
-                <th><span class="tooltip cursor-default" data-tip="Search volume">Search<br>Volume</span></th>
-                <th class="text-right"><span class="tooltip cursor-default" data-tip="Cost per click">CPC</span></th>
-                <th class="text-right"><span class="tooltip cursor-default" data-tip="Relevance">Rel</span></th>
-                <th><span class="tooltip cursor-default" data-tip="Current rank">Rank</span></th>
-                <th class="min-w-[150px]"><span class="tooltip cursor-default" data-tip="Website page URL">URL</span></th>
+                <th><span class="tooltip tooltip-bottom cursor-default" data-tip="Search volume">Search<br>Volume</span></th>
+                <th class="text-right"><span class="tooltip tooltip-bottom cursor-default" data-tip="Cost per click">CPC</span></th>
+                <th class="text-right"><span class="tooltip tooltip-bottom cursor-default" data-tip="Relevance">Rel</span></th>
+                <th><span class="tooltip tooltip-bottom cursor-default" data-tip="Current rank">Rank</span></th>
+                <th class="min-w-[150px]"><span class="tooltip tooltip-bottom cursor-default" data-tip="Website page URL">URL</span></th>
                 <th class="text-right">Projected<br>clicks</th>
                 <th class="text-right">Projected<br>traffic</th>
                 <th class="text-right">Maximum<br>monthly cost</th>

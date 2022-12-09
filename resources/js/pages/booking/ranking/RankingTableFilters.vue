@@ -102,8 +102,7 @@ export default {
 
     methods: {
         debouncedFilter: debounce(function () {
-            this.setFilter('keyword', this.keyword.toLowerCase().trim());
-            useRankingItemsStore().filters[key].value = value;
+            useRankingItemsStore().filters['keyword'].value = this.keyword.toLowerCase().trim();
         }, 300),
 
         toggleMustContainUrl() {
@@ -125,6 +124,8 @@ export default {
             Object.keys(params).forEach(key => {
                 this.filters[key] = params[key];
             });
+
+            this.keyword = this.filters['keyword'].value;
         },
     },
 }
