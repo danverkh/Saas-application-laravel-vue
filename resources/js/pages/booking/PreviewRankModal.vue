@@ -1,5 +1,5 @@
 <template>
-    <Modal name="preview-rank" classes="max-w-2xl px-10 py-8" @closed="abortFetch">
+    <Modal name="preview-rank" classes="max-w-2xl px-10 py-8 relative" @closed="onClose">
         <div class="alert text-xs mb-6">
             <div>
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="stroke-current text-primary flex-shrink-0 w-6 h-6 mx-1">
@@ -24,7 +24,11 @@
             </div>
         </div>
 
-        <template v-if="results.length">
+        <div class="absolute z-10 top-0 bottom-0 left-0 right-0">
+            <div ref="heatmap" class="w-full h-full"></div>
+        </div>
+
+        <div v-if="results.length">
             <div>
                 <div v-for="(result, index) in results" :key="`preview-rank-item-${index}`" class="mb-6 last:mb-0">
                     <div v-if="result.type === 'ad'">
@@ -55,7 +59,7 @@
                     <path fill="currentColor" d="M16 12a2 2 0 0 1 2-2a2 2 0 0 1 2 2a2 2 0 0 1-2 2a2 2 0 0 1-2-2m-6 0a2 2 0 0 1 2-2a2 2 0 0 1 2 2a2 2 0 0 1-2 2a2 2 0 0 1-2-2m-6 0a2 2 0 0 1 2-2a2 2 0 0 1 2 2a2 2 0 0 1-2 2a2 2 0 0 1-2-2Z"/>
                 </svg>
             </div>
-        </template>
+        </div>
 
         <div v-else class="text-center py-12">
             <Spinner></Spinner>
@@ -68,6 +72,8 @@ import {usePreviewRankStore} from '@/stores/previewRank';
 import Modal from "@/components/Modal.vue";
 import Spinner from "@/components/Spinner.vue";
 import Random from "@/services/Random";
+import h337 from '@mars3d/heatmap.js';
+import generator from "random-seed";
 
 export default {
     name: 'PreviewRankModal',
@@ -78,7 +84,30 @@ export default {
         return {
             descriptionLimit: 220,
             Random: Random,
+            heatmapInstance: null,
         };
+    },
+
+    watch: {
+        results(items) {
+            if (items.length) {
+                this.$nextTick(() => {
+                    const config = {
+                        container: this.$refs.heatmap,
+                        radius: 120,
+                        maxOpacity: .2,
+                        minOpacity: 0,
+                        blur: .8,
+                    };
+
+                    this.heatmapInstance = h337.create(config);
+
+                    this.heatmapInstance.setData(
+                        this.getHeatData()
+                    );
+                });
+            }
+        },
     },
 
     computed: {
@@ -102,8 +131,29 @@ export default {
             return parts.join(' › ');
         },
 
-        abortFetch() {
+        onClose() {
             usePreviewRankStore().abortFetch();
+            this.heatmapInstance.setData({max: 10, data: []});
+
+            delete this.heatmapInstance;
+            document.querySelector('.heatmap-canvas').remove();
+        },
+
+        getHeatData() {
+            const random = generator(this.keyword);
+            const width = this.$refs.heatmap.offsetWidth;
+            const height = this.$refs.heatmap.offsetHeight;
+            const points = [];
+            let count = 50;
+
+            while(count--) {
+                let x = random.intBetween(0, width);
+                let y = random.intBetween(0, height);
+
+                points.push({x, y, value: random.intBetween(0, 10)});
+            }
+
+            return {max: 10, data: points};
         },
     },
 }
