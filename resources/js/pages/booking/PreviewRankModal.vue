@@ -24,7 +24,7 @@
             </div>
         </div>
 
-        <div class="absolute z-10 top-0 bottom-0 left-0 right-0">
+        <div class="absolute z-10 top-0 bottom-0 left-0 right-0 select-none pointer-events-none">
             <div ref="heatmap" class="w-full h-full"></div>
         </div>
 
