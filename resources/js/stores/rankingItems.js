@@ -1,7 +1,6 @@
 import {defineStore} from 'pinia'
 import {useCart} from './cart';
 import maxBy from 'lodash/maxBy';
-import chunk from 'lodash/chunk';
 import RelevanceData from "@/services/RelevanceData";
 
 export const useRankingItemsStore = defineStore('rankingItems', {
@@ -68,6 +67,10 @@ export const useRankingItemsStore = defineStore('rankingItems', {
             state.max.cpc = maxBy(items, 'cpc').cpc;
 
             return items;
+        },
+
+        findByKeyword: (state) => {
+            return (keyword) => state.items.find(i => i.keyword === keyword);
         },
     },
 

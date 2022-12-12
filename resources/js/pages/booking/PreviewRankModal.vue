@@ -58,6 +58,15 @@
                 </div>
             </div>
 
+            <div class="absolute z-10 top-1/3 right-10 bg-white px-6 py-5 border border-zinc-200 shadow-lg rounded-xl">
+                <ul class="text-sm space-y-1.5">
+                    <li>Total Search Volume: {{ item.search_volume }}</li>
+                    <li>Est. CTR: ?</li>
+                    <li>Est. Clicks: {{ item.projected_clicks ? number(item.projected_clicks, 1) : '-' }}</li>
+                    <li>Est. Traffic Value: {{ item.projected_traffic ? number(item.projected_traffic, 1) : '-' }}</li>
+                </ul>
+            </div>
+
             <div class="text-center mt-4 -mb-3">
                 <svg width="40" height="40" viewBox="0 0 24 24" class="inline-block text-zinc-700">
                     <path fill="currentColor" d="M16 12a2 2 0 0 1 2-2a2 2 0 0 1 2 2a2 2 0 0 1-2 2a2 2 0 0 1-2-2m-6 0a2 2 0 0 1 2-2a2 2 0 0 1 2 2a2 2 0 0 1-2 2a2 2 0 0 1-2-2m-6 0a2 2 0 0 1 2-2a2 2 0 0 1 2 2a2 2 0 0 1-2 2a2 2 0 0 1-2-2Z"/>
@@ -78,6 +87,7 @@ import Spinner from "@/components/Spinner.vue";
 import Random from "@/services/Random";
 import h337 from '@mars3d/heatmap.js';
 import generator from "random-seed";
+import {useRankingItemsStore} from "@/stores/rankingItems";
 
 export default {
     name: 'PreviewRankModal',
@@ -121,6 +131,10 @@ export default {
 
         results() {
             return usePreviewRankStore().results;
+        },
+
+        item() {
+            return useRankingItemsStore().findByKeyword(this.keyword);
         },
     },
 
