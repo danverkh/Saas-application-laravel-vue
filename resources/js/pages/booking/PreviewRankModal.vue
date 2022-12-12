@@ -99,7 +99,7 @@ export default {
                     const config = {
                         container: this.$refs.heatmap,
                         radius: 80,
-                        maxOpacity: .3,
+                        maxOpacity: .2,
                         minOpacity: 0,
                         blur: .8,
                     };
