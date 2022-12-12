@@ -62,8 +62,9 @@
                 <ul class="text-sm space-y-1.5">
                     <li>Total Search Volume: {{ item.search_volume }}</li>
                     <li>Est. CTR: ?</li>
-                    <li>Est. Clicks: {{ item.projected_clicks ? number(item.projected_clicks, 1) : '-' }}</li>
-                    <li>Est. Traffic Value: {{ item.projected_traffic ? number(item.projected_traffic, 1) : '-' }}</li>
+                    <li v-if="item.projected_clicks">Est. Clicks: {{ number(item.projected_clicks, 1) }}</li>
+                    <li v-if="item.cpc">CPC: {{ item.cpc }}</li>
+                    <li v-if="item.projected_traffic">Est. Traffic Value: {{ number(item.projected_traffic, 1) }}</li>
                 </ul>
             </div>
 
