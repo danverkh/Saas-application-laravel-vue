@@ -32,7 +32,7 @@
             <div>
                 <div v-for="(result, index) in results" :key="`preview-rank-item-${index}`" class="mb-6 last:mb-0">
                     <div v-if="result.type === 'ad'">
-                        <div v-for="n in Random.item([1, 3])" :key="`ad-${n}`" class="py-3 pointer-events-none select-none relative">
+                        <div v-for="n in Random.item([1, 3])" :key="`ad-${n}`" class="ad-item py-3 pointer-events-none select-none relative">
                             <div class="flex">
                                 <div class="link text-lg text-blue-700 mb-2 blur-[5px] capitalize">{{ Random.words(3, 8) }}</div>
                                 <div class="px-2 h-7 leading-7 bg-green-600 text-xs text-white rounded-lg ml-3">Ad</div>
@@ -41,14 +41,18 @@
                         </div>
                     </div>
 
-                    <div v-else>
+                    <div v-else class="result-item">
                         <div class="text-sm mb-1 text-zinc-500 text-sm">
                             <span class="text-zinc-900">{{ breadcrumbDomain(result.breadcrumb) }}</span>
                             <span v-if="result.breadcrumb.includes('›')"> › {{ breadcrumbs(result.breadcrumb) }}</span>
                         </div>
-                        <a :href="result.url" target="_blank" class="link text-lg text-blue-700 mb-2 cursor-pointer no-underline hover:underline hover:decoration-2">{{ result.title }}</a>
+                        <a :href="result.url" target="_blank" class="link text-lg text-blue-700 mb-2 cursor-pointer no-underline hover:underline hover:decoration-2">{{
+                                result.title
+                            }}</a>
                         <div class="description text-sm text-zinc-600">
-                            {{ (result.description.length > descriptionLimit) ? result.description.substring(0, descriptionLimit) + '...' : result.description }}
+                            {{
+                                (result.description.length > descriptionLimit) ? result.description.substring(0, descriptionLimit) + '...' : result.description
+                            }}
                         </div>
                     </div>
                 </div>
@@ -94,8 +98,8 @@ export default {
                 this.$nextTick(() => {
                     const config = {
                         container: this.$refs.heatmap,
-                        radius: 120,
-                        maxOpacity: .2,
+                        radius: 80,
+                        maxOpacity: .3,
                         minOpacity: 0,
                         blur: .8,
                     };
@@ -141,17 +145,39 @@ export default {
 
         getHeatData() {
             const random = generator(this.keyword);
-            const width = this.$refs.heatmap.offsetWidth;
-            const height = this.$refs.heatmap.offsetHeight;
             const points = [];
-            let count = 50;
 
-            while(count--) {
-                let x = random.intBetween(0, width);
-                let y = random.intBetween(0, height);
+            document.querySelectorAll('.ad-item')
+                .forEach(ad => {
+                    const adLinkBounds = ad.querySelector('.link').getBoundingClientRect();
 
-                points.push({x, y, value: random.intBetween(0, 10)});
-            }
+                    let count = random.intBetween(3, 10);
+
+                    for (let i = 0; i < count; i++) {
+                        points.push({
+                            x: random.intBetween(0, adLinkBounds.width) + 50,
+                            y: random.intBetween(ad.offsetTop, (ad.offsetTop + adLinkBounds.height)) + 15,
+                            value: random.intBetween(2, 8),
+                        });
+                    }
+                });
+
+            const resultLinks = document.querySelectorAll('.result-item .link');
+
+            resultLinks.forEach((resultLink, index) => {
+                    const num = Math.abs(resultLinks.length - index) * 5;
+                    const resultLinkBounds = resultLink.getBoundingClientRect();
+
+                    let count = random.intBetween(num - resultLinks.length, num + 5);
+
+                    for (let i = 0; i < count; i++) {
+                        points.push({
+                            x: random.intBetween(0, resultLinkBounds.width) + 50,
+                            y: random.intBetween(resultLink.offsetTop, (resultLink.offsetTop + resultLinkBounds.height)),
+                            value: random.intBetween(3, 10),
+                        });
+                    }
+                });
 
             return {max: 10, data: points};
         },
@@ -165,7 +191,7 @@ export default {
     background: #fff;
     box-shadow: 0 2px 5px 1px rgb(65 60 67 / 20%);
     border-radius: 12px;
-    color: rgba(0,0,0,.87);
+    color: rgba(0, 0, 0, .87);
     line-height: 55px;
     padding: 0 18px;
 }
