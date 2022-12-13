@@ -190,6 +190,7 @@ namespace App\Models{
  * @property string $monthly_fee
  * @property string $setup_fee
  * @property int|null $search_volume
+ * @property string $maximum_cost
  * @property string $creation_date
  * @property string|null $start_date
  * @property string|null $termination_date
@@ -222,6 +223,7 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|Keyword whereLastRankReported($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Keyword whereLastWebsiteRanking($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Keyword whereLastWebsiteRankingUpdateDate($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Keyword whereMaximumCost($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Keyword whereMonthlyFee($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Keyword whereOrderFulfillmentEmployeeId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Keyword whereOrderFulfillmentRequestDate($value)
@@ -283,9 +285,9 @@ namespace App\Models{
  * @property string $creation_date
  * @property string $client_account_created
  * @property string $order_confirmation_sent
+ * @property-read \App\Models\Client $client
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Keyword[] $keywords
  * @property-read int|null $keywords_count
- * @property-read \App\Models\User $user
  * @method static \Illuminate\Database\Eloquent\Builder|Order newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Order newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Order query()
