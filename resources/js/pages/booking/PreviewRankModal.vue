@@ -165,6 +165,7 @@ export default {
                 const resultLinkBounds = resultLink.getBoundingClientRect();
 
                 let count = random.intBetween(num - resultLinks.length, num + 5);
+                count = Math.max(3, count);
 
                 for (let i = 0; i < count; i++) {
                     points.push({
