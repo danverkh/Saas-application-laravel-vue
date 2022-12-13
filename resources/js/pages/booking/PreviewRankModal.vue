@@ -61,9 +61,9 @@
             <div class="absolute z-10 top-1/3 right-10 bg-white px-6 py-5 border border-zinc-200 shadow-lg rounded-xl">
                 <ul class="text-sm space-y-1.5">
                     <li>Total Search Volume: {{ item.search_volume }}</li>
-                    <li>Est. CTR: ?</li>
+                    <li>Est. CTR: {{ number(calculatedCtr, 1) }}%</li>
                     <li v-if="item.projected_clicks">Est. Clicks: {{ number(item.projected_clicks, 1) }}</li>
-                    <li v-if="item.cpc">CPC: {{ item.cpc }}</li>
+                    <li v-if="item.cpc">CPC: {{ number(item.cpc, 1) }}</li>
                     <li v-if="item.projected_traffic">Est. Traffic Value: {{ number(item.projected_traffic, 1) }}</li>
                 </ul>
             </div>
@@ -103,13 +103,31 @@ export default {
         };
     },
 
+    computed: {
+        item() {
+            return useRankingItemsStore().findByKeyword(this.keyword);
+        },
+
+        keyword() {
+            return usePreviewRankStore().keyword;
+        },
+
+        results() {
+            return usePreviewRankStore().results;
+        },
+
+        calculatedCtr() {
+            return generator(this.keyword).floatBetween(2, 5);
+        },
+    },
+
     watch: {
         results(items) {
             if (items.length) {
                 this.$nextTick(() => {
                     const config = {
                         container: this.$refs.heatmap,
-                        radius: 80,
+                        radius: 70,
                         maxOpacity: .2,
                         minOpacity: 0,
                         blur: .8,
@@ -125,20 +143,6 @@ export default {
         },
     },
 
-    computed: {
-        keyword() {
-            return usePreviewRankStore().keyword;
-        },
-
-        results() {
-            return usePreviewRankStore().results;
-        },
-
-        item() {
-            return useRankingItemsStore().findByKeyword(this.keyword);
-        },
-    },
-
     methods: {
         breadcrumbDomain(breadcrumb) {
             return breadcrumb.split(' › ')[0];
@@ -150,17 +154,26 @@ export default {
             return parts.join(' › ');
         },
 
-        onClose() {
-            usePreviewRankStore().abortFetch();
-            this.heatmapInstance.setData({max: 10, data: []});
-
-            delete this.heatmapInstance;
-            document.querySelector('.heatmap-canvas').remove();
-        },
-
         getHeatData() {
             const random = generator(this.keyword);
             const points = [];
+
+            const resultLinks = document.querySelectorAll('.result-item .link');
+
+            resultLinks.forEach((resultLink, index) => {
+                const num = Math.abs(resultLinks.length - index) * 5;
+                const resultLinkBounds = resultLink.getBoundingClientRect();
+
+                let count = random.intBetween(num - resultLinks.length, num + 5);
+
+                for (let i = 0; i < count; i++) {
+                    points.push({
+                        x: random.intBetween(0, resultLinkBounds.width) + 50,
+                        y: random.intBetween(resultLink.offsetTop, (resultLink.offsetTop + resultLinkBounds.height)),
+                        value: random.intBetween(3, 10),
+                    });
+                }
+            });
 
             document.querySelectorAll('.ad-item')
                 .forEach(ad => {
@@ -177,24 +190,15 @@ export default {
                     }
                 });
 
-            const resultLinks = document.querySelectorAll('.result-item .link');
-
-            resultLinks.forEach((resultLink, index) => {
-                    const num = Math.abs(resultLinks.length - index) * 5;
-                    const resultLinkBounds = resultLink.getBoundingClientRect();
-
-                    let count = random.intBetween(num - resultLinks.length, num + 5);
-
-                    for (let i = 0; i < count; i++) {
-                        points.push({
-                            x: random.intBetween(0, resultLinkBounds.width) + 50,
-                            y: random.intBetween(resultLink.offsetTop, (resultLink.offsetTop + resultLinkBounds.height)),
-                            value: random.intBetween(3, 10),
-                        });
-                    }
-                });
-
             return {max: 10, data: points};
+        },
+
+        onClose() {
+            usePreviewRankStore().abortFetch();
+            this.heatmapInstance.setData({max: 10, data: []});
+
+            delete this.heatmapInstance;
+            document.querySelector('.heatmap-canvas').remove();
         },
     },
 }
