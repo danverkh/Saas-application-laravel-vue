@@ -117,7 +117,7 @@ export default {
         },
 
         calculatedCtr() {
-            return generator(this.keyword).floatBetween(2, 5);
+            return generator(this.keyword).floatBetween(20, 40);
         },
     },
 
