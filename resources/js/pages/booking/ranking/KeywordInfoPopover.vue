@@ -1,8 +1,8 @@
 <template>
     <div class="bg-white rounded-lg shadow-lg py-5 px-6 w-80 pointer-events-none fixed z-50 hidden">
-        <div class="flex flex-col gap-4">
+        <div class="flex flex-col gap-2">
             <div>
-                <div class="font-semibold text-base mb-3">
+                <div class="font-semibold text-base mb-0.5">
                     Search volume: {{ item.search_volume }}
                 </div>
                 <SearchVolumeChart :items="item.monthly_searches || []"/>
@@ -23,6 +23,16 @@
                     <Gauge :value="item.cpc || 0" :max-value="maxCpc" flipped-colors>
                         <div class="text-sm">{{ number(item.cpc || 0, 1) }}€</div>
                     </Gauge>
+                </div>
+            </div>
+
+            <div>
+                <div class="font-semibold text-base mb-2">Estimated Clicks</div>
+                <div class="flex flex-col text-xs gap-y-0.5">
+                    <div>Currently: {{ number(item.projected_clicks * 0.25, 1) }}</div>
+                    <div>
+                        Expected with AutoRanker: <span class="text-base font-semibold ml-1">{{ number(item.projected_clicks, 1) }}</span>
+                    </div>
                 </div>
             </div>
         </div>

@@ -136,7 +136,7 @@ $baseFontSize: 16;
 .value {
     position: absolute;
     left: 50%;
-    bottom: 11px;
+    bottom: 9px;
     z-index: 10;
     transform: translateX(-50%);
     text-align: center;
