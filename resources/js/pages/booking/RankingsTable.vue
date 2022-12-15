@@ -21,7 +21,7 @@
             </thead>
             <tbody>
             <template v-if="!loading">
-                <tr v-for="(item, index) in rankingItems.filteredItems" :key="`table-item-${index}`" :class="{selected: item.selected}">
+                <tr v-for="(item, index) in rankingItems.filteredItems" :key="`table-item-${item.keyword}`" :class="{selected: item.selected}">
                     <td class="whitespace-normal break-words min-w-[180px] font-medium white">
                         {{ withoutLastWord(item.keyword) }}
                         <span class="whitespace-nowrap">
