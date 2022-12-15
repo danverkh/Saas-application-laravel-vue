@@ -98,9 +98,17 @@ class Request
     /**
      * @return array
      */
-    public function rawResult(): array
+    public function rawFirstResult(): array
     {
         return $this->result->get();
+    }
+
+    /**
+     * @return array
+     */
+    public function rawResults(): array
+    {
+        return $this->result->all();
     }
 
     /**

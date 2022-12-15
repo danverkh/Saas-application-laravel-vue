@@ -34,10 +34,29 @@ class RankingsController extends Controller
         $data = Cache::remember($key, now()->addHours(3), static function () use ($limiterKey, $client, $params) {
             RateLimiter::hit($limiterKey);
 
-            return $client->requestType(DataForSeoRequest::TYPE_DOMAIN_SEARCH)
-                          ->params(['domain' => $params['domain']], $params['market'])
-                          ->fetch()
-                          ->result(['assistant' => $params['assistant'] ?? null]);
+            $data = $client->requestType(DataForSeoRequest::TYPE_DOMAIN_SEARCH)
+                           ->params(['domain' => $params['domain']], $params['market'])
+                           ->fetch()
+                           ->result(['assistant' => $params['assistant'] ?? null]);
+
+            $keywords = collect($data)->pluck('keyword')->toArray();
+
+            $keywordSearches = $client->requestType(DataForSeoRequest::TYPE_GOOGLE_ADS_SEARCH_VOLUME)
+                                      ->params(['keywords' => $keywords], $params['market'])
+                                      ->fetch()
+                                      ->rawResults();
+
+            $keywordSearches = collect($keywordSearches)->keyBy('keyword');
+
+            return collect($data)
+                ->map(static function ($item) use ($keywordSearches) {
+                    return [
+                        ...$item,
+                        'competition'      => data_get($keywordSearches[$item['keyword']], 'competition_index'),
+                        'monthly_searches' => data_get($keywordSearches[$item['keyword']], 'monthly_searches', []),
+                    ];
+                })
+                ->toArray();
         });
 
         return response()->json(['status' => 'success', 'rows' => $data]);

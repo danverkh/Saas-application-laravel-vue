@@ -1,6 +1,7 @@
 <template>
     <RankingTableFilters v-if="!error"/>
     <SetFilterModal/>
+    <KeywordInfoPopover ref="keywordInfoPopover" :item="keywordItemPopover"/>
 
     <div class="overflow-x-auto">
         <table v-if="!error" class="table table-compact w-full">
@@ -25,9 +26,15 @@
                         {{ withoutLastWord(item.keyword) }}
                         <span class="whitespace-nowrap">
                             {{ lastWord(item.keyword) }}
-                            <svg @click="openPreviewRank(item.keyword)" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4 inline-block cursor-pointer ml-0.5 text-zinc-400 hover:text-primary transition duration-300">
+                            <svg @click="openPreviewRank(item.keyword)" class="w-4 h-4 inline-block cursor-pointer mx-0.5 text-zinc-400 hover:text-primary transition duration-300" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
                                 <path d="M17.5 12a5.5 5.5 0 1 1 0 11a5.5 5.5 0 0 1 0-11zm.011 2l-.084.005l-.055.012l-.083.03l-.074.042l-.056.045l-2.513 2.512l-.057.07a.5.5 0 0 0 0 .568l.057.07l.07.057a.5.5 0 0 0 .568 0l.07-.057l1.645-1.646L17 21l.008.09a.5.5 0 0 0 .402.402l.09.008l.09-.008a.5.5 0 0 0 .402-.402L18 21l-.001-5.294l1.647 1.648l.07.057a.5.5 0 0 0 .695-.695l-.057-.07l-2.548-2.542l-.048-.032l-.067-.034l-.063-.021l-.054-.012A.5.5 0 0 0 17.51 14zM6.25 3h11.5a3.25 3.25 0 0 1 3.245 3.066L21 6.25l.001 5.773a6.47 6.47 0 0 0-1.5-.71L19.5 8h-15v9.75a1.75 1.75 0 0 0 1.606 1.744l.144.006h5.064a6.47 6.47 0 0 0 .709 1.501L6.25 21a3.25 3.25 0 0 1-3.245-3.066L3 17.75V6.25a3.25 3.25 0 0 1 3.066-3.245L6.25 3z" fill="currentColor" fill-rule="nonzero"/>
                             </svg>
+
+                            <span @mouseenter="openKeywordInfoPopover(item)" @mousemove="moveKeywordInfoPopover" @mouseleave="hideKeywordInfoPopover">
+                                <svg class="w-4 h-4 inline-block ml-0.5 text-zinc-400 hover:text-primary transition duration-300" width="32" height="32" viewBox="0 0 256 256">
+                                    <path fill="currentColor" d="M216 36h-76V24a12 12 0 0 0-24 0v12H40a20.1 20.1 0 0 0-20 20v120a20.1 20.1 0 0 0 20 20h31l-16.4 20.5a12.1 12.1 0 0 0 1.9 16.9A12.4 12.4 0 0 0 64 236a12 12 0 0 0 9.4-4.5l28.4-35.5h52.4l28.4 35.5a12 12 0 0 0 9.4 4.5a12.4 12.4 0 0 0 7.5-2.6a12.1 12.1 0 0 0 1.9-16.9L185 196h31a20.1 20.1 0 0 0 20-20V56a20.1 20.1 0 0 0-20-20Zm-4 136H44V60h168Zm-108-52v24a12 12 0 0 1-24 0v-24a12 12 0 0 1 24 0Zm24-28a12 12 0 0 1 12 12v40a12 12 0 0 1-24 0v-40a12 12 0 0 1 12-12Zm24 52V88a12 12 0 0 1 24 0v56a12 12 0 0 1-24 0Z"/>
+                                </svg>
+                            </span>
                         </span>
                     </td>
                     <td class="text-right">
@@ -124,11 +131,12 @@ import SetFilterModal from "@/pages/booking/ranking/SetFilterModal.vue";
 import SearchVolumeBar from "@/pages/booking/ranking/SearchVolumeBar.vue";
 import CpcBar from "@/pages/booking/ranking/CpcBar.vue";
 import RelevanceBar from "@/pages/booking/ranking/RelevanceBar.vue";
+import KeywordInfoPopover from "@/pages/booking/ranking/KeywordInfoPopover.vue";
 
 export default {
     name: "RankingsTable",
 
-    components: {RelevanceBar, CpcBar, SearchVolumeBar, SetFilterModal, RankingTableFilters, Spinner},
+    components: {KeywordInfoPopover, RelevanceBar, CpcBar, SearchVolumeBar, SetFilterModal, RankingTableFilters, Spinner},
 
     props: {
         market: String,
@@ -140,6 +148,7 @@ export default {
             loading: true,
             error: null,
             rankingItems: useRankingItemsStore(),
+            keywordItemPopover: {},
         };
     },
 
@@ -219,6 +228,20 @@ export default {
                         console.error('Failed to fetch success preview', error);
                     }
                 });
+        },
+
+        openKeywordInfoPopover(item) {
+            this.keywordItemPopover = item;
+            this.$refs.keywordInfoPopover.$el.classList.remove('hidden');
+        },
+
+        moveKeywordInfoPopover(event) {
+            this.$refs.keywordInfoPopover.$el.style.top = event.pageY + 'px';
+            this.$refs.keywordInfoPopover.$el.style.left = (event.pageX + 15) + 'px';
+        },
+
+        hideKeywordInfoPopover() {
+            this.$refs.keywordInfoPopover.$el.classList.add('hidden');
         },
     },
 }

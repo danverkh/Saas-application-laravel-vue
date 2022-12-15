@@ -18,13 +18,14 @@ class GoogleAdsSearchVolume extends AbstractRequest
             'search_partners' => true,
         ];
 
-        $result = $this->client->post('/v3/keywords_data/google_ads/search_volume/live', $params);
-        $result  = data_get($result, 'tasks.0.result.0', []);
+        $response = $this->client->post('/v3/keywords_data/google_ads/search_volume/live', $params);
+        $result   = data_get($response, 'tasks.0.result.0', []);
+        $results  = data_get($response, 'tasks.0.result', []);
 
         $data = [
             'keywords' => $this->params->get('keywords'),
         ];
 
-        return new Result($data, [], $result);
+        return new Result($data, [], $result, $results);
     }
 }

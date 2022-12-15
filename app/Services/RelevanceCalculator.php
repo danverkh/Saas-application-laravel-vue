@@ -72,7 +72,7 @@ class RelevanceCalculator
                 ->requestType(DataForSeoRequest::TYPE_GOOGLE_ADS_KEYWORDS_FOR_SITE)
                 ->params(['target' => $domain], $market)
                 ->fetch()
-                ->rawResult();
+                ->rawFirstResult();
 
             return collect($data)->pluck('keyword')->contains($keyword) ? 100 : 0;
         });

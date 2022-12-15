@@ -81,7 +81,7 @@ class KeywordsController extends Controller
                     $data = $client->requestType(DataForSeoRequest::TYPE_GOOGLE_ADS_SEARCH_VOLUME)
                                    ->params(['keywords' => [$request->keyword]], $request->market)
                                    ->fetch()
-                                   ->rawResult();
+                                   ->rawFirstResult();
 
                     if ($data['search_volume'] === null || $data['high_top_of_page_bid'] === null) {
                         $keywordIsRanked = false;
