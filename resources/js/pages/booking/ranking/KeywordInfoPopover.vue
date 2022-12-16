@@ -2,7 +2,7 @@
     <div class="bg-white rounded-lg shadow-lg py-5 px-6 w-80 pointer-events-none fixed z-50 hidden">
         <div class="flex flex-col gap-2">
             <div>
-                <div class="font-semibold text-base mb-0.5">
+                <div class="font-semibold text-sm mb-0.5">
                     Search volume: {{ item.search_volume }}
                 </div>
                 <SearchVolumeChart :items="item.monthly_searches || []"/>
@@ -27,13 +27,9 @@
             </div>
 
             <div>
-                <div class="font-semibold text-base mb-2">Estimated Clicks</div>
-                <div class="flex flex-col text-xs gap-y-0.5">
-                    <div>Currently: {{ number(item.projected_clicks * 0.25, 1) }}</div>
-                    <div>
-                        Expected with AutoRanker: <span class="text-base font-semibold ml-1">{{ number(item.projected_clicks, 1) }}</span>
-                    </div>
-                </div>
+                <div class="font-semibold text-sm mb-0.5">Estimated Clicks</div>
+
+                <EstimatedClicksChart :value="item.projected_clicks"/>
             </div>
         </div>
     </div>
@@ -43,11 +39,12 @@
 import SearchVolumeChart from "@/pages/booking/ranking/KeywordInfoPopover/SearchVolumeChart.vue";
 import Gauge from "@/components/Gauge.vue";
 import {useRankingItemsStore} from "@/stores/rankingItems";
+import EstimatedClicksChart from "@/pages/booking/ranking/KeywordInfoPopover/EstimatedClicksChart.vue";
 
 export default {
     name: "KeywordInfoPopover",
 
-    components: {Gauge, SearchVolumeChart},
+    components: {EstimatedClicksChart, Gauge, SearchVolumeChart},
 
     props: {
         item: {
