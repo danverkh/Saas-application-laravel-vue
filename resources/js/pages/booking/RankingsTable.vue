@@ -8,11 +8,11 @@
             <thead>
             <tr>
                 <th class="cursor-default !static">Keyword</th>
-                <th><span class="tooltip tooltip-bottom cursor-default" data-tip="Search volume">Search<br>Volume</span></th>
-                <th class="text-right"><span class="tooltip tooltip-bottom cursor-default" data-tip="Cost per click">CPC</span></th>
-                <th class="text-right"><span class="tooltip tooltip-bottom cursor-default" data-tip="Relevance">Rel</span></th>
-                <th><span class="tooltip tooltip-bottom cursor-default" data-tip="Current rank">Rank</span></th>
-                <th class="min-w-[150px]"><span class="tooltip tooltip-bottom cursor-default" data-tip="Website page URL">URL</span></th>
+                <th><span class="tooltip tooltip-bottom cursor-default z-10" data-tip="Search volume">Search<br>Volume</span></th>
+                <th class="text-right"><span class="tooltip tooltip-bottom cursor-default z-10" data-tip="Cost per click">CPC</span></th>
+                <th class="text-right"><span class="tooltip tooltip-bottom cursor-default z-10" data-tip="Relevance">Rel</span></th>
+                <th><span class="tooltip tooltip-bottom cursor-default z-10" data-tip="Current rank">Rank</span></th>
+                <th class="min-w-[150px]"><span class="tooltip tooltip-bottom cursor-default z-10" data-tip="Website page URL">URL</span></th>
                 <th class="text-right">Projected<br>clicks</th>
                 <th class="text-right">Projected<br>traffic</th>
                 <th class="text-right">Maximum<br>monthly cost</th>
@@ -21,7 +21,7 @@
             </thead>
             <tbody>
             <template v-if="!loading">
-                <tr v-for="(item, index) in rankingItems.filteredItems" :key="`table-item-${item.keyword}`" :class="{selected: item.selected}">
+                <tr v-for="item in rankingItems.filteredItems" :key="`table-item-${item.keyword}`" :class="{selected: item.selected}">
                     <td class="whitespace-normal break-words min-w-[180px] font-medium white">
                         {{ withoutLastWord(item.keyword) }}
                         <span class="whitespace-nowrap">
