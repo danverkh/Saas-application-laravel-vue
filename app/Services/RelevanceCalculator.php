@@ -12,7 +12,7 @@ use Illuminate\Support\Str;
 class RelevanceCalculator
 {
     protected int $score    = 0;
-    protected int $maxScore = 25 + 50 + 20 + 100;
+    protected int $maxScore = 50 + 50 + 20 + 100;
 
     /**
      * @param $rank
@@ -21,7 +21,7 @@ class RelevanceCalculator
      */
     public function rank($rank): void
     {
-        $this->score += (100 - min((int)$rank, 100)) / 4;
+        $this->score += (100 - min((int)$rank, 100)) / 2;
     }
 
     /**
@@ -39,7 +39,7 @@ class RelevanceCalculator
                 });
 
                 $count     = Str::substrCount($pageBody, $keyword);
-                $tempScore = max($count * 5, 50);
+                $tempScore = min($count * 5, 50);
 
                 // Load HTML to DOM object
                 $dom = new DOMDocument();
