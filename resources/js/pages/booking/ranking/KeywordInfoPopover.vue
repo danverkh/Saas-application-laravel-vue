@@ -29,7 +29,7 @@
             <div>
                 <div class="font-semibold text-sm mb-0.5">Estimated Clicks</div>
 
-                <EstimatedClicksChart :value="item.projected_clicks"/>
+                <EstimatedClicksChart :value="item.projected_clicks || 0"/>
             </div>
         </div>
     </div>
