@@ -63,8 +63,18 @@ export const useRankingItemsStore = defineStore('rankingItems', {
                 });
             }
 
-            state.max.searchVolume = maxBy(items, 'search_volume').search_volume;
-            state.max.cpc = maxBy(items, 'cpc').cpc;
+            if (state.filters.rank.value !== null) {
+                items = items.filter(item => {
+                    if (state.filters.rank.operator === 'greater' && item.current_rank > state.filters.rank.value) {
+                        return true;
+                    } else if (state.filters.rank.operator === 'smaller' && item.current_rank < state.filters.rank.value) {
+                        return true;
+                    }
+                });
+            }
+
+            state.max.searchVolume = maxBy(items, 'search_volume')?.search_volume ?? 0;
+            state.max.cpc = maxBy(items, 'cpc')?.cpc ?? 0;
 
             return items;
         },
