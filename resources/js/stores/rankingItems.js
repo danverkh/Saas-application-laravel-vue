@@ -63,6 +63,16 @@ export const useRankingItemsStore = defineStore('rankingItems', {
                 });
             }
 
+            if (state.filters.cpc.value !== null) {
+                items = items.filter(item => {
+                    if (state.filters.cpc.operator === 'greater' && item.cpc > state.filters.cpc.value) {
+                        return true;
+                    } else if (state.filters.cpc.operator === 'smaller' && item.cpc < state.filters.cpc.value) {
+                        return true;
+                    }
+                });
+            }
+
             if (state.filters.rank.value !== null) {
                 items = items.filter(item => {
                     if (state.filters.rank.operator === 'greater' && item.current_rank > state.filters.rank.value) {
