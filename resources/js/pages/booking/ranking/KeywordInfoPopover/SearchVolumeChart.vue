@@ -5,6 +5,7 @@
 <script>
 import {Bar} from 'vue-chartjs';
 import {CategoryScale, Chart as ChartJS, BarElement} from 'chart.js';
+import orderBy from 'lodash/orderBy';
 
 ChartJS.register(CategoryScale, BarElement);
 
@@ -99,8 +100,14 @@ export default {
     watch: {
         items: {
             handler(items) {
-                this.chartData.labels = items.map(i => months[i.month]);
-                this.chartData.datasets[0].data = items.map(i => i.search_volume);
+                const newItems = items.map(i => {
+                    i.key = `${i.year}` + (i.month < 10 ? '0' + i.month : i.month);
+                    return i;
+                });
+                const sortedItems = orderBy(newItems, 'key');
+
+                this.chartData.labels = sortedItems.map(i => months[i.month]);
+                this.chartData.datasets[0].data = sortedItems.map(i => i.search_volume);
             },
             deep: true,
         },

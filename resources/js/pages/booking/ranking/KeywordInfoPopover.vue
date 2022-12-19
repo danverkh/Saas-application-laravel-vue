@@ -11,7 +11,7 @@
             <div class="flex flex-nowrap">
                 <div class="text-center">
                     <div class="font-semibold text-sm">Competition</div>
-                    <Gauge :value="item.competition || 0" :max-value="100">
+                    <Gauge :value="item.competition || 0" :max-value="100" flipped-colors>
                         {{ item.competition || 0 }}%
                     </Gauge>
                 </div>

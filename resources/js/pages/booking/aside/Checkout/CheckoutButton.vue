@@ -17,7 +17,7 @@
         </svg>
     </div>
 
-    <div v-if="error" class="text-red-600 text-sm text-center mt-2">Please select at least one keyword</div>
+    <div v-if="error" class="text-red-600 text-sm text-center mt-2">Please add at least one keyword</div>
 </template>
 
 <script>
