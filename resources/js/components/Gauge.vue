@@ -49,10 +49,12 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@use "sass:math";
+
 $baseFontSize: 16;
 
 @function rem($val) {
-    @return #{$val / $baseFontSize}rem;
+    @return #{math.div($val, $baseFontSize)}rem;
 }
 
 .box {
