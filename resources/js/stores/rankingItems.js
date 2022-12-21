@@ -1,7 +1,8 @@
 import {defineStore} from 'pinia'
-import {useCart} from './cart';
-import maxBy from 'lodash/maxBy';
 import RelevanceData from "@/services/RelevanceData";
+import maxBy from 'lodash/maxBy';
+import orderBy from 'lodash/orderBy';
+import {useCart} from './cart';
 
 export const useRankingItemsStore = defineStore('rankingItems', {
     persist: {
@@ -113,6 +114,10 @@ export const useRankingItemsStore = defineStore('rankingItems', {
 
             // call fetch relevance by chunks one after the other
             RelevanceData.fetchAll(this.items, 10);
+        },
+
+        reorderItems() {
+            this.items = orderBy(this.items, 'relevance', 'desc');
         },
 
         add(item) {

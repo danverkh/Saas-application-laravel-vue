@@ -1,5 +1,6 @@
 import {useCart} from "@/stores/cart";
 import chunk from "lodash/chunk";
+import {useRankingItemsStore} from "@/stores/rankingItems";
 
 class RelevanceData {
     constructor() {
@@ -42,7 +43,11 @@ class RelevanceData {
             .catch(error => {
                 console.error('Failed to fetch relevance for keywords', error);
             })
-            .finally(() => this.activeRequestCount--);
+            .finally(() => {
+                this.activeRequestCount--;
+
+                useRankingItemsStore().reorderItems();
+            });
     }
 }
 
