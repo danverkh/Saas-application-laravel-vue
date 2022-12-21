@@ -108,12 +108,11 @@ export const useRankingItemsStore = defineStore('rankingItems', {
                 return {
                     ...item,
                     selected: savedSelections.find(i => i.keyword === item.keyword) !== undefined,
-                    relevance: null,
                 };
             });
 
             // call fetch relevance by chunks one after the other
-            RelevanceData.fetchAll(this.items, 5);
+            RelevanceData.fetchAll(this.items, 10);
         },
 
         add(item) {

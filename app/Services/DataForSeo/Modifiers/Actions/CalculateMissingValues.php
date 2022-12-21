@@ -2,6 +2,7 @@
 
 namespace App\Services\DataForSeo\Modifiers\Actions;
 
+use App\Services\RelevanceCalculator;
 use Closure;
 
 class CalculateMissingValues
@@ -31,10 +32,14 @@ class CalculateMissingValues
         $cpc          = (float) ($item['cpc'] ?? 0.52);
         $searchVolume = (float) ($item['search_volume'] ?? 10);
 
+        $relevanceCalculator = new RelevanceCalculator();
+        $relevanceCalculator->rank($item['current_rank'] ?? 0);
+
         return [
             'projected_clicks'  => round($searchVolume * 0.18, 2),
             'projected_traffic' => round($searchVolume * $cpc * 0.18, 2),
             'maximum_cost'      => round($searchVolume * $cpc * 0.18 * 0.3, 2),
+            'relevance'         => $relevanceCalculator->getResult(),
         ];
     }
 }

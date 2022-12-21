@@ -25,8 +25,8 @@ class SortResults
 
         $items = collect($items)
             ->sortBy([
+                ['relevance', 'desc'],
                 $mainSort,
-                ['current_rank', 'desc'],
                 [static fn ($item) => Str::substrCount($item['url'] ?? '', '/'), 'desc'],
             ])
             ->values()
