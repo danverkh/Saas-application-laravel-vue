@@ -1,5 +1,5 @@
 <template>
-    <Modal name="preview-rank" classes="max-w-2xl px-10 py-8 relative" @closed="onClose">
+    <Modal name="preview-rank" classes="max-w-2xl px-5 lg:px-10 py-8 relative" @closed="onClose">
         <div class="alert text-xs mb-6">
             <div>
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="stroke-current text-primary flex-shrink-0 w-6 h-6 mx-1">
@@ -13,7 +13,7 @@
         </div>
 
         <div class="search-field flex flex-nowrap justify-between items-center w-full mt-3 mb-10">
-            <div>{{ keyword }}</div>
+            <div class="text-sm lg:text-base">{{ keyword }}</div>
 
             <div class="flex flex-nowrap items-center gap-x-4">
                 <div class="line h-5 bg-zinc-300"></div>
@@ -34,8 +34,8 @@
                     <div v-if="result.type === 'ad'">
                         <div v-for="n in Random.item([1, 3])" :key="`ad-${n}`" class="ad-item py-3 pointer-events-none select-none relative">
                             <div class="flex">
-                                <div class="link text-lg text-blue-700 mb-2 blur-[5px] capitalize">{{ Random.words(3, 8) }}</div>
-                                <div class="px-2 h-7 leading-7 bg-green-600 text-xs text-white rounded-lg ml-3">Ad</div>
+                                <div class="link text-sm lg:text-lg text-blue-700 mb-2 blur-[5px] capitalize">{{ Random.words(3, 8) }}</div>
+                                <div class="px-2 h-7 leading-7 bg-green-600 text-2xs lg:text-xs text-white rounded-lg ml-3">Ad</div>
                             </div>
                             <div class="description text-sm text-zinc-600 blur-[5px]">{{ Random.sentences(3, 4) }}</div>
                         </div>
@@ -46,10 +46,10 @@
                             <span class="text-zinc-900">{{ breadcrumbDomain(result.breadcrumb) }}</span>
                             <span v-if="result.breadcrumb.includes('›')"> › {{ breadcrumbs(result.breadcrumb) }}</span>
                         </div>
-                        <a :href="result.url" target="_blank" class="link text-lg text-blue-700 mb-2 cursor-pointer no-underline hover:underline hover:decoration-2">{{
+                        <a :href="result.url" target="_blank" class="link text-sm lg:text-lg text-blue-700 mb-2 cursor-pointer no-underline hover:underline hover:decoration-2">{{
                                 result.title
                             }}</a>
-                        <div class="description text-sm text-zinc-600">
+                        <div class="description text-2xs lg:text-xs text-zinc-600">
                             {{
                                 (result.description.length > descriptionLimit) ? result.description.substring(0, descriptionLimit) + '...' : result.description
                             }}
@@ -58,7 +58,7 @@
                 </div>
             </div>
 
-            <div class="absolute z-10 top-1/3 right-10 bg-white px-6 py-5 border border-zinc-200 shadow-lg rounded-xl">
+            <div class="absolute z-10 top-1/3 right-5 lg:right-10 bg-white px-6 py-5 border border-zinc-200 shadow-lg rounded-xl">
                 <ul class="text-sm space-y-1.5">
                     <li>Total Search Volume: {{ item.search_volume }}</li>
                     <li>Est. CTR: {{ number(calculatedCtr, 1) }}%</li>

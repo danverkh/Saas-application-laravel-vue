@@ -67,7 +67,7 @@
 
                         <div class="transition-all shadow-lg">
                             <div class="backdrop-blur-[10px] bg-white-500/90 py-2">
-                                <nav class="max-w-screen-xl mx-auto px-6 xl:px-2 grid grid-flow-col py-3 sm:py-4">
+                                <nav class="max-w-screen-xl mx-auto px-2 sm:px-6 xl:px-2 grid grid-flow-col py-3 sm:py-4">
                                     <div class="col-start-1 col-end-2 flex items-center">
                                         <mobile-nav-button class="w-12 h-12 flex items-center mr-1 sm:mr-5 lg:hidden"></mobile-nav-button>
 
