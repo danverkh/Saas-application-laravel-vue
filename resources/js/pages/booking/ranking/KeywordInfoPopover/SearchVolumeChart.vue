@@ -106,7 +106,7 @@ export default {
                 });
                 const sortedItems = orderBy(newItems, 'key');
 
-                this.chartData.labels = sortedItems.map(i => months[i.month]);
+                this.chartData.labels = sortedItems.map(i => months[i.month] +' '+ (i.year - 2000));
                 this.chartData.datasets[0].data = sortedItems.map(i => i.search_volume);
             },
             deep: true,
