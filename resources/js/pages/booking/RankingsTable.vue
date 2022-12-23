@@ -4,9 +4,9 @@
     <KeywordInfoPopover ref="keywordInfoPopover" :item="keywordItemPopover"/>
 
     <div class="overflow-x-auto">
-        <table v-if="!error" class="table table-compact w-full">
-            <thead ref="tableHeader">
-            <tr>
+        <table v-if="!error" ref="mainTable" class="table table-compact w-full">
+            <thead>
+            <tr class="top-[137px] z-10 border-b border-b-zinc-200">
                 <th class="cursor-default !static">Keyword</th>
                 <th><span class="tooltip tooltip-bottom cursor-default z-10" data-tip="Search volume">Search<br>Volume</span></th>
                 <th class="text-right"><span class="tooltip tooltip-bottom cursor-default z-10" data-tip="Cost per click">CPC</span></th>
@@ -16,7 +16,7 @@
                 <th class="text-right">Projected<br>clicks</th>
                 <th class="text-right">Projected<br>traffic</th>
                 <th class="text-right">Maximum<br>monthly cost</th>
-                <th></th>
+                <th>&nbsp;</th>
             </tr>
             </thead>
             <tbody>
@@ -134,13 +134,14 @@ import RelevanceBar from "@/pages/booking/ranking/RelevanceBar.vue";
 import KeywordInfoPopover from "@/pages/booking/ranking/KeywordInfoPopover.vue";
 import HelpersMixin from "@/pages/booking/ranking/mixins/HelpersMixin";
 import PopoverMixin from "@/pages/booking/ranking/mixins/PopoverMixin";
+import FixedTableHeaderMixin from "@/pages/booking/ranking/mixins/FixedTableHeaderMixin";
 
 export default {
     name: "RankingsTable",
 
     components: {KeywordInfoPopover, RelevanceBar, CpcBar, SearchVolumeBar, SetFilterModal, RankingTableFilters, Spinner},
 
-    mixins: {HelpersMixin, PopoverMixin},
+    mixins: [HelpersMixin, PopoverMixin, FixedTableHeaderMixin],
 
     props: {
         market: String,
@@ -160,6 +161,15 @@ export default {
 
         useCart().market = this.market;
         useCart().domain = this.domain;
+    },
+
+    mounted() {
+        document.querySelector('.drawer-content')
+            .addEventListener('scroll', () => {
+                if (window.outerWidth >= 1280) {
+                    this.fixedTableHeader();
+                }
+            });
     },
 
     methods: {
