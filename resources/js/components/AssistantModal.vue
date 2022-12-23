@@ -4,13 +4,13 @@
             <div class="text-3xl text-center py-4">What are your online<br class="hidden sm:inline"> marketing goals?</div>
 
             <div class="flex flex-col gap-y-3 mt-6">
-                <div class="btn btn-block" @click="answers.marketing = 'conversions'" :class="answers.marketing === 'conversions' ? 'btn-primary' : 'btn-secondary btn-outline'">
+                <div class="btn btn-block" @click="answers.marketing = 'conversions'" :class="answers.marketing === 'conversions' ? 'btn-primary' : 'text-zinc-800 bg-zinc-100 border-zinc-200 hover:text-white'">
                     Conversions
                 </div>
-                <div class="btn btn-block" @click="answers.marketing = 'branding'" :class="answers.marketing === 'branding' ? 'btn-primary' : 'btn-secondary btn-outline'">
+                <div class="btn btn-block" @click="answers.marketing = 'branding'" :class="answers.marketing === 'branding' ? 'btn-primary' : 'text-zinc-800 bg-zinc-100 border-zinc-200 hover:text-white'">
                     Branding
                 </div>
-                <div class="btn btn-block" @click="answers.marketing = 'find_employees'" :class="answers.marketing === 'find_employees' ? 'btn-primary' : 'btn-secondary btn-outline'">
+                <div class="btn btn-block" @click="answers.marketing = 'find_employees'" :class="answers.marketing === 'find_employees' ? 'btn-primary' : 'text-zinc-800 bg-zinc-100 border-zinc-200 hover:text-white'">
                     Find employees
                 </div>
             </div>
