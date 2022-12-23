@@ -5,7 +5,7 @@
 
     <div class="overflow-x-auto">
         <table v-if="!error" class="table table-compact w-full">
-            <thead>
+            <thead ref="tableHeader">
             <tr>
                 <th class="cursor-default !static">Keyword</th>
                 <th><span class="tooltip tooltip-bottom cursor-default z-10" data-tip="Search volume">Search<br>Volume</span></th>
@@ -132,11 +132,15 @@ import SearchVolumeBar from "@/pages/booking/ranking/SearchVolumeBar.vue";
 import CpcBar from "@/pages/booking/ranking/CpcBar.vue";
 import RelevanceBar from "@/pages/booking/ranking/RelevanceBar.vue";
 import KeywordInfoPopover from "@/pages/booking/ranking/KeywordInfoPopover.vue";
+import HelpersMixin from "@/pages/booking/ranking/mixins/HelpersMixin";
+import PopoverMixin from "@/pages/booking/ranking/mixins/PopoverMixin";
 
 export default {
     name: "RankingsTable",
 
     components: {KeywordInfoPopover, RelevanceBar, CpcBar, SearchVolumeBar, SetFilterModal, RankingTableFilters, Spinner},
+
+    mixins: {HelpersMixin, PopoverMixin},
 
     props: {
         market: String,
@@ -148,7 +152,6 @@ export default {
             loading: true,
             error: null,
             rankingItems: useRankingItemsStore(),
-            keywordItemPopover: {},
         };
     },
 
@@ -195,28 +198,6 @@ export default {
             useRankingItemsStore().add(item);
         },
 
-        muteDomain(url) {
-            try {
-                const {origin, pathname} = new URL(url);
-
-                return origin
-                    ? `<span class="opacity-50">${origin}</span>${(pathname === '/' ? '' : pathname)}`
-                    : url;
-            } catch (error) {
-                return url;
-            }
-        },
-
-        withoutLastWord(string) {
-            return string.substring(0, string.lastIndexOf(' '));
-        },
-
-        lastWord(string) {
-            const words = string.split(' ');
-
-            return words.length ? words.pop() : '';
-        },
-
         openPreviewRank(keyword) {
             Modal.open('preview-rank');
 
@@ -228,20 +209,6 @@ export default {
                         console.error('Failed to fetch success preview', error);
                     }
                 });
-        },
-
-        openKeywordInfoPopover(item) {
-            this.keywordItemPopover = item;
-            this.$refs.keywordInfoPopover.$el.classList.remove('hidden');
-        },
-
-        moveKeywordInfoPopover(event) {
-            this.$refs.keywordInfoPopover.$el.style.top = event.pageY + 'px';
-            this.$refs.keywordInfoPopover.$el.style.left = (event.pageX + 15) + 'px';
-        },
-
-        hideKeywordInfoPopover() {
-            this.$refs.keywordInfoPopover.$el.classList.add('hidden');
         },
     },
 }
