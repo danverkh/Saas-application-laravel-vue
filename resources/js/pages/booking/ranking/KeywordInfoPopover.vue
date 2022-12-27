@@ -1,5 +1,5 @@
 <template>
-    <div class="bg-white rounded-lg shadow-lg py-5 px-6 w-80 pointer-events-none fixed z-50 hidden">
+    <div id="keyword-info-popover" class="bg-white rounded-lg shadow-lg py-5 px-6 w-80 pointer-events-none fixed z-50 hidden">
         <div class="flex flex-col gap-2">
             <div>
                 <div class="font-semibold text-sm mb-0.5">
@@ -40,23 +40,29 @@ import SearchVolumeChart from "@/pages/booking/ranking/KeywordInfoPopover/Search
 import Gauge from "@/components/Gauge.vue";
 import {useRankingItemsStore} from "@/stores/rankingItems";
 import EstimatedClicksChart from "@/pages/booking/ranking/KeywordInfoPopover/EstimatedClicksChart.vue";
+import EventBus from "@/services/EventBus";
 
 export default {
     name: "KeywordInfoPopover",
 
     components: {EstimatedClicksChart, Gauge, SearchVolumeChart},
 
-    props: {
-        item: {
-            type: Object,
-            required: true,
-        },
+    data() {
+        return {
+            item: {},
+        };
     },
 
     computed: {
         maxCpc() {
             return useRankingItemsStore().max.cpc;
         },
+    },
+
+    mounted() {
+        EventBus.on('keyword-info-popover:item', (item) => {
+            this.item = item;
+        });
     },
 }
 </script>
