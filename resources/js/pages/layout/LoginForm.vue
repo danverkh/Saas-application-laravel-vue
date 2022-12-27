@@ -22,16 +22,11 @@
                :error-text="false"
                class="text-zinc-900 input-xs px-2 rounded"/>
 
-        <button class="btn btn-xs rounded-md !text-2xs font-normal normal-case disabled:bg-zinc-500" @click="submit" title="Login" :disabled="requestPending">
+        <button class="btn btn-xs rounded-md !text-2xs font-normal normal-case px-3 tracking-widest disabled:bg-zinc-500" @click="submit" title="Login" :disabled="requestPending">
             <template v-if="requestPending">
                 <Spinner :size="10" :border-width="2" color="#fff" class="mx-4"></Spinner>
             </template>
-            <template v-else>
-                <svg class="w-3 h-3 -ml-0.5 mr-1" viewBox="0 0 256 256">
-                    <path fill="currentColor" d="m144.5 136.5l-42 42A12 12 0 0 1 94 182a12.2 12.2 0 0 1-8.5-3.5a12 12 0 0 1 0-17L107 140H24a12 12 0 0 1 0-24h83L85.5 94.5a12 12 0 0 1 17-17l42 42a12 12 0 0 1 0 17ZM192 28h-56a12 12 0 0 0 0 24h52v152h-52a12 12 0 0 0 0 24h56a20.1 20.1 0 0 0 20-20V48a20.1 20.1 0 0 0-20-20Z"/>
-                </svg>
-                Login
-            </template>
+            <template v-else>Login</template>
         </button>
     </form>
 </template>
