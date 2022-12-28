@@ -18,7 +18,12 @@ export default {
         },
 
         moveKeywordInfoPopover(event) {
-            this.keywordInfoPopoverElement.style.top = event.pageY + 'px';
+            if ((event.pageY + this.keywordInfoPopoverElement.offsetHeight) > window.innerHeight) {
+                this.keywordInfoPopoverElement.style.top = (window.innerHeight - this.keywordInfoPopoverElement.offsetHeight - 10) + 'px';
+            } else {
+                this.keywordInfoPopoverElement.style.top = event.pageY + 'px';
+            }
+
             this.keywordInfoPopoverElement.style.left = (event.pageX + 15) + 'px';
         },
 
