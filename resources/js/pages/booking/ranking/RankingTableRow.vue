@@ -28,8 +28,8 @@
         <td class="text-right">
             <RelevanceBar :item="item"/>
         </td>
-        <td class="text-right">{{ item.current_rank }}</td>
-        <td class="whitespace-normal break-all !text-xs" v-html="muteDomain(item.url)"></td>
+        <td class="text-right">{{ item.current_rank || '-' }}</td>
+        <td class="whitespace-normal break-all !text-xs" v-html="muteDomain(item.url || '-')"></td>
         <td class="text-right">{{ item.projected_clicks ? number(item.projected_clicks, 1) : '-' }}</td>
         <td class="text-right">{{ item.projected_traffic ? number(item.projected_traffic, 1) : '-' }}</td>
         <td class="text-right">{{ item.maximum_cost ? money(item.maximum_cost) : '-' }}</td>

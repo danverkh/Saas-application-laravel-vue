@@ -7,6 +7,10 @@ export default {
             const headerCells = tableHeader.querySelectorAll('th');
             const firstRowCells = this.$refs.mainTable.querySelectorAll('tbody>tr:first-child>*');
 
+            if (firstRowCells.length === 1) {
+                return;
+            }
+
             if ((pageHeaderHeight + 55) > tableHeaderTop) {
                 headerCells.forEach((el, index) => {
                     firstRowCells[index].style.width = el.offsetWidth + 'px';

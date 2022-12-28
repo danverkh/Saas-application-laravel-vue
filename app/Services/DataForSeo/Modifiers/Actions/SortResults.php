@@ -14,7 +14,7 @@ class SortResults
      *
      * @return mixed
      */
-    public function handle($items, Closure $next, ?string $assistant)
+    public function handle($items, Closure $next, ?string $assistant = null)
     {
         // default and when assistant is set to conversions
         $mainSort = ['cpc', 'desc'];

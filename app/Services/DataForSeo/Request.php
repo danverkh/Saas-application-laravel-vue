@@ -5,6 +5,7 @@ namespace App\Services\DataForSeo;
 use App\Services\DataForSeo\Modifiers\DomainSearchModifier;
 use App\Services\DataForSeo\Modifiers\GoogleKeywordAdvancedSearchModifier;
 use App\Services\DataForSeo\Requests\DomainSearch;
+use App\Services\DataForSeo\Requests\GoogleAdsKeywordsForKeywords;
 use App\Services\DataForSeo\Requests\GoogleAdsKeywordsForSite;
 use App\Services\DataForSeo\Requests\GoogleAdsSearchVolume;
 use App\Services\DataForSeo\Requests\GoogleKeywordAdvancedSearch;
@@ -12,11 +13,12 @@ use App\Services\DataForSeo\Requests\GoogleKeywordRegularSearch;
 
 class Request
 {
-    public const TYPE_DOMAIN_SEARCH                = 'domain';
-    public const TYPE_GOOGLE_KEYWORD_REGULAR       = 'google-keyword-regular';
-    public const TYPE_GOOGLE_KEYWORD_ADVANCED      = 'google-keyword-advanced';
-    public const TYPE_GOOGLE_ADS_SEARCH_VOLUME     = 'google-ads-search-volume';
-    public const TYPE_GOOGLE_ADS_KEYWORDS_FOR_SITE = 'google-ads-keywords-for-site';
+    public const TYPE_DOMAIN_SEARCH                    = 'domain';
+    public const TYPE_GOOGLE_KEYWORD_REGULAR           = 'google-keyword-regular';
+    public const TYPE_GOOGLE_KEYWORD_ADVANCED          = 'google-keyword-advanced';
+    public const TYPE_GOOGLE_ADS_SEARCH_VOLUME         = 'google-ads-search-volume';
+    public const TYPE_GOOGLE_ADS_KEYWORDS_FOR_SITE     = 'google-ads-keywords-for-site';
+    public const TYPE_GOOGLE_ADS_KEYWORDS_FOR_KEYWORDS = 'google-ads-keywords-for-keywords';
 
     /**
      * @var \App\Services\DataForSeo\Params
@@ -70,6 +72,7 @@ class Request
             self::TYPE_GOOGLE_KEYWORD_ADVANCED => new GoogleKeywordAdvancedSearch(),
             self::TYPE_GOOGLE_ADS_SEARCH_VOLUME => new GoogleAdsSearchVolume(),
             self::TYPE_GOOGLE_ADS_KEYWORDS_FOR_SITE => new GoogleAdsKeywordsForSite(),
+            self::TYPE_GOOGLE_ADS_KEYWORDS_FOR_KEYWORDS => new GoogleAdsKeywordsForKeywords(),
         };
 
         $request->setParams($this->params);

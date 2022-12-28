@@ -14,7 +14,9 @@ class RelevanceData {
         this.chunks = chunk(items, chunkSize);
 
         for (let i = 0; i < this.maxActiveRequests; i++) {
-            this.fetch(this.chunks[i]);
+            if (this.chunks[i]) {
+                this.fetch(this.chunks[i]);
+            }
         }
     }
 
@@ -22,23 +24,29 @@ class RelevanceData {
         this.activeRequestCount++;
 
         const data = {
-            items: chunk.map(row => {
-                return {
-                    keyword: row.keyword,
-                    rank: row.current_rank,
-                    url: row.url,
-                };
-            }),
+            items: chunk
+                .filter(row => row.url)
+                .map(row => {
+                    return {
+                        keyword: row.keyword,
+                        rank: row.current_rank || 0,
+                        url: row.url,
+                    };
+                }),
             market: useCart().market,
             domain: useCart().domain,
         };
+
+        if (data.items.length === 0) {
+            return;
+        }
 
         axios.post(route('api.keywords.relevance'), data)
             .then(({data}) => {
                 if (this.maxActiveRequests > this.activeRequestCount && (this.chunks.length - 1) > this.currentChunkIndex) {
                     this.fetch(this.chunks[++this.currentChunkIndex]);
                 }
-                chunk.forEach(row => row.relevance = data[row.keyword]);
+                chunk.forEach(row => row.relevance = data[row.keyword] || row.relevance);
             })
             .catch(error => {
                 console.error('Failed to fetch relevance for keywords', error);
