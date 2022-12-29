@@ -3,13 +3,9 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Services\DataForSeo\Modifiers\Actions\CalculateMissingValues;
-use App\Services\DataForSeo\Modifiers\Actions\SortResults;
-use App\Services\DataForSeo\Modifiers\Actions\UniqueKeywords;
 use App\Services\DataForSeo\Request as DataForSeoRequest;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Illuminate\Pipeline\Pipeline;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\RateLimiter;
 
@@ -35,17 +31,13 @@ class RankingsController extends Controller
 
         $key = "rankings.{$params['market']}.{$params['domain']}";
 
-        $data = Cache::remember($key, now()->addHours(3), function () use ($limiterKey, $client, $params) {
+        $data = Cache::remember($key, now()->addHours(3), static function () use ($limiterKey, $client, $params) {
             RateLimiter::hit($limiterKey);
 
             $data = $client->requestType(DataForSeoRequest::TYPE_DOMAIN_SEARCH)
                            ->params(['domain' => $params['domain']], $params['market'])
                            ->fetch()
                            ->result(['assistant' => $params['assistant'] ?? null]);
-
-            if (count($data) < 50) {
-                $data = $this->getAdditionalKeywords($data, $client, $params);
-            }
 
             $keywords = collect($data)->pluck('keyword')->toArray();
 
@@ -68,35 +60,5 @@ class RankingsController extends Controller
         });
 
         return response()->json(['status' => 'success', 'rows' => $data]);
-    }
-
-    /**
-     * @param array                            $data
-     * @param \App\Services\DataForSeo\Request $client
-     * @param array                            $params
-     *
-     * @return array
-     */
-    private function getAdditionalKeywords(array $data, DataForSeoRequest $client, array $params): array
-    {
-        $keywords = collect($data)->pluck('keyword')->take(20)->toArray();
-
-        $results = $client->requestType(DataForSeoRequest::TYPE_GOOGLE_ADS_KEYWORDS_FOR_KEYWORDS)
-               ->params(['keywords' => $keywords], $params['market'])
-               ->fetch()
-               ->rawResults();
-
-        $results = app(Pipeline::class)
-            ->send($results)
-            ->through([CalculateMissingValues::class])
-            ->thenReturn();
-
-        return app(Pipeline::class)
-            ->send(array_merge($data, $results))
-            ->through([
-                UniqueKeywords::class,
-                SortResults::class,
-            ])
-            ->thenReturn();
     }
 }

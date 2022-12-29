@@ -36,9 +36,6 @@ class CalculateMissingValues
         $relevanceCalculator->rank($item['current_rank'] ?? 0);
 
         return [
-            'cpc'               => $cpc,
-            'url'               => $item['url'] ?? null,
-            'current_rank'      => $item['current_rank'] ?? null,
             'projected_clicks'  => round($searchVolume * 0.18, 2),
             'projected_traffic' => round($searchVolume * $cpc * 0.18, 2),
             'maximum_cost'      => round($searchVolume * $cpc * 0.18 * 0.3, 2),
