@@ -1,5 +1,5 @@
 <template>
-    <Modal name="set-filter-modal" classes="max-w-md px-6 sm:px-10 py-7 sm:py-9" @opened="opened">
+    <Modal name="set-filter-modal" classes="max-w-md px-6 sm:px-8 py-7 sm:py-8" @opened="opened">
         <div class="text-2xl text-center mb-6">Set filter for {{ filterLabel }}</div>
 
         <div class="flex flex-nowrap items-center">
@@ -16,10 +16,12 @@
             </div>
         </div>
 
-        <div class="flex justify-end mt-6">
-            <button @click="submit" class="btn btn-primary px-8" :class="{'pointer-events-none opacity-25': !valid}">
-                Set filter
-            </button>
+        <div class="bg-zinc-100 border-t border-t-zinc-200 mt-6 -mx-6 sm:-mx-8 -mb-7 sm:-mb-8">
+            <div class="flex justify-end px-6 sm:px-8 py-5 sm:py-4">
+                <button @click="submit" class="btn btn-primary px-8" :class="{'pointer-events-none opacity-25': !valid}">
+                    Set filter
+                </button>
+            </div>
         </div>
     </Modal>
 </template>

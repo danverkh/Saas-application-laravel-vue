@@ -62,7 +62,7 @@
             <div v-else class="text-sm text-center text-accent bg-accent bg-opacity-10 p-4 rounded-lg">Please add at least one keyword</div>
 
             <div class="bg-zinc-100 border-t border-t-zinc-200 mt-2 -mx-6 sm:-mx-8 -mb-7 sm:-mb-8">
-                <div class="flex justify-end px-6 sm:px-8 py-5 sm:py-6">
+                <div class="flex justify-end px-6 sm:px-8 py-5 sm:py-5">
                     <SubmitButton @click="submit" class="!py-3 w-full !pl-5 sm:w-[210px]" :disabled="!canSubmitKeywords || submittingKeywords">
                         <Spinner v-if="submittingKeywords" color="#fff" :size="22" :border-width="4"></Spinner>
                         <span v-else>Add keywords</span>
