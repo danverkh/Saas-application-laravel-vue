@@ -1,7 +1,9 @@
 <template>
     <div>
         <div class="text-md">Target audience size</div>
-        <div class="text-2xl font-semibold">{{ audienceSize }}+</div>
+        <div class="text-2xl font-semibold">
+            <AnimateNumber :value="audienceSize"/>+
+        </div>
     </div>
 
     <div class="w-full bg-zinc-600 h-3 my-3 rounded-xl overflow-hidden">
@@ -61,6 +63,7 @@
 <script setup>
 import {ref} from 'vue';
 import {useForecastedResults} from "@/composables/useForecastedResults";
+import AnimateNumber from '@/components/AnimateNumber.vue';
 
 const days = ref(1);
 
