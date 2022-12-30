@@ -43,7 +43,11 @@
                     <header class="sticky top-0 w-full z-40">
                         <div class="bg-zinc-50 border-b border-b-zinc-200">
                             <div class="max-w-screen-xl mx-auto px-6 xl:px-2 flex justify-end items-center py-1 sm:py-2">
-                                <div class="text-sm text-zinc-900">{{ auth()->user()->email }}</div>
+                                <div class="text-sm text-zinc-900 hover:text-accent">
+                                    <a href="{{ route('dashboard.campaigns') }}">
+                                        {{ auth()->user()->email }}
+                                    </a>
+                                </div>
 
                                 <div class="text-zinc-300 mx-3">|</div>
 
