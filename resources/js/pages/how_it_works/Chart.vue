@@ -1,5 +1,5 @@
 <template>
-    <Line :chartData="chartData" :chartOptions="chartOptions" height="100%" css-classes="w-full h-auto"></Line>
+    <Line :chartData="chartData" :chartOptions="chartOptions" :height="200" css-classes="w-full h-auto"></Line>
 </template>
 
 <script>
