@@ -106,8 +106,8 @@
                 <div class="swiper-container overflow-hidden">
                     <div class="swiper-wrapper pb-5">
                         @foreach(\App\Repositories\TestimonialsRepository::all() as $testimonial)
-                            <div class="swiper-slide shadow-lg rounded-xl overflow-hidden max-w-lg !h-auto">
-                                <blockquote class="flex flex-col justify-between h-full p-12 bg-white">
+                            <div class="swiper-slide shadow-lg rounded-xl overflow-hidden max-w-lg !h-auto mx-1.5">
+                                <blockquote class="flex flex-col justify-between h-full p-10 bg-white">
                                     <div>
                                         <div class="flex space-x-0.5 text-white">
                                             <span class="text-yellow-500">
