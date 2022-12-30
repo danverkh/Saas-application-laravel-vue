@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\RankingsRequest;
 use App\Services\DataForSeo\Request as DataForSeoRequest;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -12,18 +13,14 @@ use Illuminate\Support\Facades\RateLimiter;
 class RankingsController extends Controller
 {
     /**
-     * @param \Illuminate\Http\Request $request
-     * @param DataForSeoRequest        $client
+     * @param \App\Http\Requests\RankingsRequest $request
+     * @param DataForSeoRequest                  $client
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function index(Request $request, DataForSeoRequest $client): JsonResponse
+    public function index(RankingsRequest $request, DataForSeoRequest $client): JsonResponse
     {
-        $params = $request->validate([
-            'domain'    => 'required',
-            'market'    => 'required',
-            'assistant' => 'sometimes|in:conversions,branding,find_employees',
-        ]);
+        $params = $request->validated();
 
         $limiterKey = $request->userAgent() . $request->ip();
 
@@ -31,17 +28,17 @@ class RankingsController extends Controller
 
         $key = "rankings.{$params['market']}.{$params['domain']}";
 
-        $data = Cache::remember($key, now()->addHours(3), static function () use ($limiterKey, $client, $params) {
+        $data = Cache::remember($key, now()->addHours(6), static function () use ($limiterKey, $client, $params) {
             RateLimiter::hit($limiterKey);
 
-            $data = $client->requestType(DataForSeoRequest::TYPE_DOMAIN_SEARCH)
+            $data = $client->request(DataForSeoRequest::DOMAIN_SEARCH)
                            ->params(['domain' => $params['domain']], $params['market'])
                            ->fetch()
                            ->result(['assistant' => $params['assistant'] ?? null]);
 
             $keywords = collect($data)->pluck('keyword')->toArray();
 
-            $keywordSearches = $client->requestType(DataForSeoRequest::TYPE_GOOGLE_ADS_SEARCH_VOLUME)
+            $keywordSearches = $client->request(DataForSeoRequest::GOOGLE_ADS_SEARCH_VOLUME)
                                       ->params(['keywords' => $keywords], $params['market'])
                                       ->fetch()
                                       ->rawResults();

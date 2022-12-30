@@ -69,7 +69,7 @@ class RelevanceCalculator
 
         $this->score += Cache::remember($key, now()->addWeek(), static function () use ($domain, $market, $keyword) {
             $data = app(DataForSeoRequest::class)
-                ->requestType(DataForSeoRequest::TYPE_GOOGLE_ADS_KEYWORDS_FOR_SITE)
+                ->request(DataForSeoRequest::GOOGLE_ADS_KEYWORDS_FOR_SITE)
                 ->params(['target' => $domain], $market)
                 ->fetch()
                 ->rawFirstResult();

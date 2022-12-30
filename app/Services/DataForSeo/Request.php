@@ -12,14 +12,14 @@ use App\Services\DataForSeo\Requests\GoogleKeywordRegularSearch;
 
 class Request
 {
-    public const TYPE_DOMAIN_SEARCH                = 'domain';
-    public const TYPE_GOOGLE_KEYWORD_REGULAR       = 'google-keyword-regular';
-    public const TYPE_GOOGLE_KEYWORD_ADVANCED      = 'google-keyword-advanced';
-    public const TYPE_GOOGLE_ADS_SEARCH_VOLUME     = 'google-ads-search-volume';
-    public const TYPE_GOOGLE_ADS_KEYWORDS_FOR_SITE = 'google-ads-keywords-for-site';
+    public const DOMAIN_SEARCH                = 'domain';
+    public const GOOGLE_KEYWORD_REGULAR       = 'google-keyword-regular';
+    public const GOOGLE_KEYWORD_ADVANCED      = 'google-keyword-advanced';
+    public const GOOGLE_ADS_SEARCH_VOLUME     = 'google-ads-search-volume';
+    public const GOOGLE_ADS_KEYWORDS_FOR_SITE = 'google-ads-keywords-for-site';
 
     /**
-     * @var \App\Services\DataForSeo\Params
+     * @var Params
      */
     private Params $params;
 
@@ -31,7 +31,7 @@ class Request
     /**
      * @var string
      */
-    private string $requestType;
+    private string $request;
 
     /**
      * @param array  $params
@@ -48,13 +48,13 @@ class Request
     }
 
     /**
-     * @param string $type
+     * @param string $name
      *
      * @return $this
      */
-    public function requestType(string $type): self
+    public function request(string $name): self
     {
-        $this->requestType = $type;
+        $this->request = $name;
 
         return $this;
     }
@@ -64,12 +64,12 @@ class Request
      */
     public function fetch(): self
     {
-        $request = match ($this->requestType) {
-            self::TYPE_DOMAIN_SEARCH => new DomainSearch(),
-            self::TYPE_GOOGLE_KEYWORD_REGULAR => new GoogleKeywordRegularSearch(),
-            self::TYPE_GOOGLE_KEYWORD_ADVANCED => new GoogleKeywordAdvancedSearch(),
-            self::TYPE_GOOGLE_ADS_SEARCH_VOLUME => new GoogleAdsSearchVolume(),
-            self::TYPE_GOOGLE_ADS_KEYWORDS_FOR_SITE => new GoogleAdsKeywordsForSite(),
+        $request = match ($this->request) {
+            self::DOMAIN_SEARCH => new DomainSearch(),
+            self::GOOGLE_KEYWORD_REGULAR => new GoogleKeywordRegularSearch(),
+            self::GOOGLE_KEYWORD_ADVANCED => new GoogleKeywordAdvancedSearch(),
+            self::GOOGLE_ADS_SEARCH_VOLUME => new GoogleAdsSearchVolume(),
+            self::GOOGLE_ADS_KEYWORDS_FOR_SITE => new GoogleAdsKeywordsForSite(),
         };
 
         $request->setParams($this->params);
@@ -87,9 +87,9 @@ class Request
     public function result(?array $params = null): array
     {
         /** @var \App\Services\DataForSeo\Modifiers\ModifierContract $modifier */
-        $modifier = match ($this->requestType) {
-            self::TYPE_DOMAIN_SEARCH => new DomainSearchModifier($params['assistant']),
-            self::TYPE_GOOGLE_KEYWORD_ADVANCED => new GoogleKeywordAdvancedSearchModifier($params['domain']),
+        $modifier = match ($this->request) {
+            self::DOMAIN_SEARCH => new DomainSearchModifier($params['assistant']),
+            self::GOOGLE_KEYWORD_ADVANCED => new GoogleKeywordAdvancedSearchModifier($params['domain']),
         };
 
         return $modifier->handle($this->result);

@@ -31,7 +31,7 @@ class KeywordsController extends Controller
                 $keyword         = mb_convert_encoding($request->keyword, 'UTF-8');
                 $keywordIsRanked = false;
 
-                $items = $client->requestType(DataForSeoRequest::TYPE_GOOGLE_KEYWORD_REGULAR)
+                $items = $client->request(DataForSeoRequest::GOOGLE_KEYWORD_REGULAR)
                                 ->params(['keyword' => $keyword], $request->market)
                                 ->fetch()
                                 ->rawItems();
@@ -50,7 +50,7 @@ class KeywordsController extends Controller
 
                 // Verify domain is _actually_ found by iterating over serp pages iteratively
                 for ($i = 0; $i <= 70; $i += 10) {
-                    $items = $client->requestType(DataForSeoRequest::TYPE_GOOGLE_KEYWORD_REGULAR)
+                    $items = $client->request(DataForSeoRequest::GOOGLE_KEYWORD_REGULAR)
                                     ->params([
                                         'keyword'      => $keyword,
                                         'search_param' => 'start=' . $i,
@@ -78,7 +78,7 @@ class KeywordsController extends Controller
                 }
 
                 if ($keywordIsRanked) {
-                    $data = $client->requestType(DataForSeoRequest::TYPE_GOOGLE_ADS_SEARCH_VOLUME)
+                    $data = $client->request(DataForSeoRequest::GOOGLE_ADS_SEARCH_VOLUME)
                                    ->params(['keywords' => [$request->keyword]], $request->market)
                                    ->fetch()
                                    ->rawFirstResult();

@@ -7,9 +7,20 @@ use Illuminate\Support\Str;
 
 class Params
 {
-    public array  $params;
+    /**
+     * @var array
+     */
+    public array $params;
+
+    /**
+     * @var string
+     */
     public string $market;
-    public int    $limit;
+
+    /**
+     * @var int
+     */
+    public int $limit;
 
     /**
      * @var \App\Models\Country

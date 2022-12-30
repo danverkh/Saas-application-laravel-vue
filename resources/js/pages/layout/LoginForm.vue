@@ -22,7 +22,7 @@
                :error-text="false"
                class="text-zinc-900 input-xs px-2 rounded"/>
 
-        <button class="btn btn-xs rounded-md !text-2xs font-normal normal-case px-3 tracking-widest disabled:bg-zinc-500" @click="submit" title="Login" :disabled="requestPending">
+        <button class="btn btn-xs rounded-md !text-2xs font-normal normal-case px-3 tracking-widest disabled:bg-zinc-500" @click="submit" :disabled="requestPending">
             <template v-if="requestPending">
                 <Spinner :size="10" :border-width="2" color="#fff" class="mx-4"></Spinner>
             </template>

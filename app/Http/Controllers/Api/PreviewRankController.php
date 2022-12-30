@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\PreviewRankRequest;
 use App\Services\DataForSeo\Request as DataForSeoRequest;
 use Exception;
 use Illuminate\Http\JsonResponse;
@@ -14,24 +15,20 @@ use Symfony\Component\HttpFoundation\Response;
 class PreviewRankController extends Controller
 {
     /**
-     * @param \Illuminate\Http\Request $request
-     * @param DataForSeoRequest        $client
+     * @param \App\Http\Requests\PreviewRankRequest $request
+     * @param DataForSeoRequest                     $client
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function index(Request $request, DataForSeoRequest $client): JsonResponse
+    public function index(PreviewRankRequest $request, DataForSeoRequest $client): JsonResponse
     {
-        $params = $request->validate([
-            'keyword' => 'required',
-            'market'  => 'required',
-            'domain'  => 'required',
-        ]);
+        $params = $request->validated();
 
         try {
             $key = "preview-rank.{$params['market']}.{$params['keyword']}";
 
-            $data = Cache::remember($key, now()->addHours(3), static function () use ($client, $params) {
-                return $client->requestType(DataForSeoRequest::TYPE_GOOGLE_KEYWORD_ADVANCED)
+            $data = Cache::remember($key, now()->addHours(6), static function () use ($client, $params) {
+                return $client->request(DataForSeoRequest::GOOGLE_KEYWORD_ADVANCED)
                               ->params(['keyword' => $params['keyword']], $params['market'])
                               ->fetch()
                               ->result(['domain' => $params['domain']]);

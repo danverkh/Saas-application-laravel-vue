@@ -19,6 +19,7 @@ class GoogleAdsKeywordsForSite extends AbstractRequest
         ];
 
         $result = $this->client->post('/v3/keywords_data/google_ads/keywords_for_site/live', $params);
+
         $result = data_get($result, 'tasks.0.result', []);
 
         $data = [];

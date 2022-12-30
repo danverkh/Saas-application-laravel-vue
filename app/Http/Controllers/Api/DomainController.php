@@ -3,22 +3,20 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\DomainRequest;
 use App\Services\Domain;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class DomainController extends Controller
 {
     /**
-     * @param \Illuminate\Http\Request $request
+     * @param \App\Http\Requests\DomainRequest $request
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function marketGuess(Request $request): JsonResponse
+    public function marketGuess(DomainRequest $request): JsonResponse
     {
-        $request->validate(['domain' => 'required']);
-
         $item = DB::connection('production')
                   ->table('prospect_mail_domains')
                   ->select(['language_detected', 'registrant_country'])
