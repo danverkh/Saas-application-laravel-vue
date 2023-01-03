@@ -14,19 +14,19 @@
             <div class="grid grid-cols-1 lg:grid-cols-2">
                 <div class="relative flex items-center justify-center lg:justify-end bg-zinc-100 rounded-r-3xl border-b-4 border-zinc-300/60 mr-8 lg:mr-0">
                     <div class="pt-14 pb-24 px-4 lg:pl-5 lg:pr-10 lg:pr-16 xl:pr-24 text-center lg:text-right">
-                        <div class="text-4xl xl:text-5xl mb-3">We want to offer a</div>
+                        <div class="text-3xl xl:text-5xl mb-3">We want to offer a</div>
 
                         <div class="text-zinc-900">
-                            <div class="font-bold text-5xl xl:text-6xl mb-2">
+                            <div class="font-bold text-4xl xl:text-6xl mb-2">
                                 <span class="text-primary">performance</span>-only
                             </div>
 
-                            <div class="font-bold text-7xl mb-5">
+                            <div class="font-bold text-6xl mb-5">
                                 <span class="text-primary">SEO</span> service
                             </div>
                         </div>
 
-                        <div class="text-xl tracking-wider max-w-lg">
+                        <div class="text-lg tracking-wider max-w-lg">
                             especially catering to smaller businesses who compete against much larger firms
                         </div>
                     </div>
@@ -34,7 +34,7 @@
 
                 <div class="flex flex-row flex-nowrap z-10 -mt-20 lg:mt-0">
                     <div class="flex-grow content flex items-center justify-center lg:justify-start">
-                        <img class="max-h-[23em] ml-3 xl:max-h-[27em] xl:ml-14" src="/img/team-working.svg"/>
+                        <img class="max-h-[23em] mr-2 md:mr-0 ml-3 xl:max-h-[27em] xl:ml-14" src="/img/team-working.svg"/>
                     </div>
 
                     <div class="flex-grow rounded-l-3xl bg-primary h-full border-b-4 border-red-700"></div>
@@ -84,7 +84,7 @@
 
     <section class="bg-zinc-100">
         <div class="py-16 lg:py-24 mx-auto lg:pr-0 lg:mr-0">
-            <div class="items-end justify-between max-w-7xl sm:flex mx-auto mb-14 px-5">
+            <div class="items-end justify-between max-w-7xl sm:flex mx-auto mb-7 sm:mb-14 px-5">
                 <x-subtitle margin="mb-5 sm:mb-0" text-size="text-3xl lg:text-4xl" :line="false">Reviews from our customers</x-subtitle>
 
                 <div class="flex lg:mt-0">
@@ -104,7 +104,7 @@
 
             <div class="lg:col-span-2 mx-0">
                 <div class="swiper-container overflow-hidden">
-                    <div class="swiper-wrapper pb-5">
+                    <div class="swiper-wrapper pb-5 cursor-grab">
                         @foreach(\App\Repositories\TestimonialsRepository::all() as $testimonial)
                             <div class="swiper-slide shadow-lg rounded-xl overflow-hidden max-w-lg !h-auto mx-1.5">
                                 <blockquote class="flex flex-col justify-between h-full p-10 bg-white">
@@ -163,7 +163,7 @@
             document.addEventListener('DOMContentLoaded', function () {
                 const swiper = new Swiper('.swiper-container', {
                     loop: true,
-                    slidesPerView: 1.5,
+                    slidesPerView: 1.2,
                     spaceBetween: 32,
                     autoplay: {
                         delay: 8000,
