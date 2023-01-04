@@ -312,6 +312,30 @@ namespace App\Models{
 
 namespace App\Models{
 /**
+ * App\Models\SuccessStory
+ *
+ * @property int $client_id
+ * @property string $client_industry
+ * @property string $client_country
+ * @property string $client_city
+ * @property string $monthly_fee
+ * @property array $keywords
+ * @method static \Illuminate\Database\Eloquent\Builder|SuccessStory newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|SuccessStory newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|SuccessStory query()
+ * @method static \Illuminate\Database\Eloquent\Builder|SuccessStory whereClientCity($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|SuccessStory whereClientCountry($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|SuccessStory whereClientId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|SuccessStory whereClientIndustry($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|SuccessStory whereKeywords($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|SuccessStory whereMonthlyFee($value)
+ * @mixin \Eloquent
+ */
+	class IdeHelperSuccessStory {}
+}
+
+namespace App\Models{
+/**
  * App\Models\User
  *
  * @property int $id

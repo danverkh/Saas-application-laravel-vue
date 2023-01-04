@@ -6,6 +6,7 @@ use App\Http\Controllers\Api\KeywordsController;
 use App\Http\Controllers\Api\PreviewRankController;
 use App\Http\Controllers\Api\RankingsController;
 use App\Http\Controllers\BookADemoController;
+use App\Http\Controllers\SuccessStoriesController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -24,3 +25,4 @@ Route::group(['middleware' => 'throttle:api'], static function () {
 });
 
 Route::post('keywords/relevance', [KeywordsController::class, 'relevance'])->name('api.keywords.relevance');
+Route::get('success-stories/fetch', [SuccessStoriesController::class, 'fetch'])->name('api.success_stories.fetch');

@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\SuccessStory;
 use Illuminate\Contracts\View\View;
+use Illuminate\Http\JsonResponse;
 
 class SuccessStoriesController extends Controller
 {
@@ -14,5 +16,15 @@ class SuccessStoriesController extends Controller
     public function __invoke(): View
     {
         return view('success_stories');
+    }
+
+    /**
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function fetch(): JsonResponse
+    {
+        $items = SuccessStory::all();
+
+        return response()->json($items);
     }
 }

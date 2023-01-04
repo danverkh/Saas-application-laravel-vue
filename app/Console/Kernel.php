@@ -3,6 +3,7 @@
 namespace App\Console;
 
 use App\Console\Commands\GenerateDomainSuggestionsJsonCommand;
+use App\Console\Commands\UpdateSuccessStoriesCommand;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
@@ -17,6 +18,7 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         $schedule->command(GenerateDomainSuggestionsJsonCommand::class)->weeklyOn(7, '3:00');
+        $schedule->command(UpdateSuccessStoriesCommand::class)->dailyAt('3:15');
     }
 
     /**
