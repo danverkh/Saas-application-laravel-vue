@@ -165,8 +165,6 @@ CREATE TABLE `prospect_mail_domains` (
     KEY `fk_prospect_mail_domains_phone_number_research_employee_id` (`phone_number_research_employee_id`),
 #     CONSTRAINT `fk_prospect_mail_domains_phone_number_research_employee_id` FOREIGN KEY (`phone_number_research_employee_id`) REFERENCES `employees` (`id`)
 #     CONSTRAINT `fk_prospect_mail_domains_review_employee_id` FOREIGN KEY (`review_employee_id`) REFERENCES `employees` (`id`),
-    INDEX `idx_mail_domain` (`mail_domain`),
-    INDEX `idx_language_registrant_country` (`language`, `registrant_country`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 
@@ -215,5 +213,6 @@ CREATE TABLE `search_term_connections` (
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 # mysql users
-#CREATE USER 'autoranker_www'@'%' IDENTIFIED BY 'password';
-#GRANT SELECT ON gsqt_core.prospect_mail_domains TO 'autoranker_www'@'%';
+# CREATE USER 'autoranker_www'@'%' IDENTIFIED BY 'password';
+# GRANT SELECT ON gsqt_core.prospect_mail_domains TO 'autoranker_www'@'%';
+# GRANT SELECT ON 'gsqt_core'.'autoranker_keywords_results' TO 'autoranker_www'@'%';
