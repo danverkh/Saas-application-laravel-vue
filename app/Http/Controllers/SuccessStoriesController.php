@@ -13,9 +13,11 @@ class SuccessStoriesController extends Controller
      *
      * @return \Illuminate\Contracts\View\View
      */
-    public function __invoke(): View
+    public function index(): View
     {
-        return view('success_stories');
+        return view('success_stories', [
+            'items' => SuccessStory::all(),
+        ]);
     }
 
     /**

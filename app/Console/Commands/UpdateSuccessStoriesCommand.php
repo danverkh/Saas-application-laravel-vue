@@ -38,7 +38,7 @@ class UpdateSuccessStoriesCommand extends Command
                    ->where('date', '>', now()->subMonths(2))
                    ->havingRaw('COUNT(*) > 5')
                    ->orderBy('date', 'DESC')
-                   ->limit(50)
+                   ->limit(10)
                    ->get();
 
         $new = [];
@@ -65,29 +65,39 @@ class UpdateSuccessStoriesCommand extends Command
 
                       $this->info("Got {$keywordsData->count()} keyword rows");
 
+                      $firstTimestamp = null;
+
+                      $keywords = $keywordsData
+                          ->groupBy('autoranker_keyword_id')
+                          ->each(static function ($groupItems) use (&$firstTimestamp) {
+                              $groupItems
+                                  ->map(static function ($item) {
+                                      $item->timestamp = Carbon::parse($item->date)->timestamp;
+                                      return $item;
+                                  })
+                                  ->sortBy('timestamp')
+                                  ->tap(static function ($items) use (&$firstTimestamp) {
+                                      if ($items[0]->timestamp < $firstTimestamp || $firstTimestamp === null) {
+                                          $firstTimestamp = $items[0]->timestamp;
+                                      }
+                                  })
+                                  ->map(static function ($item) {
+                                      unset($item->client_id, $item->autoranker_keyword_id, $item->timestamp);
+                                      return $item;
+                                  });
+                          });
+
                       SuccessStory::updateOrCreate(
                           [
                               'client_id' => $clientId,
                           ],
                           [
-                              'client_industry' => $firstRow->client_industry,
-                              'client_country'  => $firstRow->client_country,
-                              'client_city'     => $firstRow->client_city,
-                              'monthly_fee'     => $firstRow->monthly_fee,
-                              'keywords'        => $keywordsData
-                                  ->groupBy('autoranker_keyword_id')
-                                  ->each(static function ($groupItems) {
-                                      $groupItems
-                                          ->map(static function ($item) {
-                                              $item->timestamp = Carbon::parse($item->date)->timestamp;
-                                              return $item;
-                                          })
-                                          ->sortBy('timestamp')
-                                          ->map(static function ($item) {
-                                              unset($item->client_id, $item->autoranker_keyword_id, $item->timestamp);
-                                              return $item;
-                                          });
-                                  }),
+                              'client_industry'       => $firstRow->client_industry,
+                              'client_country'        => $firstRow->client_country,
+                              'client_city'           => $firstRow->client_city,
+                              'monthly_fee'           => $firstRow->monthly_fee,
+                              'campaign_active_since' => Carbon::createFromTimestamp($firstTimestamp)->toDateString(),
+                              'keywords'              => $keywords,
                           ]
                       );
 

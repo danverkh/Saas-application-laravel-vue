@@ -25,9 +25,11 @@ class SuccessStory extends Model
         'client_city',
         'monthly_fee',
         'keywords',
+        'campaign_active_since',
     ];
 
     protected $casts = [
-        'keywords' => 'array',
+        'keywords'              => 'array',
+        'campaign_active_since' => 'date',
     ];
 }

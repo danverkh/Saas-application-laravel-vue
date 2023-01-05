@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('client_city');
             $table->decimal('monthly_fee', 10, 2, true);
             $table->jsonb('keywords');
+            $table->date('campaign_active_since');
             $table->timestamp('created_at');
         });
     }
