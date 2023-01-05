@@ -7,6 +7,7 @@ use Carbon\Carbon;
 use DB;
 use Illuminate\Console\Command;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Cache;
 
 class UpdateSuccessStoriesCommand extends Command
 {
@@ -31,68 +32,79 @@ class UpdateSuccessStoriesCommand extends Command
      */
     public function handle()
     {
-        $items = DB::connection('production')
-                   ->table('autoranker_keywords_results')
-                   ->groupBy(['client_id', 'autoranker_keyword_id'])
-                   ->where('date', '>', now()->subMonths(2))
-                   ->havingRaw('COUNT(*) > 5')
-                   ->orderBy('date', 'DESC')
-                   ->limit(20)
-                   ->get();
+        $items = Cache::rememberForever('temp', static function () {
+            return DB::connection('production')
+                     ->table('autoranker_keywords_results')
+                     ->groupBy(['client_id', 'autoranker_keyword_id'])
+                     ->where('date', '>', now()->subMonths(2))
+                     ->havingRaw('COUNT(*) > 5')
+                     ->orderBy('date', 'DESC')
+                     ->limit(5)
+                     ->get();
+        });
 
         $new = [];
 
-        $items->chunk(50)
-              ->each(static function (Collection $chunk) use (&$new) {
-                  $keywordIds = $chunk->pluck('autoranker_keyword_id');
+        $this->info('Fetched items: ' . $items->count());
 
-                  $keywordsData = DB::connection('production')
-                                    ->table('autoranker_keywords_results')
-                                    ->select([
-                                        'client_id', 'autoranker_keyword_id', 'date',
-                                        'ranking', 'keyword_search_volume', 'keyword_cpc',
-                                    ])
-                                    ->whereIn('autoranker_keyword_id', $keywordIds)
-                                    ->where('date', '>', now()->subMonths(2))
-                                    ->get();
+        $items->groupBy('client_id')
+              ->chunk(50)
+              ->each(function (Collection $chunk) use (&$new) {
+                  $chunk->each(function ($items, $clientId) use (&$new) {
+                      $this->line('-----------------------------');
+                      $this->info('Fetching keywords for client ' . $clientId);
+                      $firstRow = $items->first();
 
-                  $chunk->each(static function ($row) use ($keywordsData, &$new) {
-                      $groupedKeywords = $keywordsData
-                          ->where('client_id', $row->client_id)
-                          ->groupBy('autoranker_keyword_id')
-                          ->each(static function ($groupItems) {
-                              $groupItems
-                                  ->map(static function ($item) {
-                                      $item->timestamp = Carbon::parse($item->date)->timestamp;
-                                      return $item;
-                                  })
-                                  ->sortBy('timestamp')
-                                  ->map(static function ($item) {
-                                      unset($item->client_id, $item->autoranker_keyword_id, $item->timestamp);
-                                      return $item;
-                                  });
-                          });
+                      $keywordsData = DB::connection('production')
+                                        ->table('autoranker_keywords_results')
+                                        ->select([
+                                            'client_id', 'autoranker_keyword_id', 'date',
+                                            'ranking', 'keyword_search_volume', 'keyword_cpc',
+                                        ])
+                                        ->whereIn('autoranker_keyword_id', $items->pluck('autoranker_keyword_id'))
+                                        ->where('date', '>', now()->subMonths(2))
+                                        ->get();
+
+                      $this->info("Got {$keywordsData->count()} keyword rows");
 
                       SuccessStory::updateOrCreate(
                           [
-                              'client_id' => $row->client_id,
+                              'client_id' => $clientId,
                           ],
                           [
-                              'client_industry' => $row->client_industry,
-                              'client_country'  => $row->client_country,
-                              'client_city'     => $row->client_city,
-                              'monthly_fee'     => $row->monthly_fee,
-                              'keywords'        => $groupedKeywords->toArray(),
+                              'client_industry' => $firstRow->client_industry,
+                              'client_country'  => $firstRow->client_country,
+                              'client_city'     => $firstRow->client_city,
+                              'monthly_fee'     => $firstRow->monthly_fee,
+                              'keywords'        => $keywordsData
+                                  ->groupBy('autoranker_keyword_id')
+                                  ->each(static function ($groupItems) {
+                                      $groupItems
+                                          ->map(static function ($item) {
+                                              $item->timestamp = Carbon::parse($item->date)->timestamp;
+                                              return $item;
+                                          })
+                                          ->sortBy('timestamp')
+                                          ->map(static function ($item) {
+                                              unset($item->client_id, $item->autoranker_keyword_id, $item->timestamp);
+                                              return $item;
+                                          });
+                                  }),
                           ]
                       );
 
-                      $new[] = $row->client_id;
+                      $this->info("Saved client {$clientId}");
+
+                      $new[] = $clientId;
                   });
               });
 
         if (count($new)) {
             SuccessStory::whereNotIn('client_id', $new)->delete();
+            $this->info('Removed old clients');
         }
+
+        $this->info('Finished');
 
         return Command::SUCCESS;
     }
