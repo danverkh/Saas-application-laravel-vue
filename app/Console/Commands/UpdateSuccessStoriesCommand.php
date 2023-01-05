@@ -32,16 +32,14 @@ class UpdateSuccessStoriesCommand extends Command
      */
     public function handle()
     {
-        $items = Cache::rememberForever('temp', static function () {
-            return DB::connection('production')
-                     ->table('autoranker_keywords_results')
-                     ->groupBy(['client_id', 'autoranker_keyword_id'])
-                     ->where('date', '>', now()->subMonths(2))
-                     ->havingRaw('COUNT(*) > 5')
-                     ->orderBy('date', 'DESC')
-                     ->limit(5)
-                     ->get();
-        });
+        $items = DB::connection('production')
+                   ->table('autoranker_keywords_results')
+                   ->groupBy(['client_id', 'autoranker_keyword_id'])
+                   ->where('date', '>', now()->subMonths(2))
+                   ->havingRaw('COUNT(*) > 5')
+                   ->orderBy('date', 'DESC')
+                   ->limit(50)
+                   ->get();
 
         $new = [];
 
