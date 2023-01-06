@@ -1,6 +1,7 @@
 import {formatMoney} from 'accounting-js';
 import get from 'lodash/get';
 import round from 'lodash/round';
+import dayjs from "dayjs";
 
 export default {
     methods: {
@@ -32,6 +33,11 @@ export default {
 
         openModal(name) {
             document.getElementById(name).checked = true;
+        },
+
+        date(value) {
+            // https://day.js.org/docs/en/display/format
+            return dayjs(value, 'YYYY-MM-DD').format('DD.MM.YYYY');
         },
     },
 };

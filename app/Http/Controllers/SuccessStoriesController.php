@@ -16,7 +16,7 @@ class SuccessStoriesController extends Controller
     public function index(): View
     {
         return view('success_stories', [
-            'items' => SuccessStory::all(),
+            'items' => SuccessStory::latest()->limit(10)->get(),
         ]);
     }
 

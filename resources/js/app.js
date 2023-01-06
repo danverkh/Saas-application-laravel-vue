@@ -40,6 +40,13 @@ import HowItWorksChart from './pages/how_it_works/Chart.vue'
 
 app.component('how-it-works-chart', HowItWorksChart)
 
+// Success stories
+import SuccessStory from './pages/success_stories/SuccessStory.vue'
+import ShowMoreButton from './pages/success_stories/ShowMoreButton.vue'
+
+app.component('success-story', SuccessStory)
+app.component('show-more-success-stories-btn', ShowMoreButton)
+
 // Booking page
 import RankingsTable from './pages/booking/RankingsTable.vue'
 import PreviewRankModal from './pages/booking/PreviewRankModal.vue'

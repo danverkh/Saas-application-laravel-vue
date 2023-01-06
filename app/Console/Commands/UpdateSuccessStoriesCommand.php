@@ -38,7 +38,7 @@ class UpdateSuccessStoriesCommand extends Command
                    ->where('date', '>', now()->subMonths(2))
                    ->havingRaw('COUNT(*) > 5')
                    ->orderBy('date', 'DESC')
-                   ->limit(10)
+                   ->limit(50)
                    ->get();
 
         $new = [];
