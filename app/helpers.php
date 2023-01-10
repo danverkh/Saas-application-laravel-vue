@@ -95,3 +95,10 @@ if (!function_exists('generateStrongPassword')) {
         return $dash_str;
     }
 }
+
+if (!function_exists('randomFloat')) {
+    function randomFloat(float $min, float $max): float
+    {
+        return $min + mt_rand() / mt_getrandmax() * ($max - $min);
+    }
+}

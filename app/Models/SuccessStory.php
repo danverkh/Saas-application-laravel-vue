@@ -26,6 +26,7 @@ class SuccessStory extends Model
         'monthly_fee',
         'keywords',
         'campaign_active_since',
+        'ctr',
     ];
 
     protected $casts = [

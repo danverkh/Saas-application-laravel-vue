@@ -49,10 +49,10 @@
 
 <script>
 import {Line} from 'vue-chartjs';
-import {CategoryScale, Chart as ChartJS, LinearScale, LineElement, PointElement, Tooltip} from 'chart.js';
-import dayjs from "dayjs";
+import {CategoryScale, Chart as ChartJS, LinearScale, LineElement, PointElement, Legend} from 'chart.js';
+import max from "lodash/max";
 
-ChartJS.register(Tooltip, CategoryScale, LinearScale, PointElement, LineElement);
+ChartJS.register(Legend, CategoryScale, LinearScale, PointElement, LineElement);
 
 export default {
     name: "SuccessStory",
@@ -70,7 +70,7 @@ export default {
         return {
             currentKeywordId: null,
             trafficValue: 0,
-            campaignCost: 0,
+            campaignCost: this.item.monthly_fee,
             savings: 0,
 
             chartData: {
@@ -93,9 +93,16 @@ export default {
             chartOptions: {
                 plugins: {
                     legend: {
-                        display: false,
+                        display: true,
+                        position: 'chartArea',
+                        align: 'end',
+                        labels: {
+                            boxWidth: 14,
+                            boxHeight: 14,
+                        },
                     },
                     tooltip: {
+                        enabled: true,
                         callbacks: {
                             labelColor: function (context) {
                                 return {
@@ -110,8 +117,11 @@ export default {
                 },
                 scales: {
                     y: {
+                        display: false,
                         reverse: true,
                         beginAtZero: true,
+                        min: 0,
+                        max: 100,
                         ticks: {
                             display: true,
                             color: 'rgba(120, 120, 120, 1)',
@@ -160,18 +170,36 @@ export default {
 
     methods: {
         populateChartWithSelectedKeywordData() {
+            // 1. clear
             this.chartData.labels = [];
             this.chartData.datasets[0].data = [];
             this.chartData.datasets[1].data = [];
 
+            // 2. populate
             this.item.keywords[this.currentKeywordId]
                 .forEach(item => {
                     this.chartData.labels.push(
                         this.date(item.date)
                     );
                     this.chartData.datasets[0].data.push(item.ranking);
-                    this.chartData.datasets[1].data.push(10); // todo
+
+                    // monthly search volume/30 * cpc * ctr at rank
+                    const trafficValue = (item.keyword_search_volume / 30) * Number(item.keyword_cpc) * Number(this.item.ctr);
+                    // note: keyword_search_volume and keyword_cpc mostly doesn't change
+                    this.chartData.datasets[1].data.push(trafficValue);
                 });
+            console.log(this.chartData.datasets[1].data);
+
+            this.trafficValue = this.chartData.datasets[1].data.reduce((total, b) => total + b, 0);
+
+            // 3. convert to percentage, since values are so different (without this rank will look like a strait line)
+            // ranking
+            let maximum = max(this.chartData.datasets[0].data);
+            this.chartData.datasets[0].data = this.chartData.datasets[0].data.map(i => i / maximum * 100);
+
+            // traffic value
+            maximum = max(this.chartData.datasets[1].data);
+            this.chartData.datasets[1].data = this.chartData.datasets[1].data.map(i => 100 - (i / maximum * 100));
         },
     },
 }

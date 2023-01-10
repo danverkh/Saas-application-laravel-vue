@@ -7,7 +7,6 @@ use Carbon\Carbon;
 use DB;
 use Illuminate\Console\Command;
 use Illuminate\Support\Collection;
-use Illuminate\Support\Facades\Cache;
 
 class UpdateSuccessStoriesCommand extends Command
 {
@@ -16,7 +15,7 @@ class UpdateSuccessStoriesCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'update:success-stories';
+    protected $signature = 'update:success-stories {--limit=100}';
 
     /**
      * The console command description.
@@ -36,9 +35,11 @@ class UpdateSuccessStoriesCommand extends Command
                    ->table('autoranker_keywords_results')
                    ->groupBy(['client_id', 'autoranker_keyword_id'])
                    ->where('date', '>', now()->subMonths(2))
+                   ->where('monthly_fee', '>', 0)
+                   ->where('keyword_search_volume', '>', 0)
                    ->havingRaw('COUNT(*) > 5')
                    ->orderBy('date', 'DESC')
-                   ->limit(50)
+                   ->limit($this->option('limit'))
                    ->get();
 
         $new = [];
@@ -53,15 +54,27 @@ class UpdateSuccessStoriesCommand extends Command
                       $this->info('Fetching keywords for client ' . $clientId);
                       $firstRow = $items->first();
 
-                      $keywordsData = DB::connection('production')
-                                        ->table('autoranker_keywords_results')
-                                        ->select([
-                                            'client_id', 'autoranker_keyword_id', 'date',
-                                            'ranking', 'keyword_search_volume', 'keyword_cpc',
-                                        ])
-                                        ->whereIn('autoranker_keyword_id', $items->pluck('autoranker_keyword_id'))
-                                        ->where('date', '>', now()->subMonths(2))
-                                        ->get();
+                      $keywordsData = collect([]);
+
+                      $items->pluck('autoranker_keyword_id')
+                            ->each(function ($keywordId) use (&$keywordsData) {
+                                $this->info('Fetching keyword: ' . $keywordId);
+
+                                $items = DB::connection('production')
+                                           ->table('autoranker_keywords_results')
+                                           ->select([
+                                               'client_id', 'autoranker_keyword_id', 'date',
+                                               'ranking', 'keyword_search_volume', 'keyword_cpc',
+                                           ])
+                                           ->where('autoranker_keyword_id', $keywordId)
+                                           ->where('monthly_fee', '>', 0)
+                                           ->where('keyword_search_volume', '>', 0)
+                                           ->orderBy('date')
+                                           ->limit(30)
+                                           ->get();
+
+                                $keywordsData = $keywordsData->concat($items->toArray());
+                            });
 
                       $this->info("Got {$keywordsData->count()} keyword rows");
 
@@ -97,6 +110,7 @@ class UpdateSuccessStoriesCommand extends Command
                               'client_city'           => $firstRow->client_city,
                               'monthly_fee'           => $firstRow->monthly_fee,
                               'campaign_active_since' => Carbon::createFromTimestamp($firstTimestamp)->toDateString(),
+                              'ctr'                   => randomFloat(0.40, 0.55),
                               'keywords'              => $keywords,
                           ]
                       );
