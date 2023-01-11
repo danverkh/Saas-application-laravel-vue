@@ -1,10 +1,18 @@
 <template>
-    <div class="my-16 grid place-content-center">
+    <div v-for="(item, index) in items" :key="`success-story-${index}`">
+        <success-story :item="item"></success-story>
+    </div>
+
+    <div v-if="!reachedEnd" class="my-16 grid place-content-center">
         <div v-if="!requestPending" class="btn btn-lg" @click="fetch">
             More Stories
         </div>
 
         <spinner v-else :size="40" :border-width="6"></spinner>
+    </div>
+
+    <div v-if="reachedEnd" class="my-16 text-center text-xl">
+        All stories were loaded
     </div>
 </template>
 
@@ -19,8 +27,9 @@ export default {
     data() {
         return {
             page: 1,
-            perPage: 10,
+            reachedEnd: false,
             requestPending: false,
+            items: [],
         };
     },
 
@@ -29,13 +38,18 @@ export default {
             this.requestPending = true;
 
             const params = {
-                page: ++this.page,
-                perPage: this.perPage,
+                page: this.page + 1,
             };
 
             axios.get(route('api.success_stories.fetch'), {params})
                 .then(({data}) => {
-                    // todo
+                    this.page++;
+
+                    if (data.length) {
+                        this.items = [...this.items, ...data];
+                    } else {
+                        this.reachedEnd = true;
+                    }
                 })
                 .catch(error => {
                     console.error(error);

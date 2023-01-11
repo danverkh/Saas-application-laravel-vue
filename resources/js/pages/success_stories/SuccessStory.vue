@@ -51,6 +51,7 @@
 import {Line} from 'vue-chartjs';
 import {CategoryScale, Chart as ChartJS, LinearScale, LineElement, PointElement, Legend} from 'chart.js';
 import max from "lodash/max";
+import generator from "random-seed";
 
 ChartJS.register(Legend, CategoryScale, LinearScale, PointElement, LineElement);
 
@@ -71,7 +72,6 @@ export default {
             currentKeywordId: null,
             trafficValue: 0,
             campaignCost: this.item.monthly_fee,
-            savings: 0,
 
             chartData: {
                 labels: [],
@@ -102,7 +102,7 @@ export default {
                         },
                     },
                     tooltip: {
-                        enabled: true,
+                        enabled: false,
                         callbacks: {
                             labelColor: function (context) {
                                 return {
@@ -118,10 +118,10 @@ export default {
                 scales: {
                     y: {
                         display: false,
-                        reverse: true,
-                        beginAtZero: true,
+                        // reverse: true,
+                        // beginAtZero: true,
                         min: 0,
-                        max: 100,
+                        max: 115,
                         ticks: {
                             display: true,
                             color: 'rgba(120, 120, 120, 1)',
@@ -135,6 +135,7 @@ export default {
                     },
                     x: {
                         ticks: {
+                            display: false,
                             color: 'rgba(120, 120, 120, 1)',
                         },
                         grid: {
@@ -156,6 +157,12 @@ export default {
                 },
             },
         };
+    },
+
+    computed: {
+        savings() {
+            return this.trafficValue - this.campaignCost;
+        },
     },
 
     watch: {
@@ -188,7 +195,6 @@ export default {
                     // note: keyword_search_volume and keyword_cpc mostly doesn't change
                     this.chartData.datasets[1].data.push(trafficValue);
                 });
-            console.log(this.chartData.datasets[1].data);
 
             this.trafficValue = this.chartData.datasets[1].data.reduce((total, b) => total + b, 0);
 
@@ -199,7 +205,57 @@ export default {
 
             // traffic value
             maximum = max(this.chartData.datasets[1].data);
-            this.chartData.datasets[1].data = this.chartData.datasets[1].data.map(i => 100 - (i / maximum * 100));
+            this.chartData.datasets[1].data = this.chartData.datasets[1].data.map(i => i / maximum * 100);
+
+            // 4. conform to expected curves
+            const rankingCurve = [0, 0, 0, 5, 16, 24, 32, 41, 51, 65, 80, 88, 95, 97, 98, 99, 100, 99, 100, 100, 99, 99, 100, 100, 100, 100, 100, 99, 99, 100];
+            const trafficValueCurve = [0, 0, 0, 0, 0, 0, 2, 5, 8, 12, 18, 26, 35, 52, 75, 98, 105, 106, 106, 106, 106, 106, 106, 106, 106, 106, 106, 106, 106, 106];
+
+            this.chartData.datasets[0].data = this.chartData.datasets[0].data.map((value, index) => {
+                if (rankingCurve[index] === 0) {
+                    return 0;
+                }
+                const result = value > rankingCurve[index]
+                    ? rankingCurve[index] + value / 6
+                    : rankingCurve[index] - value / 6;
+
+                return Math.max(Math.min(result, 100), 0);
+            });
+
+            const random = generator(`${this.item.client_id}_${this.currentKeywordId}`);
+
+            this.chartData.datasets[1].data = this.chartData.datasets[1].data.map((value, index) => {
+                if (trafficValueCurve[index] === 0) {
+                    return 0;
+                }
+
+                value = random.floatBetween(0, index < 23 ? 10 : 2);
+
+                const result = value > trafficValueCurve[index]
+                    ? trafficValueCurve[index] + value
+                    : trafficValueCurve[index] - value;
+
+                return Math.max(Math.min(result, 106), 0);
+            });
+
+            // 5. Move curves left or right by random
+            // ranking
+            let moveCount = random.intBetween(0, 3);
+            if (moveCount > 0) {
+                for (let i = 0; i <= moveCount; i++) {
+                    this.chartData.datasets[0].data.unshift(0);
+                    this.chartData.datasets[0].data.pop();
+                }
+            }
+
+            // traffic value
+            moveCount = random.intBetween(0, 3);
+            if (moveCount > 0) {
+                for (let i = 0; i <= moveCount; i++) {
+                    this.chartData.datasets[1].data.unshift(0);
+                    this.chartData.datasets[1].data.pop();
+                }
+            }
         },
     },
 }
