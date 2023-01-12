@@ -110,8 +110,9 @@ class UpdateSuccessStoriesCommand extends Command
                               'client_city'           => $firstRow->client_city,
                               'monthly_fee'           => $firstRow->monthly_fee,
                               'campaign_active_since' => Carbon::createFromTimestamp($firstTimestamp)->toDateString(),
-                              'ctr'                   => randomFloat(0.40, 0.55),
+                              'ctr'                   => $ctr = randomFloat(0.40, 0.55),
                               'keywords'              => $keywords,
+                              'chart'                 => $this->getChartData($keywords, $ctr),
                           ]
                       );
 
@@ -129,5 +130,84 @@ class UpdateSuccessStoriesCommand extends Command
         $this->info('Finished');
 
         return Command::SUCCESS;
+    }
+
+    /**
+     * @param \Illuminate\Support\Collection $keywords
+     * @param float                          $ctr
+     *
+     * @return array
+     * @throws \Exception
+     */
+    private function getChartData(Collection $keywords, float $ctr): array
+    {
+        // ranking
+        $rankingCurve = [0, 0, 0, 5, 16, 24, 32, 41, 51, 65, 80, 88, 95, 97, 98, 99, 100, 99, 100, 100, 99, 99, 100, 100, 100, 100, 100, 99, 99, 100];
+
+        return $keywords->mapWithKeys(static function ($keywords, $keywordId) use ($rankingCurve, $ctr) {
+            // ranking
+            $ranking    = collect($keywords)->pluck('ranking');
+            $maxRanking = collect($ranking)->max();
+
+            $ranking = $ranking->map(static function ($value, $index) use ($rankingCurve, $maxRanking) {
+                if ($rankingCurve[$index] === 0) {
+                    return 0;
+                }
+                $value = ($maxRanking - $value) / $maxRanking * 100;
+
+                $result = $value > $rankingCurve[$index]
+                    ? $rankingCurve[$index] + $value / 6
+                    : $rankingCurve[$index] - $value / 6;
+
+                return max(min($result, 100), 0);
+            })->toArray();
+
+            $moveCount = random_int(0, 3);
+            if ($moveCount > 0) {
+                for ($i = 0; $i <= $moveCount; $i++) {
+                    array_unshift($ranking, 0);
+                    array_pop($ranking);
+                }
+            }
+
+            // traffic value
+            $trafficValueCurve = [0, 0, 0, 0, 0, 0, 2, 5, 8, 12, 18, 26, 35, 52, 75, 98, 105, 106, 106, 106, 106, 106, 106, 106, 106, 106, 106, 106, 106, 106];
+
+            $trafficValue    = collect($keywords)->map(static function ($keywords) use ($ctr) {
+                // monthly search volume/30 * cpc * ctr at rank
+                return ($keywords->keyword_search_volume / 30) * $keywords->keyword_cpc * $ctr;
+            });
+            $maxTrafficValue = collect($trafficValue)->max();
+
+            $trafficValue = collect($trafficValue)->map(static fn($i) => $i / $maxTrafficValue * 100);
+
+            $trafficValue = $trafficValue->map(static function ($value, $index) use ($trafficValueCurve) {
+                if ($trafficValueCurve[$index] === 0) {
+                    return 0;
+                }
+                $value = randomFloat(0, $index < 23 ? 10 : 2);
+
+                $result = $value > $trafficValueCurve[$index]
+                    ? $trafficValueCurve[$index] + $value
+                    : $trafficValueCurve[$index] - $value;
+
+                return max(min($result, 106), 0);
+            })->toArray();
+
+            $moveCount = random_int(0, 3);
+            if ($moveCount > 0) {
+                for ($i = 0; $i <= $moveCount; $i++) {
+                    array_unshift($trafficValue, 0);
+                    array_pop($trafficValue);
+                }
+            }
+
+            return [
+                $keywordId => [
+                    'ranking'      => $ranking,
+                    'trafficValue' => $trafficValue,
+                ],
+            ];
+        })->toArray();
     }
 }
