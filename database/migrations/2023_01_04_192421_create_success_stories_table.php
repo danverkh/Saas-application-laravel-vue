@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('success_stories', function (Blueprint $table) {
-            $table->unsignedInteger('client_id');
+            $table->unsignedInteger('client_id')->primary();
             $table->string('client_industry');
             $table->string('client_country');
             $table->string('client_city');
