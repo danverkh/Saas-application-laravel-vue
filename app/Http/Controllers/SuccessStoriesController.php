@@ -12,7 +12,7 @@ class SuccessStoriesController extends Controller
     /**
      * @var int
      */
-    private int $limit = 3;
+    private int $limit = 8;
 
     /**
      * Provision a new web server.
@@ -33,11 +33,12 @@ class SuccessStoriesController extends Controller
      */
     public function fetch(Request $request): JsonResponse
     {
-        $items = SuccessStory::latest()
-                             ->offset(($request->page - 1) * $this->limit)
-                             ->limit($this->limit)
-                             ->get();
+        /** @var \Illuminate\Database\Eloquent\Builder $query */
+        $query = SuccessStory::latest()->limit($this->limit);
 
-        return response()->json($items);
+        return response()->json([
+            'items'      => $query->offset(($request->page - 1) * $this->limit)->get(),
+            'reachedEnd' => !$query->offset($request->page * $this->limit)->exists(),
+        ]);
     }
 }

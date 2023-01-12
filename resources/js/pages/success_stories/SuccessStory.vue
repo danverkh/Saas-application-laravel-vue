@@ -1,7 +1,7 @@
 <template>
     <div class="border-t-4 border-zinc-300 card bg-base-100 shadow-lg rounded-xl hover:border-primary hover:shadow-xl duration-500 transition-all mx-4 lg:mx-0">
-        <div class="grid auto-rows-min lg:grid-cols-3 card-body p-12 gap-10">
-            <div class="flex flex-row justify-between lg:flex-col lg:col-span-1 font-medium">
+        <div class="grid auto-rows-min grid-cols-1 lg:grid-cols-3 card-body p-12 gap-10">
+            <div class="flex flex-col col-span-1 md:flex-row justify-between lg:flex-col lg:col-span-1 font-medium">
                 <div class="pr-4">
                     <div class="text-xl font-bold text-primary">Client in</div>
                     <div class="text-3xl text-zinc-900 my-1">{{ item.client_industry }}</div>
@@ -12,20 +12,20 @@
 
                 <div class="divider hidden lg:flex"></div>
 
-                <div>
-                    <div class="mt-4 text-lg text-zinc-700">
+                <div class="text-base lg:text-lg text-zinc-700">
+                    <div class="mt-3 md:mt-4">
                         Campaign active since:
                         <span class="font-bold ml-2">{{ date(item.campaign_active_since) }}</span>
                     </div>
-                    <div class="mt-2 text-lg text-zinc-700">
+                    <div class="mt-1 md:mt-2">
                         Total traffic value received:
                         <span class="font-bold ml-2">{{ money(trafficValue) }}</span>
                     </div>
-                    <div class="mt-2 text-lg text-zinc-700">
+                    <div class="mt-1 md:mt-2">
                         Total campaign cost:
                         <span class="font-bold ml-2">{{ money(campaignCost) }}</span>
                     </div>
-                    <div class="mt-2 text-lg text-zinc-700">
+                    <div class="mt-1 md:mt-2">
                         Profit / savings:
                         <span class="font-bold ml-2">{{ money(savings) }}</span>
                     </div>
@@ -33,9 +33,9 @@
             </div>
 
             <div class="lg:col-span-2">
-                <div class="flex flex-row flex-wrap gap-3 mb-4">
+                <div class="flex flex-row flex-wrap gap-2 md:gap-3 mb-4">
                     <div v-for="(_, keywordId, index) in item.keywords"
-                         class="btn btn-sm px-4 py-3 h-auto"
+                         class="btn btn-sm h-auto md:btn-md"
                          :class="{'btn-primary': keywordId === currentKeywordId}"
                          :key="`keyword-${keywordId}`"
                          @click="currentKeywordId = keywordId">{{ `Keyword ${index+1}` }}</div>
@@ -200,12 +200,12 @@ export default {
 
             // 3. convert to percentage, since values are so different (without this rank will look like a strait line)
             // ranking
-            let maximum = max(this.chartData.datasets[0].data);
-            this.chartData.datasets[0].data = this.chartData.datasets[0].data.map(i => i / maximum * 100);
+            const maxRanking = max(this.chartData.datasets[0].data);
+            this.chartData.datasets[0].data = this.chartData.datasets[0].data.map(i => (maxRanking - i) / maxRanking * 100);
 
             // traffic value
-            maximum = max(this.chartData.datasets[1].data);
-            this.chartData.datasets[1].data = this.chartData.datasets[1].data.map(i => i / maximum * 100);
+            const maxTrafficValue = max(this.chartData.datasets[1].data);
+            this.chartData.datasets[1].data = this.chartData.datasets[1].data.map(i => i / maxTrafficValue * 100);
 
             // 4. conform to expected curves
             const rankingCurve = [0, 0, 0, 5, 16, 24, 32, 41, 51, 65, 80, 88, 95, 97, 98, 99, 100, 99, 100, 100, 99, 99, 100, 100, 100, 100, 100, 99, 99, 100];
