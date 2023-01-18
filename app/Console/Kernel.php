@@ -18,7 +18,7 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         $schedule->command(GenerateDomainSuggestionsJsonCommand::class)->weeklyOn(7, '3:00');
-        $schedule->command(UpdateSuccessStoriesCommand::class)->dailyAt('3:15');
+        $schedule->command(UpdateSuccessStoriesCommand::class)->weeklyOn('3:15');
     }
 
     /**
