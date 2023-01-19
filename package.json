@@ -37,6 +37,7 @@
         "sticky-sidebar-v2": "^1.1.1",
         "vue": "^3.2.36",
         "vue-chartjs": "^4.1.2",
+        "vue-country-flag-next": "^2.3.2",
         "vue-loader": "^17.0.0",
         "vue3-slide-up-down": "^1.2.5"
     }

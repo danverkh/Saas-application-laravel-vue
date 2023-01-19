@@ -20,7 +20,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', HomepageController::class)->name('homepage');
 
 Route::get('how-it-works', HowItWorksController::class)->name('how_it_works');
-Route::get('success-stories', [SuccessStoriesController::class, 'index'])->name('success_stories');
+Route::get('success-stories/{industry?}', [SuccessStoriesController::class, 'index'])->name('success_stories');
 Route::get('about-us', AboutUsController::class)->name('about_us');
 Route::get('book-a-demo', [BookADemoController::class, 'form'])->name('book_a_demo');
 

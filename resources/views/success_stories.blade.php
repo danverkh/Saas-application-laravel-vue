@@ -13,7 +13,7 @@
             <success-story :item='@json($item)'></success-story>
         @endforeach
 
-        <show-more-success-stories-btn></show-more-success-stories-btn>
+        <show-more-success-stories-btn industry="{{ $industry }}"></show-more-success-stories-btn>
     </section>
 
     <div class="mb-16">

@@ -27,6 +27,13 @@ export default {
 
     components: {Spinner},
 
+    props: {
+        industry: {
+            type: String,
+            required: true,
+        },
+    },
+
     data() {
         return {
             page: 1,
@@ -43,7 +50,12 @@ export default {
             }
             this.requestPending = true;
 
-            axios.get(route('api.success_stories.fetch'), {params: {page: this.page + 1}})
+            const params = {
+                page: this.page + 1,
+                industry: this.industry,
+            };
+
+            axios.get(route('api.success_stories.fetch'), {params})
                 .then(({data}) => {
                     this.page++;
 

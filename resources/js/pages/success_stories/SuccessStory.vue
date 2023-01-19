@@ -7,7 +7,10 @@
                     <div class="text-3xl text-zinc-900 my-1">{{ item.client_industry }}</div>
                     <div class="text-xl font-bold text-zinc-400">industry</div>
 
-                    <div class="mt-4 text-lg text-zinc-700">From {{ item.client_city }}</div>
+                    <div class="mt-4 text-lg text-zinc-700">
+                        <span class="mr-2">From {{ item.client_city }}</span>
+                        <CountryFlag :country="item.client_country" size="normal" class="rounded-md ring-2 ring-zinc-300"/>
+                    </div>
                 </div>
 
                 <div class="divider hidden lg:flex"></div>
@@ -50,13 +53,14 @@
 <script>
 import {Line} from 'vue-chartjs';
 import {CategoryScale, Chart as ChartJS, LinearScale, LineElement, PointElement, Legend} from 'chart.js';
+import CountryFlag from 'vue-country-flag-next';
 
 ChartJS.register(Legend, CategoryScale, LinearScale, PointElement, LineElement);
 
 export default {
     name: "SuccessStory",
 
-    components: {Line},
+    components: {Line, CountryFlag},
 
     props: {
         item: {
