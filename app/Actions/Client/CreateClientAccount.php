@@ -17,7 +17,7 @@ class CreateClientAccount
     {
         $client = Client::create([
             'email'            => $data['email'],
-            'name'             => $data['name'] ?? '',
+            'name'             => $data['name'] ?? $data['email'],
             'accounting_email' => '', // TODO: what about this? It cannot be null
             'employee_id'      => 0, // TODO: what about this? It cannot be null
         ]);
