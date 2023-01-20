@@ -320,16 +320,23 @@ namespace App\Models{
  * @property string $client_city
  * @property string $monthly_fee
  * @property array $keywords
+ * @property array $chart
+ * @property \Illuminate\Support\Carbon $campaign_active_since
+ * @property string $ctr
+ * @property \Illuminate\Support\Carbon $created_at
  * @method static \Illuminate\Database\Eloquent\Builder|SuccessStory newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|SuccessStory newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|SuccessStory query()
+ * @method static \Illuminate\Database\Eloquent\Builder|SuccessStory whereCampaignActiveSince($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|SuccessStory whereChart($value)
  * @method static \Illuminate\Database\Eloquent\Builder|SuccessStory whereClientCity($value)
  * @method static \Illuminate\Database\Eloquent\Builder|SuccessStory whereClientCountry($value)
  * @method static \Illuminate\Database\Eloquent\Builder|SuccessStory whereClientId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|SuccessStory whereClientIndustry($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|SuccessStory whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|SuccessStory whereCtr($value)
  * @method static \Illuminate\Database\Eloquent\Builder|SuccessStory whereKeywords($value)
  * @method static \Illuminate\Database\Eloquent\Builder|SuccessStory whereMonthlyFee($value)
- * @mixin \Eloquent
  */
 	class IdeHelperSuccessStory {}
 }
