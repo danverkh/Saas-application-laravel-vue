@@ -13,7 +13,7 @@
                     </div>
                 </div>
 
-                <div class="divider hidden lg:flex"></div>
+                <div class="divider hidden lg:flex mb-0"></div>
 
                 <div class="text-base lg:text-lg text-zinc-700">
                     <div class="mt-3 md:mt-4">
@@ -44,7 +44,7 @@
                          @click="currentKeywordId = keywordId">{{ `Keyword ${index+1}` }}</div>
                 </div>
 
-                <Line :chartData="chartData" :chartOptions="chartOptions" :height="160" css-classes="w-full h-auto"></Line>
+                <Line :chartData="chartData" :chartOptions="chartOptions" :height="120" css-classes="w-full h-auto"></Line>
             </div>
         </div>
     </div>
