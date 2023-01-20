@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('success_stories', function (Blueprint $table) {
             $table->id();
-            $table->unsignedInteger('client_id')->primary();
+            $table->unsignedInteger('client_id');
             $table->string('client_industry');
             $table->string('client_country');
             $table->string('client_city');
