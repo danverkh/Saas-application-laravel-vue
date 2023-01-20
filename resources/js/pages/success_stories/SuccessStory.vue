@@ -22,15 +22,15 @@
                     </div>
                     <div class="mt-1 md:mt-2">
                         Total traffic value received:
-                        <span class="font-bold ml-2">{{ money(trafficValue) }}</span>
+                        <span class="font-bold ml-2 whitespace-nowrap">{{ money(trafficValue) }}</span>
                     </div>
                     <div class="mt-1 md:mt-2">
                         Total campaign cost:
-                        <span class="font-bold ml-2">{{ money(campaignCost) }}</span>
+                        <span class="font-bold ml-2 whitespace-nowrap">{{ money(campaignCost) }}</span>
                     </div>
                     <div class="mt-1 md:mt-2">
                         Profit / savings:
-                        <span class="font-bold ml-2">{{ money(savings) }}</span>
+                        <span class="font-bold ml-2 whitespace-nowrap">{{ money(savings) }}</span>
                     </div>
                 </div>
             </div>
