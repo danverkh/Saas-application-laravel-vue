@@ -14,13 +14,16 @@ return new class extends Migration
     public function up()
     {
         Schema::create('success_stories', function (Blueprint $table) {
+            $table->id();
             $table->unsignedInteger('client_id')->primary();
             $table->string('client_industry');
             $table->string('client_country');
             $table->string('client_city');
             $table->decimal('monthly_fee', 10, 2, true);
             $table->jsonb('keywords');
+            $table->jsonb('chart');
             $table->date('campaign_active_since');
+            $table->unsignedDecimal('ctr');
             $table->timestamp('created_at');
         });
     }
