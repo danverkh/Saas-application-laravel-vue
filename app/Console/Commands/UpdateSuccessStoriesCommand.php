@@ -15,7 +15,7 @@ class UpdateSuccessStoriesCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'update:success-stories {--limit=200}';
+    protected $signature = 'update:success-stories {--limit=300}';
 
     /**
      * The console command description.
@@ -70,7 +70,6 @@ class UpdateSuccessStoriesCommand extends Command
                                            ->where('monthly_fee', '>', 0)
                                            ->where('keyword_search_volume', '>', 0)
                                            ->orderBy('date')
-                                           ->limit(30)
                                            ->get();
 
                                 $keywordsData = $keywordsData->concat($items->toArray());
@@ -142,7 +141,7 @@ class UpdateSuccessStoriesCommand extends Command
     private function getChartData(Collection $keywords, float $ctr): array
     {
         // ranking
-        $rankingCurve = [0, 0, 0, 5, 16, 24, 32, 41, 51, 65, 80, 88, 95, 97, 98, 99, 100, 99, 100, 100, 99, 99, 100, 100, 100, 100, 100, 99, 99, 100];
+        $rankingCurve = [0, 0, 0, 5, 16, 24, 32, 41, 51, 65, 80, 88, 95, 97, 98, 99, 100];
 
         return $keywords->mapWithKeys(static function ($keywords, $keywordId) use ($rankingCurve, $ctr) {
             // ranking
@@ -150,16 +149,18 @@ class UpdateSuccessStoriesCommand extends Command
             $maxRanking = collect($ranking)->max();
 
             $ranking = $ranking->map(static function ($value, $index) use ($rankingCurve, $maxRanking) {
-                if ($rankingCurve[$index] === 0) {
+                $rankingCurveValue = $rankingCurve[$index] ?? random_int(99, 100);
+
+                if ($rankingCurveValue === 0) {
                     return 0;
                 }
                 $value = ($maxRanking - $value) / $maxRanking * 100;
 
-                $result = $value > $rankingCurve[$index]
-                    ? $rankingCurve[$index] + $value / 6
-                    : $rankingCurve[$index] - $value / 6;
+                $result = $value > $rankingCurveValue
+                    ? $rankingCurveValue + $value / 6
+                    : $rankingCurveValue - $value / 6;
 
-                return max(min($result, 100), 0);
+                return max(min(round($result, 1), 100), 0);
             })->toArray();
 
             $moveCount = random_int(0, 3);
@@ -171,7 +172,7 @@ class UpdateSuccessStoriesCommand extends Command
             }
 
             // traffic value
-            $trafficValueCurve = [0, 0, 0, 0, 0, 0, 2, 5, 8, 12, 18, 26, 35, 52, 75, 98, 105, 106, 106, 106, 106, 106, 106, 106, 106, 106, 106, 106, 106, 106];
+            $trafficValueCurve = [0, 0, 0, 0, 0, 0, 2, 5, 8, 12, 18, 26, 35, 52, 75, 98, 105, 106];
 
             $trafficValue    = collect($keywords)->map(static function ($keywords) use ($ctr) {
                 // monthly search volume/30 * cpc * ctr at rank
@@ -182,16 +183,18 @@ class UpdateSuccessStoriesCommand extends Command
             $trafficValue = collect($trafficValue)->map(static fn($i) => $i / $maxTrafficValue * 100);
 
             $trafficValue = $trafficValue->map(static function ($value, $index) use ($trafficValueCurve) {
-                if ($trafficValueCurve[$index] === 0) {
+                $trafficValue = $trafficValueCurve[$index] ?? 106;
+
+                if ($trafficValue === 0) {
                     return 0;
                 }
                 $value = randomFloat(0, $index < 23 ? 10 : 2);
 
-                $result = $value > $trafficValueCurve[$index]
-                    ? $trafficValueCurve[$index] + $value
-                    : $trafficValueCurve[$index] - $value;
+                $result = $value > $trafficValue
+                    ? $trafficValue + $value
+                    : $trafficValue - $value;
 
-                return max(min($result, 106), 0);
+                return max(min(round($result, 1), 106), 0);
             })->toArray();
 
             $moveCount = random_int(0, 3);

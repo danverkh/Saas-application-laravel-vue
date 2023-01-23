@@ -13,7 +13,7 @@ class SuccessStoriesController extends Controller
     /**
      * @var int
      */
-    private int $limit = 8;
+    private int $limit = 16;
 
     /**
      * Provision a new web server.
@@ -25,9 +25,10 @@ class SuccessStoriesController extends Controller
     public function index(?string $industry = null): View
     {
         return view('success_stories', [
-            'items'    => SuccessStory::latest()
+            'items'    => SuccessStory::query()
                                       ->when($industry, fn(Builder $q) => $q->where('client_industry', $industry))
                                       ->limit($this->limit)
+                                      ->orderBy('id')
                                       ->get(),
             'industry' => $industry,
         ]);
@@ -41,8 +42,9 @@ class SuccessStoriesController extends Controller
     public function fetch(Request $request): JsonResponse
     {
         /** @var \Illuminate\Database\Eloquent\Builder $query */
-        $query = SuccessStory::latest()
+        $query = SuccessStory::query()
                              ->when($request->industry, fn(Builder $q) => $q->where('client_industry', $request->industry))
+                             ->orderBy('id')
                              ->limit($this->limit);
 
         return response()->json([

@@ -44,7 +44,7 @@
                          @click="currentKeywordId = keywordId">{{ `Keyword ${index+1}` }}</div>
                 </div>
 
-                <Line :chartData="chartData" :chartOptions="chartOptions" :height="120" css-classes="w-full h-auto"></Line>
+                <Line :chartData="chartData" :chartOptions="chartOptions" :height="150" css-classes="w-full h-auto"></Line>
             </div>
         </div>
     </div>
@@ -54,6 +54,7 @@
 import {Line} from 'vue-chartjs';
 import {CategoryScale, Chart as ChartJS, LinearScale, LineElement, PointElement, Legend} from 'chart.js';
 import CountryFlag from 'vue-country-flag-next';
+import dayjs from "dayjs";
 
 ChartJS.register(Legend, CategoryScale, LinearScale, PointElement, LineElement);
 
@@ -73,7 +74,6 @@ export default {
         return {
             currentKeywordId: null,
             trafficValue: 0,
-            campaignCost: this.item.monthly_fee,
 
             chartData: {
                 labels: [],
@@ -93,10 +93,16 @@ export default {
                 ]
             },
             chartOptions: {
+                animation: false,
                 plugins: {
+                    // decimation: {
+                    //     enabled: true,
+                    //     algorithm: 'lttb',
+                    //     samples: 20,
+                    // },
                     legend: {
                         display: true,
-                        position: 'chartArea',
+                        position: 'top',
                         align: 'end',
                         labels: {
                             boxWidth: 14,
@@ -136,8 +142,9 @@ export default {
                         },
                     },
                     x: {
+                        display: true,
                         ticks: {
-                            display: false,
+                            display: true,
                             color: 'rgba(120, 120, 120, 1)',
                         },
                         grid: {
@@ -162,6 +169,14 @@ export default {
     },
 
     computed: {
+        campaignCost() {
+            return this.item.monthly_fee * this.monthsCount;
+        },
+
+        monthsCount() {
+            return this.chartData.datasets[0].data.length / 30;
+        },
+
         savings() {
             return this.trafficValue - this.campaignCost;
         },
@@ -179,7 +194,8 @@ export default {
 
     methods: {
         populateChartWithSelectedKeywordData() {
-            this.chartData.labels = this.item.chart[this.currentKeywordId].ranking.map(() => 0);
+            let date = dayjs(this.item.campaign_active_since, 'YYYY-MM-DD');
+            this.chartData.labels = this.item.chart[this.currentKeywordId].ranking.map((_, index) => date.add(index, 'day').format('DD.MM.YYYY'));
 
             this.chartData.datasets[0].data = this.item.chart[this.currentKeywordId].ranking;
             this.chartData.datasets[1].data = this.item.chart[this.currentKeywordId].trafficValue;
