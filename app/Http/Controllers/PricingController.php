@@ -4,13 +4,13 @@ namespace App\Http\Controllers;
 
 use Illuminate\Contracts\View\View;
 
-class HomepageController extends Controller
+class PricingController extends Controller
 {
     /**
      * @return \Illuminate\Contracts\View\View
      */
     public function __invoke(): View
     {
-        return view('homepage');
+        return view('pricing');
     }
 }

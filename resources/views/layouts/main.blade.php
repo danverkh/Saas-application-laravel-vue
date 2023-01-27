@@ -80,7 +80,7 @@
                                         <x-nav-link :href="route('how_it_works')" :active="request()->routeIs('how_it_works')">How it works</x-nav-link>
                                         <x-nav-link :href="route('success_stories')" :active="request()->routeIs('success_stories')">Success stories</x-nav-link>
                                         <x-nav-link :href="route('about_us')" :active="request()->routeIs('about_us')">About us</x-nav-link>
-                                        <x-nav-link href="#" :active="false">Pricing</x-nav-link>
+                                        <x-nav-link :href="route('pricing')" :active="request()->routeIs('pricing')">Pricing</x-nav-link>
                                     </ul>
                                     <div class="col-start-10 col-end-12 font-medium flex justify-end items-center">
                                         <div onclick="document.getElementById('assistant-modal').checked = true" class="cursor-pointer select-none text-sm sm:text-base font-medium tracking-wide py-2 px-3 sm:px-6 border border-primary-hover text-white-500 bg-primary outline-none rounded-l-full rounded-r-full hover:bg-primary-hover hover:text-white-500 transition-all duration-500 hover:shadow-primary">
@@ -107,7 +107,7 @@
                         <li><x-mobile-nav-link :href="route('how_it_works')" :active="request()->routeIs('how_it_works')">How it works</x-mobile-nav-link></li>
                         <li><x-mobile-nav-link :href="route('success_stories')" :active="request()->routeIs('success_stories')">Success stories</x-mobile-nav-link></li>
                         <li><x-mobile-nav-link :href="route('about_us')" :active="request()->routeIs('about_us')">About us</x-mobile-nav-link></li>
-                        <li><x-mobile-nav-link href="#" :active="false">Pricing</x-mobile-nav-link></li>
+                        <li><x-mobile-nav-link :href="route('pricing')" :active="request()->routeIs('pricing')">Pricing</x-mobile-nav-link></li>
                     </ul>
                 </div>
             </div>
