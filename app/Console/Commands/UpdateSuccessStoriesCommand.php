@@ -31,7 +31,7 @@ class UpdateSuccessStoriesCommand extends Command
      */
     public function handle()
     {
-        $rowsLimit = 50;
+        $rowsLimit = min($this->option('limit'), 50);
         $count = ceil($this->option('limit') / $rowsLimit);
 
         for ($i = 0; $i < $count; $i++) {
@@ -156,7 +156,7 @@ class UpdateSuccessStoriesCommand extends Command
             $maxRanking = collect($ranking)->max();
 
             $ranking = $ranking->map(static function ($value, $index) use ($rankingCurve, $maxRanking) {
-                $rankingCurveValue = $rankingCurve[$index] ?? random_int(99, 100);
+                $rankingCurveValue = $rankingCurve[$index] ?? random_int(98, 100);
 
                 if ($rankingCurveValue === 0) {
                     return 0;
@@ -164,8 +164,8 @@ class UpdateSuccessStoriesCommand extends Command
                 $value = ($maxRanking - $value) / $maxRanking * 100;
 
                 $result = $value > $rankingCurveValue
-                    ? $rankingCurveValue + $value / 6
-                    : $rankingCurveValue - $value / 6;
+                    ? $rankingCurveValue + $value / 3
+                    : $rankingCurveValue - $value / 3;
 
                 return max(min(round($result, 1), 100), 0);
             })->toArray();
@@ -212,10 +212,20 @@ class UpdateSuccessStoriesCommand extends Command
                 }
             }
 
+            // profit
+            $profitValueCurve = [0, 0, 0, 0, 0, 0, 2, 5, 8, 12, 18, 26, 35, 52, 75, 81, 85, 85];
+
+            $profit = collect($keywords)->map(static function ($keywords, $index) use ($profitValueCurve) {
+                $value = $profitValueCurve[$index] ?? 85;
+
+                return round($value + randomFloat(-($value / 7), $value / 7), 1);
+            });
+
             return [
                 $keywordId => [
                     'ranking'      => $ranking,
                     'trafficValue' => $trafficValue,
+                    'profit'       => $profit,
                 ],
             ];
         })->toArray();

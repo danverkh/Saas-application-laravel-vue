@@ -90,6 +90,12 @@ export default {
                         data: [],
                         tension: 0.5,
                     },
+                    {
+                        label: 'profit',
+                        borderColor: "rgba(34,197,94, 1)",
+                        data: [],
+                        tension: 0.5,
+                    },
                 ]
             },
             chartOptions: {
@@ -199,6 +205,7 @@ export default {
 
             this.chartData.datasets[0].data = this.item.chart[this.currentKeywordId].ranking;
             this.chartData.datasets[1].data = this.item.chart[this.currentKeywordId].trafficValue;
+            this.chartData.datasets[2].data = this.item.chart[this.currentKeywordId].profit;
 
             this.trafficValue = this.chartData.datasets[1].data.reduce((total, b) => total + b, 0);
         },
