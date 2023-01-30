@@ -47,6 +47,13 @@ import ShowMoreButton from './pages/success_stories/ShowMoreButton.vue'
 app.component('success-story', SuccessStory)
 app.component('show-more-success-stories-btn', ShowMoreButton)
 
+// Pricing
+import PricingVisitorsAndLeadsCalculator from './pages/pricing/PricingVisitorsAndLeadsCalculator.vue'
+import PricingClientsAndValueCalculator from './pages/pricing/PricingClientsAndValueCalculator.vue'
+
+app.component('pricing-visitors-and-leads-calculator', PricingVisitorsAndLeadsCalculator)
+app.component('pricing-clients-and-value-calculator', PricingClientsAndValueCalculator)
+
 // Booking page
 import RankingsTable from './pages/booking/RankingsTable.vue'
 import PreviewRankModal from './pages/booking/PreviewRankModal.vue'
