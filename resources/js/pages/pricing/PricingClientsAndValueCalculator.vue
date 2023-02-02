@@ -39,12 +39,18 @@
             </div>
         </div>
 
-        <div class="card bg-primary shadow-lg shadow-strong rounded-2xl p-4 md:w-1/2 md:-right-20 max-w-xs relative">
+        <div class="card flex flex-row flex-nowrap bg-primary shadow-lg shadow-strong rounded-2xl p-4 md:w-1/2 md:-right-20 max-w-xs relative">
             <Bar
-                :chartData="chartData"
-                :chartOptions="chartOptions"
-                :height="300"
-                css-classes="w-full h-auto"
+                :chartData="chartData1"
+                :chartOptions="chartOptions1"
+                :height="600"
+                css-classes="w-1/2"
+            />
+            <Bar
+                :chartData="chartData2"
+                :chartOptions="chartOptions2"
+                :height="600"
+                css-classes="w-1/2"
             />
         </div>
     </div>
@@ -54,6 +60,7 @@
 import {Bar} from 'vue-chartjs';
 import {CategoryScale, Chart as ChartJS, BarElement} from 'chart.js';
 import round from "lodash/round";
+import cloneDeep from "lodash/cloneDeep";
 
 ChartJS.register(CategoryScale, BarElement);
 
@@ -66,17 +73,27 @@ export default {
         return {
             leads: 2,
             clientValue: 3000,
-            chartData: {
-                labels: ['Clients', 'Profit'],
+            chartData1: {
+                labels: ['Clients'],
                 datasets: [
                     {
-                        backgroundColor: ['#2F2E41', '#3B82F6'],
+                        backgroundColor: ['#2F2E41'],
                         borderRadius: 5,
                         data: [],
                     },
                 ],
             },
-            chartOptions: {
+            chartData2: {
+                labels: ['Profit'],
+                datasets: [
+                    {
+                        backgroundColor: ['#3B82F6'],
+                        borderRadius: 5,
+                        data: [],
+                    },
+                ],
+            },
+            chartOptions1: {
                 indexAxis: 'x',
                 animation: true,
                 plugins: {
@@ -90,6 +107,7 @@ export default {
                 },
                 scales: {
                     y: {
+                        position: 'left',
                         beginAtZero: true,
                         ticks: {
                             display: true,
@@ -97,13 +115,13 @@ export default {
                             font: {
                                 size: 10,
                             },
-                            color: 'rgba(255, 255, 255, 1)',
+                            color: 'rgba(255, 255, 255, 0.9)',
                         },
                         grid: {
                             display: true,
-                            color: 'rgba(255, 255, 255, .4)',
-                            borderDash: [5, 5],
-                            borderColor: 'rgba(255, 255, 255, .4)',
+                            drawOnChartArea: false,
+                            color: 'rgba(255, 255, 255, 1)',
+                            borderColor: 'rgba(255, 255, 255, 0.8)',
                         },
                     },
                     x: {
@@ -118,16 +136,22 @@ export default {
                             display: false,
                             color: 'rgba(255, 255, 255, .2)',
                             borderDash: [5, 5],
-                            borderColor: 'rgba(255, 255, 255, .2)',
+                            borderColor: 'rgba(255, 255, 255, .6)',
                         },
                     },
                 },
             },
+            chartOptions2: {},
         };
     },
 
+    created() {
+        this.chartOptions2 = cloneDeep(this.chartOptions1);
+        this.chartOptions2.scales.y.position = 'right';
+    },
+
     mounted() {
-        this.populateChart();
+        this.populateCharts();
     },
 
     computed: {
@@ -142,17 +166,18 @@ export default {
 
     watch: {
         leads() {
-            this.populateChart();
+            this.populateCharts();
         },
 
         clientValue() {
-            this.populateChart();
+            this.populateCharts();
         },
     },
 
     methods: {
-        populateChart() {
-            this.chartData.datasets[0].data = [this.newClients, this.newProfit];
+        populateCharts() {
+            this.chartData1.datasets[0].data = [this.newClients];
+            this.chartData2.datasets[0].data = [this.newProfit];
         },
     },
 }

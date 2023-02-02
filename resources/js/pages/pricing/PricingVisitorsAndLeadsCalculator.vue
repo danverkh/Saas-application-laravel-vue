@@ -15,17 +15,24 @@
     </div>
 
     <div class="flex flex-col-reverse items-center md:flex-row mt-7 mb-2">
-        <div class="card bg-primary shadow-lg shadow-strong rounded-2xl p-4 md:w-1/2 md:-left-20 max-w-xs">
+        <div class="card flex flex-row flex-nowrap bg-primary shadow-lg shadow-strong rounded-2xl px-4 pt-4 pb-3 md:w-1/2 md:-left-20 max-w-xs">
             <Bar
-                :chartData="chartData"
-                :chartOptions="chartOptions"
-                :height="300"
-                css-classes="w-full h-auto"
+                :chartData="chartData1"
+                :chartOptions="chartOptions1"
+                :height="600"
+                css-classes="w-1/2"
+                :class="{'opacity-0': industry === null}"
+            />
+            <Bar
+                :chartData="chartData2"
+                :chartOptions="chartOptions2"
+                :height="600"
+                css-classes="w-1/2"
                 :class="{'opacity-0': industry === null}"
             />
         </div>
 
-        <div class="grid items-center mb-6 text-center md:text-left md:w-1/2">
+        <div class="grid items-center mb-6 md:mb-0 text-center md:text-left md:w-1/2">
             <div v-if="industry === null" class="text-zinc-700">Please select industry</div>
             <div v-else class="text-2xl md:-ml-10">
                 We would expect <span class="font-bold">{{ visitors }}</span> website visitors and <span class="font-bold">{{ leads }}</span> hot leads.
@@ -39,6 +46,7 @@ import {Bar} from 'vue-chartjs';
 import {CategoryScale, Chart as ChartJS, BarElement} from 'chart.js';
 import generator from "random-seed";
 import round from 'lodash/round';
+import cloneDeep from "lodash/cloneDeep";
 
 ChartJS.register(CategoryScale, BarElement);
 
@@ -79,17 +87,27 @@ export default {
                 {label: 'Video Production', value: 'video-production'},
                 {label: 'Other', value: 'other'},
             ],
-            chartData: {
-                labels: ['Visitors', 'Leads'],
+            chartData1: {
+                labels: ['Visitors'],
                 datasets: [
                     {
-                        backgroundColor: ['#2F2E41', '#3B82F6'],
+                        backgroundColor: ['#2F2E41'],
                         borderRadius: 5,
                         data: [],
                     },
                 ],
             },
-            chartOptions: {
+            chartData2: {
+                labels: ['Leads'],
+                datasets: [
+                    {
+                        backgroundColor: ['#3B82F6'],
+                        borderRadius: 5,
+                        data: [],
+                    },
+                ],
+            },
+            chartOptions1: {
                 indexAxis: 'x',
                 animation: true,
                 plugins: {
@@ -103,6 +121,7 @@ export default {
                 },
                 scales: {
                     y: {
+                        position: 'left',
                         beginAtZero: true,
                         ticks: {
                             display: true,
@@ -110,13 +129,13 @@ export default {
                             font: {
                                 size: 10,
                             },
-                            color: 'rgba(255, 255, 255, 1)',
+                            color: 'rgba(255, 255, 255, 0.9)',
                         },
                         grid: {
                             display: true,
-                            color: 'rgba(255, 255, 255, .4)',
-                            borderDash: [5, 5],
-                            borderColor: 'rgba(255, 255, 255, .4)',
+                            drawOnChartArea: false,
+                            color: 'rgba(255, 255, 255, 1)',
+                            borderColor: 'rgba(255, 255, 255, 0.8)',
                         },
                     },
                     x: {
@@ -131,16 +150,22 @@ export default {
                             display: false,
                             color: 'rgba(255, 255, 255, .2)',
                             borderDash: [5, 5],
-                            borderColor: 'rgba(255, 255, 255, .2)',
+                            borderColor: 'rgba(255, 255, 255, .6)',
                         },
                     },
                 },
             },
+            chartOptions2: {},
         };
     },
 
+    created() {
+        this.chartOptions2 = cloneDeep(this.chartOptions1);
+        this.chartOptions2.scales.y.position = 'right';
+    },
+
     mounted() {
-        this.populateChart();
+        this.populateCharts();
     },
 
     computed: {
@@ -161,17 +186,18 @@ export default {
 
     watch: {
         budget() {
-            this.populateChart();
+            this.populateCharts();
         },
 
         industry() {
-            this.populateChart();
+            this.populateCharts();
         },
     },
 
     methods: {
-        populateChart() {
-            this.chartData.datasets[0].data = [this.visitors, this.leads];
+        populateCharts() {
+            this.chartData1.datasets[0].data = [this.visitors];
+            this.chartData2.datasets[0].data = [this.leads];
         },
     },
 }
