@@ -13,7 +13,9 @@
             <success-story :item='@json($item)'></success-story>
         @endforeach
 
+        @if($hasMoreItems)
         <show-more-success-stories-btn industry="{{ $industry }}"></show-more-success-stories-btn>
+        @endif
     </section>
 
     <div class="mb-16">

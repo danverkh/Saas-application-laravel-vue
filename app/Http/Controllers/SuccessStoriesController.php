@@ -22,15 +22,17 @@ class SuccessStoriesController extends Controller
      *
      * @return \Illuminate\Contracts\View\View
      */
-    public function index(?string $industry = null): View
+    public function index(string|null $industry = null): View
     {
+        $query = SuccessStory::query()
+                             ->when($industry, static fn(Builder $q) => $q->where('client_industry', $industry));
+
         return view('success_stories', [
-            'items'    => SuccessStory::query()
-                                      ->when($industry, fn(Builder $q) => $q->where('client_industry', $industry))
-                                      ->limit($this->limit)
-                                      ->orderBy('id')
-                                      ->get(),
-            'industry' => $industry,
+            'items'        => $query->limit($this->limit)
+                                    ->orderBy('id')
+                                    ->get(),
+            'hasMoreItems' => $query->count() > $this->limit,
+            'industry'     => $industry,
         ]);
     }
 
@@ -43,7 +45,7 @@ class SuccessStoriesController extends Controller
     {
         /** @var \Illuminate\Database\Eloquent\Builder $query */
         $query = SuccessStory::query()
-                             ->when($request->industry, fn(Builder $q) => $q->where('client_industry', $request->industry))
+                             ->when($request->industry, static fn(Builder $q) => $q->where('client_industry', $request->industry))
                              ->orderBy('id')
                              ->limit($this->limit);
 
