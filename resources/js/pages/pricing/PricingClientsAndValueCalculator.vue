@@ -43,13 +43,13 @@
             <Bar
                 :chartData="chartData1"
                 :chartOptions="chartOptions1"
-                :height="600"
+                :height="700"
                 css-classes="w-1/2"
             />
             <Bar
                 :chartData="chartData2"
                 :chartOptions="chartOptions2"
-                :height="600"
+                :height="700"
                 css-classes="w-1/2"
             />
         </div>
