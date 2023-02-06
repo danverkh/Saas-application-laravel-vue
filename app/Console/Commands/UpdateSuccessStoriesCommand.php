@@ -15,7 +15,7 @@ class UpdateSuccessStoriesCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'update:success-stories {--limit=1000}';
+    protected $signature = 'update:success-stories {--limit=1500}';
 
     /**
      * The console command description.
