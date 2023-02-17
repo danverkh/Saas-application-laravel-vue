@@ -39,6 +39,7 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|BillingAddress whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|BillingAddress whereUserId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|BillingAddress whereVatNumber($value)
+ * @mixin \Eloquent
  */
 	class IdeHelperBillingAddress {}
 }
@@ -78,9 +79,9 @@ namespace App\Models{
  * @property float|null $not_canceled_mrr
  * @property string|null $autoranker_bonus_email_1_sent
  * @property string $accountmanager_introduction_sent
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\ClientAccount[] $accounts
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\ClientAccount> $accounts
  * @property-read int|null $accounts_count
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Order[] $orders
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Order> $orders
  * @property-read int|null $orders_count
  * @method static \Illuminate\Database\Eloquent\Builder|Client newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Client newQuery()
@@ -116,6 +117,7 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|Client whereTerminationNoticePeriodInDays($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Client whereVatin($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Client whereZip($value)
+ * @mixin \Eloquent
  */
 	class IdeHelperClient {}
 }
@@ -150,6 +152,7 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|ClientAccount whereLanguage($value)
  * @method static \Illuminate\Database\Eloquent\Builder|ClientAccount whereLastName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|ClientAccount wherePassword($value)
+ * @mixin \Eloquent
  */
 	class IdeHelperClientAccount {}
 }
@@ -163,7 +166,7 @@ namespace App\Models{
  * @property string $iso2
  * @property string $iso3
  * @property string $tld
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Language[] $languages
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Language> $languages
  * @property-read int|null $languages_count
  * @method static \Illuminate\Database\Eloquent\Builder|Country newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Country newQuery()
@@ -173,6 +176,7 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|Country whereIso3($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Country whereName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Country whereTld($value)
+ * @mixin \Eloquent
  */
 	class IdeHelperCountry {}
 }
@@ -243,6 +247,7 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|Keyword whereTerminationRecordedDate($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Keyword whereTopFiveNotificationSent($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Keyword whereTopTenNotificationSent($value)
+ * @mixin \Eloquent
  */
 	class IdeHelperKeyword {}
 }
@@ -254,7 +259,7 @@ namespace App\Models{
  * @property int $id
  * @property string $name
  * @property string $code
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Country[] $countries
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Country> $countries
  * @property-read int|null $countries_count
  * @method static \Illuminate\Database\Eloquent\Builder|Language newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Language newQuery()
@@ -262,6 +267,7 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|Language whereCode($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Language whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Language whereName($value)
+ * @mixin \Eloquent
  */
 	class IdeHelperLanguage {}
 }
@@ -286,7 +292,7 @@ namespace App\Models{
  * @property string $client_account_created
  * @property string $order_confirmation_sent
  * @property-read \App\Models\Client $client
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Keyword[] $keywords
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Keyword> $keywords
  * @property-read int|null $keywords_count
  * @method static \Illuminate\Database\Eloquent\Builder|Order newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Order newQuery()
@@ -306,6 +312,7 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|Order whereName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Order whereOrderConfirmationSent($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Order whereSecondUpsellEmailSent($value)
+ * @mixin \Eloquent
  */
 	class IdeHelperOrder {}
 }
@@ -314,6 +321,7 @@ namespace App\Models{
 /**
  * App\Models\SuccessStory
  *
+ * @property int $id
  * @property int $client_id
  * @property string $client_industry
  * @property string $client_country
@@ -335,8 +343,10 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|SuccessStory whereClientIndustry($value)
  * @method static \Illuminate\Database\Eloquent\Builder|SuccessStory whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|SuccessStory whereCtr($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|SuccessStory whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|SuccessStory whereKeywords($value)
  * @method static \Illuminate\Database\Eloquent\Builder|SuccessStory whereMonthlyFee($value)
+ * @mixin \Eloquent
  */
 	class IdeHelperSuccessStory {}
 }
@@ -356,13 +366,13 @@ namespace App\Models{
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \App\Models\BillingAddress|null $billingAddress
  * @property-read \App\Models\ClientAccount|null $clientAccount
- * @property-read \Illuminate\Notifications\DatabaseNotificationCollection|\Illuminate\Notifications\DatabaseNotification[] $notifications
+ * @property-read \Illuminate\Notifications\DatabaseNotificationCollection<int, \Illuminate\Notifications\DatabaseNotification> $notifications
  * @property-read int|null $notifications_count
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Order[] $orders
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Order> $orders
  * @property-read int|null $orders_count
- * @property-read \Illuminate\Database\Eloquent\Collection|\Laravel\Sanctum\PersonalAccessToken[] $tokens
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \Laravel\Sanctum\PersonalAccessToken> $tokens
  * @property-read int|null $tokens_count
- * @method static \Database\Factories\UserFactory factory(...$parameters)
+ * @method static \Database\Factories\UserFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder|User newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|User newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|User query()
@@ -375,6 +385,7 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|User wherePassword($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User whereRememberToken($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User whereUpdatedAt($value)
+ * @mixin \Eloquent
  */
 	class IdeHelperUser {}
 }
