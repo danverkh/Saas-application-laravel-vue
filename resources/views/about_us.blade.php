@@ -162,7 +162,7 @@
         <script>
             document.addEventListener('DOMContentLoaded', function () {
                 const swiper = new Swiper('.swiper-container', {
-                    loop: true,
+                    loop: false,
                     slidesPerView: 1.2,
                     spaceBetween: 32,
                     autoplay: {

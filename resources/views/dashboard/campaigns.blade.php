@@ -11,7 +11,7 @@
                     <x-card class="border-t-4 border-primary overflow-visible md:w-1/2 xl:w-full" bodyClass="px-5 py-1">
                         <div class="divide-y">
                             @foreach($domains as $domain => $keywords)
-                                <div class="dropdown dropdown-end w-full py-2">
+                                <div class="dropdown w-full py-2">
                                     <label tabindex="0" class="btn btn-ghost btn-block text-base normal-case break-all {{ (collect($keywords)->contains('keyword', $keyword->keyword)) ? 'text-primary' : '' }}">
                                         {{ $domain }}
                                     </label>
@@ -107,6 +107,22 @@
                     minWidth: 1279,
                 });
             });
+
+            window.addEventListener('resize', setSidebarDropdown);
+            setSidebarDropdown();
+
+            function setSidebarDropdown() {
+                document.querySelectorAll('#sidebar .dropdown')
+                    .forEach(function (elem) {
+                        if (window.innerWidth <= 768) {
+                            elem.classList.add('dropdown-end');
+                            elem.classList.remove('dropdown-right');
+                        } else {
+                            elem.classList.remove('dropdown-end');
+                            elem.classList.add('dropdown-right');
+                        }
+                    });
+            }
         </script>
     @endpush
 </x-dashboard-layout>
