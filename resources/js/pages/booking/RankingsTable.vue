@@ -29,8 +29,8 @@
                 <tr v-if="rankingItems.filteredItems.length === 0 && rankingItems.items.length > 0" class="no-hover">
                     <td colspan="9" class="text-center !py-12">
                         <div class="text-zinc-600 text-lg mb-5 flex flex-col items-center">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-12 h-12 text-zinc-200 block mb-3">
-                                <path d="M12 2c5.514 0 10 4.486 10 10s-4.486 10-10 10-10-4.486-10-10 4.486-10 10-10zm0-2c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm1.25 17c0 .69-.559 1.25-1.25 1.25-.689 0-1.25-.56-1.25-1.25s.561-1.25 1.25-1.25c.691 0 1.25.56 1.25 1.25zm1.393-9.998c-.608-.616-1.515-.955-2.551-.955-2.18 0-3.59 1.55-3.59 3.95h2.011c0-1.486.829-2.013 1.538-2.013.634 0 1.307.421 1.364 1.226.062.847-.39 1.277-.962 1.821-1.412 1.343-1.438 1.993-1.432 3.468h2.005c-.013-.664.03-1.203.935-2.178.677-.73 1.519-1.638 1.536-3.022.011-.924-.284-1.719-.854-2.297z"/>
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="w-12 h-12 text-zinc-200 block mb-3" viewBox="0 0 24 24">
+                                <path d="M12 2a10.01 10.01 0 0 1 0 20 10.01 10.01 0 0 1 0-20zm0-2a12 12 0 1 0 0 24 12 12 0 0 0 0-24zm1.25 17a1.25 1.25 0 1 1-2.5 0 1.25 1.25 0 0 1 2.5 0zm1.4-10a3.53 3.53 0 0 0-2.56-.95C9.91 6.05 8.5 7.6 8.5 10h2.01c0-1.49.83-2.02 1.54-2.02.64 0 1.3.42 1.37 1.23.06.85-.4 1.28-.97 1.82-1.4 1.34-1.43 2-1.43 3.47h2c0-.66.04-1.2.94-2.18.68-.73 1.52-1.64 1.54-3.02a3.13 3.13 0 0 0-.86-2.3z"/>
                             </svg>
 
                             <div>
@@ -43,8 +43,8 @@
                 <tr v-if="rankingItems.items.length === 0" class="no-hover">
                     <td colspan="9" class="text-center !py-12">
                         <div class="text-zinc-600 text-lg mb-5 flex flex-col items-center">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-12 h-12 text-zinc-200 block mb-3">
-                                <path d="M12 2c5.514 0 10 4.486 10 10s-4.486 10-10 10-10-4.486-10-10 4.486-10 10-10zm0-2c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm1.25 17c0 .69-.559 1.25-1.25 1.25-.689 0-1.25-.56-1.25-1.25s.561-1.25 1.25-1.25c.691 0 1.25.56 1.25 1.25zm1.393-9.998c-.608-.616-1.515-.955-2.551-.955-2.18 0-3.59 1.55-3.59 3.95h2.011c0-1.486.829-2.013 1.538-2.013.634 0 1.307.421 1.364 1.226.062.847-.39 1.277-.962 1.821-1.412 1.343-1.438 1.993-1.432 3.468h2.005c-.013-.664.03-1.203.935-2.178.677-.73 1.519-1.638 1.536-3.022.011-.924-.284-1.719-.854-2.297z"/>
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="w-12 h-12 text-zinc-200 block mb-3" viewBox="0 0 24 24">
+                                <path d="M12 2c5.514 0 10 4.486 10 10s-4.486 10-10 10S2 17.514 2 12 6.486 2 12 2zm0-2C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm1.25 17a1.25 1.25 0 1 1-2.5 0 1.25 1.25 0 0 1 2.5 0zm1.393-9.998c-.608-.616-1.515-.955-2.551-.955-2.18 0-3.59 1.55-3.59 3.95h2.011c0-1.486.829-2.013 1.538-2.013.634 0 1.307.421 1.364 1.226.062.847-.39 1.277-.962 1.821-1.412 1.343-1.438 1.993-1.432 3.468h2.005c-.013-.664.03-1.203.935-2.178.677-.73 1.519-1.638 1.536-3.022.011-.924-.284-1.719-.854-2.297z"/>
                             </svg>
                             <div>
                                 There are no keywords for this domain for which AutoRanker can work.<br/>
@@ -70,8 +70,8 @@
             <div class="text-red-600 text-base text-center mb-5">{{ error }}</div>
 
             <button @click="fetch" class="btn gap-3 group">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 transition-transform duration-500 group-hover:rotate-45">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99"/>
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="1.5" class="w-6 h-6 transition-transform duration-500 group-hover:rotate-45" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M16.02 9.35h5v0M2.98 19.65v-5m0 0h5m-5 0 3.18 3.18a8.25 8.25 0 0 0 13.8-3.7M4.04 9.86a8.25 8.25 0 0 1 13.8-3.7l3.19 3.19m0-5v5"/>
                 </svg>
                 Try again
             </button>

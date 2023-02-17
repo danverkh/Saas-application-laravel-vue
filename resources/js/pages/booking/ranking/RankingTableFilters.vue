@@ -41,7 +41,9 @@
 
         <div ref="filtersDropdown" class="dropdown dropdown-end self-end md:self-start">
             <label tabindex="0" class="btn btn-ghost text-sm">
-                <svg class="w-4 h-4 stroke-current mr-2" width="32" height="32" viewBox="0 0 24 24"><path fill="currentColor" d="M4.25 5.61C6.27 8.2 10 13 10 13v6c0 .55.45 1 1 1h2c.55 0 1-.45 1-1v-6s3.72-4.8 5.74-7.39A.998.998 0 0 0 18.95 4H5.04c-.83 0-1.3.95-.79 1.61z"/></svg>
+                <svg class="w-4 h-4 stroke-current mr-2" width="32" height="32" viewBox="0 0 24 24">
+                    <path fill="currentColor" d="M4.25 5.61C6.27 8.2 10 13 10 13v6c0 .55.45 1 1 1h2c.55 0 1-.45 1-1v-6s3.72-4.8 5.74-7.39A.998.998 0 0 0 18.95 4H5.04c-.83 0-1.3.95-.79 1.61z"/>
+                </svg>
                 Filters
             </label>
             <ul tabindex="0" class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52 space-y-1">
