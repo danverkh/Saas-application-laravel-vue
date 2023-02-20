@@ -162,7 +162,7 @@ CREATE TABLE `prospect_mail_domains` (
     `creation_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY (`id`),
     UNIQUE KEY `uidx_mail_domain` (`mail_domain`),
-    KEY `fk_prospect_mail_domains_phone_number_research_employee_id` (`phone_number_research_employee_id`),
+    KEY `fk_prospect_mail_domains_phone_number_research_employee_id` (`phone_number_research_employee_id`)
 #     CONSTRAINT `fk_prospect_mail_domains_phone_number_research_employee_id` FOREIGN KEY (`phone_number_research_employee_id`) REFERENCES `employees` (`id`)
 #     CONSTRAINT `fk_prospect_mail_domains_review_employee_id` FOREIGN KEY (`review_employee_id`) REFERENCES `employees` (`id`),
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
