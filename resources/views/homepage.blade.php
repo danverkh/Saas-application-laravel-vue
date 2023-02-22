@@ -40,6 +40,14 @@
             <div class="basis-1/2 leading-loose text-md md:text-xl text-center md:text-left mt-4 md:mt-0 text-zinc-500 reveal fade-in-right">
                 Ads are too expensive. Total budget of seo agencies for keyword is probably greater then traffic value. There are no “organic” search results, people rank because
                 they pay.
+
+                TODO: start campaign creation assistant:
+                <div class="col-start-10 col-end-12 font-medium flex justify-end items-center">
+                    <div onclick="document.getElementById('assistant-modal').checked = true" class="cursor-pointer select-none text-sm sm:text-base font-medium tracking-wide py-2 px-3 sm:px-6 border border-primary-hover text-white-500 bg-primary outline-none rounded-l-full rounded-r-full hover:bg-primary-hover hover:text-white-500 transition-all duration-500 hover:shadow-primary">
+                        <span class="hidden sm:inline-block">Create a Campaign</span>
+                        <span class="inline-block sm:hidden">Campaign</span>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -101,7 +109,7 @@
                     <div class="text-2xl md:text-3xl text-center md:text-left font-medium text-zinc-900 mb-5">Work with the best data</div>
                     <div class="leading-loose text-md md:text-lg text-zinc-500">
                         <ul class="red-dots">
-                            <li>Most people user SEO tools to get keyword data, which is often outdated</li>
+                            <li>Most people use SEO tools to get keyword data, which is often outdated</li>
                             <li>We directly integrate with the <a href="https://developers.google.com/google-ads/api/docs/start">Google Ads API Endpoint</a> to get you the best
                                 data to improve decisionmaking
                             </li>
@@ -121,7 +129,13 @@
             <div class="basis-1/2 text-center md:text-right mt-4 md:mt-0 reveal fade-in-right">
                 <div class="text-2xl md:text-3xl font-medium text-zinc-900 mb-3">The best performance in the market</div>
                 <div class="leading-loose text-md md:text-xl text-zinc-500">
-                     Look at hundreds of successful campaigns
+                     Look at hundreds of successful campaigns.
+                     View references of these industries:
+                    <button class="btn_style btn-success"><a href="/success-stories/finance">💰 Finance</a></button>
+                    <button class="btn_style btn-primary"><a href="/success-stories/marketing">📊 Marketing</a></button>
+                    <button class="btn_style btn-warning"><a href="/success-stories/gambling">🎲 Gaming</a></button>
+                    <button class="btn_style btn-info"><a href="/success-stories/marketing">📊 Marketing</a></button>
+                    TODO: let's add more industries here
                 </div>
             </div>
         </div>
@@ -152,6 +166,8 @@
                 <div class="text-2xl md:text-3xl font-medium text-zinc-900 mb-3">View Campaign in Dashboard</div>
                 <div class="leading-loose text-md md:text-xl text-zinc-500">
                     Always view all stats in your dashboard
+
+                    TODO: we should show actual screenshots here, several of them, different charts etc
                 </div>
             </div>
         </div>
