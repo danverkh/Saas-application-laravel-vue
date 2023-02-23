@@ -37,6 +37,9 @@
                 <li class="my-2 hover:text-primary cursor-pointer transition-all">
                     <x-link href="#" :with-color="false">For Agencies</x-link>
                 </li>
+                <li class="my-2 hover:text-primary cursor-pointer transition-all">
+                    <x-link href="{{ route('our-api') }}" :with-color="false">Our API</x-link>
+                </li>
             </ul>
         </div>
         <div class="flex flex-col">

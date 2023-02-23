@@ -13,7 +13,7 @@ class SuccessStoriesController extends Controller
     /**
      * @var int
      */
-    private int $limit = 40;
+    private int $limit = 100;
 
     /**
      * Provision a new web server.

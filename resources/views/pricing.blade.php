@@ -8,22 +8,18 @@
         </x-page-title>
     </div>
 
-    <section class="max-w-screen-lg mx-auto px-4 md:px-0 mb-16 space-y-12">
+    <section class="max-w-screen-md mx-auto px-4 md:px-0 mb-16 space-y-12">
         <div class="py-12 mx-auto">
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
-                <img src="/img/illustrations/increase.svg" class="mx-16 md:m-8"/>
-
+            <div class="grid grid-cols-1">
                 <div class="card overflow-visible bg-base-100 shadow-lg rounded-xl px-9 md:px-12 py-8">
                     <pricing-visitors-and-leads-calculator></pricing-visitors-and-leads-calculator>
                 </div>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-10 mt-24">
+            <div class="grid grid-cols-1 mt-24">
                 <div class="card overflow-visible bg-base-100 shadow-lg rounded-xl px-12 py-8 order-2 md:order-1">
                     <pricing-clients-and-value-calculator></pricing-clients-and-value-calculator>
                 </div>
-
-                <img src="/img/illustrations/deal.svg" class="mx-7 my-3 order-1 md:order-2"/>
             </div>
 
             <div class="text-center mt-28">

@@ -2,39 +2,30 @@
     <div class="grid gap-y-5">
         <div class="grid gap-y-3">
             <div class="flex items-end justify-between">
-                <div>Clients out of 10 Leads:</div>
-                <div class="font-bold text-xl">{{ leads }}</div>
+                <div class="text-xl">Clients out of 10 Leads</div>
+                <div class="font-bold text-2xl">{{ leads }}</div>
             </div>
-            <input v-model="leads" type="range" min="1" max="10" class="range range-primary" />
-            <div class="w-full flex justify-between text-xs px-2 h-1.5 overflow-hidden -mt-1.5 opacity-50">
+            <input v-model="leads" type="range" min="1" max="10" class="range range-lg range-primary" />
+            <div class="w-full flex justify-between text-xs px-2 h-2 overflow-hidden -mt-1.5 opacity-50">
                 <span v-for="_ in 10">|</span>
             </div>
         </div>
 
         <div class="flex flex-col flex-nowrap gap-y-3">
             <div class="flex items-end justify-between">
-                <div>Value of one client:</div>
-                <div class="font-bold text-xl">{{ money(clientValue) }}</div>
+                <div class="text-xl">Value of one client</div>
+                <div class="font-bold text-2xl">{{ money(clientValue) }}</div>
             </div>
-            <input v-model="clientValue" type="range" min="10" max="10000" class="range range-primary" />
+            <input v-model="clientValue" type="range" min="10" max="10000" class="range range-lg range-primary" />
         </div>
     </div>
 
     <div class="flex flex-col items-center md:flex-row mt-8">
-        <div class="grid items-center w-1/2">
+        <div class="grid items-center w-full md:w-1/2">
             <div class="text-xl -mr-10 space-y-2 mb-6 md:mb-0">
-                <div>
-                    <div class="text-zinc-500">New clients:</div>
-                    <div class="text-2xl">
-                        <span class="font-bold">{{ newClients }}</span> per month
-                    </div>
-                </div>
-
-                <div>
-                    <div class="text-zinc-500">New profit:</div>
-                    <div class="text-2xl">
-                        <span class="font-bold">{{ money(newProfit, {precision: 0}) }}</span> per month
-                    </div>
+                <div class="text-3xl leading-relaxed">
+                    After 12 months you would have gained <span class="font-bold">{{ newClients }}</span> clients
+                    and generated an additional profit of <span class="font-bold">{{ money(newProfit, {precision: 0}) }}</span>.
                 </div>
             </div>
         </div>
@@ -109,6 +100,7 @@ export default {
                     y: {
                         position: 'left',
                         beginAtZero: true,
+                        max: 10,
                         ticks: {
                             display: true,
                             autoSkipPadding: 10,
@@ -148,6 +140,7 @@ export default {
     created() {
         this.chartOptions2 = cloneDeep(this.chartOptions1);
         this.chartOptions2.scales.y.position = 'right';
+        this.chartOptions2.scales.y.max = 100000;
     },
 
     mounted() {

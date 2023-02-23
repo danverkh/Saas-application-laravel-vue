@@ -25,6 +25,7 @@ Route::get('success-stories/{industry?}', [SuccessStoriesController::class, 'ind
 Route::get('about-us', AboutUsController::class)->name('about_us');
 Route::get('pricing', PricingController::class)->name('pricing');
 Route::get('book-a-demo', [BookADemoController::class, 'form'])->name('book_a_demo');
+Route::get('our-api', [StaticPageController::class, 'ourApi'])->name('our-api');
 
 Route::post('checkout/order', [CheckoutController::class, 'order'])->name('checkout.order');
 Route::get('thank-you', [CheckoutController::class, 'thankYou'])->name('checkout.thank_you');
