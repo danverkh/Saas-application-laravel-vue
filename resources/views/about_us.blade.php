@@ -14,11 +14,11 @@
             <div class="grid grid-cols-1 lg:grid-cols-2">
                 <div class="relative flex items-center justify-center lg:justify-end bg-zinc-100 rounded-r-3xl border-b-4 border-zinc-300/60 mr-8 lg:mr-0">
                     <div class="pt-14 pb-24 px-4 lg:pl-5 lg:pr-10 lg:pr-16 xl:pr-24 text-center lg:text-right">
-                        <div class="text-3xl xl:text-5xl mb-3">We want to offer a</div>
+                        <div class="text-3xl xl:text-5xl mb-3">We offer a</div>
 
                         <div class="text-zinc-900">
                             <div class="font-bold text-4xl xl:text-6xl mb-2">
-                                <span class="text-primary">performance</span>-only
+                                <span class="text-primary">Pure Performance</span>
                             </div>
 
                             <div class="font-bold text-6xl mb-5">

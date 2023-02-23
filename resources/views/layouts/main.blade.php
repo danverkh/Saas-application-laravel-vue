@@ -41,30 +41,6 @@
                 <div class="drawer-content bg-zinc-100/20">
                     <!-- Header -->
                     <header class="sticky top-0 w-full z-40">
-                        <div class="bg-zinc-50 border-b border-b-zinc-200">
-                            <div class="max-w-screen-xl mx-auto px-6 xl:px-2 flex justify-end items-center py-1 sm:py-2">
-                                @auth
-                                    <div class="text-sm text-zinc-900">
-                                        <a href="{{ route('dashboard.campaigns') }}">
-                                            {{ auth()->user()->email }}
-                                        </a>
-                                    </div>
-
-                                    <div class="text-zinc-300 mx-3">|</div>
-
-                                    <form action="{{ route('logout') }}" method="POST">
-                                        @csrf
-                                        <button type="submit" class="link no-underline hover:underline flex items-center tracking-wide transition-colors text-primary/80 hover:text-primary">
-                                            <svg class="hidden sm:block w-4 h-4 mr-1" viewBox="0 0 24 24"><path fill="currentColor" d="M5 21q-.825 0-1.413-.587Q3 19.825 3 19V5q0-.825.587-1.413Q4.175 3 5 3h7v2H5v14h7v2Zm11-4l-1.375-1.45l2.55-2.55H9v-2h8.175l-2.55-2.55L16 7l5 5Z"/></svg>
-                                            Logout
-                                        </button>
-                                    </form>
-                                @else
-                                    <login-form></login-form>
-                                @endauth
-                            </div>
-                        </div>
-
                         <div class="transition-all shadow-lg">
                             <div class="backdrop-blur-[10px] bg-white-500/90 py-2">
                                 <nav class="max-w-screen-xl mx-auto px-2 sm:px-6 xl:px-2 grid grid-flow-col py-3 sm:py-4">
@@ -79,15 +55,32 @@
                                     <ul class="hidden lg:flex col-start-4 col-end-8 text-black-500  items-center">
                                         <x-nav-link :href="route('how_it_works')" :active="request()->routeIs('how_it_works')">How it works</x-nav-link>
                                         <x-nav-link :href="route('success_stories')" :active="request()->routeIs('success_stories')">Success stories</x-nav-link>
-                                        <x-nav-link :href="route('about_us')" :active="request()->routeIs('about_us')">About us</x-nav-link>
                                         <x-nav-link :href="route('pricing')" :active="request()->routeIs('pricing')">Pricing</x-nav-link>
+                                        <x-nav-link :href="route('about_us')" :active="request()->routeIs('about_us')">Support</x-nav-link>
                                     </ul>
+
                                     <div class="col-start-10 col-end-12 font-medium flex justify-end items-center">
-                                        <div onclick="document.getElementById('assistant-modal').checked = true" class="cursor-pointer select-none text-sm sm:text-base font-medium tracking-wide py-2 px-3 sm:px-6 border border-primary-hover text-white-500 bg-primary outline-none rounded-l-full rounded-r-full hover:bg-primary-hover hover:text-white-500 transition-all duration-500 hover:shadow-primary">
-                                            <span class="hidden sm:inline-block">Create a Campaign</span>
-                                            <span class="inline-block sm:hidden">Campaign</span>
-                                        </div>
+                                        @auth
+                                            <div class="text-sm text-zinc-900">
+                                                <a href="{{ route('dashboard.campaigns') }}">
+                                                    {{ auth()->user()->email }}
+                                                </a>
+                                            </div>
+
+                                            <div class="text-zinc-300 mx-3">|</div>
+
+                                            <form action="{{ route('logout') }}" method="POST">
+                                                @csrf
+                                                <button type="submit" class="link no-underline hover:underline flex items-center tracking-wide transition-colors text-primary/80 hover:text-primary">
+                                                    <svg class="hidden sm:block w-4 h-4 mr-1" viewBox="0 0 24 24"><path fill="currentColor" d="M5 21q-.825 0-1.413-.587Q3 19.825 3 19V5q0-.825.587-1.413Q4.175 3 5 3h7v2H5v14h7v2Zm11-4l-1.375-1.45l2.55-2.55H9v-2h8.175l-2.55-2.55L16 7l5 5Z"/></svg>
+                                                    Logout
+                                                </button>
+                                            </form>
+                                        @else
+                                            <login-form></login-form>
+                                        @endauth
                                     </div>
+
                                 </nav>
                             </div>
                         </div>
@@ -106,8 +99,8 @@
                     <ul class="menu overflow-y-auto w-80 divide-y bg-base-100 text-base-content mt-[120px] sm:mt-[137px] p-6 pt-8 pr-7" style="box-shadow: inset 0 4px 18px -9px rgba(0,0,0,0.4)">
                         <li><x-mobile-nav-link :href="route('how_it_works')" :active="request()->routeIs('how_it_works')">How it works</x-mobile-nav-link></li>
                         <li><x-mobile-nav-link :href="route('success_stories')" :active="request()->routeIs('success_stories')">Success stories</x-mobile-nav-link></li>
-                        <li><x-mobile-nav-link :href="route('about_us')" :active="request()->routeIs('about_us')">About us</x-mobile-nav-link></li>
                         <li><x-mobile-nav-link :href="route('pricing')" :active="request()->routeIs('pricing')">Pricing</x-mobile-nav-link></li>
+                        <li><x-mobile-nav-link :href="route('about_us')" :active="request()->routeIs('about_us')">Support</x-mobile-nav-link></li>
                     </ul>
                 </div>
             </div>
