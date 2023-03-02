@@ -14,13 +14,14 @@ export default {
     props: {
         value: {
             required: true,
-            type: Number,
         },
     },
 
     computed: {
         percentage() {
-            return (this.value / this.max * 100).toFixed(2);
+            return this.value
+                ? (this.value / this.max * 100).toFixed(2)
+                : 0;
         },
 
         max() {

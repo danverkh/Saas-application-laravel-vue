@@ -2,7 +2,7 @@
     <div class="w-full bg-zinc-400 h-4 rounded-xl overflow-hidden min-w-[50px] relative">
         <div class="bg-primary h-full transition-all duration-1000 ease-out absolute top-0 left-0" :style="{right: `${100 - percentage}%`}"></div>
         <div class="text-xs text-white px-2.5 font-medium relative text-left">
-            {{ value ? money(value, {precision: 1}) : '-' }}
+            {{ value ? money(value, {precision: 1}) : '' }}
         </div>
     </div>
 </template>
@@ -16,7 +16,6 @@ export default {
     props: {
         value: {
             required: true,
-            type: Number,
         },
     },
 

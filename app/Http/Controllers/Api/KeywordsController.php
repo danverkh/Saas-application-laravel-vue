@@ -45,7 +45,7 @@ class KeywordsController extends Controller
                     }
                 }
                 if ($foundDomain === false) {
-                    return 'not_possible';
+                    return ['result' => 'not_possible'];
                 }
 
                 // Verify domain is _actually_ found by iterating over serp pages iteratively

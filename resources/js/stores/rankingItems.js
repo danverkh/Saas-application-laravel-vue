@@ -1,8 +1,8 @@
 import {defineStore} from 'pinia'
 import RelevanceData from "@/services/RelevanceData";
 import maxBy from 'lodash/maxBy';
-import orderBy from 'lodash/orderBy';
 import {useCart} from './cart';
+import {inPlaceSort} from 'fast-sort';
 
 export const useRankingItemsStore = defineStore('rankingItems', {
     persist: {
@@ -117,7 +117,12 @@ export const useRankingItemsStore = defineStore('rankingItems', {
         },
 
         reorderItems() {
-            this.items = orderBy(this.items, 'relevance', 'desc');
+            inPlaceSort(this.items).by([
+                {desc: i => i.status},
+                {desc: i => i.relevance},
+            ]);
+            // this.items.sort((a, b) => b.relevance - a.relevance);
+            // this.items.sort(a => a.status ? -1 : 1); // move user added items to top
         },
 
         add(item) {
