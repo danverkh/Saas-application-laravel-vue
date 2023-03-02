@@ -3,7 +3,7 @@ export default {
         fixedTableHeader() {
             const tableHeader = this.$refs.mainTable.querySelector('thead>tr');
             const tableHeaderTop = this.$refs.mainTable.getBoundingClientRect().top;
-            const pageHeaderHeight = 137;
+            const pageHeaderHeight = 96;
             const headerCells = tableHeader.querySelectorAll('th');
             const firstRowCells = this.$refs.mainTable.querySelectorAll('tbody>tr:first-child>*');
 
@@ -11,12 +11,13 @@ export default {
                 return;
             }
 
-            if ((pageHeaderHeight + 55) > tableHeaderTop) {
+            if ((pageHeaderHeight + 40) > tableHeaderTop) {
                 headerCells.forEach((el, index) => {
                     firstRowCells[index].style.width = el.offsetWidth + 'px';
                 });
 
                 tableHeader.classList.add('fixed');
+                tableHeader.style.top = pageHeaderHeight + 'px';
 
                 firstRowCells.forEach((el, index) => {
                     headerCells[index].style.width = el.offsetWidth + 'px';
