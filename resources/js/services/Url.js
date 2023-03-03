@@ -24,6 +24,7 @@ class Url {
     allQueryParams() {
         return this.parameters;
     }
+
 }
 
 export default new Url;

@@ -35,6 +35,8 @@ Route::get('user/{hash}', LoginLinkController::class)->name('login.link');
 Route::get('imprint', [StaticPageController::class, 'imprint'])->name('imprint');
 Route::get('data-privacy', [StaticPageController::class, 'dataPrivacy'])->name('data_privacy');
 
-Route::get('{market}/{query}', [BookingController::class, 'index'])->name('booking');
+Route::get('{market}/{query}', [BookingController::class, 'index'])
+    ->where('query', '.*')
+    ->name('booking');
 
 require __DIR__.'/auth.php';

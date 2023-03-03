@@ -10,6 +10,7 @@
                @keydown.down.prevent="moveSelectionDown"
                @keydown.ctrl.space="open"
                @keyup.esc="close"
+               @paste="$emit('update:modelValue', $event.target.value)"
                ref="input"
                type="text"
                class="input input-lg h-[60px] w-full ring-1 ring-gray-300 px-4 md:px-6 hover:ring-2 hover:ring-accent/50 focus:ring-2 focus:ring-accent/50 focus:outline-none"/>
@@ -121,7 +122,7 @@ export default {
         suggestionsShow() {
             if (this.modelValue.length < 3) {
                 // 1. check if we can use initial suggestions
-                this.useInitialSuggestions();
+                this.$nextTick(this.useInitialSuggestions);
             } else {
                 this.debouncedFetch();
             }

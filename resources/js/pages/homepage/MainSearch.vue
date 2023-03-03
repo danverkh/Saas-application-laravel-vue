@@ -122,8 +122,8 @@ export default {
             if (this.domain.length === 0) {
                 this.invalid = true;
             } else {
-
-                const domain = encodeURIComponent(this.domain);
+                let domain = Domain.extractFromUrl(this.domain);
+                domain = encodeURIComponent(domain);
 
                 if (this.market === null) {
                     this.submitted = true;

@@ -1,4 +1,18 @@
 class Domain {
+    extractFromUrl(url) {
+        let domain = url;
+
+        if (domain.includes('http' || domain.includes('/'))) {
+            try {
+                domain = (new URL(domain)).hostname;
+            } catch (error) {
+                console.error('Failed to extract domain', error);
+            }
+        }
+
+        return domain.replace('www.','');
+    }
+
     getMarket(domain) {
         const lowercaseDomain = domain.toLowerCase();
 
