@@ -20,7 +20,7 @@ class GoogleKeywordAdvancedSearch extends AbstractRequest
 
         $result = $this->client->post('/v3/serp/google/organic/live/advanced', $params);
 
-        $items = data_get($result, 'tasks.0.result.0.items', []);
+        $items = data_get($result, 'tasks.0.result.0.items', []) ?? [];
 
         $data = [
             'hasPaidAds' => collect(data_get($result, 'tasks.0.result.0.item_types', []))->contains('paid'),

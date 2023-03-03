@@ -18,8 +18,8 @@ class GoogleAdsKeywordsForKeywords extends AbstractRequest
         ];
 
         $response = $this->client->post('/v3/keywords_data/google_ads/keywords_for_keywords/live', $params);
-        $result   = data_get($response, 'tasks.0.result.0', []);
-        $results  = data_get($response, 'tasks.0.result', []);
+        $result   = data_get($response, 'tasks.0.result.0', []) ?? [];
+        $results  = data_get($response, 'tasks.0.result', []) ?? [];
 
         $data = [
             'keywords' => $this->params->get('keywords'),

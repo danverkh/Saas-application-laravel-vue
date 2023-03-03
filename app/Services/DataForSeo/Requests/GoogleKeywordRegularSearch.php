@@ -20,7 +20,7 @@ class GoogleKeywordRegularSearch extends AbstractRequest
 
         $result = $this->client->post('/v3/serp/google/organic/live/regular', $params);
 
-        $items = data_get($result, 'tasks.0.result.0.items', []);
+        $items = data_get($result, 'tasks.0.result.0.items', []) ?? [];
 
         $data = [
             'keywords' => $this->params->get('keyword'),

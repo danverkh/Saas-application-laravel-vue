@@ -51,7 +51,7 @@ class DomainSearch extends AbstractRequest
         ];
 
         $result = $this->client->post('/v3/dataforseo_labs/ranked_keywords/live', $params);
-        $items  = data_get($result, 'tasks.0.result.0.items', []);
+        $items  = data_get($result, 'tasks.0.result.0.items', []) ?? [];
 
         return collect($items)
             ->map(function ($item) use ($domain) {
@@ -87,7 +87,7 @@ class DomainSearch extends AbstractRequest
         ];
 
         $result = $this->client->post('/v3/keywords_data/google/keywords_for_site/live', $params);
-        $items  = data_get($result, 'tasks.0.result', []);
+        $items  = data_get($result, 'tasks.0.result', []) ?? [];
 
         return collect($items)
             ->map(function ($item) use ($domain) {
