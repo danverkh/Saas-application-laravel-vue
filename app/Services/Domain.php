@@ -24,7 +24,8 @@ class Domain
 
         // try to find by language
         $language = Language::where('code', $code)->with('countries')->first();
-        $market   = data_get($language, 'countries.0.iso2');
+        $country  = collect(data_get($language, 'countries', []))->firstWhere('iso2', $code);
+        $market   = $country?->iso2;
 
         if ($market) {
             return Str::lower($market);
@@ -38,7 +39,7 @@ class Domain
         }
 
         // get country code from TLD
-        $tld = (string) Str::of($domain)->afterLast('.');
+        $tld = (string)Str::of($domain)->afterLast('.');
 
         $country = Country::where('tld', $tld)->first();
 

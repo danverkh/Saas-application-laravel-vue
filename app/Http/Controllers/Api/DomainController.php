@@ -7,6 +7,7 @@ use App\Http\Requests\DomainRequest;
 use App\Services\Domain;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 
 class DomainController extends Controller
 {
@@ -23,9 +24,13 @@ class DomainController extends Controller
                   ->where('mail_domain', 'LIKE', "$request->domain%")
                   ->first();
 
-        $languageOrCountryCode = $item->language_detected ?? $item->registrant_country ?? null;
-
-        $market = Domain::getMarket($languageOrCountryCode, $request->domain);
+        if ($item?->registrant_country) {
+            $market = Str::lower($item->registrant_country);
+        } else if ($item?->language_detected) {
+            $market = Domain::getMarket($item->language_detected, $request->domain);
+        } else {
+            $market = null;
+        }
 
         return response()->json(compact('market'));
     }
