@@ -25,12 +25,14 @@
                  data-auth='@json(auth()->user()->only(['id', 'name', 'email']))'
              @endif
         >
-
             <!-- Global -->
             <full-screen-spinner></full-screen-spinner>
             <domain-switcher-modal></domain-switcher-modal>
             <assistant-modal></assistant-modal>
             <global-notifications></global-notifications>
+            @guest
+                <login-modal></login-modal>
+            @endguest
 
             @env('local')
             <x-breakpoints></x-breakpoints>
@@ -77,7 +79,13 @@
                                                 </button>
                                             </form>
                                         @else
-                                            <login-form></login-form>
+                                            <login-form class="hidden md:flex"></login-form>
+                                            <button onclick="document.getElementById('login-modal').checked = true" class="flex md:hidden btn btn-sm gap-x-2 rounded-md !text-xs font-normal normal-case pl-2.5 pr-4 tracking-widest disabled:bg-zinc-500">
+                                                <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                                    <path fill="currentColor" d="M12 21v-2h7V5h-7V3h7q.825 0 1.413.588T21 5v14q0 .825-.588 1.413T19 21h-7Zm-2-4l-1.375-1.45l2.55-2.55H3v-2h8.175l-2.55-2.55L10 7l5 5l-5 5Z"/>
+                                                </svg>
+                                                Login
+                                            </button>
                                         @endauth
                                     </div>
 
@@ -95,8 +103,8 @@
 
                 <!-- Mobile navigation -->
                 <div class="drawer-side" style="display: none">
-                    <label for="mobile-menu" class="drawer-overlay mt-[120px] sm:mt-[137px]"></label>
-                    <ul class="menu overflow-y-auto w-80 divide-y bg-base-100 text-base-content mt-[120px] sm:mt-[137px] p-6 pt-8 pr-7" style="box-shadow: inset 0 4px 18px -9px rgba(0,0,0,0.4)">
+                    <label for="mobile-menu" class="drawer-overlay mt-[88px] sm:mt-[137px]"></label>
+                    <ul class="menu overflow-y-auto w-80 divide-y bg-base-100 text-base-content mt-[88px] sm:mt-[137px] p-6 pt-8 pr-7" style="box-shadow: inset 0 4px 18px -9px rgba(0,0,0,0.4)">
                         <li><x-mobile-nav-link :href="route('how_it_works')" :active="request()->routeIs('how_it_works')">How it works</x-mobile-nav-link></li>
                         <li><x-mobile-nav-link :href="route('success_stories')" :active="request()->routeIs('success_stories')">Success stories</x-mobile-nav-link></li>
                         <li><x-mobile-nav-link :href="route('pricing')" :active="request()->routeIs('pricing')">Pricing</x-mobile-nav-link></li>

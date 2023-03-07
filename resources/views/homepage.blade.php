@@ -3,15 +3,15 @@
 
 <x-main-layout>
     <div class="relative">
-        <div class="relative z-10 max-w-screen-xl px-6 py-8 mx-auto gap-10 items-center flex flex-col md:flex-row">
+        <div class="relative z-10 max-w-screen-xl px-6 py-8 mx-auto gap-6 items-center flex flex-col md:flex-row">
             <div class="basis-1/2 flex flex-col justify-center items-start row-start-2 sm:row-start-1 md:pt-12">
-                <h1 class="text-6xl md:text-5xl lg:text-6xl leading-tight md:leading-[1.1] lg:leading-tight font-medium text-zinc-900">
-                    Get Clicks from 0.10€<br>
-                    and Leads from 10€<br>
+                <h1 class="text-4xl leading-[3.2rem] sm:leading-[4rem] xl:leading-normal sm:text-5xl md:text-5xl lg:text-6xl leading-tight md:leading-[1.1] lg:leading-tight font-medium text-zinc-900">
+                    Get Clicks from 0.10€ <br class="hidden xl:block">
+                    and Leads from 10€ <br class="hidden xl:block">
                     <strong>with AutoRanker<span class="text-primary">.</span></strong>
                 </h1>
 
-                <p class="text-md md:text-sm lg:text-md xl:text-lg text-gray-500/80 mt-4 mb-6 leading-loose md:leading-relaxed lg:leading-loose xl:leading-relaxed">
+                <p class="text-md md:text-sm lg:text-md xl:text-lg text-gray-500/80 mt-4 md:mb-6 leading-[1.6rem] md:leading-relaxed lg:leading-loose xl:leading-relaxed">
                     Get additional website visitors and conversions from search engines.<br class="hidden lg:block"/>
                     Pay only for traffic you receive.
                     It's like an ad campaign but for 10% of the price.
@@ -31,7 +31,7 @@
     </div>
 
     <section class="max-w-screen-xl mx-auto px-6 py-14 md:py-20">
-        <div class="text-3xl md:text-5xl font-medium text-zinc-900 text-center mb-12 reveal scale-in">Why should you care</div>
+        <div class="text-3xl md:text-5xl font-medium text-zinc-900 text-center mt-6 mb-10 reveal scale-in">Why should you care</div>
 
         <div class="flex flex-col md:flex-row gap-x-8 xl:gap-x-20">
             <div class="basis-1/2 flex justify-center md:justify-end">
@@ -42,10 +42,9 @@
                 they pay.
 
                 TODO: start campaign creation assistant:
-                <div class="col-start-10 col-end-12 font-medium flex justify-end items-center">
-                    <div onclick="document.getElementById('assistant-modal').checked = true" class="cursor-pointer select-none text-sm sm:text-base font-medium tracking-wide py-2 px-3 sm:px-6 border border-primary-hover text-white-500 bg-primary outline-none rounded-l-full rounded-r-full hover:bg-primary-hover hover:text-white-500 transition-all duration-500 hover:shadow-primary">
-                        <span class="hidden sm:inline-block">Create a Campaign</span>
-                        <span class="inline-block sm:hidden">Campaign</span>
+                <div class="flex justify-center sm:justify-end items-center mt-5">
+                    <div onclick="document.getElementById('assistant-modal').checked = true" class="cursor-pointer select-none text-lg sm:text-base font-medium tracking-wide py-3 px-8 sm:py-2 sm:px-6 border border-primary-hover text-white-500 bg-primary outline-none rounded-l-full rounded-r-full hover:bg-primary-hover hover:text-white-500 transition-all duration-500 hover:shadow-primary">
+                        Create a Campaign
                     </div>
                 </div>
             </div>
@@ -131,10 +130,10 @@
                 <div class="leading-loose text-md md:text-xl text-zinc-500">
                      Look at hundreds of successful campaigns.
                      View references of these industries:
-                    <button class="btn_style btn-success"><a href="/success-stories/finance">💰 Finance</a></button>
-                    <button class="btn_style btn-primary"><a href="/success-stories/marketing">📊 Marketing</a></button>
-                    <button class="btn_style btn-warning"><a href="/success-stories/gambling">🎲 Gaming</a></button>
-                    <button class="btn_style btn-info"><a href="/success-stories/marketing">📊 Marketing</a></button>
+                    <button class="m-0.5 rounded px-1.5 btn-success"><a href="/success-stories/finance">💰 Finance</a></button>
+                    <button class="m-0.5 rounded px-1.5 btn-primary"><a href="/success-stories/marketing">📊 Marketing</a></button>
+                    <button class="m-0.5 rounded px-1.5 btn-warning"><a href="/success-stories/gambling">🎲 Gaming</a></button>
+                    <button class="m-0.5 rounded px-1.5 btn-info"><a href="/success-stories/marketing">📊 Marketing</a></button>
                     TODO: let's add more industries here
                 </div>
             </div>

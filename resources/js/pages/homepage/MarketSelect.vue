@@ -1,5 +1,5 @@
 <template>
-    <div class="w-20 sm:w-24 md:28">
+    <div class="w-full sm:w-24">
         <Listbox v-model="selectedItem">
             <div class="relative mt-1">
                 <ListboxLabel class="text-zinc-500">Market</ListboxLabel>

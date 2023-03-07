@@ -1,28 +1,43 @@
 <template>
-    <form class="flex gap-3 max-w-[300px]">
-        <Input @keyup.enter="submit"
-               v-model="form.email"
-               type="email"
-               placeholder="Email"
-               autocomplete="email"
-               :error="validationErrors?.email"
-               @change="validationErrors.email = null"
-               error-classes="text-xs"
-               :error-text="false"
-               class="text-zinc-900 input-xs px-2 rounded"/>
+    <form class="flex max-w-[300px]" :class="[type === 'modal' ? 'gap-5' : 'gap-3']">
+        <Input
+            @keyup.enter="submit"
+            v-model="form.email"
+            type="email"
+            placeholder="Email"
+            autocomplete="email"
+            :error="validationErrors?.email"
+            @change="validationErrors.email = null"
+            error-classes="text-xs"
+            :error-text="false"
+            class="text-zinc-900 px-2 rounded"
+            :class="[type === 'modal' ? 'btn-md' : 'btn-xs']"
+        />
 
-        <Input @keyup.enter="submit"
-               v-model="form.password"
-               type="password"
-               placeholder="Password"
-               autocomplete="current-password"
-               :error="validationErrors?.password"
-               @change="validationErrors.password = null"
-               error-classes="text-xs"
-               :error-text="false"
-               class="text-zinc-900 input-xs px-2 rounded"/>
+        <Input
+            @keyup.enter="submit"
+            v-model="form.password"
+            type="password"
+            placeholder="Password"
+            autocomplete="current-password"
+            :error="validationErrors?.password"
+            @change="validationErrors.password = null"
+            error-classes="text-xs"
+            :error-text="false"
+            class="text-zinc-900 px-2 rounded"
+            :class="[type === 'modal' ? 'btn-md' : 'btn-xs']"
+        />
 
-        <button class="btn btn-xs rounded-md !text-2xs font-normal normal-case px-3 tracking-widest disabled:bg-zinc-500" @click="submit" :disabled="requestPending">
+        <ErrorMessage v-if="type === 'modal' && firstValidationError" :no-icon="true" class="text-sm">
+            {{ firstValidationError }}
+        </ErrorMessage>
+
+        <button
+            class="btn rounded-md font-normal normal-case px-3 tracking-widest disabled:bg-zinc-500"
+            :class="[type === 'modal' ? 'btn-md !text-base' : 'btn-xs !text-2xs']"
+            @click="submit"
+            :disabled="requestPending"
+        >
             <template v-if="requestPending">
                 <Spinner :size="10" :border-width="2" color="#fff" class="mx-4"></Spinner>
             </template>
@@ -35,11 +50,19 @@
 import Input from '@/components/Input.vue';
 import Spinner from "@/components/Spinner.vue";
 import GlobalNotification from '@/services/GlobalNotification';
+import ErrorMessage from "@/components/ErrorMessage.vue";
 
 export default {
     name: "LoginForm",
 
-    components: {Spinner, Input},
+    components: {ErrorMessage, Spinner, Input},
+
+    props: {
+        type: {
+            default: 'header',
+            type: String,
+        },
+    },
 
     data() {
         return {
@@ -49,6 +72,7 @@ export default {
             },
             requestPending: false,
             validationErrors: {},
+            firstValidationError: null,
         };
     },
 
@@ -59,6 +83,8 @@ export default {
             }
 
             this.requestPending = true;
+            this.firstValidationError = null;
+            this.validationErrors = {};
 
             axios.post(route('login'), this.form)
                 .then(({data}) => {
@@ -71,11 +97,14 @@ export default {
                         this.validationErrors = error.response.data.errors;
 
                         let firstKey = Object.keys(this.validationErrors)[0];
+                        this.firstValidationError = this.validationErrors[firstKey][0];
 
-                        GlobalNotification.warning({
-                            title: 'Failed to login',
-                            message: this.validationErrors[firstKey][0],
-                        });
+                        if (this.type !== 'modal') {
+                            GlobalNotification.warning({
+                                title: 'Failed to login',
+                                message: this.firstValidationError,
+                            });
+                        }
                     } else {
                         console.error('Failed to login', error);
                         GlobalNotification.error({title: 'Whoops, something went wrong', message: 'Please try again later.'});
