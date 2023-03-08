@@ -2,7 +2,7 @@
 @section('description', 'AutoRanker.io provides User Signal and CTR SEO Marketing solutions for customers of all sizes.')
 
 <x-main-layout>
-    <div class="my-14">
+    <div class="my-10 md:my-14">
         <x-page-title>
             Success <span class="text-primary">stories</span>
         </x-page-title>
@@ -18,7 +18,7 @@
         @endif
     </section>
 
-    <div class="mb-16">
+    <div>
         <x-search-domain></x-search-domain>
     </div>
 </x-main-layout>

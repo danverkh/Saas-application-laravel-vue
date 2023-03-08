@@ -31,7 +31,7 @@
     </div>
 
     <section class="max-w-screen-xl mx-auto px-6 py-14 md:py-20">
-        <div class="text-3xl md:text-5xl font-medium text-zinc-900 text-center mt-6 mb-10 reveal scale-in">Why should you care</div>
+        <div class="text-3xl md:text-5xl font-medium text-zinc-900 text-center mb-10 reveal scale-in">Why should you care</div>
 
         <div class="flex flex-col md:flex-row gap-x-8 xl:gap-x-20">
             <div class="basis-1/2 flex justify-center md:justify-end">

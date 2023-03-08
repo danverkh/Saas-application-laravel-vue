@@ -19,7 +19,7 @@
         <div v-if="step === 2" class="w-full mb-8">
             <div class="text-3xl text-center py-4">What is your domain name?</div>
 
-            <div class="flex flex-no-wrap gap-5 relative z-10 mt-3 sm:mt-6">
+            <div class="flex flex-no-wrap flex-col sm:flex-row gap-5 relative z-10 mt-3 sm:mt-6">
                 <MainSearch no-search
                             :submit-on-select="false"
                             @market="answers.domainAndMarket.market = $event"

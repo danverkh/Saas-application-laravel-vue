@@ -64,7 +64,7 @@
         </x-container>
     </div>
 
-    <div class="mb-14">
+    <div>
         <x-search-domain></x-search-domain>
     </div>
 

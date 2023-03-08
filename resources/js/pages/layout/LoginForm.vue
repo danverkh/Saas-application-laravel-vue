@@ -1,32 +1,38 @@
 <template>
-    <form class="flex max-w-[300px]" :class="[type === 'modal' ? 'gap-5' : 'gap-3']">
-        <Input
-            @keyup.enter="submit"
-            v-model="form.email"
-            type="email"
-            placeholder="Email"
-            autocomplete="email"
-            :error="validationErrors?.email"
-            @change="validationErrors.email = null"
-            error-classes="text-xs"
-            :error-text="false"
-            class="text-zinc-900 px-2 rounded"
-            :class="[type === 'modal' ? 'btn-md' : 'btn-xs']"
-        />
+    <form class="flex max-w-[310px]" :class="[type === 'modal' ? 'gap-5' : 'gap-3']">
+        <div class="relative">
+            <Input
+                @keyup.enter="submit"
+                v-model="form.email"
+                type="email"
+                placeholder="Email"
+                autocomplete="email"
+                :error="validationErrors?.email"
+                @change="validationErrors.email = null"
+                error-classes="text-xs"
+                :error-text="false"
+                class="text-zinc-900 px-2 rounded"
+                :class="[type === 'modal' ? 'btn-md' : 'btn-xs']"
+            />
+            <AtSymbolIcon v-if="type === 'modal'" class="absolute w-5 h-5 top-3.5 right-4"/>
+        </div>
 
-        <Input
-            @keyup.enter="submit"
-            v-model="form.password"
-            type="password"
-            placeholder="Password"
-            autocomplete="current-password"
-            :error="validationErrors?.password"
-            @change="validationErrors.password = null"
-            error-classes="text-xs"
-            :error-text="false"
-            class="text-zinc-900 px-2 rounded"
-            :class="[type === 'modal' ? 'btn-md' : 'btn-xs']"
-        />
+        <div class="relative">
+            <Input
+                @keyup.enter="submit"
+                v-model="form.password"
+                type="password"
+                placeholder="Password"
+                autocomplete="current-password"
+                :error="validationErrors?.password"
+                @change="validationErrors.password = null"
+                error-classes="text-xs"
+                :error-text="false"
+                class="text-zinc-900 px-2 rounded"
+                :class="[type === 'modal' ? 'btn-md' : 'btn-xs']"
+            />
+            <LockClosedIcon v-if="type === 'modal'" class="absolute w-5 h-5 top-3.5 right-4"/>
+        </div>
 
         <ErrorMessage v-if="type === 'modal' && firstValidationError" :no-icon="true" class="text-sm">
             {{ firstValidationError }}
@@ -51,11 +57,12 @@ import Input from '@/components/Input.vue';
 import Spinner from "@/components/Spinner.vue";
 import GlobalNotification from '@/services/GlobalNotification';
 import ErrorMessage from "@/components/ErrorMessage.vue";
+import {AtSymbolIcon, LockClosedIcon} from '@heroicons/vue/24/outline';
 
 export default {
     name: "LoginForm",
 
-    components: {ErrorMessage, Spinner, Input},
+    components: {ErrorMessage, Spinner, Input, AtSymbolIcon, LockClosedIcon},
 
     props: {
         type: {

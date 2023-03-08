@@ -1,7 +1,7 @@
 <template>
-    <div class="border-t-4 border-zinc-300 card bg-base-100 shadow-lg rounded-xl hover:border-primary hover:shadow-xl duration-500 transition-all mx-4 lg:mx-0">
-        <div class="grid auto-rows-min grid-cols-1 lg:grid-cols-3 card-body p-12 gap-10">
-            <div class="flex flex-col col-span-1 md:flex-row justify-between lg:flex-col lg:col-span-1 font-medium">
+    <div class="border-t-4 border-zinc-300 card bg-base-100 shadow-lg rounded-xl hover:border-primary hover:shadow-xl duration-500 transition-all mx-4 xl:mx-0">
+        <div class="grid auto-rows-min grid-cols-1 lg:grid-cols-3 card-body p-6 sm:p-12 gap-10">
+            <div class="flex flex-col col-span-1 md:flex-row justify-start lg:flex-col lg:col-span-1 font-medium">
                 <div class="pr-4">
                     <div class="text-xl font-bold text-primary">Client in</div>
                     <div class="text-3xl text-zinc-900 my-1">{{ item.client_industry }}</div>
@@ -44,7 +44,9 @@
                          @click="currentKeywordId = keywordId">{{ `Keyword ${index+1}` }}</div>
                 </div>
 
-                <Line :chartData="chartData" :chartOptions="chartOptions" :height="150" css-classes="w-full h-auto"></Line>
+                <div class="relative h-auto w-full">
+                    <Line :chartData="chartData" :chartOptions="chartOptions" ref="chart" :height="270"></Line>
+                </div>
             </div>
         </div>
     </div>
@@ -99,6 +101,7 @@ export default {
                 ]
             },
             chartOptions: {
+                maintainAspectRatio: false,
                 animation: false,
                 plugins: {
                     // decimation: {
@@ -196,6 +199,9 @@ export default {
 
     mounted() {
         this.currentKeywordId = Object.keys(this.item.keywords)[0];
+
+        this.resizeChart();
+        window.addEventListener('resize', this.resizeChart);
     },
 
     methods: {
@@ -208,6 +214,10 @@ export default {
             this.chartData.datasets[2].data = this.item.chart[this.currentKeywordId].profit;
 
             this.trafficValue = this.chartData.datasets[1].data.reduce((total, b) => total + b, 0);
+        },
+
+        resizeChart() {
+            this.$refs.chart.chart.canvas.parentNode.style.height = (window.innerWidth >= 600 ? 270 : 200) + 'px';
         },
     },
 }
