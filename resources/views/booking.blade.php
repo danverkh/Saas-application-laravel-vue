@@ -36,7 +36,7 @@
                         </div>
                     </x-card>
 
-                    <div class="bg-white shadow-lg rounded-2xl border-t-4 border-zinc-300">
+                    <div id="rankings-table" class="bg-white shadow-lg rounded-2xl border-t-4 border-zinc-300">
                         <rankings-table market="{{ $market }}" domain="{{ $domain }}"></rankings-table>
                     </div>
                 </div>
@@ -44,7 +44,7 @@
                 <!-- Aside -->
                 <div id="sidebar" class="sidebar w-full">
                     <div class="sidebar__inner flex flex-col gap-6 md:block md:columns-2 md:space-y-6 xl:flex xl:columns-1 xl:space-y-0">
-                        <x-card class="md:order-1 xl:order-4 border-t-4 border-zinc-300">
+                        <x-card id="forecast" class="md:order-1 xl:order-4 border-t-4 border-zinc-300">
                             <h4 class="-mt-2 font-medium text-xl">Forecasted Results</h4>
 
                             <div class="divider divider-vertical my-0"></div>
@@ -65,7 +65,7 @@
                             <campaign-progress-prediction-chart></campaign-progress-prediction-chart>
                         </x-card>
 
-                        <x-card class="md:order-2 xl:order-3 border-t-4 border-zinc-300">
+                        <x-card id="domain-card" class="md:order-2 xl:order-3 border-t-4 border-zinc-300">
                             <domain-switcher market="{{ $market }}" domain="{{ $domain }}"></domain-switcher>
                         </x-card>
 
@@ -80,6 +80,8 @@
             </div>
         </div>
     </x-container>
+
+    <mobile-bottom-navigation class="md:hidden"></mobile-bottom-navigation>
 
     @push('script')
         <script type="text/javascript">

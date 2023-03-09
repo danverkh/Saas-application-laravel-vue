@@ -3,7 +3,7 @@
         <div class="grid gap-y-3">
             <div class="flex items-end justify-between">
                 <div class="text-xl">Your monthly budget</div>
-                <div class="font-bold text-2xl">{{ money(budget) }}</div>
+                <div class="font-bold text-2xl whitespace-nowrap">{{ money(budget) }}</div>
             </div>
             <input v-model="budget" type="range" min="10" max="2000" class="range range-lg range-primary"/>
         </div>
@@ -34,7 +34,7 @@
 
         <div class="grid items-center mb-6 md:mb-0 text-center md:text-left md:w-1/2">
             <div v-if="industry === null" class="text-zinc-700 text-lg">Please select business consultancy</div>
-            <div v-else class="text-3xl md:-ml-10 leading-relaxed">
+            <div v-else class="text-2xl md:text-3xl md:-ml-10 leading-relaxed">
                 We would expect <span class="font-bold">{{ visitors }}</span> website visitors and <span class="font-bold">{{ leads }}</span> hot leads.
             </div>
         </div>

@@ -7,8 +7,8 @@
     'facebook' => null,
 ])
 
-<div class="grid sm:grid-cols-3">
-    <div class="relative w-full h-40 max-h-full rounded shadow sm:h-auto">
+<div class="grid sm:grid-cols-3 px-16 sm:px-0">
+    <div class="relative w-full h-auto aspect-square md:h-40 max-h-full rounded shadow sm:h-auto">
         <img class="absolute object-cover w-full h-full rounded-lg border border-red-800/50 bg-zinc-800/10 outline-0 ring-red-800/50 shadow-lg transition duration-300 hover:shadow hover:ring-2" src="{{ $image }}" alt="{{ $name }}"/>
     </div>
 

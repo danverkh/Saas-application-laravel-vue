@@ -1,5 +1,5 @@
 <template>
-    <MarketSelect @changed="market = $event" :selected="market" class="grow-0" :class="[{'pointer-events-none': submitted}]"></MarketSelect>
+    <MarketSelect @changed="market = $event" :selected="market" class="grow-0 z-10" :class="[{'pointer-events-none': submitted}]"></MarketSelect>
 
     <div class="w-full sm:flex-1" :class="[{'pointer-events-none': submitted}]">
         <label class="block text-gray-500 mb-2 inline-block" @click="focusSearch">Domain</label>

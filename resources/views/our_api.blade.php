@@ -2,14 +2,14 @@
 @section('description', 'AutoRanker.io provides User Signal and CTR SEO Marketing solutions for customers of all sizes.')
 
 <x-main-layout>
-    <div class="mt-14">
+    <div class="my-10 md:my-14">
         <x-page-title>
             Our <span class="text-primary">API</span>
         </x-page-title>
     </div>
 
     <section class="max-w-screen-md mx-auto px-4 md:px-0 mb-16 space-y-12">
-        <div class="py-12 mx-auto">
+        <div class="py-6 mx-auto">
             <x-card class="px-3 py-4" title="Endpoints" titleSize="text-3xl">
                 @foreach($endpoints as $endpoint)
                     <div>

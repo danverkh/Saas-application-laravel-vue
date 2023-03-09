@@ -14,7 +14,7 @@
         <div class="flex flex-col flex-nowrap gap-y-3">
             <div class="flex items-end justify-between">
                 <div class="text-xl">Value of one client</div>
-                <div class="font-bold text-2xl">{{ money(clientValue) }}</div>
+                <div class="font-bold text-2xl whitespace-nowrap">{{ money(clientValue) }}</div>
             </div>
             <input v-model="clientValue" type="range" min="10" max="10000" class="range range-lg range-primary" />
         </div>
@@ -23,7 +23,7 @@
     <div class="flex flex-col items-center md:flex-row mt-8">
         <div class="grid items-center w-full md:w-1/2">
             <div class="text-xl -mr-10 space-y-2 mb-6 md:mb-0">
-                <div class="text-3xl leading-relaxed">
+                <div class="text-2xl md:text-3xl leading-relaxed">
                     After 12 months you would have gained <span class="font-bold">{{ newClients }}</span> clients
                     and generated an additional profit of <span class="font-bold">{{ money(newProfit, {precision: 0}) }}</span>.
                 </div>

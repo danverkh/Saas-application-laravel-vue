@@ -2,14 +2,14 @@
 @section('description', 'AutoRanker.io provides User Signal and CTR SEO Marketing solutions for customers of all sizes.')
 
 <x-main-layout>
-    <div class="mt-16">
+    <div class="my-10 md:my-14">
         <x-page-title>
             Imprint
         </x-page-title>
     </div>
 
     <x-container>
-        <div class="flex flex-col lg:flex-row justify-center gap-x-12 text-lg mt-5 mb-12">
+        <div class="flex flex-col lg:flex-row justify-center gap-x-12 text-lg mb-12">
             <img src="/img/illustrations/imprint.svg" class="w-56 h-auto mx-auto lg:mr-2 mb-12 lg:mb-0"/>
 
             <div class="flex flex-col md:flex-row gap-x-12 mx-auto">

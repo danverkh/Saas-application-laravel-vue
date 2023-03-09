@@ -34,7 +34,7 @@
                 <login-modal></login-modal>
             @endguest
 
-            @env('local')
+            @env('dev')
             <x-breakpoints></x-breakpoints>
             @endenv
 
