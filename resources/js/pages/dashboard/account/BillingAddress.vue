@@ -16,7 +16,6 @@
                     <label for="postal_code" class="whitespace-nowrap font-medium required">Postal code</label>
                     <Input v-model="form.postal_code" id="postal_code" :error="validationErrors?.postal_code" @change="validationErrors.postal_code = null" class="text-zinc-900 text-base"/>
                 </div>
-
                 <div class="w-1/2 flex flex-col gap-y-2">
                     <label for="city" class="whitespace-nowrap font-medium required">City</label>
                     <Input v-model="form.city" id="city" :error="validationErrors?.city" @change="validationErrors.city = null" class="text-zinc-900 text-base"/>
@@ -41,7 +40,6 @@
         <div class="mt-9">
             <SubmitButton @click="submit" :disabled="requestPending" color="secondary">
                 <Spinner v-if="requestPending" color="#ffffff" :size="25" :border-width="4" class="ml-2"></Spinner>
-
                 <span class="flex flex-nowrap" v-else>Save</span>
             </SubmitButton>
         </div>

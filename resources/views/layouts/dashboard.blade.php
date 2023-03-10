@@ -14,9 +14,7 @@
         <link href="https://fonts.googleapis.com/css2?family=Lato:wght@100;300;400;600;900&display=swap" rel="stylesheet">
 
         @routes
-
         @vite(['resources/css/app.scss', 'resources/js/app.js'])
-
         @stack('style')
     </head>
     <body>
@@ -25,7 +23,6 @@
                  data-auth='@json(auth()->user()->only(['id', 'name', 'email']))'
              @endif
         >
-
             <!-- Global -->
             <full-screen-spinner></full-screen-spinner>
             <domain-switcher-modal></domain-switcher-modal>

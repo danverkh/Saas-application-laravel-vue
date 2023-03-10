@@ -14,9 +14,7 @@
         <link href="https://fonts.googleapis.com/css2?family=Lato:wght@100;300;400;600;900&display=swap" rel="stylesheet">
 
         @routes
-
         @vite(['resources/css/app.scss', 'resources/js/app.js'])
-
         @stack('style')
     </head>
     <body>
@@ -63,9 +61,12 @@
 
                                     <div class="col-start-10 col-end-12 font-medium flex justify-end items-center">
                                         @auth
-                                            <div class="text-sm text-zinc-900">
+                                            <div class="text-sm text-zinc-900 ml-3">
                                                 <a href="{{ route('dashboard.campaigns') }}">
-                                                    {{ auth()->user()->email }}
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" class="fill-current md:hidden">
+                                                        <path fill="currentColor" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10s10-4.48 10-10S17.52 2 12 2zm0 4c1.93 0 3.5 1.57 3.5 3.5S13.93 13 12 13s-3.5-1.57-3.5-3.5S10.07 6 12 6zm0 14c-2.03 0-4.43-.82-6.14-2.88a9.947 9.947 0 0 1 12.28 0C16.43 19.18 14.03 20 12 20z"/>
+                                                    </svg>
+                                                    <span class="hidden md:inline">{{ auth()->user()->email }}</span>
                                                 </a>
                                             </div>
 
@@ -74,8 +75,10 @@
                                             <form action="{{ route('logout') }}" method="POST">
                                                 @csrf
                                                 <button type="submit" class="link no-underline hover:underline flex items-center tracking-wide transition-colors text-primary/80 hover:text-primary">
-                                                    <svg class="hidden sm:block w-4 h-4 mr-1" viewBox="0 0 24 24"><path fill="currentColor" d="M5 21q-.825 0-1.413-.587Q3 19.825 3 19V5q0-.825.587-1.413Q4.175 3 5 3h7v2H5v14h7v2Zm11-4l-1.375-1.45l2.55-2.55H9v-2h8.175l-2.55-2.55L16 7l5 5Z"/></svg>
-                                                    Logout
+                                                    <svg class="w-6 h-6 md:w-4 md:h-4 mr-1" viewBox="0 0 24 24" class="fill-current">
+                                                        <path fill="currentColor" d="M5 21q-.825 0-1.413-.587Q3 19.825 3 19V5q0-.825.587-1.413Q4.175 3 5 3h7v2H5v14h7v2Zm11-4l-1.375-1.45l2.55-2.55H9v-2h8.175l-2.55-2.55L16 7l5 5Z"/>
+                                                    </svg>
+                                                    <span class="hidden md:block">Logout</span>
                                                 </button>
                                             </form>
                                         @else
@@ -104,7 +107,7 @@
                 <!-- Mobile navigation -->
                 <div class="drawer-side" style="display: none">
                     <label for="mobile-menu" class="drawer-overlay mt-[88px] sm:mt-[95px] sm:mt-[137px]"></label>
-                    <ul class="menu overflow-y-auto w-80 divide-y bg-base-100 text-base-content mt-[88px] sm:mt-[95px] sm:mt-[137px] p-6 pt-8 pr-7" style="box-shadow: inset 0 4px 18px -9px rgba(0,0,0,0.4)">
+                    <ul class="menu overflow-y-auto w-80 divide-y bg-base-100 text-base-content mt-[88px] sm:mt-[95px] sm:mt-[137px] p-6 pr-7" style="box-shadow: inset 0 4px 18px -9px rgba(0,0,0,0.4)">
                         <li><x-mobile-nav-link :href="route('how_it_works')" :active="request()->routeIs('how_it_works')">How it works</x-mobile-nav-link></li>
                         <li><x-mobile-nav-link :href="route('success_stories')" :active="request()->routeIs('success_stories')">Success stories</x-mobile-nav-link></li>
                         <li><x-mobile-nav-link :href="route('pricing')" :active="request()->routeIs('pricing')">Pricing</x-mobile-nav-link></li>

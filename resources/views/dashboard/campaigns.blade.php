@@ -56,7 +56,7 @@
                                         <path fill="currentColor" d="M12 10c-1.1 0-2 .9-2 2s.9 2 2 2s2-.9 2-2s-.9-2-2-2zm0-6c-1.1 0-2 .9-2 2s.9 2 2 2s2-.9 2-2s-.9-2-2-2zm0 12c-1.1 0-2 .9-2 2s.9 2 2 2s2-.9 2-2s-.9-2-2-2z"/>
                                     </svg>
                                 </label>
-                                <ul tabindex="0" class="dropdown-content menu p-2 shadow-lg bg-base-100 rounded-box w-52 mt-2">
+                                <ul tabindex="0" class="dropdown-content menu p-2 shadow-lg bg-base-100 !z-0 rounded-box w-52 mt-2">
                                     <li>
                                         <button class="text-red-600" onclick="document.getElementById('cancel-keyword-confirmation').checked = true">
                                             <svg class="w-4 h-4 md:w-5 md:h-5 cursor-pointer text-red-600" width="32" height="32" viewBox="0 0 24 24">
