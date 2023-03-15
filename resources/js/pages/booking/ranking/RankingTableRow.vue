@@ -1,5 +1,5 @@
 <template>
-    <tr :class="{selected: item.selected, 'text-zinc-400': item.requestPending}">
+    <tr :class="{selected: item.selected, 'text-zinc-400': item.requestPending}" :id="`row-${item.keyword.replaceAll(' ', '-')}`">
         <td class="whitespace-normal break-words min-w-[180px] font-medium white">
             <div>
                 {{ withoutLastWord(item.keyword) }}
