@@ -8,14 +8,22 @@
             <thead>
             <tr class="top-[137px] z-10 border-b border-b-zinc-200">
                 <th class="cursor-default !static">Keyword</th>
-                <th><span class="tooltip tooltip-bottom cursor-default z-10" data-tip="Search volume">Search<br>Volume</span></th>
-                <th class="text-right"><span class="tooltip tooltip-bottom cursor-default z-10" data-tip="Cost per click">CPC</span></th>
-                <th class="text-right"><span class="tooltip tooltip-bottom cursor-default z-10" data-tip="Relevance">Rel</span></th>
-                <th><span class="tooltip tooltip-bottom cursor-default z-10" data-tip="Current rank">Rank</span></th>
-                <th class="min-w-[150px]"><span class="tooltip tooltip-bottom cursor-default z-10" data-tip="Website page URL">URL</span></th>
-                <th class="text-right">Projected<br>clicks</th>
-                <th class="text-right">Projected<br>traffic</th>
-                <th class="text-right">Maximum<br>monthly cost</th>
+                <TableHead field="search_volume" sortable>Search<br>Volume</TableHead>
+                <TableHead field="cpc" sortable class="text-right">
+                    <span class="tooltip tooltip-bottom z-10" data-tip="Cost per click">CPC</span>
+                </TableHead>
+                <TableHead field="relevance" sortable class="text-right">
+                    <span class="tooltip tooltip-bottom z-10" data-tip="Relevance">Rel</span>
+                </TableHead>
+                <TableHead field="current_rank" sortable>
+                    <span class="tooltip tooltip-bottom z-10" data-tip="Current rank">Rank</span>
+                </TableHead>
+                <TableHead field="url" sortable class="min-w-[130px]">
+                    <span class="tooltip tooltip-bottom z-10" data-tip="Website page URL">URL</span>
+                </TableHead>
+                <TableHead field="projected_clicks" sortable class="text-right">Projected<br>clicks</TableHead>
+                <TableHead field="projected_traffic" sortable class="text-right">Projected<br>traffic</TableHead>
+                <TableHead field="maximum_cost" sortable class="text-right">Maximum<br>monthly cost</TableHead>
                 <th>&nbsp;</th>
             </tr>
             </thead>
@@ -90,11 +98,12 @@ import SetFilterModal from "@/pages/booking/ranking/SetFilterModal.vue";
 import KeywordInfoPopover from "@/pages/booking/ranking/KeywordInfoPopover.vue";
 import FixedTableHeaderMixin from "@/pages/booking/ranking/mixins/FixedTableHeaderMixin";
 import RankingTableRow from "@/pages/booking/ranking/RankingTableRow.vue";
+import TableHead from "@/pages/booking/ranking/TableHead.vue";
 
 export default {
     name: "RankingsTable",
 
-    components: {RankingTableRow, KeywordInfoPopover, SetFilterModal, RankingTableFilters, Spinner},
+    components: {TableHead, RankingTableRow, KeywordInfoPopover, SetFilterModal, RankingTableFilters, Spinner},
 
     mixins: [FixedTableHeaderMixin],
 

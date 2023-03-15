@@ -98,7 +98,7 @@ export default {
                 useRankingItemsStore().addUserAddedItem(useRankingItemsStore().items[length]);
 
                 // it is faster to push and reorder then to use unshift
-                useRankingItemsStore().reorderItems();
+                useRankingItemsStore().sortItems();
 
                 this.keyword = '';
                 this.addingKeyword = false;

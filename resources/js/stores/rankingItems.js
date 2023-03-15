@@ -33,6 +33,16 @@ export const useRankingItemsStore = defineStore('rankingItems', {
                     operator: null,
                 },
             },
+            sort: {
+                search_volume: null,
+                cpc: null,
+                relevance: null,
+                current_rank: null,
+                url: null,
+                projected_clicks: null,
+                projected_traffic: null,
+                maximum_cost: null,
+            },
             max: {
                 searchVolume: 0,
                 cpc: 0,
@@ -116,13 +126,39 @@ export const useRankingItemsStore = defineStore('rankingItems', {
             RelevanceData.fetchAll(this.items, 10);
         },
 
-        reorderItems() {
-            inPlaceSort(this.items).by([
-                {desc: i => i.status},
-                {desc: i => i.relevance},
-            ]);
-            // this.items.sort((a, b) => b.relevance - a.relevance);
-            // this.items.sort(a => a.status ? -1 : 1); // move user added items to top
+        sortItems() {
+            const noSortingSet = Object.keys(useRankingItemsStore().sort)
+                .every(key => useRankingItemsStore().sort[key] === null);
+
+            if (noSortingSet) {
+                // use default sort
+                inPlaceSort(this.items).by([
+                    {desc: i => i.status},
+                    {desc: i => i.relevance},
+                ]);
+            } else {
+                // user selected sort
+                const fieldToSortBy = Object.keys(useRankingItemsStore().sort)
+                    .find(key => useRankingItemsStore().sort[key] !== null);
+
+                const direction = useRankingItemsStore().sort[fieldToSortBy]; // asc or desc
+
+                inPlaceSort(this.items)[direction](fieldToSortBy);
+            }
+        },
+
+        sortBy(field) {
+            const sortState = useRankingItemsStore().sort[field];
+
+            Object.keys(useRankingItemsStore().sort)
+                .forEach(key => useRankingItemsStore().sort[key] = null);
+
+            switch (sortState) {
+                case null:   useRankingItemsStore().sort[field] = 'desc'; break;
+                case 'desc': useRankingItemsStore().sort[field] = 'asc';  break;
+                case 'asc':  useRankingItemsStore().sort[field] = null;   break;
+            }
+            this.sortItems();
         },
 
         add(item) {

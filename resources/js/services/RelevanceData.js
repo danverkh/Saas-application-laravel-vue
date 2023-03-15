@@ -54,7 +54,7 @@ class RelevanceData {
             .finally(() => {
                 this.activeRequestCount--;
 
-                useRankingItemsStore().reorderItems();
+                useRankingItemsStore().sortItems();
             });
     }
 }
