@@ -49,7 +49,7 @@
                 <div class="w-full h-auto">
                     <ul class="menu w-full overflow-visible p-1">
                         <li v-for="(item, index) in selectedItems" :key="`selected-item-${item.keyword}`">
-                            <button @click="scrollTo(item.keyword)" class="font-medium text-sm">
+                            <button @click="scrollTo(item.keyword)" class="font-medium text-sm text-left">
                                 <span class="font-extrabold">{{ index + 1 }}.</span> {{ item.keyword }}
                             </button>
                         </li>
