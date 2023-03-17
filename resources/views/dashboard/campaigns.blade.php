@@ -10,23 +10,7 @@
                 <div class="sidebar__inner flex flex-col gap-6 md:block md:space-y-6 xl:flex xl:space-y-0">
                     <x-card class="border-t-4 border-primary overflow-visible md:w-1/2 xl:w-full" bodyClass="px-5 py-1">
                         <div class="divide-y">
-                            @foreach($domains as $domain => $keywords)
-                                <div class="dropdown w-full py-2">
-                                    <label tabindex="0" class="btn btn-ghost btn-block text-base normal-case break-all {{ (collect($keywords)->contains('keyword', $keyword->keyword)) ? 'text-primary' : '' }}">
-                                        {{ $domain }}
-                                    </label>
-                                    <ul tabindex="0" class="dropdown-content menu p-2 shadow-lg bg-base-100 divide-y rounded-box w-52 ml-3 border border-zinc-200/80">
-                                        @foreach(collect($keywords)->sortBy('keyword') as $domainKeyword)
-                                            <li class="px-2 py-2">
-                                                <a href="{{ route('dashboard.campaigns.keyword', $domainKeyword->id) }}"
-                                                    class="py-2 {{ ($domainKeyword->id === $keyword->id) ? 'text-primary' : '' }}">
-                                                    {{ $domainKeyword->keyword }}
-                                                </a>
-                                            </li>
-                                        @endforeach
-                                    </ul>
-                                </div>
-                            @endforeach
+                            <campaigns-sidebar :domains='@json($domains)' :keyword='@json($keyword)'></campaigns-sidebar>
                         </div>
                     </x-card>
                 </div>
