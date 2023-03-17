@@ -113,7 +113,7 @@ export default {
                     market         = response.data.market || Assistant.marketIfNotDetected;
                 } catch (error) {
                     console.error('Failed to fetch market', error);
-                    market = this.marketIfNotDetected;
+                    market = Assistant.marketIfNotDetected;
                 }
                 setTimeout(() => this.submitted = false, 2000);
             }
