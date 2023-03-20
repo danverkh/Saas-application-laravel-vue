@@ -1,5 +1,5 @@
 <template>
-    <div class="flex items-center items-start justify-between flex-col md:flex-row gap-y-5 p-7 pb-6">
+    <div class="flex items-center items-start justify-between flex-col md:flex-row gap-y-1 md:gap-y-5 p-5 pb-4 md:p-7 md:pb-6">
         <div class="relative w-full md:max-w-[230px] self-start">
             <svg class="w-6 h-6 text-zinc-400 absolute left-3 top-3" width="32" height="32" viewBox="0 0 24 24">
                 <path fill="currentColor" d="m21 19l-5.154-5.154a7 7 0 1 0-2 2L19 21l2-2zM5 10c0-2.757 2.243-5 5-5s5 2.243 5 5s-2.243 5-5 5s-5-2.243-5-5z"/>
