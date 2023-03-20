@@ -1,5 +1,5 @@
 <template>
-    <div class="btm-nav drop-shadow-[0_12px_12px_rgba(0,0,0,0.5)] backdrop-blur-[10px] bg-white-500/90">
+    <div class="btm-nav drop-shadow-[0_12px_12px_rgba(0,0,0,0.5)] backdrop-blur-[10px] bg-white-500/90 z-50">
         <button @click="scrollTo('keywords')" :class="{'text-primary active': current === 'keywords'}">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" width="32" height="32" fill="none" viewBox="0 0 24 24">
                 <path fill="currentColor" d="M3 4h4v4H3V4m6 1v2h12V5H9m-6 5h4v4H3v-4m6 1v2h12v-2H9m-6 5h4v4H3v-4m6 1v2h12v-2H9"/>

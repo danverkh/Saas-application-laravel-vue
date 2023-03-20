@@ -15,7 +15,7 @@
                 :key="`sidebar-${domain}-${domainKeyword.keyword}`"
                 :href="campaignKeywordRoute(domainKeyword.id)"
                 :class="[
-                    'btn btn-ghost btn-block text-sm normal-case font-medium break-all py-2 justify-start',
+                    'btn btn-ghost btn-block text-sm text-left normal-case font-medium break-words h-auto py-2 justify-start',
                     (domainKeyword.id === keyword.id) ? 'text-primary bg-zinc-100 font-semibold' : '',
                 ]"
             >
