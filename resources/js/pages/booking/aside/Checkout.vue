@@ -42,7 +42,7 @@
             </checkout-button>
         </div>
 
-        <div class="order-1 xl:order-2 card w-full bg-base-100 shadow-lg rounded-xl border-t-4 border-zinc-300">
+        <div v-if="selectedItems.length" class="order-1 xl:order-2 card w-full bg-base-100 shadow-lg rounded-xl border-t-4 border-zinc-300">
             <div class="card-body py-6">
                 <h4 class="-mt-2 font-medium text-md">Selected Keywords</h4>
                 <div class="divider divider-vertical my-0"></div>
