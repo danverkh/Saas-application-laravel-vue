@@ -35,7 +35,9 @@
                         <div v-for="n in Random.item([1, 3])" :key="`ad-${n}`" class="ad-item py-3 pointer-events-none select-none relative">
                             <div class="flex">
                                 <div class="link text-sm lg:text-lg text-blue-700 mb-2 blur-[5px] capitalize">{{ Random.words(3, 8) }}</div>
-                                <div class="px-2 h-7 leading-7 bg-green-600 text-2xs lg:text-xs text-white rounded-lg ml-3">Ad</div>
+                                <div class="grid place-items-center px-2 h-6 bg-green-600 text-2xs lg:text-xs text-white rounded-lg ml-3">
+                                    <div>Ad</div>
+                                </div>
                             </div>
                             <div class="description text-sm text-zinc-600 blur-[5px]">{{ Random.sentences(3, 4) }}</div>
                         </div>
