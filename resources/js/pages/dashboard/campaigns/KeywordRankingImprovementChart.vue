@@ -9,7 +9,7 @@ import {CategoryScale, Chart as ChartJS, BarElement, LinearScale, PointElement, 
 ChartJS.register(Tooltip, CategoryScale, BarElement, LinearScale, PointElement);
 
 export default {
-    name: "RankingImprovementChart",
+    name: "KeywordRankingImprovementChart",
 
     components: {Bar},
 

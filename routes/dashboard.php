@@ -18,7 +18,7 @@ Route::group(['as' => 'dashboard.', 'middleware' => 'auth'], function () {
     Route::get('/', [DashboardController::class, 'index'])->name('index');
 
     Route::get('campaigns', [CampaignsController::class, 'index'])->name('campaigns');
-    Route::get('campaigns/{keyword}/keyword', [CampaignsController::class, 'keyword'])->name('campaigns.keyword');
+    Route::get('campaigns/{keyword}/keyword', [CampaignsController::class, 'keyword'])->name('api.campaign.keyword');
 
     Route::get('account', [AccountController::class, 'index'])->name('account');
     Route::get('account/details', [DetailsController::class, 'show'])->name('account.details');
