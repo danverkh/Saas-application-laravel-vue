@@ -14,14 +14,21 @@ class DomainSearchModifier implements ModifierContract
     /**
      * @var string|null
      */
-    private ?string $assistant;
+    private string|null $assistant;
+
+    /**
+     * @var string
+     */
+    private string $domain;
 
     /**
      * @param string|null $assistant
+     * @param string      $domain
      */
-    public function __construct(?string $assistant)
+    public function __construct(string|null $assistant, string $domain)
     {
         $this->assistant = $assistant;
+        $this->domain    = $domain;
     }
 
     /**
@@ -34,7 +41,7 @@ class DomainSearchModifier implements ModifierContract
         $pipes = [
             UniqueKeywords::class,
             CalculateMissingValues::class,
-            "App\Services\DataForSeo\Modifiers\Actions\SortResults:{$this->assistant}",
+            "App\Services\DataForSeo\Modifiers\Actions\SortResults:{$this->domain},{$this->assistant}",
         ];
 
         if ($this->assistant === 'find_employees') {

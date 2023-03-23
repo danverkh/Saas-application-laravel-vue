@@ -12,7 +12,7 @@ use Illuminate\Support\Str;
 class RelevanceCalculator
 {
     protected int $score    = 0;
-    protected int $maxScore = 50 + 50 + 20 + 100;
+    protected int $maxScore = 50 + 50 + 20 + 60 + 100;
 
     /**
      * @param $rank
@@ -74,8 +74,35 @@ class RelevanceCalculator
                 ->fetch()
                 ->rawFirstResult();
 
-            return collect($data)->pluck('keyword')->contains($keyword) ? 100 : 0;
+            return collect($data)->pluck('keyword')->contains($keyword) ? 60 : 0;
         });
+    }
+
+    /**
+     * @param mixed  $keyword
+     * @param string $domain
+     *
+     * @return void
+     */
+    public function prioritizeDomainDescriptionWords(mixed $keyword, string $domain): void
+    {
+        $key = "relevance_score.{$domain}.description";
+
+        $relevantWords = Cache::remember($key, now()->addWeek(), static function () use ($domain) {
+            return Domain::getRelevantWordsFromDescription($domain);
+        });
+
+        $count = collect($relevantWords)
+            ->reduce(static function (int $carry, string $word) use ($keyword) {
+                return $carry + Str::substrCount($keyword, $word);
+            }, 0);
+
+        $this->score += match ($count) {
+            0 => 0,
+            1 => 85,
+            2 => 95,
+            default => 100,
+        };
     }
 
     /**

@@ -49,4 +49,22 @@ class Domain
 
         return null;
     }
+
+    /**
+     * @param string $domain
+     *
+     * @return array
+     */
+    public static function getRelevantWordsFromDescription(string $domain): array
+    {
+        $metaTags = get_meta_tags('https://' . $domain);
+        $description = data_get($metaTags, 'description', '');
+        $description = Str::lower($description);
+
+        return collect(explode(' ', $description))
+            ->map(static fn ($word) => preg_replace('/[[:punct:]]/', '', $word)) // remove punctuations
+            ->reject(static fn ($word) => strlen($word) < 4) // reject words that have less than 4 letters
+            ->values()
+            ->toArray();
+    }
 }
