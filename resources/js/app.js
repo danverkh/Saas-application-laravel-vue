@@ -64,6 +64,7 @@ import PreviewRankModal from './pages/booking/PreviewRankModal.vue'
 import AddKeywordsModal from './pages/booking/AddKeywordsModal.vue'
 import DomainSwitcher from './pages/booking/aside/DomainSwitcher.vue'
 import ForecastedResults from './pages/booking/aside/ForecastedResults.vue'
+import CampaignProgressPredictionChart from './components/charts/CampaignProgressPredictionChart.vue'
 import Checkout from './pages/booking/aside/Checkout.vue'
 
 app.component('rankings-table', RankingsTable)
@@ -72,6 +73,7 @@ app.component('domain-switcher', DomainSwitcher)
 app.component('forecasted-results', ForecastedResults)
 app.component('preview-rank-modal', PreviewRankModal)
 app.component('add-keywords-modal', AddKeywordsModal)
+app.component('campaign-progress-prediction-chart', CampaignProgressPredictionChart)
 
 // Checkout
 import SubmitOrderButton from './pages/checkout/SubmitOrderButton.vue'
