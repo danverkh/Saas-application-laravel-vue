@@ -132,8 +132,11 @@ class KeywordsController extends Controller
                 // 3. check if keyword is in the "Keywords For Site" response
                 $calculator->keywordExistsInList($item['keyword'], $request->domain, $request->market);
 
-                // 4. prioritize words that are used in domain description
+                // 4. prioritize words that are used in domain title and description
                 $calculator->prioritizeDomainDescriptionWords($item['keyword'], $request->domain);
+
+                // 5. prioritize by keyword links
+                $calculator->prioritizeByInternalLinks($request->domain);
 
                 return [$item['keyword'] => $calculator->getResult()];
             });

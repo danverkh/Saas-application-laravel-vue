@@ -5,7 +5,6 @@ namespace App\Services;
 use App\Services\DataForSeo\Request as DataForSeoRequest;
 use DOMDocument;
 use Illuminate\Support\Facades\Cache;
-use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 
@@ -84,7 +83,7 @@ class RelevanceCalculator
      */
     public function prioritizeDomainDescriptionWords(mixed $keyword, string $domain): void
     {
-        $key = "relevance_score.{$domain}.description";
+        $key = "relevance_score.{$domain}.title_and_description";
 
         $relevantWords = Cache::remember($key, now()->addWeek(), static function () use ($domain) {
             return Domain::getRelevantWordsFromTitleAndDescription($domain);
@@ -101,6 +100,28 @@ class RelevanceCalculator
             2 => 95,
             default => 100,
         };
+    }
+
+    /**
+     * @param string $domain
+     *
+     * @return void
+     */
+    public function prioritizeByInternalLinks(string $domain): void
+    {
+        $key = "relevance_score.{$domain}.internal_links";
+
+        $links = Cache::remember($key, now()->addWeek(), static function () use ($domain) {
+            return Domain::getInternalLinks($domain);
+        });
+
+        $links = collect($links)
+            ->map(static fn($link) => Str::replace('https://'.$domain, '', $link))
+            ->reject(static fn($link) => strlen($link) < 4)
+            ->map(static fn($link) => Str::substr($link, 1))
+            ->toArray();
+
+        dd($links);
     }
 
     /**

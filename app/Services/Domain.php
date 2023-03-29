@@ -8,6 +8,7 @@ use DOMDocument;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str;
+use Spekulatius\PHPScraper\PHPScraper;
 
 class Domain
 {
@@ -62,14 +63,11 @@ class Domain
     {
         $pageBody = self::getPageBody($domain);
 
-        $dom = new DOMDocument();
-        @$dom->loadHTML($pageBody);
-        $nodes = $dom->getElementsByTagName('title');
-        $text  = $nodes->item(0)->nodeValue;
+        $web = new PHPScraper();
+        $web->setContent('https://'.$domain, $pageBody);
 
-        $nodes = $dom->getElementsByTagName('meta');
-        $node = collect($nodes)->first(static fn($node) => $node->getAttribute('name') === 'description');
-        $text .= $node ? ' ' . $node->getAttribute('content') : '';
+        $text = $web->title();
+        $text .= $web->description() ?? '';
 
         $text = Str::lower($text);
 
@@ -77,6 +75,24 @@ class Domain
             ->map(static fn($word) => preg_replace('/[[:punct:]]/', '', $word)) // remove punctuations
             ->reject(static fn($word) => strlen($word) < 4) // reject words that have less than 4 letters
             ->values()
+            ->toArray();
+    }
+
+    /**
+     * @param string $domain
+     *
+     * @return array
+     */
+    public static function getInternalLinks(string $domain): array
+    {
+        $pageBody = self::getPageBody($domain);
+
+        $web = new PHPScraper();
+        $web->setContent('https://'.$domain, $pageBody);
+
+        return collect($web->internalLinks())
+            ->unique()
+            ->reject(static fn($link) => Str::contains($link, ['contact', 'about-us', 'about_us', 'blog', 'privacy-policy', 'privacy_policy', 'terms_and_conditions', 'terms-and-conditions', 'terms_conditions', 'terms-conditions']))
             ->toArray();
     }
 
