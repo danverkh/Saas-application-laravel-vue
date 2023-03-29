@@ -34,9 +34,7 @@ class RelevanceCalculator
     {
         try {
             $this->score += Cache::remember("relevance_score.{$keyword}.{$url}", now()->addWeek(), static function () use ($url, $keyword) {
-                $pageBody = Cache::remember("page_content.{$url}", now()->addHour(), static function () use ($url) {
-                    return Http::get($url)->body();
-                });
+                $pageBody = Domain::getPageBody($url);
 
                 $count     = Str::substrCount($pageBody, $keyword);
                 $tempScore = min($count * 5, 50);
@@ -89,7 +87,7 @@ class RelevanceCalculator
         $key = "relevance_score.{$domain}.description";
 
         $relevantWords = Cache::remember($key, now()->addWeek(), static function () use ($domain) {
-            return Domain::getRelevantWordsFromDescription($domain);
+            return Domain::getRelevantWordsFromTitleAndDescription($domain);
         });
 
         $count = collect($relevantWords)
