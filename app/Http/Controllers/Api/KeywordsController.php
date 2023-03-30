@@ -133,10 +133,13 @@ class KeywordsController extends Controller
                 $calculator->keywordExistsInList($item['keyword'], $request->domain, $request->market);
 
                 // 4. prioritize words that are used in domain title and description
-                $calculator->prioritizeDomainDescriptionWords($item['keyword'], $request->domain);
+                $calculator->prioritizeDomainTitleAndDescription($item['keyword'], $request->domain);
 
                 // 5. prioritize by keyword links
-                $calculator->prioritizeByInternalLinks($request->domain);
+                $calculator->prioritizeByInternalLinks($item['keyword'], $request->domain);
+
+                // 6. use Rapid Automatic Keyword Extraction (RAKE) algorithm to extract domain keywords
+                $calculator->prioritizeByRakeKeywords($item['keyword'], $request->domain, $request->market);
 
                 return [$item['keyword'] => $calculator->getResult()];
             });

@@ -92,8 +92,27 @@ class Domain
 
         return collect($web->internalLinks())
             ->unique()
-            ->reject(static fn($link) => Str::contains($link, ['contact', 'about-us', 'about_us', 'blog', 'privacy-policy', 'privacy_policy', 'terms_and_conditions', 'terms-and-conditions', 'terms_conditions', 'terms-conditions']))
+            ->reject(static fn($link) => Str::contains($link, [
+                'contact', 'about-us', 'about_us', 'blog', 'privacy-policy', 'privacy_policy', 'terms_and_conditions',
+                'terms-and-conditions', 'terms_conditions', 'terms-conditions', 'kontakt', 'news',
+            ]))
             ->toArray();
+    }
+
+    /**
+     * @param string $domain
+     * @param string $locale
+     *
+     * @return array
+     */
+    public static function contentKeywordsWithScores(string $domain, string $locale): array
+    {
+        $pageBody = self::getPageBody($domain);
+
+        $web = new PHPScraper();
+        $web->setContent('https://'.$domain, $pageBody);
+
+        return $web->contentKeywordsWithScores($locale);
     }
 
     /**
