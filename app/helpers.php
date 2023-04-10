@@ -102,3 +102,20 @@ if (!function_exists('randomFloat')) {
         return $min + mt_rand() / mt_getrandmax() * ($max - $min);
     }
 }
+
+/**
+ * Determines if $number is between $min and $max
+ *
+ * @param int  $number    The number to test
+ * @param int  $min       The minimum value in the range
+ * @param int  $max       The maximum value in the range
+ * @param bool $inclusive Whether the range should be inclusive or not
+ *
+ * @return bool           Whether the number was in the range
+ */
+function isBetween(int $number, int $min, int $max, bool $inclusive = false): bool
+{
+    return $inclusive
+        ? ($number >= $min && $number <= $max)
+        : ($number > $min && $number < $max);
+}

@@ -148,84 +148,63 @@ class UpdateSuccessStoriesCommand extends Command
     private function getChartData(Collection $keywords, float $ctr): array
     {
         // ranking
-        $rankingCurve = [0, 0, 0, 5, 16, 24, 32, 41, 51, 65, 80, 88, 95, 97, 98, 99, 100];
+        $rankingCurve = [100, 99, 98, 97, 95, 88, 80, 65, 51, 41, 32, 24, 16, 5];
 
         return $keywords->mapWithKeys(static function ($keywords, $keywordId) use ($rankingCurve, $ctr) {
             // ranking
-            $ranking    = collect($keywords)->pluck('ranking');
-            $maxRanking = collect($ranking)->max();
+            $ranking = collect($keywords)->pluck('ranking');
 
-            $ranking = $ranking->map(static function ($value, $index) use ($rankingCurve, $maxRanking) {
-                $rankingCurveValue = $rankingCurve[$index] ?? random_int(98, 100);
-
-                if ($rankingCurveValue === 0) {
-                    return 0;
+            $ranking->transform(static function ($value, $index) use ($rankingCurve, $ranking) {
+                if ($index > count($rankingCurve)) {
+                    if (random_int(1, 100) < 85) {
+                        return 1;
+                    }
+                    if (random_int(1, 100) < 90) {
+                        return 2;
+                    }
+                    return 3;
                 }
-                $value = ($maxRanking - $value) / $maxRanking * 100;
 
-                $result = $value > $rankingCurveValue
-                    ? $rankingCurveValue + $value / 3
-                    : $rankingCurveValue - $value / 3;
+                $rankingCurveValue = $rankingCurve[$index] ?? random_int(1, 2);
 
-                return max(min(round($result, 1), 100), 0);
-            })->toArray();
+                $result = $value;
 
-            $moveCount = random_int(0, 3);
-            if ($moveCount > 0) {
-                for ($i = 0; $i <= $moveCount; $i++) {
-                    array_unshift($ranking, 0);
-                    array_pop($ranking);
+                // limit difference from previous value
+                if ($index > 0 && $ranking[$index - 1] < $result) {
+                    $result = $ranking[$index - 1] + random_int(-1, 3);
                 }
-            }
+
+                if (!isBetween($result, $rankingCurveValue - 5, $rankingCurveValue + 3, true)) {
+                    $result = $result > ($rankingCurveValue + 2)
+                        ? $result - random_int(1, 3)
+                        : $result + random_int(1, 3);
+                }
+
+                return $result;
+            });
+
+            $ranking = $ranking->toArray();
 
             // traffic value
-            $trafficValueCurve = [0, 0, 0, 0, 0, 0, 2, 5, 8, 12, 18, 26, 35, 52, 75, 98, 105, 106];
+            $trafficValueCurve = [1, 5, 9, 19, 15, 20, 32, 35, 31, 51, 55, 47, 60, 75, 80, 88, 70, 72, 69, 78, 95, 97, 98, 99, 100];
 
-            $trafficValue    = collect($keywords)->map(static function ($keywords) use ($ctr) {
+            $trafficValue = collect($keywords)->map(static function ($keywords, $index) use ($ctr, $trafficValueCurve) {
                 // monthly search volume/30 * cpc * ctr at rank
-                return ($keywords->keyword_search_volume / 30) * $keywords->keyword_cpc * $ctr;
+                $value = ($keywords->keyword_search_volume / 30) * $keywords->keyword_cpc * $ctr;
+
+                return $value * (($trafficValueCurve[$index] ?? last($trafficValueCurve))/100);
             });
-            $maxTrafficValue = collect($trafficValue)->max();
 
-            $trafficValue = collect($trafficValue)->map(static fn($i) => $i / $maxTrafficValue * 100);
+            $trafficValue = $trafficValue->map(static function ($value) {
+                $result = $value - random_int($value/15 * -1, $value/15);
 
-            $trafficValue = $trafficValue->map(static function ($value, $index) use ($trafficValueCurve) {
-                $trafficValue = $trafficValueCurve[$index] ?? 106;
-
-                if ($trafficValue === 0) {
-                    return 0;
-                }
-                $value = randomFloat(0, $index < 23 ? 10 : 2);
-
-                $result = $value > $trafficValue
-                    ? $trafficValue + $value
-                    : $trafficValue - $value;
-
-                return max(min(round($result, 1), 106), 0);
+                return round($result, 1);
             })->toArray();
-
-            $moveCount = random_int(0, 3);
-            if ($moveCount > 0) {
-                for ($i = 0; $i <= $moveCount; $i++) {
-                    array_unshift($trafficValue, 0);
-                    array_pop($trafficValue);
-                }
-            }
-
-            // profit
-            $profitValueCurve = [0, 0, 0, 0, 0, 0, 2, 5, 8, 12, 18, 26, 35, 52, 75, 81, 85, 85];
-
-            $profit = collect($keywords)->map(static function ($keywords, $index) use ($profitValueCurve) {
-                $value = $profitValueCurve[$index] ?? 85;
-
-                return round($value + randomFloat(-($value / 7), $value / 7), 1);
-            });
 
             return [
                 $keywordId => [
                     'ranking'      => $ranking,
                     'trafficValue' => $trafficValue,
-                    'profit'       => $profit,
                 ],
             ];
         })->toArray();

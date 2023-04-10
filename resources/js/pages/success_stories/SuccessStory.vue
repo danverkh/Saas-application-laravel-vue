@@ -22,15 +22,15 @@
                     </div>
                     <div class="mt-1 md:mt-2">
                         Total traffic value received:
-                        <span class="font-bold ml-2 whitespace-nowrap">{{ money(trafficValue) }}</span>
+                        <span class="font-bold ml-2 whitespace-nowrap">{{ money(trafficValue, {precision: 0}) }}</span>
                     </div>
                     <div class="mt-1 md:mt-2">
                         Total campaign cost:
-                        <span class="font-bold ml-2 whitespace-nowrap">{{ money(campaignCost) }}</span>
+                        <span class="font-bold ml-2 whitespace-nowrap">{{ money(campaignCost, {precision: 0}) }}</span>
                     </div>
                     <div class="mt-1 md:mt-2">
                         Profit / savings:
-                        <span class="font-bold ml-2 whitespace-nowrap">{{ money(savings) }}</span>
+                        <span class="font-bold ml-2 whitespace-nowrap">{{ money(savings, {precision: 0}) }}</span>
                     </div>
                 </div>
             </div>
@@ -57,6 +57,8 @@ import {Line} from 'vue-chartjs';
 import {CategoryScale, Chart as ChartJS, LinearScale, LineElement, PointElement, Legend} from 'chart.js';
 import CountryFlag from 'vue-country-flag-next';
 import dayjs from "dayjs";
+import capitalize from "lodash/capitalize";
+import round from "lodash/round";
 
 ChartJS.register(Legend, CategoryScale, LinearScale, PointElement, LineElement);
 
@@ -119,13 +121,29 @@ export default {
                         },
                     },
                     tooltip: {
-                        enabled: false,
+                        enabled: true,
                         callbacks: {
+                            label: function(context) {
+                                let label = capitalize(context.dataset.label || '');
+
+                                if (label) {
+                                    label += ': ';
+                                }
+                                if (context.parsed.y !== null) {
+                                    label += round(context.parsed.y) + (context.dataset.label !== 'rank' ? ' €' : '');
+                                }
+                                return label;
+                            },
                             labelColor: function (context) {
+                                let color;
+
+                                switch (context.dataset.label) {
+                                    case 'rank': color = 'rgba(221, 43, 70, 1)'; break;
+                                    case 'traffic value': color = 'rgba(59, 130, 246, 1)'; break;
+                                    case 'profit': color = 'rgba(34,197,94, 1)'; break;
+                                }
                                 return {
-                                    backgroundColor: (context.dataset.label === 'rank')
-                                        ? 'rgba(221, 43, 70, 1)'
-                                        : 'rgba(59, 130, 246, 1)',
+                                    backgroundColor: color,
                                     borderWidth: 2,
                                 };
                             },
@@ -137,8 +155,8 @@ export default {
                         display: false,
                         // reverse: true,
                         // beginAtZero: true,
-                        min: 0,
-                        max: 115,
+                        min: 1,
+                        // max: 50,
                         ticks: {
                             display: true,
                             color: 'rgba(120, 120, 120, 1)',
@@ -178,12 +196,12 @@ export default {
     },
 
     computed: {
-        campaignCost() {
-            return this.item.monthly_fee * this.monthsCount;
-        },
-
         monthsCount() {
             return this.chartData.datasets[0].data.length / 30;
+        },
+
+        campaignCost() {
+            return this.item.monthly_fee * this.monthsCount;
         },
 
         savings() {
@@ -211,7 +229,10 @@ export default {
 
             this.chartData.datasets[0].data = this.item.chart[this.currentKeywordId].ranking;
             this.chartData.datasets[1].data = this.item.chart[this.currentKeywordId].trafficValue;
-            this.chartData.datasets[2].data = this.item.chart[this.currentKeywordId].profit;
+
+            const campaignCost = this.item.monthly_fee * (this.item.chart[this.currentKeywordId].ranking.length / 30);
+            const campaignCostByDay = campaignCost / this.item.chart[this.currentKeywordId].ranking.length;
+            this.chartData.datasets[2].data = this.item.chart[this.currentKeywordId].trafficValue.map(value => value - campaignCostByDay);
 
             this.trafficValue = this.chartData.datasets[1].data.reduce((total, b) => total + b, 0);
         },
