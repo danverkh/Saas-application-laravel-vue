@@ -3,6 +3,7 @@
 use App\Http\Controllers\AccountController;
 use App\Http\Controllers\Dashboard\Account\AccountBillingAddressController;
 use App\Http\Controllers\Dashboard\Account\DetailsController;
+use App\Http\Controllers\Dashboard\CampaignKeywordsController;
 use App\Http\Controllers\Dashboard\CampaignsController;
 use App\Http\Controllers\Dashboard\DashboardController;
 use App\Http\Controllers\Dashboard\SupportController;
@@ -19,6 +20,7 @@ Route::group(['as' => 'dashboard.', 'middleware' => 'auth'], function () {
 
     Route::get('campaigns', [CampaignsController::class, 'index'])->name('campaigns');
     Route::get('campaigns/{keyword}/keyword', [CampaignsController::class, 'keyword'])->name('api.campaign.keyword');
+    Route::delete('campaigns/{keyword}/keyword/cancel', [CampaignKeywordsController::class, 'cancel'])->name('api.campaign.keyword.cancel');
 
     Route::get('account', [AccountController::class, 'index'])->name('account');
     Route::get('account/details', [DetailsController::class, 'show'])->name('account.details');

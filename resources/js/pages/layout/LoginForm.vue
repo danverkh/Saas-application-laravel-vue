@@ -100,7 +100,7 @@ export default {
                     }
                 })
                 .catch(error => {
-                    if (error.response.status === 422) {
+                    if (error.response && error.response.status === 422) {
                         this.validationErrors = error.response.data.errors;
 
                         let firstKey = Object.keys(this.validationErrors)[0];

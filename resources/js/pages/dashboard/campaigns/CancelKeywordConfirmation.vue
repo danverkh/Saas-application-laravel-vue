@@ -12,6 +12,8 @@
 <script>
 import Modal from "@/components/Modal.vue";
 import ModalService from "@/services/Modal";
+import {useDashboardCampaignStore} from "@/stores/dashboard/campaign";
+import GlobalNotification from "@/services/GlobalNotification";
 
 export default {
     name: "DeleteConfirmation",
@@ -20,8 +22,21 @@ export default {
 
     methods: {
         submit() {
-            alert('Not implemented');
-            this.close();
+            const keywordId = useDashboardCampaignStore().selected.keyword.id;
+
+            axios.delete(route('api.campaign.keyword.cancel', keywordId))
+                .then(({data}) => {
+                    if (data.status === 'success') {
+                        // set keyword as canceled
+                        this.close();
+                    } else {
+                        GlobalNotification.error({title: 'Whoops, something went wrong', message: 'Failed to cancel keyword, please contact support.'});
+                    }
+                })
+                .catch(error => {
+                    console.error('Failed to submit form', error);
+                    GlobalNotification.error({title: 'Whoops, something went wrong', message: 'Please try again later.'});
+                });
         },
 
         close() {

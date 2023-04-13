@@ -16,11 +16,13 @@
             </div>
 
             <div class="flex items-center">
-                <div class="dropdown dropdown-end">
+                <div class="dropdown dropdown-end z-10">
                     <label tabindex="0" class="bg-zinc-600">
-                        <svg class="w-6 h-6 cursor-pointer hover:text-zinc-900" width="32" height="32" viewBox="0 0 24 24">
-                            <path fill="currentColor" d="M12 10c-1.1 0-2 .9-2 2s.9 2 2 2s2-.9 2-2s-.9-2-2-2zm0-6c-1.1 0-2 .9-2 2s.9 2 2 2s2-.9 2-2s-.9-2-2-2zm0 12c-1.1 0-2 .9-2 2s.9 2 2 2s2-.9 2-2s-.9-2-2-2z"/>
-                        </svg>
+                        <div class="p-1 hover:bg-zinc-400 hover:bg-opacity-25 rounded-lg">
+                            <svg class="w-6 h-6 cursor-pointer hover:text-zinc-900" width="32" height="32" viewBox="0 0 24 24">
+                                <path fill="currentColor" d="M12 10c-1.1 0-2 .9-2 2s.9 2 2 2s2-.9 2-2s-.9-2-2-2zm0-6c-1.1 0-2 .9-2 2s.9 2 2 2s2-.9 2-2s-.9-2-2-2zm0 12c-1.1 0-2 .9-2 2s.9 2 2 2s2-.9 2-2s-.9-2-2-2z"/>
+                            </svg>
+                        </div>
                     </label>
                     <ul tabindex="0" class="dropdown-content menu p-2 shadow-lg bg-base-100 !z-0 rounded-box w-52 mt-2">
                         <li>

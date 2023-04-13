@@ -49,11 +49,11 @@ class User extends Authenticatable
     ];
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */
-    public function orders(): HasMany
+    public function client(): HasOne
     {
-        return $this->hasMany(Order::class)->latest();
+        return $this->hasOne(Client::class);
     }
 
     /**
