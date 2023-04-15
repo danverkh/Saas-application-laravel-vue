@@ -1,13 +1,17 @@
 import {defineStore} from 'pinia'
 import axios from "axios";
+import {sort} from "fast-sort";
+import dayjs from "dayjs";
 
 export const useDashboardCampaignStore = defineStore('dashboard.campaign', {
     state: () => {
         return {
+            sidebarItems: {},
             loading: false,
             selected: {
                 domain: null,
                 keyword: null,
+                keywordId: null,
             },
             data: {},
             _controller: null,
@@ -38,7 +42,7 @@ export const useDashboardCampaignStore = defineStore('dashboard.campaign', {
                 })
                 .finally(() => {
                     clearInterval(timeoutHandle);
-                    this.loading = false;
+                    this.loading     = false;
                     this._controller = null;
                 });
         },
@@ -47,6 +51,26 @@ export const useDashboardCampaignStore = defineStore('dashboard.campaign', {
             if (this._controller) {
                 this._controller.abort();
             }
+        },
+
+        setSidebarItems(items) {
+            this.sidebarItems = items;
+
+            Object.keys(this.sidebarItems)
+                .forEach(domain => {
+                    this.sidebarItems[domain] = sort(this.sidebarItems[domain]).asc('keyword');
+                });
+        },
+
+        markKeywordAsCancelled(keywordId) {
+            Object.keys(this.sidebarItems)
+                .forEach(domain => {
+                    const index = this.sidebarItems[domain].findIndex(i => i.id === keywordId);
+
+                    if (index !== -1) {
+                        this.sidebarItems[domain][index].termination_date = dayjs().format('YYYY-MM-DD H:mm:ss');
+                    }
+                });
         },
     },
 });

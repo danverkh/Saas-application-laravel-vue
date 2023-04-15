@@ -17,9 +17,10 @@ class CampaignsController extends Controller
     public function index(): View
     {
         $domains = Keyword::query()
-                          ->whereHas('order.client.accounts', static function (Builder $query) {
-                              $query->where('email', auth()->user()->email);
+                          ->whereHas('order.client', static function (Builder $query) {
+                              $query->where('user_id', auth()->id());
                           })
+                          ->select(['id', 'domain', 'keyword', 'termination_date'])
                           ->get()
                           ->groupBy('domain')
                           ->sortKeys();
