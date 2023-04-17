@@ -21,6 +21,7 @@ Route::group(['as' => 'dashboard.', 'middleware' => 'auth'], function () {
     Route::get('campaigns', [CampaignsController::class, 'index'])->name('campaigns');
     Route::get('campaigns/{keyword}/keyword', [CampaignsController::class, 'keyword'])->name('api.campaign.keyword');
     Route::delete('campaigns/{keyword}/keyword/cancel', [CampaignKeywordsController::class, 'cancel'])->name('api.campaign.keyword.cancel');
+    Route::delete('campaigns/{keyword}/keyword/reactivate', [CampaignKeywordsController::class, 'reactivate'])->name('api.campaign.keyword.reactivate');
 
     Route::get('account', [AccountController::class, 'index'])->name('account');
     Route::get('account/details', [DetailsController::class, 'show'])->name('account.details');

@@ -71,6 +71,21 @@ export const useDashboardCampaignStore = defineStore('dashboard.campaign', {
                         this.sidebarItems[domain][index].termination_date = dayjs().format('YYYY-MM-DD H:mm:ss');
                     }
                 });
+
+            this.data.termination_date = dayjs().format('YYYY-MM-DD H:mm:ss');
+        },
+
+        markKeywordAsReactivated(keywordId) {
+            Object.keys(this.sidebarItems)
+                .forEach(domain => {
+                    const index = this.sidebarItems[domain].findIndex(i => i.id === keywordId);
+
+                    if (index !== -1) {
+                        this.sidebarItems[domain][index].termination_date = null;
+                    }
+                });
+
+            this.data.termination_date = null;
         },
     },
 });

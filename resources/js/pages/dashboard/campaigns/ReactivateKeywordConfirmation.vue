@@ -1,6 +1,6 @@
 <template>
-    <Modal name="cancel-keyword-confirmation" title-class="text-red-600" title="Cancel keyword">
-        <div class="mt-2">Are you sure you want to cancel this keyword?</div>
+    <Modal name="reactivate-keyword-confirmation" title-class="text-red-600" title="Reactivate keyword">
+        <div class="mt-2">Are you sure you want to reactivate this keyword?</div>
 
         <div class="modal-action">
             <button @click="close" class="btn px-8">No</button>
@@ -20,7 +20,7 @@ import GlobalNotification from "@/services/GlobalNotification";
 import Spinner from "@/components/Spinner.vue";
 
 export default {
-    name: "CancelKeywordConfirmation",
+    name: "ReactivateKeywordConfirmation",
 
     components: {Modal, Spinner},
 
@@ -35,15 +35,15 @@ export default {
             const keywordId = useDashboardCampaignStore().selected.keywordId;
             this.requestPending = true;
 
-            axios.delete(route('dashboard.api.campaign.keyword.cancel', keywordId))
+            axios.delete(route('dashboard.api.campaign.keyword.reactivate', keywordId))
                 .then(({data}) => {
                     if (data.status === 'success') {
-                        useDashboardCampaignStore().markKeywordAsCancelled(keywordId);
+                        useDashboardCampaignStore().markKeywordAsReactivated(keywordId);
                         this.close();
 
-                        GlobalNotification.info({title: 'Successful deactivation', message: 'You have successfully deactivated current keyword.', timeout: 7000});
+                        GlobalNotification.info({title: 'Successful reactivation', message: 'You have successfully reactivated current keyword.', timeout: 7000});
                     } else {
-                        GlobalNotification.error({title: 'Whoops, something went wrong', message: 'Failed to cancel keyword, please contact support.'});
+                        GlobalNotification.error({title: 'Whoops, something went wrong', message: 'Failed to reactivate keyword, please contact support.'});
                     }
                 })
                 .catch(error => {
@@ -54,7 +54,7 @@ export default {
         },
 
         close() {
-            ModalService.close('cancel-keyword-confirmation');
+            ModalService.close('reactivate-keyword-confirmation');
         },
     },
 }

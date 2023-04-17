@@ -24,11 +24,19 @@
                             </svg>
                         </div>
                     </label>
-                    <ul tabindex="0" class="dropdown-content menu p-2 shadow-lg bg-base-100 !z-0 rounded-box w-52 mt-2">
-                        <li>
-                            <button class="text-red-600" @click="cancelKeyword">
-                                <svg class="w-4 h-4 md:w-5 md:h-5 cursor-pointer text-red-600" width="32" height="32" viewBox="0 0 24 24">
-                                    <path fill="currentColor" d="m8.4 17l3.6-3.6l3.6 3.6l1.4-1.4l-3.6-3.6L17 8.4L15.6 7L12 10.6L8.4 7L7 8.4l3.6 3.6L7 15.6Zm3.6 5q-2.075 0-3.9-.788q-1.825-.787-3.175-2.137q-1.35-1.35-2.137-3.175Q2 14.075 2 12t.788-3.9q.787-1.825 2.137-3.175q1.35-1.35 3.175-2.138Q9.925 2 12 2t3.9.787q1.825.788 3.175 2.138q1.35 1.35 2.137 3.175Q22 9.925 22 12t-.788 3.9q-.787 1.825-2.137 3.175q-1.35 1.35-3.175 2.137Q14.075 22 12 22Z"/>
+                    <ul tabindex="0" class="dropdown-content menu p-2 shadow-lg bg-base-100 !z-0 rounded-box w-60 mt-2">
+                        <li v-if="data.termination_date !== null">
+                            <button @click="reactivateKeyword" class="group">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" class="w-4 h-4 md:w-5 md:h-5 cursor-pointer text-blue-600 group-active:text-white">
+                                    <path fill="currentColor" d="M18 10h-4V6a2 2 0 0 0-4 0l.071 4H6a2 2 0 0 0 0 4l4.071-.071L10 18a2 2 0 0 0 4 0v-4.071L18 14a2 2 0 0 0 0-4z"/>
+                                </svg>
+                                Reactivate keyword
+                            </button>
+                        </li>
+                        <li v-if="data.termination_date === null">
+                            <button @click="cancelKeyword" class="text-red-600 active:text-white">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" class="w-4 h-4 md:w-5 md:h-5 cursor-pointer fill-current">
+                                    <path fill="currentColor" d="M12 4c-4.411 0-8 3.589-8 8s3.589 8 8 8s8-3.589 8-8s-3.589-8-8-8zm-5 8c0-.832.224-1.604.584-2.295l6.711 6.711A4.943 4.943 0 0 1 12 17c-2.757 0-5-2.243-5-5zm9.416 2.295L9.705 7.584A4.943 4.943 0 0 1 12 7c2.757 0 5 2.243 5 5c0 .832-.224 1.604-.584 2.295z"/>
                                 </svg>
                                 Cancel keyword
                             </button>
@@ -86,6 +94,10 @@ export default {
     },
 
     methods: {
+        reactivateKeyword() {
+            Modal.open('reactivate-keyword-confirmation');
+        },
+
         cancelKeyword() {
             Modal.open('cancel-keyword-confirmation');
         },

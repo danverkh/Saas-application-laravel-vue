@@ -12,6 +12,18 @@ class CampaignKeywordsController extends Controller
     /**
      * Cancel keyword
      */
+    public function reactivate(Keyword $keyword, KeywordService $service): JsonResponse
+    {
+        $this->authorize('reactivate', $keyword);
+
+        $success = $service->reactivate($keyword);
+
+        return response()->json(['status' => $success ? 'success' : 'failed']);
+    }
+
+    /**
+     * Cancel keyword
+     */
     public function cancel(Keyword $keyword, KeywordService $service): JsonResponse
     {
         $this->authorize('cancel', $keyword);

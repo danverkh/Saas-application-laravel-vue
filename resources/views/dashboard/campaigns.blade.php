@@ -3,6 +3,7 @@
 
 <x-dashboard-layout>
     <cancel-keyword-confirmation></cancel-keyword-confirmation>
+    <reactivate-keyword-confirmation></reactivate-keyword-confirmation>
 
     <x-container class="mb-8">
         <div id="sidebar-container" class="flex-col flex flex-nowrap gap-6 xl:flex-row">
