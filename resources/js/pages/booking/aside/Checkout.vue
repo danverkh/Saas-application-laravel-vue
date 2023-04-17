@@ -6,23 +6,25 @@
                     <div class="card-body">
                         <div @click="close" class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2 z-50 hover:text-primary hover:bg-primary-50/50">✕</div>
 
-                        <h4 class="-mt-2 font-medium text-lg">Customer details</h4>
-                        <div class="divider divider-vertical my-0"></div>
+                        <div v-if="!$auth.check">
+                            <h4 class="-mt-2 font-medium text-lg">Customer details</h4>
+                            <div class="divider divider-vertical my-0"></div>
 
-                        <div class="flex flex-col gap-y-3 mb-6">
-                            <div class="flex flex-col gap-y-2">
-                                <label for="customer-email" class="whitespace-nowrap font-medium">Your email</label>
-                                <Input
-                                    @keyup.enter="open"
-                                    v-model="email"
-                                    type="email"
-                                    id="customer-email"
-                                    tabindex="1"
-                                    :error="validationErrors?.email"
-                                    @change="validationErrors.email = null"
-                                    error-classes="text-xs"
-                                    class="text-zinc-900 text-base"
-                                />
+                            <div class="flex flex-col gap-y-3 mb-6">
+                                <div class="flex flex-col gap-y-2">
+                                    <label for="customer-email" class="whitespace-nowrap font-medium">Your email</label>
+                                    <Input
+                                        @keyup.enter="open"
+                                        v-model="email"
+                                        type="email"
+                                        id="customer-email"
+                                        tabindex="1"
+                                        :error="validationErrors?.email"
+                                        @change="validationErrors.email = null"
+                                        error-classes="text-xs"
+                                        class="text-zinc-900 text-base"
+                                    />
+                                </div>
                             </div>
                         </div>
 
