@@ -1,5 +1,5 @@
 <template>
-    <tr :class="{selected: item.selected, 'text-zinc-400': item.requestPending}" :id="`row-${item.keyword.replaceAll(' ', '-')}`">
+    <tr :class="{selected: item.selected, 'text-zinc-400': item.requestPending, purchased: item.purchased}" :id="`row-${item.keyword.replaceAll(' ', '-')}`">
         <td class="whitespace-normal break-words min-w-[180px] font-medium white">
             <div>
                 {{ withoutLastWord(item.keyword) }}
@@ -9,11 +9,13 @@
                       <path d="M17.5 12a5.5 5.5 0 1 1 0 11 5.5 5.5 0 0 1 0-11zm0 2h-.2l-.1.1-2.6 2.5v.1a.5.5 0 0 0 0 .6l.1.1a.5.5 0 0 0 .6 0l1.7-1.7V21a.5.5 0 0 0 .4.5h.1a.5.5 0 0 0 .5-.4v-5.4l1.6 1.7h.1a.5.5 0 0 0 .7-.7L17.8 14h-.1l-.1-.1zM6.2 3h11.6A3.3 3.3 0 0 1 21 6v6a6.5 6.5 0 0 0-1.5-.7V8h-15v9.8a1.8 1.8 0 0 0 1.6 1.7h5.2A6.5 6.5 0 0 0 12 21H6.2A3.3 3.3 0 0 1 3 18V6.2A3.3 3.3 0 0 1 6 3h.3z"/>
                     </svg>
 
-                    <span v-if="isValid(item)" class="hidden lg:inline-block"
-                          @mouseenter="openKeywordInfoPopover(item)"
-                          @mousemove="moveKeywordInfoPopover"
-                          @mouseleave="hideKeywordInfoPopover">
-
+                    <span
+                        v-if="isValid(item)"
+                        class="hidden lg:inline-block"
+                        @mouseenter="openKeywordInfoPopover(item)"
+                        @mousemove="moveKeywordInfoPopover"
+                        @mouseleave="hideKeywordInfoPopover"
+                    >
                         <svg class="w-4 h-4 inline-block ml-0.5 text-zinc-400 hover:text-primary transition duration-300" width="32" height="32" viewBox="0 0 256 256">
                             <path fill="currentColor" d="M216 36h-76V24a12 12 0 0 0-24 0v12H40a20.1 20.1 0 0 0-20 20v120a20.1 20.1 0 0 0 20 20h31l-16.4 20.5a12.1 12.1 0 0 0 1.9 16.9A12.4 12.4 0 0 0 64 236a12 12 0 0 0 9.4-4.5l28.4-35.5h52.4l28.4 35.5a12 12 0 0 0 9.4 4.5a12.4 12.4 0 0 0 7.5-2.6a12.1 12.1 0 0 0 1.9-16.9L185 196h31a20.1 20.1 0 0 0 20-20V56a20.1 20.1 0 0 0-20-20Zm-4 136H44V60h168Zm-108-52v24a12 12 0 0 1-24 0v-24a12 12 0 0 1 24 0Zm24-28a12 12 0 0 1 12 12v40a12 12 0 0 1-24 0v-40a12 12 0 0 1 12-12Zm24 52V88a12 12 0 0 1 24 0v56a12 12 0 0 1-24 0Z"/>
                         </svg>
@@ -49,12 +51,14 @@
                 Remove
             </button>
 
-            <button v-else @click="add(item)" class="btn btn-sm w-16 text-[0.7rem] flex-nowrap rounded-[5px] border-none bg-green-600 hover:bg-green-700" :disabled="!isValid(item)">
-                Add
-                <svg class="h-4 w-4" viewBox="0 0 256 256">
-                    <path fill="currentColor" d="M96 220a12.2 12.2 0 0 1-8.5-3.5a12 12 0 0 1 0-17L159 128L87.5 56.5a12 12 0 0 1 17-17l80 80a12 12 0 0 1 0 17l-80 80A12.2 12.2 0 0 1 96 220Z"/>
-                </svg>
-            </button>
+            <div v-else :class="{'tooltip tooltip-left': item.purchased}" data-tip="Already purchased">
+                <button @click="add(item)" class="btn btn-sm w-16 text-[0.7rem] flex-nowrap rounded-[5px] border-none bg-green-600 hover:bg-green-700" :disabled="!isValid(item) || item.purchased">
+                    Add
+                    <svg class="h-4 w-4" viewBox="0 0 256 256">
+                        <path fill="currentColor" d="M96 220a12.2 12.2 0 0 1-8.5-3.5a12 12 0 0 1 0-17L159 128L87.5 56.5a12 12 0 0 1 17-17l80 80a12 12 0 0 1 0 17l-80 80A12.2 12.2 0 0 1 96 220Z"/>
+                    </svg>
+                </button>
+            </div>
         </th>
     </tr>
 </template>

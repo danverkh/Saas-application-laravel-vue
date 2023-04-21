@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 |--------------------------------------------------------------------------
 */
 
-Route::group(['middleware' => 'throttle:api'], static function () {
+Route::group(['middleware' => ['throttle:api']], static function () {
     Route::get('rankings', [RankingsController::class, 'index'])->name('api.rankings');
     Route::get('preview/rank', [PreviewRankController::class, 'index'])->name('api.preview_rank');
     Route::get('autosuggest/domain', [AutoSuggestController::class, 'domain'])->name('api.autosuggest.domain');

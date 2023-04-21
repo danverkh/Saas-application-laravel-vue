@@ -106,7 +106,7 @@ export const useRankingItemsStore = defineStore('rankingItems', {
     },
 
     actions: {
-        setItems(items) {
+        setItems(items, purchasedKeywords) {
             const key = useCart().domain +'_'+ useCart().market;
 
             if (Object.keys(this.userAddedItems).length && this.userAddedItems[key]) {
@@ -119,6 +119,7 @@ export const useRankingItemsStore = defineStore('rankingItems', {
                 return {
                     ...item,
                     selected: savedSelections.find(i => i.keyword === item.keyword) !== undefined,
+                    purchased: purchasedKeywords.find(i => i.keyword === item.keyword) !== undefined,
                 };
             });
 

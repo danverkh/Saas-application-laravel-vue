@@ -29,9 +29,19 @@ html, body {
         background-color: #fafafa;
     }
 
-    tbody > tr:not(.no-hover):hover th,
-    tbody > tr:not(.no-hover):hover td {
+    tbody > tr:not(.no-hover):not(.purchased):hover th,
+    tbody > tr:not(.no-hover):not(.purchased):hover td {
         @apply bg-blue-50 border-blue-200/75;
+    }
+
+    tbody > tr.purchased {
+        th, td {
+            @apply bg-green-50 border-green-200/75;
+        }
+        &:hover th,
+        &:hover td {
+            @apply bg-green-100/75;
+        }
     }
 
     tbody > tr:not(.no-hover).selected th,

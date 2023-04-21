@@ -27,6 +27,7 @@ class RankingsRequest extends FormRequest
             'domain'    => 'required',
             'market'    => 'required',
             'assistant' => 'sometimes|in:conversions,branding,find_employees',
+            'user_id'   => 'integer|nullable',
         ];
     }
 }

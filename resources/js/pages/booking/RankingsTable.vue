@@ -32,7 +32,8 @@
                 <RankingTableRow
                     v-for="item in rankingItems.filteredItems"
                     :key="`table-item-${item.keyword}`"
-                    :item="item"/>
+                    :item="item"
+                />
 
                 <tr v-if="rankingItems.filteredItems.length === 0 && rankingItems.items.length > 0" class="no-hover">
                     <td colspan="9" class="text-center !py-12">
@@ -145,11 +146,12 @@ export default {
                 market: this.market,
                 domain: this.domain,
                 assistant: Url.getQueryParam('assistant'),
+                user_id: this.$auth.check ? this.$auth.user.id : null,
             };
 
             axios.get(route('api.rankings'), {params})
                 .then(resp => {
-                    this.rankingItems.setItems(resp.data.rows);
+                    this.rankingItems.setItems(resp.data.rows, resp.data.purchased_keywords);
                 })
                 .catch(error => {
                     console.error('Something went wrong', error);

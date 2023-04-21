@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\RankingsRequest;
+use App\Models\Keyword;
+use App\Models\User;
 use App\Services\DataForSeo\Request as DataForSeoRequest;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Cache;
@@ -55,6 +57,14 @@ class RankingsController extends Controller
                 ->toArray();
         });
 
-        return response()->json(['status' => 'success', 'rows' => $data]);
+        $purchasedKeywords = Keyword::whereIn('order_id', User::find($request->user_id)?->client->orders->pluck('id'))
+                     ->where('domain', $params['domain'])
+                     ->get('keyword');
+
+        return response()->json([
+            'status'             => 'success',
+            'rows'               => $data,
+            'purchased_keywords' => $purchasedKeywords,
+        ]);
     }
 }
