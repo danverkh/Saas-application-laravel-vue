@@ -57,7 +57,7 @@ class RankingsController extends Controller
                 ->toArray();
         });
 
-        $purchasedKeywords = Keyword::whereIn('order_id', User::find($request->user_id)?->client->orders->pluck('id'))
+        $purchasedKeywords = Keyword::whereIn('order_id', User::find($request->user_id)?->client->orders->pluck('id') ?? [])
                      ->where('domain', $params['domain'])
                      ->get('keyword');
 
