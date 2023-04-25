@@ -148,7 +148,7 @@ class UpdateSuccessStoriesCommand extends Command
     private function getChartData(Collection $keywords, float $ctr): array
     {
         // ranking
-        $rankingCurve = [100, 99, 98, 97, 95, 88, 80, 65, 51, 41, 32, 24, 16, 5];
+        $rankingCurve = [100, 99, 98, 97, 95, 88, 80, 76, 72, 67, 65, 61, 55, 51, 48, 41, 32, 24, 20, 16, 8, 5];
 
         return $keywords->mapWithKeys(static function ($keywords, $keywordId) use ($rankingCurve, $ctr) {
             // ranking
@@ -166,7 +166,6 @@ class UpdateSuccessStoriesCommand extends Command
                 }
 
                 $rankingCurveValue = $rankingCurve[$index] ?? random_int(1, 2);
-
                 $result = $value;
 
                 // limit difference from previous value
@@ -174,10 +173,8 @@ class UpdateSuccessStoriesCommand extends Command
                     $result = $ranking[$index - 1] + random_int(-1, 3);
                 }
 
-                if (!isBetween($result, $rankingCurveValue - 5, $rankingCurveValue + 3, true)) {
-                    $result = $result > ($rankingCurveValue + 2)
-                        ? $result - random_int(1, 3)
-                        : $result + random_int(1, 3);
+                if (!isBetween($result, min($rankingCurveValue - 3, 1), $rankingCurveValue + 3, true)) {
+                    $result = random_int(min($rankingCurveValue - 3, 1), $rankingCurveValue + 3);
                 }
 
                 return $result;
@@ -195,10 +192,17 @@ class UpdateSuccessStoriesCommand extends Command
                 return $value * (($trafficValueCurve[$index] ?? last($trafficValueCurve))/100);
             });
 
-            $trafficValue = $trafficValue->map(static function ($value) {
+            $trafficValue = $trafficValue->map(static function ($value, $index) use ($ranking) {
                 $result = $value - random_int($value/15 * -1, $value/15);
 
-                return round($result, 1);
+                $limiter = match ($ranking[$index]) {
+                    1 => 1,
+                    2, 3 => randomFloat(0.85, 0.95),
+                    4, 5, 6, 7, 8, 9, 10 => randomFloat(0.45, 0.75),
+                    default => randomFloat(0.08, 0.12),
+                };
+
+                return round($result * $limiter, 1);
             })->toArray();
 
             return [

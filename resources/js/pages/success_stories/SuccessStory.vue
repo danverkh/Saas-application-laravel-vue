@@ -87,6 +87,7 @@ export default {
                         borderColor: "rgba(221, 43, 70, 1)",
                         data: [],
                         tension: 0.5,
+                        yAxisID: 'y2',
                     },
                     {
                         label: 'traffic value',
@@ -152,7 +153,7 @@ export default {
                 },
                 scales: {
                     y: {
-                        display: false,
+                        position: 'right',
                         // reverse: true,
                         // beginAtZero: true,
                         min: 1,
@@ -166,6 +167,14 @@ export default {
                             color: 'rgba(120, 120, 120, .2)',
                             borderDash: [5, 5],
                             borderColor: 'rgba(120, 120, 120, .2)',
+                        },
+                    },
+                    y2: {
+                        position: 'left',
+                        reverse: true,
+                        min: 1,
+                        grid: {
+                            display: false,
                         },
                     },
                     x: {
