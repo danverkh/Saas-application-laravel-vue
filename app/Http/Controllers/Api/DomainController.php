@@ -24,7 +24,7 @@ class DomainController extends Controller
                   ->where('mail_domain', 'LIKE', "$request->domain%")
                   ->first();
 
-        if ($item?->registrant_country) {
+        if ($item?->registrant_country && Str::lower($item->registrant_country ?? '') !== 'xx') {
             $market = Str::lower($item->registrant_country);
         } else if ($item?->language_detected) {
             $market = Domain::getMarket($item->language_detected, $request->domain);

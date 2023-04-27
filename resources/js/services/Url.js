@@ -6,6 +6,10 @@ class Url {
         this.parameters = queryParser.decode(window.location.search);
     }
 
+    hasQueryParam() {
+        return this.parameters.auto !== undefined;
+    }
+
     getQueryParam(key, defaultValue = null) {
         return this.parameters[key] || defaultValue;
     }
@@ -24,7 +28,6 @@ class Url {
     allQueryParams() {
         return this.parameters;
     }
-
 }
 
 export default new Url;

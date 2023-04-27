@@ -118,6 +118,8 @@ export default {
             loading: true,
             error: null,
             rankingItems: useRankingItemsStore(),
+            isAuto: null,
+            isAssistant: null,
         };
     },
 
@@ -126,6 +128,9 @@ export default {
 
         useCart().market = this.market;
         useCart().domain = this.domain;
+
+        this.isAuto = Url.hasQueryParam('auto');
+        this.isAssistant = Url.getQueryParam('assistant');
     },
 
     mounted() {
@@ -142,28 +147,73 @@ export default {
             this.loading = true;
             this.error   = null;
 
-            const params = {
-                market: this.market,
+            axios.get(route('api.rankings'), {params: this.getParams()})
+                .then(resp => {
+                    if (resp.data.rows.length > 10 || !this.isAuto) {
+                        this.rankingItems.setItems(resp.data.rows, resp.data.purchased_keywords);
+                        this.loading = false;
+                    } else {
+                        console.info('Got less than 10 keywords when market auto was used. Checking other markets');
+                        this.fetchMarketWithMostKeywords();
+                    }
+                })
+                .catch(error => this.handleError(error));
+        },
+
+        fetchMarketWithMostKeywords() {
+            let markets = ['at', 'ch', 'de', 'uk', 'fr', 'it', 'es'];
+
+            const requests = markets.map(market => {
+                return axios.get(route('api.rankings'), {params: this.getParams(market)});
+            });
+
+            axios.all(requests)
+                .then(
+                    axios.spread((...responses) => {
+                        let maxKeywords = 0;
+                        let maxKeywordsIndex = 0;
+
+                        responses.forEach((response, index) => {
+                            if (response.data.rows.length > maxKeywords) {
+                                maxKeywords = response.data.rows.length;
+                                maxKeywordsIndex = index;
+                            }
+                        });
+
+                        const response = responses[maxKeywordsIndex];
+
+                        this.rankingItems.setItems(
+                            response.data.rows,
+                            response.data.purchased_keywords
+                        );
+
+                        window.history.replaceState({}, '',`/${response.config.params.market}/${response.config.params.domain}`);
+
+                        this.loading = false;
+                    })
+                )
+                .catch(error => this.handleError(error));
+        },
+
+        getParams(market = null) {
+            return {
+                market: market || this.market,
                 domain: this.domain,
                 assistant: Url.getQueryParam('assistant'),
                 user_id: this.$auth.check ? this.$auth.user.id : null,
             };
+        },
 
-            axios.get(route('api.rankings'), {params})
-                .then(resp => {
-                    this.rankingItems.setItems(resp.data.rows, resp.data.purchased_keywords);
-                })
-                .catch(error => {
-                    console.error('Something went wrong', error);
+        handleError(error) {
+            this.loading = false;
+            console.error('Something went wrong', error);
 
-                    if (error.response.status === 429) {
-                        this.error = 'Too many search attempts, please try again in a minute';
-                    } else {
-                        this.error = 'Whoops, something went wrong... Please try again later';
-                        console.error('Failed to fetch rankings', error);
-                    }
-                })
-                .finally(() => this.loading = false);
+            if (error.response.status === 429) {
+                this.error = 'Too many search attempts, please try again in a minute';
+            } else {
+                this.error = 'Whoops, something went wrong... Please try again later';
+                console.error('Failed to fetch rankings', error);
+            }
         },
     },
 }

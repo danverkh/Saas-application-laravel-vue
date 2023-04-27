@@ -123,9 +123,11 @@ export default {
             } else {
                 let domain = Domain.extractFromUrl(this.domain);
                 domain = encodeURIComponent(domain);
+                let autoParam = '';
 
                 if (this.market === null) {
                     this.submitted = true;
+                    autoParam = '?auto=1';
 
                     try {
                         const response = await axios.get(route('api.domain.market.guess'), {params: {domain}});
@@ -140,7 +142,7 @@ export default {
                 useCart().market = this.market;
                 useCart().clearSelection();
 
-                window.location.href = `/${this.market}/${domain}`;
+                window.location.href = `/${this.market}/${domain}` + autoParam;
             }
         },
 
