@@ -52,7 +52,7 @@
             </button>
 
             <div v-else :class="{'tooltip tooltip-left': item.purchased}" data-tip="Already purchased">
-                <button @click="add(item)" class="btn btn-sm w-16 text-[0.7rem] flex-nowrap rounded-[5px] border-none bg-green-600 hover:bg-green-700" :disabled="!isValid(item) || item.purchased">
+                <button @click="add(item)" class="btn btn-sm w-16 text-[0.7rem] flex-nowrap rounded-[5px] border-none bg-green-600 hover:bg-green-700" :disabled="!isValid(item) || item.purchased || !item.cpc">
                     Add
                     <svg class="h-4 w-4" viewBox="0 0 256 256">
                         <path fill="currentColor" d="M96 220a12.2 12.2 0 0 1-8.5-3.5a12 12 0 0 1 0-17L159 128L87.5 56.5a12 12 0 0 1 17-17l80 80a12 12 0 0 1 0 17l-80 80A12.2 12.2 0 0 1 96 220Z"/>

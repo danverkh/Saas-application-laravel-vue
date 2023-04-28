@@ -54,7 +54,7 @@ class DomainSearch extends AbstractRequest
         $items  = data_get($result, 'tasks.0.result.0.items', []) ?? [];
 
         return collect($items)
-            ->map(function ($item) use ($domain) {
+            ->map(function ($item) use ($domain, $items) {
                 if ($this->isBrandKeyword($item['keyword_data']['keyword'], $domain)) {
                     return null;
                 }
@@ -62,7 +62,7 @@ class DomainSearch extends AbstractRequest
                 return [
                     'keyword'       => $item['keyword_data']['keyword'],
                     'search_volume' => $item['keyword_data']['keyword_info']['search_volume'] ?? 0,
-                    'cpc'           => $item['keyword_data']['keyword_info']['cpc'] ?? 0,
+                    'cpc'           => $item['keyword_data']['keyword_info']['cpc'] ?? $this->findSimilarKeywordCpc($item['keyword_data']['keyword'], $items),
                     'competition'   => $item['keyword_data']['keyword_info']['competition'] ?? 0,
                     'current_rank'  => $item['ranked_serp_element']['serp_item']['rank_group'] ?? 0,
                     'traffic_cost'  => $item['ranked_serp_element']['serp_item']['estimated_paid_traffic_cost'] ?? 0,
@@ -195,5 +195,32 @@ class DomainSearch extends AbstractRequest
     private function isBrandKeyword(string $keyword, string $domain): bool
     {
         return str_contains($keyword, explode(".", $domain)[0]);
+    }
+
+    /**
+     * @param string $keyword
+     * @param array  $items
+     *
+     * @return float
+     */
+    private function findSimilarKeywordCpc(string $keyword, array $items): float
+    {
+        $mostSimilarKeyword = collect($items)
+            ->filter(static fn ($item) => $item['keyword_data']['keyword_info']['cpc'] !== null)
+            ->map(static function ($item) use ($keyword) {
+                similar_text($keyword, $item['keyword_data']['keyword'], $percent);
+
+                return [
+                    'cpc'        => $item['keyword_data']['keyword_info']['cpc'],
+                    'similarity' => $percent,
+                ];
+            })
+            ->sortByDesc('similarity')
+            ->first();
+
+        if ($mostSimilarKeyword['similarity'] > 40) {
+            return $mostSimilarKeyword['cpc'];
+        }
+        return 0;
     }
 }
