@@ -170,13 +170,19 @@ class UpdateSuccessStoriesCommand extends Command
 
                 // limit difference from previous value
                 if ($index > 0 && $ranking[$index - 1] < $result) {
-                    $result = $ranking[$index - 1] + random_int(-1, 3);
+                    $result = $ranking[$index - 1] + random_int(-1, 2);
                 }
 
-                if (!isBetween($result, min($rankingCurveValue - 3, 1), $rankingCurveValue + 3, true)) {
-                    $result = random_int(min($rankingCurveValue - 3, 1), $rankingCurveValue + 3);
+                if (!isBetween($result, $rankingCurveValue - 5, $rankingCurveValue + 3, true)) {
+                    $result = random_int($rankingCurveValue - 5, $rankingCurveValue + 3);
                 }
 
+                if ($result <= 0) {
+                    return 1;
+                }
+                if ($result === 1 && $rankingCurveValue <= 80) {
+                    return random_int(2, 4);
+                }
                 return $result;
             });
 
