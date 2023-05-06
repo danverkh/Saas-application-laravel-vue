@@ -2,6 +2,7 @@
 
 namespace App\Console;
 
+use App\Console\Commands\QueueFetchDomainKeywordsRankCommand;
 use App\Console\Commands\GenerateDomainSuggestionsJsonCommand;
 use App\Console\Commands\UpdateSuccessStoriesCommand;
 use Illuminate\Console\Scheduling\Schedule;
@@ -19,6 +20,7 @@ class Kernel extends ConsoleKernel
     {
         $schedule->command(GenerateDomainSuggestionsJsonCommand::class)->weeklyOn(7, '3:00');
         $schedule->command(UpdateSuccessStoriesCommand::class)->weeklyOn('3:15');
+        $schedule->command(QueueFetchDomainKeywordsRankCommand::class)->dailyAt('0:01');
     }
 
     /**

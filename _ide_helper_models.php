@@ -49,6 +49,7 @@ namespace App\Models{
  * App\Models\Client
  *
  * @property int $id
+ * @property int|null $user_id
  * @property string $name
  * @property string $legal_person
  * @property string $owner
@@ -83,6 +84,7 @@ namespace App\Models{
  * @property-read int|null $accounts_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Order> $orders
  * @property-read int|null $orders_count
+ * @property-read \App\Models\User|null $user
  * @method static \Illuminate\Database\Eloquent\Builder|Client newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Client newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Client query()
@@ -115,6 +117,7 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|Client whereStripeCustomerId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Client whereStripePaymentMethodId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Client whereTerminationNoticePeriodInDays($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Client whereUserId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Client whereVatin($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Client whereZip($value)
  * @mixin \Eloquent
@@ -183,6 +186,19 @@ namespace App\Models{
 
 namespace App\Models{
 /**
+ * App\Models\DomainKeywordRank
+ *
+ * @property-read \App\Models\Keyword|null $keyword
+ * @method static \Illuminate\Database\Eloquent\Builder|DomainKeywordRank newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|DomainKeywordRank newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|DomainKeywordRank query()
+ * @mixin \Eloquent
+ */
+	class IdeHelperDomainKeywordRank {}
+}
+
+namespace App\Models{
+/**
  * App\Models\Keyword
  *
  * @property int $id
@@ -215,6 +231,8 @@ namespace App\Models{
  * @property string|null $ranking_subpage_content
  * @property string|null $ranking_subpage_content_last_fetched
  * @property-read \App\Models\Order $order
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\DomainKeywordRank> $rankings
+ * @property-read int|null $rankings_count
  * @method static \Illuminate\Database\Eloquent\Builder|Keyword newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Keyword newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Keyword query()
@@ -365,11 +383,10 @@ namespace App\Models{
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \App\Models\BillingAddress|null $billingAddress
+ * @property-read \App\Models\Client|null $client
  * @property-read \App\Models\ClientAccount|null $clientAccount
  * @property-read \Illuminate\Notifications\DatabaseNotificationCollection<int, \Illuminate\Notifications\DatabaseNotification> $notifications
  * @property-read int|null $notifications_count
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Order> $orders
- * @property-read int|null $orders_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \Laravel\Sanctum\PersonalAccessToken> $tokens
  * @property-read int|null $tokens_count
  * @method static \Database\Factories\UserFactory factory($count = null, $state = [])
