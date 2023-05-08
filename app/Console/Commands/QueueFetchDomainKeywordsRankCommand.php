@@ -38,5 +38,7 @@ class QueueFetchDomainKeywordsRankCommand extends Command
             FetchDomainKeywordRankJob::dispatch($keyword)
                                      ->onQueue(FetchDomainKeywordRankJob::QUEUE);
         }
+
+        $this->info('Queued ' . count($keywords) . ' jobs');
     }
 }

@@ -13,7 +13,9 @@ export const useDashboardCampaignStore = defineStore('dashboard.campaign', {
                 keyword: null,
                 keywordId: null,
             },
-            data: {},
+            data: {
+                rankings: [],
+            },
             _controller: null,
         };
     },
@@ -34,7 +36,7 @@ export const useDashboardCampaignStore = defineStore('dashboard.campaign', {
 
             return axios.get(route('dashboard.api.campaign.keyword', keywordId), {signal: this._controller.signal})
                 .then(({data}) => {
-                    this.data = data.data
+                    this.data = data.data;
                 })
                 .catch(error => {
                     this.data = {};

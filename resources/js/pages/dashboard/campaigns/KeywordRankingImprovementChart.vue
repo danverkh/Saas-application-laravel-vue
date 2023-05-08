@@ -5,6 +5,7 @@
 <script>
 import {Bar} from 'vue-chartjs';
 import {CategoryScale, Chart as ChartJS, BarElement, LinearScale, PointElement, Tooltip} from 'chart.js';
+import dayjs from "dayjs";
 
 ChartJS.register(Tooltip, CategoryScale, BarElement, LinearScale, PointElement);
 
@@ -13,16 +14,27 @@ export default {
 
     components: {Bar},
 
+    props: {
+        startDate: {
+            required: true,
+            type: String,
+        },
+        rankings: {
+            required: true,
+            type: Object,
+        },
+    },
+
     data() {
         return {
             chartData: {
-                labels: [...Array(30).keys()].map(i => i),
+                labels: [],
                 datasets: [
                     {
                         label: 'ranking',
                         backgroundColor: "#22c55e",
                         borderRadius: 5,
-                        data: [...Array(30).keys()].map(i => i).reverse(),
+                        data: [],
                     },
                 ]
             },
@@ -75,6 +87,33 @@ export default {
                 },
             },
         };
+    },
+
+    watch: {
+        rankings() {
+            this.populateChart();
+        },
+    },
+
+    methods: {
+        populateChart() {
+            let numOfDays = 32;
+
+            this.chartData.labels = [];
+            this.chartData.datasets[0].data = [];
+
+            for (let i = numOfDays; i > 0; i--) {
+                const date = dayjs().subtract(i, 'days');
+
+                if (dayjs(this.startDate, 'YYYY-MM-DD').isBefore(date)) {
+                    this.chartData.labels.push(date.format('DD.MM.YYYY'));
+
+                    this.chartData.datasets[0].data.push(
+                        this.rankings[date.format('YYYY-MM-DD')] || null
+                    );
+                }
+            }
+        }
     },
 }
 </script>
