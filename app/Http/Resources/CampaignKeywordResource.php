@@ -21,10 +21,11 @@ class CampaignKeywordResource extends JsonResource
             'domain'        => $this->domain,
             'search_volume' => $this->search_volume,
             'maximum_cost'  => $this->maximum_cost,
+            'cpc'           => $this->cpc,
             'creation_date' => Carbon::parse($this->creation_date)?->format('Y-m-d'),
             'rankings'      => $this->rankings()
                                     ->latest()
-                                    ->limit(32)
+                                    ->limit(30)
                                     ->get()
                                     ->mapWithKeys(static fn($ranking) => [$ranking->created_at->format('Y-m-d') => $ranking->rank]),
         ];

@@ -14,6 +14,8 @@ export const useDashboardCampaignStore = defineStore('dashboard.campaign', {
                 keywordId: null,
             },
             data: {
+                search_volume: 0,
+                creation_date: '',
                 rankings: [],
             },
             _controller: null,

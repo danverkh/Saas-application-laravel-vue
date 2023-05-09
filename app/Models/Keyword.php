@@ -28,6 +28,7 @@ class Keyword extends Model
         'setup_fee',
         'search_volume',
         'maximum_cost',
+        'cpc',
         'creation_date',
         'start_date',
         'termination_date',

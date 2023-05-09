@@ -97,12 +97,12 @@ export default {
 
     methods: {
         populateChart() {
-            let numOfDays = 32;
+            let numOfDays = 30;
 
             this.chartData.labels = [];
             this.chartData.datasets[0].data = [];
 
-            for (let i = numOfDays; i > 0; i--) {
+            for (let i = numOfDays; i >= 0; i--) {
                 const date = dayjs().subtract(i, 'days');
 
                 if (dayjs(this.startDate, 'YYYY-MM-DD').isBefore(date)) {

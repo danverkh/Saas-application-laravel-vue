@@ -50,8 +50,9 @@ class CheckoutController extends Controller
                         'keyword'               => $item['keyword'],
                         'domain'                => $request->domain,
                         'country'               => $request->market,
-                        'search_volume'         => $item['search_volume'],
-                        'maximum_cost'          => $item['maximum_cost'],
+                        'search_volume'         => round($item['search_volume'], 2),
+                        'maximum_cost'          => round($item['maximum_cost'], 2),
+                        'cpc'                   => round($item['cpc'], 2),
                         'monthly_fee'           => 0, // TODO: what fee to use here?
                         'setup_fee'             => 0, // TODO: what fee to use here?
                         'termination_confirmed' => Boolean::FALSE(),
