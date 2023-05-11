@@ -61,6 +61,7 @@ export default {
                 return 'N/A';
             }
 
+            // same logic in app/Models/ClientAccount.php
             let multiplier;
 
             if (currentRank === 1) {

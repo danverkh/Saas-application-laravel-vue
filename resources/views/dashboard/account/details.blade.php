@@ -15,11 +15,11 @@
             <div class="px-5 py-4 border-t border-t-zinc-200 text-zinc-500">
                 <div class="stats shadow">
                     <div class="stat">
-                        <div class="stat-title">November</div>
+                        <div class="stat-title">{{ now()->monthName }}</div>
                         <div class="stat-value">
-                            1456<span class="text-2xl ml-1">€</span>
+                            {{ number_format($costPrediction, 0) }}<span class="text-2xl ml-1">€</span>
                         </div>
-                        <div class="stat-desc text-accent opacity-100 tracking-wider">11/2022</div>
+                        <div class="stat-desc text-accent opacity-100 tracking-wider">{{ now()->format('m/Y') }}</div>
                     </div>
                 </div>
             </div>
@@ -52,7 +52,7 @@
                     <div class="stat">
                         <div class="stat-title">Current score</div>
                         <div class="stat-value">
-                            7.2
+                            {{ round($accountQualityScore, 1) }}
                         </div>
                     </div>
                 </div>
