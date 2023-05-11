@@ -72,7 +72,7 @@
                                     <ul class="hidden lg:flex col-start-4 col-end-8 text-black-500  items-center">
                                         <x-nav-link :href="route('dashboard.campaigns')" :active="request()->routeIs('dashboard.campaigns.keyword')">My Campaigns</x-nav-link>
                                         <x-nav-link :href="route('dashboard.account')" :active="request()->routeIs('dashboard.account.*')">My Account</x-nav-link>
-                                        <x-nav-link :href="route('dashboard.support')" :active="request()->routeIs('dashboard.support')">Support</x-nav-link>
+                                        <x-nav-link :href="route('dashboard.support')" :active="request()->routeIs('dashboard.support*')">Support</x-nav-link>
                                     </ul>
 
                                     <div class="col-start-10 col-end-12 font-medium flex justify-end items-center">

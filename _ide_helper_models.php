@@ -188,13 +188,47 @@ namespace App\Models{
 /**
  * App\Models\DomainKeywordRank
  *
+ * @property int $id
+ * @property int $keyword_id
+ * @property int $rank
+ * @property \Illuminate\Support\Carbon|null $created_at
  * @property-read \App\Models\Keyword|null $keyword
  * @method static \Illuminate\Database\Eloquent\Builder|DomainKeywordRank newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|DomainKeywordRank newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|DomainKeywordRank query()
+ * @method static \Illuminate\Database\Eloquent\Builder|DomainKeywordRank whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|DomainKeywordRank whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|DomainKeywordRank whereKeywordId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|DomainKeywordRank whereRank($value)
  * @mixin \Eloquent
  */
 	class IdeHelperDomainKeywordRank {}
+}
+
+namespace App\Models{
+/**
+ * App\Models\Faq
+ *
+ * @property int $id
+ * @property string $category
+ * @property int $order
+ * @property string $question
+ * @property string $answer
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @method static \Illuminate\Database\Eloquent\Builder|Faq newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Faq newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Faq query()
+ * @method static \Illuminate\Database\Eloquent\Builder|Faq whereAnswer($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Faq whereCategory($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Faq whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Faq whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Faq whereOrder($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Faq whereQuestion($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Faq whereUpdatedAt($value)
+ * @mixin \Eloquent
+ */
+	class IdeHelperFaq {}
 }
 
 namespace App\Models{
@@ -211,6 +245,7 @@ namespace App\Models{
  * @property string $setup_fee
  * @property int|null $search_volume
  * @property string $maximum_cost
+ * @property string|null $cpc
  * @property string $creation_date
  * @property string|null $start_date
  * @property string|null $termination_date
@@ -238,6 +273,7 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|Keyword query()
  * @method static \Illuminate\Database\Eloquent\Builder|Keyword whereAutorankerExperimentId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Keyword whereCountry($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Keyword whereCpc($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Keyword whereCreationDate($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Keyword whereDomain($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Keyword whereId($value)
