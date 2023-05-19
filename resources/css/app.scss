@@ -153,3 +153,7 @@ ul.red-dots li::before {
     margin-left: 3px;
     font-size: 0.9rem;
 }
+
+.swiper-button-disabled {
+    @apply opacity-50;
+}

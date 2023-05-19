@@ -20,7 +20,7 @@
                 ]"
                 @click="fetchDomainKeyword(domainKeyword)"
             >
-                <div class="w-full flex flex-row items-center justify-between gap-x-2">
+                <div class="w-full flex flex-row items-center justify-between gap-x-2 overflow-x-hidden">
                     <div class="grow">{{ domainKeyword.keyword }}</div>
                     <div v-if="domainKeyword.termination_date !== null" class="tooltip shrink cursor-default" data-tip="Deactivated">
                         <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" class="w-4 h-4 md:w-5 md:h-5 text-red-600">

@@ -13,14 +13,14 @@
                     <div class="w-16 h-1 bg-primary my-2.5 mx-auto"></div>
                 </x-card>
 
-                <x-card class="px-0 lg:px-8 border border-zinc-100">
+                <x-card class="px-0 p-8 lg:p-2 xl:px-8 border border-zinc-100">
                     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
-                        <a href="{{ route('dashboard.support.faq', 'faq_performance') }}" class="btn btn-ghost btn-block normal-case hover:bg-primary leading-5 h-16 {{ (url()->current() === route('dashboard.support.faq', 'faq_performance')) ? 'bg-primary text-white' : 'bg-zinc-200 text-zinc-700 hover:text-zinc-100' }}">FAQ Performance</a>
-                        <a href="{{ route('dashboard.support.faq', 'faq_tracking') }}" class="btn btn-ghost btn-block normal-case hover:bg-primary leading-5 h-16 {{ (url()->current() === route('dashboard.support.faq', 'faq_tracking')) ? 'bg-primary text-white' : 'bg-zinc-200 text-zinc-700 hover:text-zinc-100' }}">FAQ Tracking</a>
-                        <a href="{{ route('dashboard.support.faq', 'faq_billing') }}" class="btn btn-ghost btn-block normal-case hover:bg-primary leading-5 h-16 {{ (url()->current() === route('dashboard.support.faq', 'faq_billing')) ? 'bg-primary text-white' : 'bg-zinc-200 text-zinc-700 hover:text-zinc-100' }}">FAQ Billing</a>
-                        <a href="{{ route('dashboard.support.faq', 'getting_started_with_your_first_campaign') }}" class="btn btn-ghost btn-block normal-case hover:bg-primary leading-5 h-16 {{ (url()->current() === route('dashboard.support.faq', 'getting_started_with_your_first_campaign')) ? 'bg-primary text-white' : 'bg-zinc-200 text-zinc-700 hover:text-zinc-100' }}">Getting started with your first campaign</a>
-                        <a href="{{ route('dashboard.support.faq', 'faq_api') }}" class="btn btn-ghost btn-block normal-case hover:bg-primary leading-5 h-16 {{ (url()->current() === route('dashboard.support.faq', 'faq_api')) ? 'bg-primary text-white' : 'bg-zinc-200 text-zinc-700 hover:text-zinc-100' }}">FAQ API</a>
-                        <a href="{{ route('dashboard.support.faq', 'faq_agencies') }}" class="btn btn-ghost btn-block normal-case hover:bg-primary leading-5 h-16 {{ (url()->current() === route('dashboard.support.faq', 'faq_agencies')) ? 'bg-primary text-white' : 'bg-zinc-200 text-zinc-700 hover:text-zinc-100' }}">FAQ Agencies</a>
+                        <a href="{{ route('dashboard.support.faq', 'faq-performance') }}" class="btn btn-ghost btn-block normal-case hover:bg-primary leading-5 h-16 {{ (url()->current() === route('dashboard.support.faq', 'faq-performance')) ? 'bg-primary text-white' : 'bg-zinc-200 text-zinc-700 hover:text-zinc-100' }}">FAQ Performance</a>
+                        <a href="{{ route('dashboard.support.faq', 'faq-tracking') }}" class="btn btn-ghost btn-block normal-case hover:bg-primary leading-5 h-16 {{ (url()->current() === route('dashboard.support.faq', 'faq-tracking')) ? 'bg-primary text-white' : 'bg-zinc-200 text-zinc-700 hover:text-zinc-100' }}">FAQ Tracking</a>
+                        <a href="{{ route('dashboard.support.faq', 'faq-billing') }}" class="btn btn-ghost btn-block normal-case hover:bg-primary leading-5 h-16 {{ (url()->current() === route('dashboard.support.faq', 'faq-billing')) ? 'bg-primary text-white' : 'bg-zinc-200 text-zinc-700 hover:text-zinc-100' }}">FAQ Billing</a>
+                        <a href="{{ route('dashboard.support.faq', 'getting-started-with-your-first-campaign') }}" class="btn btn-ghost btn-block normal-case hover:bg-primary leading-5 h-16 {{ (url()->current() === route('dashboard.support.faq', 'getting-started-with-your-first-campaign')) ? 'bg-primary text-white' : 'bg-zinc-200 text-zinc-700 hover:text-zinc-100' }}">Getting started with your first campaign</a>
+                        <a href="{{ route('dashboard.support.faq', 'faq-api') }}" class="btn btn-ghost btn-block normal-case hover:bg-primary leading-5 h-16 {{ (url()->current() === route('dashboard.support.faq', 'faq-api')) ? 'bg-primary text-white' : 'bg-zinc-200 text-zinc-700 hover:text-zinc-100' }}">FAQ API</a>
+                        <a href="{{ route('dashboard.support.faq', 'faq-agencies') }}" class="btn btn-ghost btn-block normal-case hover:bg-primary leading-5 h-16 {{ (url()->current() === route('dashboard.support.faq', 'faq-agencies')) ? 'bg-primary text-white' : 'bg-zinc-200 text-zinc-700 hover:text-zinc-100' }}">FAQ Agencies</a>
                     </div>
 
                     @if(isset($faqs))
@@ -44,7 +44,7 @@
             </div>
 
             <div class="col-span-1">
-                <x-card class="px-0 py-3 lg:px-5 border border-zinc-100" bodyClass="py-6 flex flex-nowrap justify-between flex-col sm:flex-row lg:flex-col">
+                <x-card class="px-0 py-3 lg:px-5 border border-zinc-100" bodyClass="p-6 lg:p-3 xl:p-6 flex flex-nowrap justify-between flex-col sm:flex-row lg:flex-col">
                     <div class="flex gap-7 place-items-center">
                         <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 20 20" class="text-primary shrink-0">
                             <path fill="currentColor" fill-rule="evenodd" d="m7.172 11.334l2.83 1.935l2.728-1.882l6.115 6.033c-.161.052-.333.08-.512.08H1.667c-.22 0-.43-.043-.623-.12l6.128-6.046ZM20 6.376v9.457c0 .247-.054.481-.15.692l-5.994-5.914L20 6.376ZM0 6.429l6.042 4.132l-5.936 5.858A1.663 1.663 0 0 1 0 15.833V6.43ZM18.333 2.5c.92 0 1.667.746 1.667 1.667v.586L9.998 11.648L0 4.81v-.643C0 3.247.746 2.5 1.667 2.5h16.666Z"/>

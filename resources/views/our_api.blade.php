@@ -46,7 +46,5 @@
         </div>
     </section>
 
-    <div class="mb-20">
-        <x-search-domain></x-search-domain>
-    </div>
+    <x-search-domain></x-search-domain>
 </x-main-layout>
