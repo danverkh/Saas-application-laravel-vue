@@ -39,9 +39,9 @@ class CheckoutController extends Controller
                 $order = $user->clientAccount->client->orders()->create([
                     'name'                   => $request->domain . ' - ' . count($request->selectedItems) . ' keywords',
                     'contact_email'          => $request->email,
-                    'contact_language'       => $request->market,
+                    'contact_language'       => 'en', //$request->market,
                     'client_account_created' => $exists ? Boolean::FALSE() : Boolean::TRUE(),
-                    'employee_id'            => 0,
+                    'employee_id'            => 120,
                     'creation_date'          => now()->toDateTimeString(),
                 ]);
 

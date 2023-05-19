@@ -5,6 +5,8 @@ namespace App\Actions\Client;
 use App\Events\ClientAccountCreated;
 use App\Models\Client;
 use App\Models\ClientAccount;
+use Illuminate\Support\Facades\DB;
+use Str;
 
 class CreateClientAccount
 {
@@ -15,17 +17,31 @@ class CreateClientAccount
      */
     public static function handle(array $data): ClientAccount
     {
+        $name = $data['email'];
+
+        if (!isset($data['name'])) {
+            $domain = Str::after($data['email'], '@');
+
+            $row = DB::table('prospect_mail_domains')
+                     ->where('company', $domain)
+                     ->orWhere('mail_domain', $domain)
+                     ->first();
+
+            if ($row) {
+                $name = $row->title;
+            }
+        }
         $client = Client::create([
             'email'            => $data['email'],
-            'name'             => $data['name'] ?? $data['email'],
-            'accounting_email' => '', // TODO: what about this? It cannot be null
-            'employee_id'      => 0, // TODO: what about this? It cannot be null
+            'name'             => $name,
+            'accounting_email' => $data['email'],
+            'employee_id'      => 120,
         ]);
 
         $clientAccount = ClientAccount::create([
             ...$data,
             'client_id' => $client->id,
-            'language'  => 'en', // TODO: what about this? It cannot be null
+            'language'  => 'en',
         ]);
 
         ClientAccountCreated::dispatch($clientAccount);
