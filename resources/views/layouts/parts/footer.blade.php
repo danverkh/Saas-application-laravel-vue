@@ -13,7 +13,7 @@
                     <x-link href="#" :with-color="false">FAQ</x-link>
                 </li>
                 <li class="my-2 hover:text-primary cursor-pointer transition-all">
-                    <x-link href="#" :with-color="false">Pricing</x-link>
+                    <x-link :href="route('pricing')" :with-color="false">Pricing</x-link>
                 </li>
                 <li class="my-2 hover:text-primary cursor-pointer transition-all">
                     <x-link href="#" :with-color="false">Contact</x-link>
