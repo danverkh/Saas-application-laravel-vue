@@ -30,9 +30,9 @@ class CheckoutController extends Controller
                 if ($exists) {
                     $user = User::firstWhere('email', $request->email);
                 } else {
-                    CreateClientAccount::handle(['email' => $request->email]);
-
                     $user = CreateUser::handle($request->email);
+
+                    CreateClientAccount::handle(['email' => $request->email, 'user_id' => $user->id]);
                 }
 
                 /** @var \App\Models\Order $order */

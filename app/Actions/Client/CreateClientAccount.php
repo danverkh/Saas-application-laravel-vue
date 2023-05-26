@@ -36,6 +36,7 @@ class CreateClientAccount
             'name'             => $name,
             'accounting_email' => $data['email'],
             'employee_id'      => 120,
+            'user_id'          => $data['user_id'],
         ]);
 
         $clientAccount = ClientAccount::create([
