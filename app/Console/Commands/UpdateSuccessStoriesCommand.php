@@ -15,7 +15,7 @@ class UpdateSuccessStoriesCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'update:success-stories {--limit=1500}';
+    protected $signature = 'update:success-stories {--limit=500}';
 
     /**
      * The console command description.
@@ -156,13 +156,19 @@ class UpdateSuccessStoriesCommand extends Command
 
             $ranking->transform(static function ($value, $index) use ($rankingCurve, $ranking) {
                 if ($index > count($rankingCurve)) {
-                    if (random_int(1, 100) < 85) {
+                    if (random_int(1, 100) < 25) {
                         return 1;
                     }
-                    if (random_int(1, 100) < 90) {
+                    if (random_int(1, 100) < 30) {
                         return 2;
                     }
-                    return 3;
+                    if (random_int(1, 100) < 40) {
+                        return 3;
+                    }
+                    if (random_int(1, 100) < 60) {
+                        return 4;
+                    }
+                    return 5;
                 }
 
                 $rankingCurveValue = $rankingCurve[$index] ?? random_int(1, 2);
