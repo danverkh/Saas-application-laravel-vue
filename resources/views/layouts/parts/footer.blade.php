@@ -32,7 +32,11 @@
                     <x-link href="#" :with-color="false">Keyword Finder</x-link>
                 </li>
                 <li class="my-2 hover:text-primary cursor-pointer transition-all">
-                    <x-link href="#" :with-color="false">Customer Area</x-link>
+                    @auth
+                    <x-link href="{{ route('dashboard.index') }}" :with-color="false">Customer Area</x-link>
+                    @else
+                    <x-link href="#" onclick="document.getElementById('login-modal').checked = true" :with-color="false">Customer Area</x-link>
+                    @endauth
                 </li>
                 <li class="my-2 hover:text-primary cursor-pointer transition-all">
                     <x-link href="#" :with-color="false">For Agencies</x-link>
