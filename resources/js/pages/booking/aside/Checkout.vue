@@ -10,7 +10,7 @@
                             <h4 class="-mt-2 font-medium text-lg">Customer details</h4>
                             <div class="divider divider-vertical my-0"></div>
 
-                            <div class="flex flex-col gap-y-3 mb-6">
+                            <div class="flex flex-col gap-y-3">
                                 <div class="flex flex-col gap-y-2">
                                     <label for="customer-email" class="whitespace-nowrap font-medium">Your email</label>
                                     <Input
@@ -26,13 +26,6 @@
                                     />
                                 </div>
                             </div>
-                        </div>
-
-                        <h4 class="-mt-2 font-medium text-lg">Payment</h4>
-                        <div class="divider divider-vertical my-0"></div>
-
-                        <div class="bg-zinc-100 h-32 grid place-content-center text-zinc-400">
-                            placeholder
                         </div>
                     </div>
                 </div>
