@@ -97,9 +97,9 @@
                 </div>
 
                 <!-- Mobile navigation -->
-                <div class="drawer-side" style="display: none">
-                    <label for="mobile-menu" class="drawer-overlay mt-[120px] sm:mt-[137px]"></label>
-                    <ul class="menu overflow-y-auto w-80 divide-y bg-base-100 text-base-content mt-[120px] sm:mt-[137px] p-6 pt-8 pr-7" style="box-shadow: inset 0 4px 18px -9px rgba(0,0,0,0.4)">
+                <div class="drawer-side mt-[129px] sm:mt-[145px] md:mt-[137px]" style="display: none">
+                    <label for="mobile-menu" class="drawer-overlay"></label>
+                    <ul class="menu overflow-y-auto w-80 divide-y bg-base-100 text-base-content p-6 pt-8 pr-7" style="box-shadow: inset 0 4px 18px -9px rgba(0,0,0,0.4)">
                         <li><x-mobile-nav-link :href="route('dashboard.campaigns')" :active="request()->routeIs('dashboard.campaigns.keyword')">My Campaign</x-mobile-nav-link></li>
                         <li><x-mobile-nav-link :href="route('dashboard.account')" :active="request()->routeIs('dashboard.account.*')">My Account</x-mobile-nav-link></li>
                         <li><x-mobile-nav-link :href="route('dashboard.support')" :active="request()->routeIs('dashboard.support')">Support</x-mobile-nav-link></li>

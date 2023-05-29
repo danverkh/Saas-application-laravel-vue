@@ -57,6 +57,9 @@
                                         <x-nav-link :href="route('success_stories')" :active="request()->routeIs('success_stories')">Success stories</x-nav-link>
                                         <x-nav-link :href="route('pricing')" :active="request()->routeIs('pricing')">Pricing</x-nav-link>
                                         <x-nav-link :href="route('about_us')" :active="request()->routeIs('about_us')">Support</x-nav-link>
+                                        @auth
+                                        <x-nav-link :href="route('dashboard.index')" :active="request()->routeIs('dashboard.index')">Dashboard</x-nav-link>
+                                        @endauth
                                     </ul>
 
                                     <div class="col-start-10 col-end-12 font-medium flex justify-end items-center">
@@ -105,13 +108,16 @@
                 </div>
 
                 <!-- Mobile navigation -->
-                <div class="drawer-side" style="display: none">
-                    <label for="mobile-menu" class="drawer-overlay mt-[88px] sm:mt-[95px] sm:mt-[137px]"></label>
-                    <ul class="menu overflow-y-auto w-80 divide-y bg-base-100 text-base-content mt-[88px] sm:mt-[95px] sm:mt-[137px] p-6 pr-7" style="box-shadow: inset 0 4px 18px -9px rgba(0,0,0,0.4)">
+                <div class="drawer-side mt-[88px] sm:mt-[95px]" style="display: none">
+                    <label for="mobile-menu" class="drawer-overlay"></label>
+                    <ul class="menu overflow-y-auto w-80 divide-y bg-base-100 text-base-content p-6 pr-7" style="box-shadow: inset 0 4px 18px -9px rgba(0,0,0,0.4)">
                         <li><x-mobile-nav-link :href="route('how_it_works')" :active="request()->routeIs('how_it_works')">How it works</x-mobile-nav-link></li>
                         <li><x-mobile-nav-link :href="route('success_stories')" :active="request()->routeIs('success_stories')">Success stories</x-mobile-nav-link></li>
                         <li><x-mobile-nav-link :href="route('pricing')" :active="request()->routeIs('pricing')">Pricing</x-mobile-nav-link></li>
                         <li><x-mobile-nav-link :href="route('about_us')" :active="request()->routeIs('about_us')">Support</x-mobile-nav-link></li>
+                        @auth
+                        <li><x-mobile-nav-link :href="route('dashboard.index')" :active="request()->routeIs('dashboard.index')">Dashboard</x-mobile-nav-link></li>
+                        @endauth
                     </ul>
                 </div>
             </div>
