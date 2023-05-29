@@ -7,7 +7,7 @@
                     <x-link :href="route('homepage')" :with-color="false">Home</x-link>
                 </li>
                 <li class="my-2 hover:text-primary cursor-pointer transition-all">
-                    <x-link href="#" :with-color="false">Reviews</x-link>
+                    <x-link href="{{ route('success_stories') }}" :with-color="false">Success stories</x-link>
                 </li>
                 <li class="my-2 hover:text-primary cursor-pointer transition-all">
                     <x-link href="#" :with-color="false">FAQ</x-link>
