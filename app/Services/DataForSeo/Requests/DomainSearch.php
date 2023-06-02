@@ -28,30 +28,42 @@ class DomainSearch extends AbstractRequest
      */
     private function domainBySearchEngineRanking(string $domain, int $limit = 300): array
     {
-        $params[] = [
-            'target'        => $domain,
-            'location_name' => $this->params->getLocation(),
-            'language_name' => $this->params->getLanguage(),
-            'limit'         => $limit,
-            'order_by'      => ['keyword_data.keyword_info.cpc,desc', 'keyword_data.keyword_info.search_volume,desc'],
-            'filters'       => [
-                ['ranked_serp_element.serp_item.rank_group', '>', 11],
-                'and',
-                ['ranked_serp_element.serp_item.rank_group', '<', 30],
-                'and',
-                ['keyword_data.keyword_info.search_volume', '>', 50],
-                'and',
-                ['keyword_data.keyword_info.search_volume', '<', 10000],
+        $requestCounter = 0;
 
-                // legacy
-                //['ranked_serp_element.serp_item.rank_group', '<', 200],
-                //'and',
-                //['keyword_data.keyword_info.search_volume', '<', 35000],
-            ],
-        ];
+        do {
+            $params[] = [
+                'target'        => $domain,
+                'location_name' => $this->params->getLocation(),
+                'language_name' => $this->params->getLanguage(),
+                'limit'         => $limit,
+                'order_by'      => ['keyword_data.keyword_info.cpc,desc', 'keyword_data.keyword_info.search_volume,desc'],
+                'filters'       => [
+                    ['ranked_serp_element.serp_item.rank_group', '>', 11],
+                    'and',
+                    ['ranked_serp_element.serp_item.rank_group', '<', 30],
+                    'and',
+                    ['keyword_data.keyword_info.search_volume', '>', 50],
+                    'and',
+                    ['keyword_data.keyword_info.search_volume', '<', 10000],
 
-        $result = $this->client->post('/v3/dataforseo_labs/ranked_keywords/live', $params);
-        $items  = data_get($result, 'tasks.0.result.0.items', []) ?? [];
+                    // legacy
+                    //['ranked_serp_element.serp_item.rank_group', '<', 200],
+                    //'and',
+                    //['keyword_data.keyword_info.search_volume', '<', 35000],
+                ],
+            ];
+
+            $result = $this->client->post('/v3/dataforseo_labs/ranked_keywords/live', $params);
+            $requestCounter++;
+
+            $items = data_get($result, 'tasks.0.result.0.items', []) ?? [];
+
+            // lower filters
+            $params[0]['filters'][0][2] = round($params[0]['filters'][0][2] * 0.5);
+            $params[0]['filters'][2][2] = round($params[0]['filters'][2][2] * 2);
+            $params[0]['filters'][4][2] = round($params[0]['filters'][4][2] * 0.8);
+            $params[0]['filters'][6][2] = round($params[0]['filters'][6][2] * 1.5);
+        } while (count($items) <= 15 && $requestCounter <= 4);
 
         return collect($items)
             ->map(function ($item) use ($domain, $items) {
@@ -69,7 +81,7 @@ class DomainSearch extends AbstractRequest
                     'url'           => $item['ranked_serp_element']['serp_item']['url'] ?? '/',
                 ];
             })
-            ->reject(static fn ($item) => $item === null)
+            ->reject(static fn($item) => $item === null)
             ->toArray();
     }
 
@@ -206,7 +218,7 @@ class DomainSearch extends AbstractRequest
     private function findSimilarKeywordCpc(string $keyword, array $items): float
     {
         $mostSimilarKeyword = collect($items)
-            ->filter(static fn ($item) => $item['keyword_data']['keyword_info']['cpc'] !== null)
+            ->filter(static fn($item) => $item['keyword_data']['keyword_info']['cpc'] !== null)
             ->map(static function ($item) use ($keyword) {
                 similar_text($keyword, $item['keyword_data']['keyword'], $percent);
 
