@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AccountController;
 use App\Http\Controllers\Dashboard\Account\AccountBillingAddressController;
+use App\Http\Controllers\Dashboard\Account\AccountPasswordChangeController;
 use App\Http\Controllers\Dashboard\Account\DetailsController;
 use App\Http\Controllers\Dashboard\CampaignKeywordsController;
 use App\Http\Controllers\Dashboard\CampaignsController;
@@ -27,6 +28,8 @@ Route::group(['as' => 'dashboard.', 'middleware' => 'auth'], function () {
     Route::get('account/details', [DetailsController::class, 'show'])->name('account.details');
     Route::get('account/billing-address', [AccountBillingAddressController::class, 'show'])->name('account.billing_address');
     Route::put('account/billing-address', [AccountBillingAddressController::class, 'update'])->name('account.billing_address.save');
+    Route::get('account/password-change', [AccountPasswordChangeController::class, 'show'])->name('account.password_change');
+    Route::put('account/password-change', [AccountPasswordChangeController::class, 'update'])->name('account.password_change.save');
 
     Route::get('support', [SupportController::class, 'show'])->name('support');
     Route::get('support/{category}', [SupportController::class, 'faq'])->name('support.faq');

@@ -84,12 +84,14 @@ app.component('submit-order-button', SubmitOrderButton)
 import CancelKeywordConfirmation from './pages/dashboard/campaigns/CancelKeywordConfirmation.vue'
 import ReactivateKeywordConfirmation from './pages/dashboard/campaigns/ReactivateKeywordConfirmation.vue'
 import BillingAddress from './pages/dashboard/account/BillingAddress.vue'
+import ChangePassword from './pages/dashboard/account/ChangePassword.vue'
 import CampaignsSidebar from './pages/dashboard/campaigns/CampaignsSidebar.vue'
 import CampaignKeyword from './pages/dashboard/campaigns/CampaignKeyword.vue'
 
 app.component('cancel-keyword-confirmation', CancelKeywordConfirmation)
 app.component('reactivate-keyword-confirmation', ReactivateKeywordConfirmation)
 app.component('billing-address', BillingAddress)
+app.component('change-password', ChangePassword)
 app.component('campaigns-sidebar', CampaignsSidebar)
 app.component('campaign-keyword', CampaignKeyword)
 

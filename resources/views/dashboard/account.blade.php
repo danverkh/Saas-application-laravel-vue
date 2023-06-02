@@ -18,6 +18,11 @@
                                     Billing Address
                                 </a>
                             </div>
+                            <div class="py-2">
+                                <a href="{{ route('dashboard.account.password_change') }}" class="btn btn-ghost btn-block text-base normal-case break-all {{ request()->routeIs('dashboard.account.password_change') ? 'text-primary' : '' }}">
+                                    Change Password
+                                </a>
+                            </div>
                         </div>
                     </x-card>
                 </div>
