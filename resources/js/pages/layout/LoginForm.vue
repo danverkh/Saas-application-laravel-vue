@@ -109,7 +109,8 @@ export default {
                         if (this.type !== 'modal') {
                             GlobalNotification.warning({
                                 title: 'Failed to login',
-                                message: this.firstValidationError,
+                                message: this.firstValidationError + `<div class="mt-1">Forgot password? Reset it <a href="/forgot-password" style="font-weight: 600">here</a>.</div>`,
+                                timeout: 8000,
                             });
                         }
                     } else {

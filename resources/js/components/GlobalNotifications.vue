@@ -12,7 +12,7 @@
 
                 <div class="flex flex-col gap-1">
                     <h3 v-if="title" class="font-bold">{{ title }}</h3>
-                    <div v-if="message" class="text-xs">{{ message }}</div>
+                    <div v-if="message" class="text-xs" v-html="message"></div>
                 </div>
             </div>
             <div class="flex-none">

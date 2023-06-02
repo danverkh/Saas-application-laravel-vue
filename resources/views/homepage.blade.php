@@ -206,6 +206,10 @@
         <script>
             document.addEventListener("DOMContentLoaded", function () {
                 window.scrollObserver('.reveal', {once: true, threshold: 0.4});
+
+                if (window.location.search.includes('modal=login')) {
+                    document.getElementById('login-modal').checked = true;
+                }
             });
         </script>
     @endpush

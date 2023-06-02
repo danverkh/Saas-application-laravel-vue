@@ -13,11 +13,11 @@ class AuthenticatedSessionController extends Controller
     /**
      * Display the login view.
      *
-     * @return \Illuminate\View\View
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function create()
     {
-        return view('auth.login');
+        return redirect()->route('homepage', ['modal' => 'login']);
     }
 
     /**
