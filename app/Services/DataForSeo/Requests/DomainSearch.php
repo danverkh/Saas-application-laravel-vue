@@ -110,7 +110,7 @@ class DomainSearch extends AbstractRequest
                 return [
                     'keyword'       => $item['keyword'],
                     'search_volume' => (int)($item['search_volume'] ?? 0),
-                    'cpc'           => (float)($item['cpc'] ?? 0),
+                    'cpc'           => (float)($item['cpc'] ?? 3),
                     'competition'   => (float)($item['competition'] ?? 0),
                     'market'        => $this->params->market,
                 ];
@@ -233,6 +233,6 @@ class DomainSearch extends AbstractRequest
         if ($mostSimilarKeyword['similarity'] > 40) {
             return $mostSimilarKeyword['cpc'];
         }
-        return 0;
+        return 0.52;
     }
 }

@@ -30,7 +30,7 @@ class CalculateMissingValues
     public static function calculate(array $item): array
     {
         $cpc          = (float)($item['cpc'] ?? 0.52);
-        $searchVolume = (float)($item['search_volume'] ?? 10);
+        $searchVolume = empty($item['search_volume']) ? (float)$item['search_volume'] : 10;
 
         $relevanceCalculator = new RelevanceCalculator();
         $relevanceCalculator->rank($item['current_rank'] ?? 0);
