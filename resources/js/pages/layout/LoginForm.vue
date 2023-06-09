@@ -35,7 +35,7 @@
         </div>
 
         <ErrorMessage v-if="type === 'modal' && firstValidationError" :no-icon="true" class="text-sm">
-            {{ firstValidationError }}
+            <div v-html="firstValidationError"></div>
         </ErrorMessage>
 
         <button
@@ -104,12 +104,12 @@ export default {
                         this.validationErrors = error.response.data.errors;
 
                         let firstKey = Object.keys(this.validationErrors)[0];
-                        this.firstValidationError = this.validationErrors[firstKey][0];
+                        this.firstValidationError = this.validationErrors[firstKey][0]  + `<div class="mt-1">Forgot password? Reset it <a href="/forgot-password" style="font-weight: 600">here</a>.</div>`;
 
                         if (this.type !== 'modal') {
                             GlobalNotification.warning({
                                 title: 'Failed to login',
-                                message: this.firstValidationError + `<div class="mt-1">Forgot password? Reset it <a href="/forgot-password" style="font-weight: 600">here</a>.</div>`,
+                                message: this.firstValidationError,
                                 timeout: 8000,
                             });
                         }
