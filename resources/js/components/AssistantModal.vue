@@ -58,6 +58,7 @@ import MainSearch from "@/pages/homepage/MainSearch.vue";
 import isNumber from 'lodash/isNumber';
 import Assistant from "@/services/Assistant";
 import {useCart} from "@/stores/cart";
+import Domain from "@/services/Domain";
 
 export default {
     name: "AssistantModal",
@@ -102,8 +103,14 @@ export default {
         },
 
         async submit() {
-            const domain = encodeURIComponent(this.answers.domainAndMarket.domain);
-            let market   = this.answers.domainAndMarket.market;
+            let domain = this.answers.domainAndMarket.domain;
+
+            if (domain.includes('http')) {
+                domain = Domain.extractFromUrl(domain);
+            }
+            domain = encodeURIComponent(domain);
+
+            let market = this.answers.domainAndMarket.market;
 
             if (market === null) {
                 this.submitted = true;

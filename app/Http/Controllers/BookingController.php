@@ -16,15 +16,19 @@ class BookingController extends Controller
      */
     public function index(string $market, string $domain): View|RedirectResponse
     {
-        if (Str::contains($domain, ['http', '/'])) {
+        if (Str::contains($domain, ['http', '/', '2%F'])) {
             $domain = parse_url($domain, PHP_URL_HOST);
             $domain = Str::replace('www.', '', $domain);
 
-            return redirect()
-                ->route('booking', [
-                    'market' => $market,
-                    'query'  => $domain,
-                ]);
+            $params = [
+                'market' => $market,
+                'query'  => $domain,
+            ];
+
+            if (request()->has('assistant')) {
+                $params['assistant'] = request('assistant');
+            }
+            return redirect()->route('booking', $params);
         }
         return view('booking', compact('market', 'domain'));
     }

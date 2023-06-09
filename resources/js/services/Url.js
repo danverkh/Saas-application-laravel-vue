@@ -4,6 +4,7 @@ import queryParser from "nested-query-parser";
 class Url {
     constructor() {
         this.parameters = queryParser.decode(window.location.search);
+        this.keepQueryParams = ['assistant'];
     }
 
     hasQueryParam() {
@@ -17,8 +18,15 @@ class Url {
     setQueryParams(params) {
         let newParams = cloneDeep(params);
 
+        this.keepQueryParams.forEach(param => {
+            let value = this.getQueryParam(param);
+            if (value) {
+                newParams[param] = value;
+            }
+        });
+
         Object.keys(newParams).forEach(key => {
-            if (!newParams[key].value) {
+            if (!newParams[key].value && !this.keepQueryParams.includes(key)) {
                 delete newParams[key];
             }
         });
