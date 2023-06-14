@@ -1,36 +1,40 @@
 <template>
     <OnClickOutside @trigger="close" class="relative">
-        <input :value="modelValue"
-               @input="$emit('update:modelValue', $event.target.value); suggestionsShow()"
-               v-bind="$attrs"
-               @focus="open"
-               @focusout="close"
-               @keyup.enter="selectOrSubmit"
-               @keydown.up.prevent="moveSelectionUp"
-               @keydown.down.prevent="moveSelectionDown"
-               @keydown.ctrl.space="open"
-               @keyup.esc="close"
-               @paste="$emit('update:modelValue', $event.target.value)"
-               ref="input"
-               type="text"
-               class="input input-lg h-[60px] w-full ring-1 ring-gray-300 px-4 md:px-6 hover:ring-2 hover:ring-accent/50 focus:ring-2 focus:ring-accent/50 focus:outline-none"/>
+        <input
+            :value="modelValue"
+            @input="$emit('update:modelValue', $event.target.value); suggestionsShow()"
+            v-bind="$attrs"
+            @focus="open"
+            @focusout="close"
+            @keyup.enter="selectOrSubmit"
+            @keydown.up.prevent="moveSelectionUp"
+            @keydown.down.prevent="moveSelectionDown"
+            @keydown.ctrl.space="open"
+            @keyup.esc="close"
+            @paste="$emit('update:modelValue', $event.target.value)"
+            ref="input"
+            type="text"
+            class="input input-lg h-[60px] w-full ring-1 ring-gray-300 px-4 md:px-6 hover:ring-2 hover:ring-accent/50 focus:ring-2 focus:ring-accent/50 focus:outline-none"
+        />
 
         <Spinner v-if="fetching" class="absolute top-[18px] right-5" :size="22" :border-width="3"></Spinner>
 
-        <ul v-if="suggestionsOpened"
-            class="absolute top-[70px] w-full bg-white border border-zinc-200 rounded-lg shadow-lg divide-y divide-zinc-200 overflow-hidden">
-
-            <li v-for="(item, index) in items"
+        <ul
+            v-if="suggestionsOpened"
+            class="absolute top-[70px] w-full bg-white border border-zinc-200 rounded-lg shadow-lg divide-y divide-zinc-200 overflow-hidden"
+        >
+            <li
+                v-for="(item, index) in items"
                 :key="`suggestion-${index}`"
                 @click="selectSuggestion(index)"
                 class="group flex items-center px-4 py-3 cursor-pointer"
                 :class="{
-                        'hover:bg-zinc-100': state(item, index).idle(),
-                        'bg-zinc-100/75 text-zinc-900 hover:bg-zinc-100': state(item, index).active(),
-                        'bg-primary-50/20 text-primary hover:bg-primary-50/20': state(item, index).selected(),
-                        'bg-primary-50/30 text-primary hover:bg-primary-50/40 hover:text-primary': state(item, index).activeAndSelected(),
-                    }">
-
+                    'hover:bg-zinc-100': state(item, index).idle(),
+                    'bg-zinc-100/75 text-zinc-900 hover:bg-zinc-100': state(item, index).active(),
+                    'bg-primary-50/20 text-primary hover:bg-primary-50/20': state(item, index).selected(),
+                    'bg-primary-50/30 text-primary hover:bg-primary-50/40 hover:text-primary': state(item, index).activeAndSelected(),
+                }"
+            >
                 <slot name="item" v-bind="{item, state: state(item, index), highlightFound}"></slot>
             </li>
         </ul>
@@ -115,7 +119,7 @@ export default {
 
             // 3. otherwise fetch new
             this.fetchNew();
-        }, 400);
+        }, 200);
     },
 
     methods: {
@@ -145,13 +149,12 @@ export default {
 
         useInitialSuggestions() {
             const items = this.initialSuggestions.filter(domain => domain.startsWith(this.modelValue));
-
             if (items.length) {
                 this.items       = items.slice(0, this.limit).map(i => ({[this.selectionProperty]: i}));
                 this.activeIndex = -1;
                 this.open();
             } else {
-                this.close();
+                this.fetchNew();
             }
         },
 
